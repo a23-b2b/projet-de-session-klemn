@@ -6,6 +6,7 @@ INSERT INTO autorisation (titre_autorisation) VALUES ("inconnu"); -- 3
 INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/admin", 1); -- 1 : Admin connecté
 INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/index", 2); -- 2 : Client connecté
 INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/", 3); -- 3 : Inconnu/Non-connecté
+INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/inscription", 3); -- 3 : Inconnu/Non-connecté
 
 INSERT INTO compte 
     (heure_creation_compte, nom, prenom, nom_utilisateur, mot_de_passe, courriel, adresse, code_postal, telephone, autorisation_id_autorisation)
