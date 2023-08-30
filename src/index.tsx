@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HelloWorld from './pages/HelloWorld';
+import Accueil from './pages/Accueil';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HelloWorld/>,
+    element: <Accueil/>,
   },
 ]);
 
