@@ -7,10 +7,7 @@ const port = process.env.PORT;
 
 const app = express();
 
-const requestListener = function (req, res) {
-    res.writeHead(200);
-    res.end("Projet de developpement 2023 \n \nElie, Lada, Nathan, kevin et maxime")
-}
+
 
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
@@ -22,8 +19,3 @@ app.listen(port, () => {
 });
 
 
-
-const server = http.createServer(requestListener);
-server.listen(port, host, () => {
-    console.log(`Server is running on http://${host}:${port}`);
-});
