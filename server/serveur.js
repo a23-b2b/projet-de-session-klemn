@@ -4,10 +4,24 @@ const path = require("path");
 const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
+const mysql = require('mysql2');
 
 // Paramètre env
 const dotenv = require('dotenv');
 dotenv.config();
+
+// Info de connexion à la BD
+const hote = process.env.DB_HOTE;
+const utilisateur = process.env.DB_UTILISATEUR;
+const motDePasse = process.env.DB_MOT_DE_PASSE;
+const bd = process.env.DB_NOM;
+
+const connexion = mysql.createConnection({
+    host: hote,
+    user: utilisateur,
+    password: motDePasse, 
+    database: bd
+});
 
 // Logger config
 
