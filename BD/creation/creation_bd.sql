@@ -15,8 +15,6 @@ CREATE TABLE compte(
     nom_utilisateur                 varchar(255) NOT NULL,
     mot_de_passe                    varchar(1000) NOT NULL,
     courriel                        varchar(255), 
-    adresse                         varchar(100),
-    code_postal                     varchar(100),
     telephone                       varchar(20),
     autorisation_id_autorisation    int NOT NULL,
     FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
