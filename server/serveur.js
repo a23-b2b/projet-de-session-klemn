@@ -1,16 +1,22 @@
 const http = require("http");
-const host = 'localhost'
 const express = require('express');
+const path = require("path");
+const logger = require("morgan");
+
 const dotenv = require('dotenv');
 dotenv.config();
 const port = process.env.PORT;
 
+
 const app = express();
 
+app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'jade');
 
+app.use()
 
 app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
+    res.send("Test");
 });
 
 
