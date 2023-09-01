@@ -1,6 +1,4 @@
--- Active: 1693421920797@@0.0.0.0@32771@test
-
-DROP TABLE IF EXISTS droit;
+-- Active: 1693586986008@@0.0.0.0@32771@dev
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
 
@@ -16,17 +14,12 @@ CREATE TABLE compte(
     prenom                          varchar(255),
     nom_utilisateur                 varchar(255) NOT NULL,
     mot_de_passe                    varchar(1000) NOT NULL,
-    courriel                        varchar(255),
+    courriel                        varchar(255), 
     adresse                         varchar(100),
     code_postal                     varchar(100),
     telephone                       varchar(20),
     autorisation_id_autorisation    int NOT NULL,
-    FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation)
-);
-
-CREATE TABLE droit (
-    id_droit                        int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    chemin                          varchar(255) NOT NULL,
-    autorisation_id_autorisation    int NOT NULL,
-    FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation)
+    FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
+    CONSTRAINT uc_compte_nom_utilisateur UNIQUE (nom_utilisateur),
+    CONSTRAINT uc_compte_courriel UNIQUE (courriel)
 );
