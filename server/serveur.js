@@ -45,6 +45,8 @@ app.get('/', (req, res) => {
     res.send("Test");
 });
 
+const inscription = require('./inscription')
+app.use('/inscription', inscription);
 
 const port = process.env.PORT;
 app.listen(port, () => {
