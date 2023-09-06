@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../database";
+import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 
 function loginWithEmailAndPassword(email: string, password: string) {
