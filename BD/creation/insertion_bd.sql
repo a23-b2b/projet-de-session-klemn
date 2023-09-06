@@ -11,10 +11,10 @@ INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/inscription",
 INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/dieu", 4);           -- 4 : Super user
 */
 INSERT INTO compte 
-    (heure_creation_compte, nom, prenom, nom_utilisateur, mot_de_passe, courriel, telephone, autorisation_id_autorisation)
+    (date_creation_compte, nom, prenom, nom_utilisateur, courriel, telephone, autorisation_id_autorisation)
 VALUES
-    ('2023-08-30 10:00:00', 'Dubois', 'Jean', 'Admin_Jean', 'hashed_password1', 'jean.dubois@example.com', '777-555-1234', 1),
-    ('2023-08-30 11:30:00', 'Tremblay', 'Marie', 'Client_Marie', 'hashed_password2', 'marie.tremblay@example.com', '417-555-5678', 2),
-    ('2023-08-30 14:45:00', 'Lévesque', 'Pierre', 'Client_Pierre', 'hashed_password3', 'pierre.levesque@example.com', '819-555-9012', 2);
+    ('2023-08-30 10:00:00', 'Dubois', 'Jean', 'Admin_Jean', 'jean.dubois@example.com', '777-555-1234', 1),
+    ('2023-08-30 11:30:00', 'Tremblay', 'Marie', 'Client_Marie', 'marie.tremblay@example.com', '417-555-5678', 2),
+    ('2023-08-30 14:45:00', 'Lévesque', 'Pierre', 'Client_Pierre', 'pierre.levesque@example.com', '819-555-9012', 2);
 
 

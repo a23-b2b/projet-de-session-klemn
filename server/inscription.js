@@ -3,13 +3,6 @@ const app = express()
 const mysql = require('mysql2')
 const validator = require('express-validator')
 
-const firebase = require('firebase')
-
-import { getAuth, signInWithPopup, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
-const provider = new GoogleAuthProvider();
-
-// TODO: Utiliser l'objet de log au lieu de console.log(); et valider autorisation avant insertion
-
 import { logger } from './serveur.js'
 
 // Utilisation pour encryption du mot de passe

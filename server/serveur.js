@@ -5,6 +5,9 @@ const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
 
+const app = express()
+
+
 // Paramètre env
 const dotenv = require('dotenv');
 
@@ -31,13 +34,7 @@ const logger =  winston.createLogger({
     transports: transportsConfig
 });
 
-
-export { logger } 
-
-var firebase = require('firebase')
-var firebaseui = require('firebaseui');
-
-const inscription = require('./inscription');
+module.exports = logger;
 
 dotenv.config();
 const port = process.env.PORT;
