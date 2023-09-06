@@ -22,7 +22,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
             [id_compte, nom, prenom, username , email, telephone, "3"], 
             function (err, results, fields) {
                 if (err) {
-                    console.log("Erreur lors de lexecution de la query.", err)
+                    logger.info("Erreur lors de lexecution de la query.", err)
                 } 
             }
         );
