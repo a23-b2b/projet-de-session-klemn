@@ -27,7 +27,8 @@ margin: auto;
 }
 
 #LiensCategories h1 {
-    p
+    padding: 10px;
+    color: rgb(213, 213, 213);
 }
 
 #BarreNavigation {
