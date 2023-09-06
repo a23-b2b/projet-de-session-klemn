@@ -3,9 +3,9 @@ import styles from '../styles/AccueilConnecte.module.css'
 function AccueilConnecte() {
     return (
 
-        <div className={styles.div}>
-            <div >
-                <h1>Test Acceuil Connecté</h1>
+        <div >
+            <div className={styles.h1}>
+                <h1>Test Accueil Connecté</h1>
             </div>
 
         </div>

@@ -1,0 +1,43 @@
+#HeaderConnecte {
+    background-color: rgb(73, 46, 92);
+}
+
+
+#IconeUtilisateur {
+    text-align: right;
+    padding: 2%;
+}
+
+
+#HeaderSection2 {
+display: inline-flex;
+text-align: center;
+width: 100%;
+}
+
+
+
+#LogoSite {
+    
+}
+
+#LiensCategories {
+display: inline-flex;
+margin: auto;
+}
+
+#LiensCategories h1 {
+    p
+}
+
+#BarreNavigation {
+text-align: center;
+}
+
+#BarreNavigation input {
+    border: 3px solid white ;
+    border-radius: 7px;
+    width: 35%;
+    margin: 2%;
+ 
+}
