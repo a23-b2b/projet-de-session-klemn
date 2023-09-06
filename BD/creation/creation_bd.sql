@@ -8,7 +8,7 @@ CREATE TABLE autorisation (
 );
 
 CREATE TABLE compte(  
-    compte_id                       int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_compte                       varchar(255) NOT NULL PRIMARY KEY,
     date_creation_compte            DATETIME,
     nom                             varchar(255),
     prenom                          varchar(255),

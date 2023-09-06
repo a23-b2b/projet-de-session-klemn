@@ -6,7 +6,8 @@ const morgan = require("morgan");
 const winston = require("winston");
 
 const app = express()
-
+app.use(express.json())
+app.use(express.urlencoded())
 
 // Paramètre env
 const dotenv = require('dotenv');
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 const inscription = require('./inscription')
 app.use('/inscription', inscription);
+
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
