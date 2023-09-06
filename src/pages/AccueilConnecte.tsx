@@ -3,8 +3,10 @@ import styles from '../styles/AccueilConnecte.module.css'
 function AccueilConnecte() {
     return (
 
-        <div id="">
-            
+        <div className={styles.body}>
+            <div>
+                <p> Page Accueil Connecté</p>
+            </div>
 
         </div>
 
