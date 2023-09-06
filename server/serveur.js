@@ -5,23 +5,16 @@ const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
 const mysql = require('mysql2')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
+app.use(cors());
 
 // Paramètre env
 const dotenv = require('dotenv');
 dotenv.config();
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
-module.exports = mysqlConnection;
 
 // === Logger config ===
 // Formatage de winston
