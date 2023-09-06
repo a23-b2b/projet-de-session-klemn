@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
 import Header from "./components/Header";
@@ -11,13 +12,12 @@ function Layout() {
         <>
             <BrowserRouter>
                 <Header />
+                <Toaster />
                 <Routes>
                     <Route path="/" element={<Accueil />} />
                     <Route path="/connexion" element={<Connexion />} />
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
-
-
                 </Routes>
                 <Footer />
             </BrowserRouter>
