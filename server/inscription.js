@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const { check, body, validationResult  } = require('express-validator');
 
-// import { logger } from './serveur.js'
-const { logger } = require('./serveur.js')
+const logger = require('./logger.js');
 const { mysqlConnection } = require('./serveur.js')
 
 module.exports = app.post('/', [body('username').notEmpty(), body('email').optional().trim().isEmail()], (req, res) => {
