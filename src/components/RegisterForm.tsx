@@ -50,34 +50,6 @@ function RegisterForm() {
                         break;
                 }
             });
-
-        // addUserToMysql(username, email, telephone, nom, prenom, user.uid)
-    }
-
-    async function addUserToMysql(
-        username: string,
-        email: string,
-        telephone: string,
-        nom: string,
-        prenom: string,
-        id_compte: string
-    ) {
-
-        fetch('http://localhost:1111/inscription', {
-            method: 'POST',
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                telephone: telephone,
-                prenom: prenom,
-                nom: nom,
-                id_compte: id_compte
-            }),
-        }).then((response) => {
-            console.log(response)
-        }).catch((error) => {
-            console.log(error)
-        })
     }
 
     return (
