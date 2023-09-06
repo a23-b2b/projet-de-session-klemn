@@ -10,6 +10,8 @@ const provider = new GoogleAuthProvider();
 
 // TODO: Utiliser l'objet de log au lieu de console.log(); et valider autorisation avant insertion
 
+import { logger } from './serveur.js'
+
 // Utilisation pour encryption du mot de passe
 const sel = 10
 
@@ -33,11 +35,13 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
         const telephone = req.body.telephone;
 
         connexion.query(
-            `INSERT INTO COMPTE (id_compte, heure_creation_compte, nom, prenom, nom_utilisateur, courriel, telephone, autorisation_id_autorisation) 
+            `INSERT INTO COMPTE (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, courriel, telephone, autorisation_id_autorisation) 
             VALUES (?, SYSDATE, ?, ?, ?, ?, ?, ?, ?);`,
             [id_compte, nom, prenom, username , email, telephone, 3], 
             function (err, results, fields) {
-                if (err) Logger.info(err + '; Erreur query.')
+                if (err) {
+                    logger.info("Erreur lors de lexecution de la query.")
+                } 
             }
         );
 
