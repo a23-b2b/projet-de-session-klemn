@@ -1,0 +1,36 @@
+#FooterHaut {
+    display: inline-flex;
+}
+
+
+#FooterBas {
+    display: inline-flex;
+    background-color: rgb(73, 46, 92);
+    width: 100%;
+}
+
+#NomSite {
+    color: rgb(213, 213, 213);
+    padding: 5px;
+    
+}
+
+#NomsSections {
+    display: inline-flex;
+    color: rgb(151, 151, 151);
+    padding: 5px;
+}
+
+#NomsSections h3 {
+    padding: 5px;
+}
+
+#SectionIcones {
+    display: inline-flex;
+    margin: auto;
+}
+
+#SectionIcones img {
+padding: 5px;
+}
+

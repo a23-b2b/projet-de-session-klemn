@@ -4,7 +4,10 @@ function AccueilConnecte() {
     return (
 
         <div className={styles.body}>
-            <div>
+            <div className={styles.p}>
+                <p> Page Accueil Connecté</p>
+                <p> Page Accueil Connecté</p>
+                <p> Page Accueil Connecté</p>
                 <p> Page Accueil Connecté</p>
             </div>
 
