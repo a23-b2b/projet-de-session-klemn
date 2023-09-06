@@ -1,19 +1,10 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
 const { check, body, validationResult  } = require('express-validator');
 
 // import { logger } from './serveur.js'
 const { logger } = require('./serveur.js')
-// Utilisation pour encryption du mot de passe
-
-const connexion = mysql.createConnection({
-    host: 'localhost',
-    port: '32769',
-    user: 'root',
-    password: 'root',
-    database: 'dev'
-})
+const { mysqlConnection } = require('./serveur.js')
 
 module.exports = app.post('/', [body('username').notEmpty(), body('email').optional().trim().isEmail()], (req, res) => {
     const resultatValidation = validationResult(req);
@@ -26,7 +17,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
         const nom = req.body.nom;
         const telephone = req.body.telephone;
 
-        connexion.query(
+        mysqlConnection.query(
             `INSERT INTO compte (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, courriel, telephone, autorisation_id_autorisation) 
             VALUES (?, NOW(), ?, ?, ?, ?, ?, ?);`,
             [id_compte, nom, prenom, username , email, telephone, "3"], 
