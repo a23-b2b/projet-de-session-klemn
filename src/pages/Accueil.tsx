@@ -2,9 +2,18 @@ import styles from '../styles/Accueil.module.css'
 
 function Accueil() {
     return (
-        <div className={styles.h1}>
-            <h1>Hello!</h1>
+
+        <div className={styles.div}>
+            <div >
+                <h1>l'image va etre ici </h1>
+            </div>
+            <div>
+                <h2>le titre va etre ici et le text </h2>
+            </div>
         </div>
+
+
+
     );
 }
 
