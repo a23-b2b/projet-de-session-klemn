@@ -4,6 +4,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
 
+var firebase = require('firebase')
+var firebaseui = require('firebaseui');
+
 const inscription = require('./inscription');
 
 dotenv.config();
