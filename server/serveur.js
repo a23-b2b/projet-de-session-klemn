@@ -32,6 +32,8 @@ const logger =  winston.createLogger({
     transports: transportsConfig
 });
 
+export { logger } 
+
 logger.info("Logger configuré");
 
 const app = express();

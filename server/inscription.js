@@ -5,6 +5,8 @@ const validator = require('express-validator')
 const bcrypt = require('bcrypt')
 
 // TODO: Utiliser l'objet de log au lieu de console.log(); et valider autorisation avant insertion
+import { logger } from './serveur.js'
+
 
 // Utilisation pour encryption du mot de passe
 const sel = 10
@@ -35,7 +37,10 @@ module.exports = app.post('/', [body('username').notEmpty(), body('password').no
 
         var mot_de_passe_hash = ''
         bcrypt.hash(password, sel, function(err, hash) {
-            if (err) throw err 
+            if (err) {
+                logger.info('Erreur lors du hashing du mot de passe.');
+                throw err
+            }  
             else mot_de_passe_hash = hash
         })
 
@@ -44,7 +49,9 @@ module.exports = app.post('/', [body('username').notEmpty(), body('password').no
             VALUES (SYSDATE, ?, ?, ?, ?, ?, ?, ?);`,
             [nom, prenom, username, mot_de_passe_hash, email, telephone, 3], 
             function (err, results, fields) {
-                if (err) throw err
+                if (err) {
+                    logger.info("Erreur lors de lexecution de la query.")
+                } 
             }
         );
 
