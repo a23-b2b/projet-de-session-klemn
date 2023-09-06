@@ -1,7 +1,10 @@
 const http = require("http");
-const host = 'localhost'
 const express = require('express');
+const path = require("path");
+const logger = require("morgan");
+
 const dotenv = require('dotenv');
+
 const app = express();
 
 const inscription = require('./inscription');
@@ -9,8 +12,9 @@ const inscription = require('./inscription');
 dotenv.config();
 const port = process.env.PORT;
 
+
 app.get('/', (req, res) => {
-    res.send('Express + TypeScript Server');
+    res.send("Test");
 });
 
 app.use('/inscription', inscription);
