@@ -29,11 +29,17 @@ function Landing() {
     return (
         <>
             <div className={styles.flexbox}>
-                <div>
+                <div className={styles.flex_child}>
                     <LoginOrRegister />
                 </div>
-                <div>
-
+                <div className={styles.flex_child}>
+                    <h2>Contenu a droite ici!!</h2>
+                    <p style={{maxWidth: "600px"}}>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+                        Et accusamus quod aperiam minima vitae fuga nobis perspiciatis 
+                        illo consequuntur aut alias nulla vero eveniet ratione sapiente, 
+                        libero dolor, officia perferendis.
+                    </p>
                 </div>
             </div>
         </>
