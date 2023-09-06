@@ -50,8 +50,8 @@ const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
 
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+app.listen(process.env.SERVER_PORT, () => {
+    console.log(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
 
