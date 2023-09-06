@@ -16,7 +16,7 @@ function Layout() {
                 <Toaster />
                 <Routes>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/accueil" element={<Landing />} />
+                    <Route path="/accueil" element={<Accueil />} />
                     <Route path="/connexion" element={<Connexion />} />
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
