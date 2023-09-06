@@ -15,19 +15,19 @@ function Footer() {
 
                 <div id={styles["FooterHaut"]}>
                     {/* Footer section haut*/}
-                    <div>
+                    <div id={styles["SectionGauche"]}>
                         {/* Section Gauche */}
-                        <div>
+                        <div id={styles["TitreNomSite"]}>
                             {/* Nom site */}
                             <h1>KLEMN</h1>
                         </div>
 
                         <div>
                             {/* Description */}
-                            <div>
+                            <div id={styles["TitreSection"]}>
                                 <h2>Titre section</h2>
                             </div>
-                            <div>
+                            <div id={styles["DescriptionSection"]}>
                                 <h3>Description de description de description de description de description de description
                                     de description de description de description de description.
                                 </h3>
@@ -38,7 +38,7 @@ function Footer() {
 
                     </div>
 
-                    <div>
+                    <div id={styles["SectionDroite"]}>
                         {/* Section Droite */}
 
                         <div>
