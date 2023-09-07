@@ -8,9 +8,9 @@ import google from '../images/google.png';
 function Footer() {
     return (
 
-        <div>
 
-            <div>
+        <div id={styles["ConteneurFooter"]}>
+            <div id={styles["Footer"]}>
                 {/* Footer */}
 
                 <div id={styles["FooterHaut"]}>
@@ -134,7 +134,7 @@ function Footer() {
                         <div id={styles["NomSite"]}>
                             <h2>@2023 KLEMN, Inc.</h2>
                         </div>
-                        <div  id={styles["NomsSections"]}>
+                        <div id={styles["NomsSections"]}>
                             <div>
                                 <h3>Termes d'utilisation</h3>
                             </div>
@@ -171,8 +171,10 @@ function Footer() {
 
             </div>
 
-
         </div>
+
+
+
 
     );
 }

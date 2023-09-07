@@ -2,7 +2,6 @@ import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
 import user from '../images/user.png';
 import search from '../images/search.png';
-import Connexion from '../pages/Connexion';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
@@ -18,12 +17,10 @@ function Header() {
 
             <div id={styles["HeaderSection2"]}>
 
-                <div id={styles["LogoSite"]}>
-                    {/* IMG LOGO Site */}
-                    <img src={logo} alt="Logo" onClick={() => navigate('/')} />
-                </div>
-
-                <div id={styles["LiensCategories"]}>
+                    <div id={styles["LogoSite"]}>
+                        {/* IMG LOGO Site */}
+                        <img src={logo} width="100" height="100" alt="Logo" onClick={() => navigate('/')} />
+                    </div>
 
                     <div>
                         {/* Lien page Forum */}
@@ -37,10 +34,18 @@ function Header() {
 
                     <div>
                         {/* Lien page Liste des projets */}
-                        <h1 onClick={() => navigate('/projets')}>Projets</h1>
+                        <h1 onClick={() => navigate('/projets')}>Liste des projets</h1>
                     </div>
 
-                </div>
+                    <div>
+                        {/* Lien page Offres d'emploi */}
+                        <h1 onClick={() => navigate('/projets')}>Offre d'emploi</h1>
+                    </div>
+
+                    <div>
+                        {/* Lien page Offres d'emploi */}
+                        <h1 onClick={() => navigate('/projets')}>Messages</h1>
+                    </div>
 
             </div>
 

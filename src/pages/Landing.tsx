@@ -28,7 +28,7 @@ function Landing() {
 
     return (
         <>
-            <div className={styles.flexbox}>
+            <div className={styles.flexbox} id={styles["ConteneurLanding"]}>
                 <div className={styles.flex_child}>
                     <LoginOrRegister />
                 </div>
