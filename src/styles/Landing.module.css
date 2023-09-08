@@ -1,3 +1,10 @@
+#ConteneurLanding {
+    padding-top:5%;
+min-height: 50vh;
+background-image: linear-gradient(rgb(73, 46, 92), rgb(42, 26, 54), rgb(20, 14, 23));
+
+}
+
 .flexbox {
     display: flex;
     flex-direction: row;
@@ -8,3 +15,48 @@
 .flex_child {
 
 }
+
+
+
+
+
+#Paragraphe{
+    display: flex;
+
+    
+}
+
+#P1 {
+    color: rgb(151, 151, 151);
+}
+
+
+#P2 {
+    margin-left: 10px;
+    color: white;
+    font-weight: 600;
+}
+
+
+
+
+
+#ConteneurContenu{
+    border-radius: 20px;
+    background-image: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
+    opacity: 0.8;
+    padding: 20px;
+    margin-top: 5%;
+    text-align: center;
+}
+
+#ConteneurContenu h2{
+   color: white;
+}
+
+#ConteneurContenu p{
+    color: rgb(209, 209, 209);
+ }
+
+
+

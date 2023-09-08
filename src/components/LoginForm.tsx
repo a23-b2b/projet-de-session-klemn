@@ -18,7 +18,7 @@ function LoginForm() {
                 const user = userCredential.user;
                 toast.success('Vous êtes connecté!')
                 // TODO: Ajouter le ID dans la BD MySQL
-                navigate('/accueil')
+                navigate('/accueilConnecte')
             })
             .catch((error) => {
                 switch (error.code) {
@@ -39,8 +39,8 @@ function LoginForm() {
     }
 
     return (
-        <div>
-            <h2>Connexion</h2>
+        <div className={styles.conteneur}>
+            <h2 className={styles.titre}>Connexion</h2>
             <div className={styles.form}>
                 <label className={styles.label}>Courriel</label>
                 <input
@@ -53,10 +53,12 @@ function LoginForm() {
                     className={styles.text_field}
                     type="password"
                     onChange={(e) => setPassword(e.target.value)} />
+                <div className={styles.button}>
+                    <button onClick={() => loginWithEmailAndPassword(email, password)}>
+                        Connexion
+                    </button>
+                </div>
 
-                <button onClick={() => loginWithEmailAndPassword(email, password)}>
-                    Connexion
-                </button>
             </div>
         </div>
     );
