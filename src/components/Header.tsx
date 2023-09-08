@@ -52,7 +52,8 @@ function Header() {
             <div id={styles["BarreNavigation"]}>
                 {/* Barre de navigations */}
                 <input type='text' id='searchBar' placeholder="Recherche.."></input>
-                <img src={search} width="30" height="30" alt="searchLoop" /*onClick={}*/ />
+                {/* <img src={search} width="30" height="30" alt="searchLoop" /> */}
+                
             </div>
 
 

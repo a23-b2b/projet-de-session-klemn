@@ -1,0 +1,92 @@
+#ConteneurPost {
+    border-radius: 20px;
+    border: 1.5px solid white;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin-left: 10%;
+    margin-right: 10%
+}
+
+#SectionInfo {
+    display: inline-flex;
+    width: 100%;
+    margin-left: 80%;
+    height: 20px;
+}
+
+#SectionInfo div {
+    float: right;
+}
+
+.date {
+    color: rgb(255, 255, 255);
+
+}
+
+.autre {
+    color: rgb(255, 255, 255);
+    padding-left: 25px;
+    font-weight: bolder;
+}
+
+#SectionHaut {
+    display: inline-flex;
+    width: 65%;
+    margin-left: 5%;
+}
+
+#SectionHaut div {
+    display: inline-flex;
+
+}
+
+#SectionHaut div {
+    margin: auto;
+}
+
+.nom {
+    margin-left: 10px;
+    color: rgb(206, 206, 206);
+
+}
+
+.nomUtilisateur {
+    color: rgb(151, 151, 151);
+    margin-left: 10px;
+    font-size: 13px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#SectionBas {
+margin-left: 5%;
+margin-right: 5%;
+}
+
+.titre {
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.description {
+    color: rgb(41, 41, 41);
+}
+
+
+/*Post Questions*/
+
+
+#TitreQuestion div {
+    text-align: center;
+    display: inline-flex;
+    margin: auto;
+}
+
+.question {
+    margin-left: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+    background-color: rgba(111, 20, 223, 0.3);
+}

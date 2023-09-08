@@ -28,9 +28,13 @@ function Footer() {
                                 <h2>Titre section</h2>
                             </div>
                             <div id={styles["DescriptionSection"]}>
-                                <h3>Description de description de description de description de description de description
-                                    de description de description de description de description.
-                                </h3>
+                                <h3>Curabitur id vestibulum nulla. 
+                                    Phasellus vehicula sem odio, non posuere tortor porta at. 
+                                    Integer tempor rutrum lorem, sed sagittis lacus commodo ac. 
+                                    Nullam non ex a ligula ornare eleifend. 
+                                    In vestibulum mollis nulla sed semper. 
+                                    Sed bibendum, nunc sed tincidunt feugiat, nisl nisl bibendum diam, 
+                                    at imperdiet lacus lacus vitae lacus. Proin a porttitor dui. </h3>
 
                             </div>
 

@@ -1,7 +1,7 @@
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
-function PosteBlogue() {
+function PosteQuestion() {
     return (
         <div id={styles["ConteneurPost"]}>
             {/* Post Blogue */}
@@ -38,9 +38,15 @@ function PosteBlogue() {
             <div id={styles["SectionBas"]}>
                 {/* Section Bas */}
 
-                <div>
+                <div id={styles["TitreQuestion"]}>
                     {/* Titre du post*/}
-                    <h2 className={styles.titre}>Titre du post Blogue!</h2>
+
+                    <div>
+                        <h2 className={styles.titre}>Titre de la question!</h2>
+                    </div>
+                    <div>
+                        <p className={styles.question}>✓ Résolu!</p>
+                    </div>
                 </div>
 
                 <div>
@@ -59,4 +65,4 @@ function PosteBlogue() {
     );
 }
 
-export default PosteBlogue;
+export default PosteQuestion;

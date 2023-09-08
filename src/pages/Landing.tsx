@@ -47,10 +47,16 @@ function Landing() {
                 <div className={styles.flex_child}>
                     <LoginOrRegister />
                 </div>
-                <div className={styles.flex_child}>
+                <div className={styles.flex_child} id={styles["ConteneurContenu"]} >
                     <h2>Contenu a droite ici!!</h2>
                     <p style={{ maxWidth: "600px" }}>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Et accusamus quod aperiam minima vitae fuga nobis perspiciatis
+                        illo consequuntur aut alias nulla vero eveniet ratione sapiente,
+                        libero dolor, officia perferendis.Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                        Et accusamus quod aperiam minima vitae fuga nobis perspiciatis
+                        illo consequuntur aut alias nulla vero eveniet ratione sapiente,
+                        libero dolor, officia perferendis.Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                         Et accusamus quod aperiam minima vitae fuga nobis perspiciatis
                         illo consequuntur aut alias nulla vero eveniet ratione sapiente,
                         libero dolor, officia perferendis.
