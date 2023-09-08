@@ -18,8 +18,8 @@ pour démarrer l'API.
 
 ## Stack
 
-| Tech          | Contribution      | 
-| ------------- | ----------------- |
+| Technologie   | Contribution      | 
+| :------------ | :---------------- |
 | MySQL         | Base de données   |
 | Node, Express | Backend           |
 | React         | Frontend          |
