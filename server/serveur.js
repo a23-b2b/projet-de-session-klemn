@@ -16,30 +16,6 @@ app.use(cors());
 const dotenv = require('dotenv');
 dotenv.config();
 
-// === Logger config ===
-// Formatage de winston
-const formatConfig = winston.format.combine(
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm' }),
-    winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`
-    )
-);
-
-// Transports pour winston
-const transportsConfig = [
-    new winston.transports.File({ filename: 'logs/logger.log' }),
-    new winston.transports.Console()
-];
-
-// Creation de l'objet de log
-const logger =  winston.createLogger({
-    level: process.env.LOG_LEVEL || 'info',
-    format: formatConfig,
-    transports: transportsConfig
-});
-module.exports = logger;
-
-
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', {flags: 'a'})
