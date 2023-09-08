@@ -1,4 +1,4 @@
--- Active: 1693586986008@@0.0.0.0@32769@dev
+-- Active: 1693586986008@@localhost@32769@dev
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
 
