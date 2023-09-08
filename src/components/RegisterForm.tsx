@@ -38,7 +38,7 @@ function RegisterForm() {
                 })
             }).then(() => {
                 toast.success('Vous êtes connecté!')
-                navigate('/accueil')
+                navigate('/accueilConnecte')
             })
             .catch((error) => {
                 switch (error.code) {
