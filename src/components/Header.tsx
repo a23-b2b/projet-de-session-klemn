@@ -39,7 +39,7 @@ function Header() {
 
                     <div>
                         {/* Lien page Offres d'emploi */}
-                        <h1 onClick={() => navigate('/projets')}>Offre d'emploi</h1>
+                        <h1 onClick={() => navigate('/projets')}>Offres d'emploi</h1>
                     </div>
 
                     <div>

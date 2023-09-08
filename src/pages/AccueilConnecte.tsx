@@ -6,10 +6,10 @@ function AccueilConnecte() {
     return (
 
         <div id={styles["ConteneurAccueil"]}>
-            <div style={{ maxWidth: "700px", minWidth: "600px" }}>
+            <div style={{ maxWidth: "700px"}}>
             <PosteBlogue/>
             </div>
-            <div style={{ maxWidth: "700px", minWidth: "600px" }}>
+            <div style={{ maxWidth: "700px"}}>
             <PosteQuestion/>
             </div>
             
