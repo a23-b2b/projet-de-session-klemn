@@ -1,15 +1,11 @@
 import styles from '../styles/AccueilConnecte.module.css'
+import PosteBlogue from '../components/PosteBlogue';
 
 function AccueilConnecte() {
     return (
 
         <div id={styles["ConteneurLanding"]}>
-            <div className={styles.p}>
-                <p> Page Accueil Connecté</p>
-               <div>
-
-               </div>
-            </div>
+            <PosteBlogue></PosteBlogue>
 
         </div>
 
