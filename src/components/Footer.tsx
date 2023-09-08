@@ -73,24 +73,24 @@ function Footer() {
 
                             <div>
                                 {/* Titre col 2 */}
-                                <h2>Produits</h2>
+                                <h2>Platformes</h2>
                             </div>
                             <div>
                                 {/* Éléments col 2 */}
                                 <div>
-                                    <h3>À propos</h3>
+                                    <h3>API</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Resources</h3>
+                                    <h3>Github</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Projet</h3>
+                                    <h3>React</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Entreprise</h3>
+                                    <h3>Oracle</h3>
                                 </div>
                             </div>
                         </div>
@@ -100,24 +100,24 @@ function Footer() {
 
                             <div>
                                 {/* Titre col 3 */}
-                                <h2>Produits</h2>
+                                <h2>Support</h2>
                             </div>
                             <div>
                                 {/* Éléments col 3 */}
                                 <div>
-                                    <h3>À propos</h3>
+                                    <h3>Documentation</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Resources</h3>
+                                    <h3>Forum</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Projet</h3>
+                                    <h3>Services</h3>
                                 </div>
 
                                 <div>
-                                    <h3>Entreprise</h3>
+                                    <h3>Status</h3>
                                 </div>
                             </div>
                         </div>
@@ -156,13 +156,13 @@ function Footer() {
 
                         <div>
                             {/* Icône 1*/}
-                            <img src={github} width="40" height="40" alt="User" onClick={() => window.location.replace('https://github.com/')} />
+                            <img src={github} width="30" height="30" alt="User" onClick={() => window.location.replace('https://github.com/')} />
 
                         </div>
 
                         <div>
                             {/* Icône 2*/}
-                            <img src={google} width="40" height="40" alt="User" onClick={() => window.location.replace('https://google.com/')} />
+                            <img src={google} width="30" height="30" alt="User" onClick={() => window.location.replace('https://google.com/')} />
                         </div>
 
                     </div>
