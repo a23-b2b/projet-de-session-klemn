@@ -42,18 +42,18 @@ function LoginForm() {
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Connexion</h2>
             <div className={styles.form}>
-                <label className={styles.label}>Courriel</label>
+                <label className={'global_input_field_label'}>Courriel</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="email"
                     onChange={(e) => setEmail(e.target.value)} />
 
-                <label className={styles.label}>Mot de passe</label>
+                <label className={'global_input_field_label'}>Mot de passe</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="password"
                     onChange={(e) => setPassword(e.target.value)} />
-                <div className={styles.button}>
+                <div className={"global_bouton"}>
                     <button onClick={() => loginWithEmailAndPassword(email, password)}>
                         Connexion
                     </button>
