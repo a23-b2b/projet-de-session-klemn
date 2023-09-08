@@ -10,14 +10,34 @@ function RegisterForm() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [telephone, setTelephone] = useState('');
+    const [username, setUsername] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [nom, setNom] = useState('');
 
     function registerWithEmailAndPassword(email: string, password: string) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
+                return user;
+            })
+            .then((user) => {
+                fetch('http://localhost:1111/inscription', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        telephone: telephone,
+                        prenom: prenom,
+                        nom: nom,
+                        id_compte: user.uid
+                    }),
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }).then(() => {
                 toast.success('Vous êtes connecté!')
-                // TODO: Ajouter le ID dans la BD MySQL
                 navigate('/accueil')
             })
             .catch((error) => {
@@ -36,7 +56,14 @@ function RegisterForm() {
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Inscription</h2>
             <div className={styles.form}>
+
+                <label className={styles.label}>Nom d'utilisateur</label>
+                <input
+                    className={styles.text_field}
+                    type="text"
+                    onChange={(e) => setUsername(e.target.value)} />
                 <label className={styles.label}>Courriel</label>
+
                 <input
                     className={styles.text_field}
                     type="email"
@@ -47,11 +74,30 @@ function RegisterForm() {
                     className={styles.text_field}
                     type="password"
                     onChange={(e) => setPassword(e.target.value)} />
-                <div className={styles.button}>
-                    <button onClick={() => registerWithEmailAndPassword(email, password)}>
-                        Inscription
-                    </button>
-                </div>
+
+                <label className={styles.label}>Nom</label>
+                <input
+                    className={styles.text_field}
+                    type="text"
+                    onChange={(e) => setNom(e.target.value)} />
+
+
+                <label className={styles.label}>Prénom</label>
+                <input
+                    className={styles.text_field}
+                    type="text"
+                    onChange={(e) => setPrenom(e.target.value)} />
+
+
+                <label className={styles.label}>Numéro de téléphone</label>
+                <input
+                    className={styles.text_field}
+                    type="tel"
+                    onChange={(e) => setTelephone(e.target.value)} />
+
+                <button className={styles.button} onClick={() => registerWithEmailAndPassword(email, password)}>
+                    Inscription
+                </button>
             </div>
         </div>
     );
