@@ -21,8 +21,9 @@ function Blogue() {
 
     function chargerPosteBlogue(): BlogueProp  {
         fetch('http://localhost:1111/chargerPosteBlogue', {
-                method: 'GET'
-        }).then(response => response.json())
+            method: 'GET'
+        })
+        .then (response => response.json())
         .then (data => {          
             prop = {
                 idPost: data.id_post,
