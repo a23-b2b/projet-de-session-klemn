@@ -1,7 +1,17 @@
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
-function PosteBlogue() {
+export interface BlogueProp {
+    idPost: number;
+    date: string;
+    nom: string;
+    prenom: string;
+    nomUtilisateur: string;
+    titre: string;
+    contenu: string;
+}
+
+function PosteBlogue(props: BlogueProp) {
     return (
         <div id={styles["ConteneurPost"]}>
             {/* Post Blogue */}
@@ -9,7 +19,7 @@ function PosteBlogue() {
                 {/* Section Info */}
                 <div>
                     {/* Date du post*/}
-                    <p className={styles.date}>25 mins</p>
+                    <p className={styles.date}>{ props.date }</p>
                 </div>
 
                 <div>

@@ -7,7 +7,7 @@ function AccueilConnecte() {
 
         <div id={styles["ConteneurAccueil"]}>
             <div style={{ maxWidth: "700px"}}>
-            <PosteBlogue/>
+            {/*<PosteBlogue/> */}
             </div>
             <div style={{ maxWidth: "700px"}}>
             <PosteQuestion/>

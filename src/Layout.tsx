@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
+import Blogue from "./pages/Blogue";
 
 function Layout() {
     return (
@@ -17,6 +18,7 @@ function Layout() {
                     <Route path="/" element={<Landing />} />
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
+                    <Route path="/blogue" element={<Blogue/>} />
                     <Route path="/projets" element={<Projets />} />
                 </Routes>
                 <Footer/>
