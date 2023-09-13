@@ -5,7 +5,7 @@
 
 #FooterHaut {
     display: inline-flex;
-    background-color: rgb(20, 14, 23);
+    /* background-color: rgb(20, 14, 23); */
     
     font-size: 14px;
     padding: 10px;
@@ -21,16 +21,12 @@
     margin-left: 5%;
 }
 
-#TitreNomSite {
-    color: rgb(255, 255, 255);
-}
-
 #TitreSection {
-    color: rgb(151, 151, 151);
+    opacity: 60%;
 }
 
 #DescriptionSection {
-    color: rgb(102, 102, 102);
+    opacity: 40%;
 }
 
 
@@ -40,7 +36,7 @@
 }
 
 #SectionDroite h2{
-    color: rgb(151, 151, 151);
+    opacity: 60%;
 }
 
 #SectionDroite div {
@@ -49,7 +45,7 @@
 
 
 #SectionDroite h3{
-    color: rgb(102, 102, 102);
+    opacity: 40%;
 }
 
 

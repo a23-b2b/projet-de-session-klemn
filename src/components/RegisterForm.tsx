@@ -57,45 +57,45 @@ function RegisterForm() {
             <h2 className={styles.titre}>Inscription</h2>
             <div className={styles.form}>
 
-                <label className={styles.label}>Nom d'utilisateur</label>
+                <label className={'global_input_field_label'}>Nom d'utilisateur</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="text"
                     onChange={(e) => setUsername(e.target.value)} />
-                <label className={styles.label}>Courriel</label>
+                <label className={'global_input_field_label'}>Courriel</label>
 
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="email"
                     onChange={(e) => setEmail(e.target.value)} />
 
-                <label className={styles.label}>Mot de passe</label>
+                <label className={'global_input_field_label'}>Mot de passe</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="password"
                     onChange={(e) => setPassword(e.target.value)} />
 
-                <label className={styles.label}>Nom</label>
+                <label className={'global_input_field_label'}>Nom</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="text"
                     onChange={(e) => setNom(e.target.value)} />
 
 
-                <label className={styles.label}>Prénom</label>
+                <label className={'global_input_field_label'}>Prénom</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="text"
                     onChange={(e) => setPrenom(e.target.value)} />
 
 
-                <label className={styles.label}>Numéro de téléphone</label>
+                <label className={'global_input_field_label'}>Numéro de téléphone</label>
                 <input
-                    className={styles.text_field}
+                    className={'global_input_field'}
                     type="tel"
                     onChange={(e) => setTelephone(e.target.value)} />
 
-                <button className={styles.button} onClick={() => registerWithEmailAndPassword(email, password)}>
+                <button className={'global_button'} onClick={() => registerWithEmailAndPassword(email, password)}>
                     Inscription
                 </button>
             </div>
