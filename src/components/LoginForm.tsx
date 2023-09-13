@@ -40,7 +40,7 @@ function LoginForm() {
 
     return (
         <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Connexion</h2>
+            <h2 className={'global_title'}>Connexion</h2>
             <div className={styles.form}>
                 <label className={'global_input_field_label'}>Courriel</label>
                 <input
@@ -54,7 +54,7 @@ function LoginForm() {
                     type="password"
                     onChange={(e) => setPassword(e.target.value)} />
                 <div className={"global_bouton"}>
-                    <button onClick={() => loginWithEmailAndPassword(email, password)}>
+                    <button className={'global_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                         Connexion
                     </button>
                 </div>

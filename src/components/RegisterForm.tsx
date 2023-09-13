@@ -54,7 +54,7 @@ function RegisterForm() {
 
     return (
         <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Inscription</h2>
+            <h2 className={'global_title'}>Inscription</h2>
             <div className={styles.form}>
 
                 <label className={'global_input_field_label'}>Nom d'utilisateur</label>
@@ -95,7 +95,7 @@ function RegisterForm() {
                     type="tel"
                     onChange={(e) => setTelephone(e.target.value)} />
 
-                <button className={'global_button'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                     Inscription
                 </button>
             </div>

@@ -1,7 +1,9 @@
 #ConteneurLanding {
-    padding-top:5%;
+padding-top:5%;
 min-height: 50vh;
 background-color: rgb(20, 14, 23);
+margin-left: 10%;
+margin-right: 10%;
 }
 
 .flexbox {
@@ -15,20 +17,21 @@ background-color: rgb(20, 14, 23);
 
 }
 
+/* "Vous êtes déjà inscrit?..."*/
 
-#Paragraphe{
-    display: flex;
 
+.paragraphe {
+    display: inline-flex;
     
 }
 
-#P1 {
+.p1 {
     color: rgb(151, 151, 151);
 }
 
 
-#P2 {
-    margin-left: 10px;
+.p2 {
+    margin-left: 5px;
     color: white;
     font-weight: 600;
 }
@@ -36,12 +39,19 @@ background-color: rgb(20, 14, 23);
 
 
 #ConteneurContenu{
-    border-radius: 20px;
-    background-image: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    opacity: 0.8;
+    background-image:var(--gradient_dark_secondary);
+    border-radius: 70px;
     padding: 20px;
-    
     text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  
+}
+
+.p {
+    max-width: 400px;
+    max-height: 400px;
+
 }
 
 #ConteneurContenu h2{
@@ -52,5 +62,17 @@ background-color: rgb(20, 14, 23);
     color: rgb(209, 209, 209);
  }
 
+
+ @media (prefers-color-scheme: light) {
+    #ConteneurLanding {
+        background: var(--background_light);
+        }
+
+        #ConteneurContenu{
+            background-image: var(--gradient_light_secondary);
+            
+        }
+   
+}
 
 

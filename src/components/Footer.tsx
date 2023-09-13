@@ -1,7 +1,7 @@
 import styles from '../styles/Footer.module.css';
-import logo from '../images/logo.png';
 import github from '../images/github.png';
 import google from '../images/google.png';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -28,12 +28,12 @@ function Footer() {
                                 <h2>Titre section</h2>
                             </div>
                             <div id={styles["DescriptionSection"]}>
-                                <h3>Curabitur id vestibulum nulla. 
-                                    Phasellus vehicula sem odio, non posuere tortor porta at. 
-                                    Integer tempor rutrum lorem, sed sagittis lacus commodo ac. 
-                                    Nullam non ex a ligula ornare eleifend. 
-                                    In vestibulum mollis nulla sed semper. 
-                                    Sed bibendum, nunc sed tincidunt feugiat, nisl nisl bibendum diam, 
+                                <h3>Curabitur id vestibulum nulla.
+                                    Phasellus vehicula sem odio, non posuere tortor porta at.
+                                    Integer tempor rutrum lorem, sed sagittis lacus commodo ac.
+                                    Nullam non ex a ligula ornare eleifend.
+                                    In vestibulum mollis nulla sed semper.
+                                    Sed bibendum, nunc sed tincidunt feugiat, nisl nisl bibendum diam,
                                     at imperdiet lacus lacus vitae lacus. Proin a porttitor dui. </h3>
 
                             </div>
@@ -54,19 +54,31 @@ function Footer() {
                             <div>
                                 {/* Éléments col 1 */}
                                 <div>
-                                    <h3>À propos</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>À propos</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Resources</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Resources</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Projet</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Projet</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Entreprise</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Entreprise</h3>
+                                    </Link>
+
                                 </div>
                             </div>
 
@@ -82,19 +94,31 @@ function Footer() {
                             <div>
                                 {/* Éléments col 2 */}
                                 <div>
-                                    <h3>API</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>API</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Github</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Github</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>React</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>React</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Oracle</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Oracle</h3>
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>
@@ -109,19 +133,31 @@ function Footer() {
                             <div>
                                 {/* Éléments col 3 */}
                                 <div>
-                                    <h3>Documentation</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Documentation</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Forum</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Forum</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Services</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Services</h3>
+                                    </Link>
+
                                 </div>
 
                                 <div>
-                                    <h3>Status</h3>
+                                    <Link to={'/forum'} className='link'>
+                                        <h3>Status</h3>
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>
@@ -140,15 +176,24 @@ function Footer() {
                         </div>
                         <div id={styles["NomsSections"]}>
                             <div>
-                                <h3>Termes d'utilisation</h3>
+                                <Link to={'/forum'} className='link'>
+                                    <h3>Termes d'utilisation</h3>
+                                </Link>
+
                             </div>
 
                             <div>
-                                <h3>Confidentialité et sécurité</h3>
+                                <Link to={'/forum'} className='link'>
+                                    <h3>Confidentialité et sécurité</h3>
+                                </Link>
+
                             </div>
 
                             <div>
-                                <h3>Qu'est-ce que KLEMN ?</h3>
+                                <Link to={'/forum'} className='link'>
+                                    <h3>Qu'est-ce que KLEMN ?</h3>
+                                </Link>
+
                             </div>
                         </div>
 
@@ -160,13 +205,17 @@ function Footer() {
 
                         <div>
                             {/* Icône 1*/}
-                            <img src={github} width="30" height="30" alt="User" onClick={() => window.location.replace('https://github.com/')} />
+                            <Link to={'/forum'} className='link'>
+                                <img src={github} width="30" height="30" alt="User" onClick={() => window.location.replace('https://github.com/')} />
+                            </Link>
 
                         </div>
 
                         <div>
                             {/* Icône 2*/}
-                            <img src={google} width="30" height="30" alt="User" onClick={() => window.location.replace('https://google.com/')} />
+                            <Link to={'/forum'} className='link'>
+                                <img src={google} width="30" height="30" alt="User" onClick={() => window.location.replace('https://google.com/')} />
+                            </Link>
                         </div>
 
                     </div>
