@@ -26,12 +26,36 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
         const telephone = req.body.telephone;
 
         mysqlConnection.query(
-            `INSERT INTO compte (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, courriel, telephone, autorisation_id_autorisation) 
-            VALUES (?, NOW(), ?, ?, ?, ?, ?, ?);`,
-            [id_compte, nom, prenom, username , email, telephone, 3], 
+            `INSERT INTO compte (
+                id_compte, 
+                date_creation_compte, 
+                nom, 
+                prenom, 
+                nom_utilisateur, 
+                courriel, 
+                telephone,
+                nombre_abonnes,
+                nombre_abonnements,
+                nom_affichage,
+                biographie,
+                autorisation_id_autorisation) 
+            VALUES (
+                ?, NOW(), ?, ?, ?, ?, ?, 0, 0, ?, ?, ?);`,
+            [
+                id_compte, 
+                nom, 
+                prenom, 
+                username, 
+                email,
+                telephone, 
+                `${prenom} ${nom}`, 
+                'Je viens d\'arriver sur Klemn!', 
+                3
+            ], 
             function (err, results, fields) {
                 if (err) {
-                    logger.info("Erreur lors de lexecution de la query.", err)
+                    // logger.info("Erreur lors de lexecution de la query.", err)
+                    console.log(err)
                 } 
             }
         );

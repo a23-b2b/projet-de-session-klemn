@@ -24,6 +24,9 @@ app.use(morgan('tiny', {
 const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
+const get_profil = require('./get_profil')
+app.use('/profil', get_profil);
+
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

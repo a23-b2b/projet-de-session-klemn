@@ -1,0 +1,75 @@
+:root {
+    --accent_color_dark: purple;
+    --accent_color_light: pink;
+    
+
+    --background_dark: rgb(20, 14, 23);
+    --background_light: rgb(249, 236, 255);
+
+    --text_color_dark: #dddddd;
+    --text_color_light: #222222;
+
+    --gradient_dark: linear-gradient(rgb(73, 46, 92), rgb(42, 26, 54), var(--background_dark));
+    --gradient_light: linear-gradient(rgb(193, 100, 201), var(--background_light));
+}
+
+body {
+    transition: 0.3s;
+    background-color: var(--background_dark);
+    color: var(--text_color_dark);
+    accent-color: var(--accent_color_dark);
+}
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text_color_dark);
+}
+
+.global_input_field_label {
+    margin-left: 8px;
+    margin-bottom: -6px;
+    font-size: 17px;
+    font-weight: bold;
+    opacity: 60%;
+    padding: 5px;
+}
+
+.global_input_field {
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    border-radius: 12px;
+    border: 1.5px solid white;
+    /* background-color: rgba(255, 255, 255, 0.7); */
+}
+
+.global_bouton {
+    padding: 10px 20px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 100px;
+    color: var(--text_color_dark);
+    background-color: var(--accent_color_dark);
+    font-weight: bold;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: var(--background_light);
+        color: var(--text_color_light)
+    }
+
+    .link {
+        color: var(--text_color_light);
+    }
+
+    .global_bouton {
+        color: var(--text_color_light);
+        background-color: var(--accent_color_light);
+    }
+}
