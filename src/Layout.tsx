@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
+import Profil from "./pages/Profil";
 
 function Layout() {
     return (
@@ -19,6 +20,7 @@ function Layout() {
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
+                    <Route path="/profil/:id" element={<Profil />} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
