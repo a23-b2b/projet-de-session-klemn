@@ -9,7 +9,13 @@ function Profil() {
 
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [dateCreationCompte, setDateCreationCompte] = useState('');    
+    const [nombreAbonnes, setNombreAbonnes] = useState(0);
+    const [nombreAbonnements, setNombreAbonnements] = useState(0);
+    const [bio, setBio] = useState('');
+    const [urlImageProfil,setUrlImageProfil] = useState('');
+    const [urlImageBanniere, setUrlImageBanniere] = useState('');
 
     useEffect(() => {  
         fetch(`http://localhost:1111/profil/${username}`, {
@@ -21,7 +27,13 @@ function Profil() {
             let data = response[0]
             setNom(data.nom)
             setPrenom(data.prenom)
+            setDisplayName(data.nom_affichage ? data.nom_affichage : username)
             setDateCreationCompte(data.date_creation_compte)
+            setNombreAbonnes(data.nombre_abonnes)
+            setNombreAbonnements(data.nombre_abonnements)
+            setBio(data.biographie)
+            setUrlImageProfil(data.url_image_profil)
+            setUrlImageBanniere(data.url_image_banniere)
         })
         .catch((error) => {
             console.log(error)
@@ -32,13 +44,13 @@ function Profil() {
         <div className={styles.flex}>
 
             <div className={styles.header}>
-                <img className={styles.photo_banniere} src='https://media.tacdn.com/media/attractions-splice-spp-674x446/0e/49/3e/49.jpg' />
+                <img className={styles.photo_banniere} src={urlImageBanniere} />
 
                 <div className={styles.sous_banniere}>
-                    <img className={styles.photo_profil} src='https://fr.web.img6.acsta.net/medias/nmedia/18/71/84/20/19146888.jpg' />
+                    <img className={styles.photo_profil} src={urlImageProfil} />
 
                     <div className={styles.infos_profil}>
-                        <h2 className={styles.nom}>{prenom} {nom}</h2>
+                        <h2 className={styles.nom}>{displayName}</h2>
                         <p className={styles.username}>@{username}</p>
                         <button className={`${styles.bouton_follow} global_bouton`}>Suivre</button>
                     </div>
@@ -46,11 +58,11 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p>19293</p> abonnés</div>
-                    <div><p>196</p> Abonnements</div>
+                    <div><p>{nombreAbonnes}</p> abonnés</div>
+                    <div><p>{nombreAbonnements}</p> Abonnements</div>
                 </div>
 
-                <p className={styles.bio}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab explicabo excepturi amet officia commodi, exercitationem impedit voluptatum incidunt obcaecati deserunt aliquam temporibus quasi mollitia id a natus adipisci voluptates ea?</p>
+                <p className={styles.bio}>{bio}</p>
             </div>
 
             <div className={styles.content}>
