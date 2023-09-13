@@ -20,7 +20,7 @@ function Layout() {
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
-                    <Route path="/profil/:id" element={<Profil />} />
+                    <Route path="/profil/:username" element={<Profil />} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
