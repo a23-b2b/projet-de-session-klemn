@@ -19,8 +19,8 @@ module.exports = app.get('/:username', (req, res) => {
     [req.params.username],
     function (err, results, fields) {
         if (err) {
-            logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-            res.status(500).send('Erreur de base de données')
+            // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+            res.status(500).send('Erreur de base de données', err)
         }
         if (results) {
             res.status(200).send(results)
