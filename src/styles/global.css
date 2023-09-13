@@ -14,6 +14,7 @@
 }
 
 body {
+    transition: 0.3s;
     background-color: var(--background_dark);
     color: var(--text_color_dark);
     accent-color: var(--accent_color_dark);
