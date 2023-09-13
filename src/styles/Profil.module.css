@@ -1,0 +1,129 @@
+.flex {
+    /* display: flex; */
+    max-width: 600px;
+    margin: 0 auto;
+    /* background-color: white; */
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.photo_banniere {
+    object-fit: cover;
+    flex-grow: 1;
+    max-height: 250px;
+    mask-image: linear-gradient(to top, transparent 0%, black 45%);
+}
+
+.sous_banniere {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex: 1;
+    padding: 5%;
+    flex-direction: row;
+}
+
+.photo_profil {
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    transform: translateY(-50%);
+    
+    /* Box shadow de: https://shadows.brumm.af/ */
+    box-shadow:
+        0px 2px 2.2px rgba(0, 0, 0, 0.008),
+        0px 4.9px 5.3px rgba(0, 0, 0, 0.012),
+        0px 9.1px 10px rgba(0, 0, 0, 0.015),
+        0px 16.3px 17.9px rgba(0, 0, 0, 0.018),
+        0px 30.5px 33.4px rgba(0, 0, 0, 0.022),
+        0px 73px 80px rgba(0, 0, 0, 0.03);
+}
+
+.infos_profil {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    transform: translateY(-40%);
+    width: fit-content;
+    gap: 5px;
+    /* margin-bottom: 20px; */
+}
+
+.nom {
+    line-height: 0;
+    font-size: 2.5rem;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.username {
+    line-height: 0;
+    opacity: 60%;
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+.follows {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content:space-around;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.follows > div {
+    text-align: center;
+    line-height: 0;
+}
+
+.follows > div > p {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.bio {
+    margin: 0 auto;
+    /* margin-top: -50px; */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.temporaire_post {
+    margin: 0 auto;
+    height: 170px;
+    width: 90%;
+    background-color: rgb(58, 58, 58);
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .infos_profil {
+        transform: translateY(-35px);
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+
+    .sous_banniere {
+        flex-direction: column;
+    }
+
+    .photo_profil {
+        width: 100px;
+        height: 100px;
+    }
+
+    .bio {
+        /* margin-top: -30px; */
+    }
+}
