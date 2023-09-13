@@ -24,6 +24,7 @@
     flex: 1;
     padding: 5%;
     flex-direction: row;
+    margin-bottom: -80px;
 }
 
 .photo_profil {
@@ -51,14 +52,12 @@
     transform: translateY(-40%);
     width: fit-content;
     gap: 5px;
-    /* margin-bottom: 20px; */
 }
 
 .nom {
     line-height: 0;
     font-size: 2.5rem;
     white-space: nowrap;
-    flex-grow: 1;
 }
 
 .username {
@@ -72,9 +71,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: start;
-    justify-content:space-around;
-    margin-bottom: 40px;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
@@ -84,13 +81,14 @@
 }
 
 .follows > div > p {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
 .bio {
     margin: 0 auto;
     /* margin-top: -50px; */
+    padding: 5%;
 }
 
 .content {
@@ -116,14 +114,11 @@
 
     .sous_banniere {
         flex-direction: column;
+        /* margin-bottom: -30px; */
     }
 
     .photo_profil {
         width: 100px;
         height: 100px;
-    }
-
-    .bio {
-        /* margin-top: -30px; */
     }
 }
