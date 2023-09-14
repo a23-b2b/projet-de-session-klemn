@@ -37,10 +37,6 @@ function Parametres() {
                     <Link className={styles.link} to={'profil'}>
                         <div className={styles.settings_link} id={styles.first_link}>Profil</div>
                     </Link>
-
-                    <Link className={styles.link} to={'profil2'}>
-                        <div className={styles.settings_link}>Profil2</div>
-                    </Link>
                 </div>
 
                 <div className={styles.content}>
