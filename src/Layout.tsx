@@ -11,7 +11,6 @@ import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
 import Parametres from "./pages/settings/Parametres";
 import ModifierProfil from "./pages/settings/ModifierProfil";
-import ModifierProfil2 from "./pages/settings/ModifierProfil copy";
 
 function Layout() {
     return (
