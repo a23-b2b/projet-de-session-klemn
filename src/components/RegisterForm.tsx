@@ -56,7 +56,7 @@ function RegisterForm() {
     return (
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Inscription</h2>
-            <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
+            <motion.div initial={{ opacity: 0, height: 323, scale: 0.9 }} animate={{ opacity: 1, height: "auto", scale: 1 }} >
                 <div className={styles.form}>
 
                     <label className={'global_input_field_label'}>Nom d'utilisateur</label>

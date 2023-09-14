@@ -7,7 +7,7 @@ import RegisterForm from '../components/RegisterForm';
 import { animate, motion } from 'framer-motion';
 
 function Landing() {
-    const [formIsLogin, setFormIsLogin] = useState(true);
+    const [formIsLogin, setFormIsLogin] = useState(false);
 
     return (
 
