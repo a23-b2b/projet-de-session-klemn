@@ -7,8 +7,48 @@ import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 
 function Parametres() {
+    const navigate = useNavigate()
+    const [firebaseLoading, setFirebaseLoading] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setFirebaseLoading(false)
+                setLoggedIn(true)
+            }
+
+            else {
+                setFirebaseLoading(false)
+                setLoggedIn(false)
+            }
+        })
+    })
+
+    if (!loggedIn && !firebaseLoading) {
+        navigate('/')
+    }
+
     return (
         <div className={styles.body}>
+            <div className={styles.container}>
+                <div className={styles.sidebar}>
+
+                    <Link className={styles.link} to={'profil'}>
+                        <div className={styles.settings_link} id={styles.first_link}>Profil</div>
+                    </Link>
+
+                    <Link className={styles.link} to={'profil2'}>
+                        <div className={styles.settings_link}>Profil2</div>
+                    </Link>
+                </div>
+
+                <div className={styles.content}>
+
+                </div>
+
+                <Outlet />
+
             </div>
         </div>
 
