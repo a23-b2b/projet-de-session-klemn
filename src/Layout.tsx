@@ -9,6 +9,9 @@ import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
+import Parametres from "./pages/settings/Parametres";
+import ModifierProfil from "./pages/settings/ModifierProfil";
+import ModifierProfil2 from "./pages/settings/ModifierProfil copy";
 
 function Layout() {
     return (
@@ -26,8 +29,11 @@ function Layout() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
                     <Route path="/profil/:username" element={<Profil />} />
+                    <Route path="/parametres" element={<Parametres />}>
+                        <Route path="profil" element={<ModifierProfil />} />
+                    </Route>
                 </Routes>
-                <Footer/>
+                <Footer />
             </BrowserRouter>
         </>
     );
