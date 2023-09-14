@@ -34,8 +34,6 @@ function Blogue() {
                 titre: data.titre,
                 contenu: data.corps
             }
-
-            return prop;
         }) 
         .catch((error) => {     
             toast.error('Une erreur est survenue: ' + error.name)                      
