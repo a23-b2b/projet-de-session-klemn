@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function LoginForm() {
     const navigate = useNavigate()
@@ -39,27 +40,30 @@ function LoginForm() {
     }
 
     return (
+
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Connexion</h2>
-            <div className={styles.form}>
-                <label className={'global_input_field_label'}>Courriel</label>
-                <input
-                    className={'global_input_field'}
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)} />
+            <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
+                <div className={styles.form}>
+                    <label className={'global_input_field_label'}>Courriel</label>
+                    <input
+                        className={'global_input_field'}
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)} />
 
-                <label className={'global_input_field_label'}>Mot de passe</label>
-                <input
-                    className={'global_input_field'}
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)} />
-                <div className={"global_bouton"}>
-                    <button onClick={() => loginWithEmailAndPassword(email, password)}>
-                        Connexion
-                    </button>
+                    <label className={'global_input_field_label'}>Mot de passe</label>
+                    <input
+                        className={'global_input_field'}
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)} />
+                    <div className={"global_bouton"}>
+                        <button onClick={() => loginWithEmailAndPassword(email, password)}>
+                            Connexion
+                        </button>
+                    </div>
+
                 </div>
-
-            </div>
+            </motion.div>
         </div>
     );
 }
