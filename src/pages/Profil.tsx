@@ -3,9 +3,11 @@ import Bonjour from '../components/ComponentWithParameters';
 import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Profil() {
     let { username } = useParams();
+    const navigate = useNavigate();
 
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
@@ -25,6 +27,11 @@ function Profil() {
         .then(response => response.json())
         .then(response => {
             let data = response[0]
+
+            if (!data) {
+                navigate("/404")
+            }
+
             setNom(data.nom)
             setPrenom(data.prenom)
             setDisplayName(data.nom_affichage ? data.nom_affichage : username)
