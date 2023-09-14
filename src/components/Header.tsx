@@ -55,7 +55,7 @@ function Header() {
 
                 <div>
                     {/* Lien page Offres d'emploi */}
-                    <Link to={'/projets'} className='link'>
+                    <Link to={'/Chat'} className='link'>
                         <h1>Messages</h1>
                     </Link>
                 </div>

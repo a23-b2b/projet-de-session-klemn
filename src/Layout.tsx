@@ -8,6 +8,8 @@ import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
+import Chat from "./pages/Chat";
+
 
 function Layout() {
     return (
@@ -21,6 +23,7 @@ function Layout() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/projets" element={<Projets />} />
                     <Route path="/profil/:username" element={<Profil />} />
+                    <Route path="/Chat" element={<Chat />} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
