@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function RegisterForm() {
     const navigate = useNavigate()
@@ -55,50 +56,52 @@ function RegisterForm() {
     return (
         <div className={styles.conteneur}>
             <h2 className={'global_title'}>Inscription</h2>
-            <div className={styles.form}>
+            <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
+                <div className={styles.form}>
 
-                <label className={'global_input_field_label'}>Nom d'utilisateur</label>
-                <input
-                    className={'global_input_field'}
-                    type="text"
-                    onChange={(e) => setUsername(e.target.value)} />
-                <label className={'global_input_field_label'}>Courriel</label>
+                    <label className={'global_input_field_label'}>Nom d'utilisateur</label>
+                    <input
+                        className={'global_input_field'}
+                        type="text"
+                        onChange={(e) => setUsername(e.target.value)} />
+                    <label className={'global_input_field_label'}>Courriel</label>
 
-                <input
-                    className={'global_input_field'}
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                        className={'global_input_field'}
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)} />
 
-                <label className={'global_input_field_label'}>Mot de passe</label>
-                <input
-                    className={'global_input_field'}
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)} />
+                    <label className={'global_input_field_label'}>Mot de passe</label>
+                    <input
+                        className={'global_input_field'}
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)} />
 
-                <label className={'global_input_field_label'}>Nom</label>
-                <input
-                    className={'global_input_field'}
-                    type="text"
-                    onChange={(e) => setNom(e.target.value)} />
-
-
-                <label className={'global_input_field_label'}>Prénom</label>
-                <input
-                    className={'global_input_field'}
-                    type="text"
-                    onChange={(e) => setPrenom(e.target.value)} />
+                    <label className={'global_input_field_label'}>Nom</label>
+                    <input
+                        className={'global_input_field'}
+                        type="text"
+                        onChange={(e) => setNom(e.target.value)} />
 
 
-                <label className={'global_input_field_label'}>Numéro de téléphone</label>
-                <input
-                    className={'global_input_field'}
-                    type="tel"
-                    onChange={(e) => setTelephone(e.target.value)} />
+                    <label className={'global_input_field_label'}>Prénom</label>
+                    <input
+                        className={'global_input_field'}
+                        type="text"
+                        onChange={(e) => setPrenom(e.target.value)} />
 
-                <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
-                    Inscription
-                </button>
-            </div>
+
+                    <label className={'global_input_field_label'}>Numéro de téléphone</label>
+                    <input
+                        className={'global_input_field'}
+                        type="tel"
+                        onChange={(e) => setTelephone(e.target.value)} />
+
+                    <button className={'global_button'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                        Inscription
+                    </button>
+                </div>
+            </motion.div>
         </div>
     );
 }

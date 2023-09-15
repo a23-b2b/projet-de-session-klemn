@@ -47,6 +47,8 @@ body {
     color: var(--auto_text_color);
     accent-color: var(--auto_accent_color);
     padding-top: 150px;
+    transition: 0.3s;
+    accent-color: var(--accent_color_dark);
 }
 
 .link {
@@ -81,6 +83,16 @@ body {
     border: 1.5px solid white;
     background-color: rgba(255, 255, 255, 0.381);
     color: #ffffff;
+    /* background-color: rgba(255, 255, 255, 0.7); */
+}
+
+.global_bouton {
+    padding: 10px 20px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 100px;
+    color: var(--text_color_dark);
+    background-color: var(--accent_color_dark);
     font-weight: bold;
 }
 
@@ -107,5 +119,10 @@ body {
         --auto_gradient: var(--gradient_light);
         --auto_gradient_secondary: var(--gradient_light_secondary);
         --auto_logo: var(--logo_image_light);
+    }
+
+    .global_bouton {
+        color: var(--text_color_light);
+        background-color: var(--accent_color_light);
     }
 }
