@@ -9,6 +9,7 @@ export interface BlogueProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    type: string;
 }
 
 function PosteBlogue(props: BlogueProp) {

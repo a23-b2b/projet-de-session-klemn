@@ -1,7 +1,21 @@
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
-function PosteQuestion() {
+export interface QuestionProp {
+    idPost: number;
+    date: string;
+    nom: string;
+    prenom: string;
+    nomUtilisateur: string;
+    titre: string;
+    contenu: string;
+    type: string;
+    status: boolean;
+    meilleureReponse: number;
+}
+
+
+function PosteQuestion(props: QuestionProp) {
     return (
         <div id={styles["ConteneurPost"]}>
             {/* Post Blogue */}
@@ -9,7 +23,7 @@ function PosteQuestion() {
                 {/* Section Info */}
                 <div>
                     {/* Date du post*/}
-                    <p className={styles.date}>25 mins</p>
+                    <p className={styles.date}>props.date</p>
                 </div>
 
                 <div>
@@ -28,8 +42,8 @@ function PosteQuestion() {
 
                 <div>
                     {/* Nom Utilisateur et @*/}
-                    <h3 className={styles.nom}>Nom Prénom</h3>
-                    <h4 className={styles.nomUtilisateur}>@NomUtilisateur123</h4>
+                    <h3 className={styles.nom}>{props.prenom} {props.nom}</h3>
+                    <h4 className={styles.nomUtilisateur}>@{props.nomUtilisateur}</h4>
                 </div>
 
 
@@ -42,23 +56,41 @@ function PosteQuestion() {
                     {/* Titre du post*/}
 
                     <div>
-                        <h2 className={styles.titre}>Titre de la question!</h2>
+                        <h2 className={styles.titre}>{props.titre}</h2>
                     </div>
                     <div>
-                        <p className={styles.question}>✓ Résolu!</p>
+                        <p className={styles.question}>Résolu: {props.status}</p>
                     </div>
                 </div>
 
                 <div>
                     {/* Description du post*/}
                     <p className={styles.description}>
-                        Nam quis neque maximus lorem venenatis interdum sit amet sed est.
-                        Vivamus volutpat augue ligula, maximus ornare dui condimentum eu.
-                        Proin sed venenatis justo. Nullam non enim velit.
-                        Nunc semper nisl tincidunt, euismod leo quis, molestie magna.
-                        Vivamus condimentum scelerisque tellus ut egestas.
-                        Proin consequat sapien vel auctor auctor. Nulla id euismod augue.</p>
+                        {props.contenu}</p>
                 </div>
+
+                {props.meilleureReponse && (
+                    <div>
+                        {/* Meilleur reponse */}
+                        <a href=''>
+                            <p className={styles.meilleureReponse}>
+                                {props.meilleureReponse}
+                            </p>
+                        </a>
+                    </div>
+                )}
+
+                {!props.meilleureReponse && (
+                    <div>
+                        {/* Pas de reponse */}
+                        <a href=''>
+                            <p className={styles.meilleureReponse}>
+                                pas de reponse
+                            </p>
+                        </a>
+                    </div>
+                )}
+
 
             </div>
         </div>
