@@ -1,6 +1,6 @@
 /* Footer */
 
-#ConteneurFooter{
+#ConteneurFooter {
     margin: auto;
 }
 
@@ -8,8 +8,11 @@
 
 #FooterHaut {
     margin: auto 5% auto 5%;
-    display: inline-flex;
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px 10px 20px 10px;
 }
 
 #FooterHaut div {
@@ -17,7 +20,7 @@
 }
 
 #SectionGauche {
-    width: 40%;
+    width: 50%;
 }
 
 #TitreSectionGauche {
@@ -30,18 +33,19 @@
 
 #SectionDroite {
     display: inline-flex;
+    margin: auto;
 }
 
-#SectionDroite h2{
+#SectionDroite h2 {
     opacity: 60%;
 }
 
-#SectionDroite div {
-    margin-right: 15px;
+.column {
+    padding: 15px;
 }
 
 
-#SectionDroite h3{
+#SectionDroite h3 {
     opacity: 40%;
 }
 
@@ -63,27 +67,25 @@
 
 #NomSite {
     padding: 5px;
-    margin-left: 5px;
-
 }
 
 #NomsSections {
     display: inline-flex;
-    padding: 5px;
-}
-
-h3 {
-    padding: 5px;
-}
-
-#SectionIcones {
-    display: inline-flex;
     margin: auto;
 }
 
+#NomsSections div {
+    padding: 0px 20px 0px 20px;
+}
+
+/*Images Footer Bas */
+#SectionIcones {
+    display: inline-flex;
+    margin: auto 2% auto auto;
+}
+
 #SectionIcones img {
-    
-    margin: 5px;
+    padding: 5px;
 }
 
 @media (prefers-color-scheme: light) {

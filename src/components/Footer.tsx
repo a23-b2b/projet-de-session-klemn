@@ -45,7 +45,7 @@ function Footer() {
                     <div id={styles["SectionDroite"]}>
                         {/* Section Droite */}
 
-                        <div>
+                        <div className={styles.column}>
                             {/* Col 1 */}
                             <div>
                                 {/* Titre col 1 */}
@@ -84,7 +84,7 @@ function Footer() {
 
                         </div>
 
-                        <div>
+                        <div className={styles.column}>
                             {/* Col 2 */}
 
                             <div>
@@ -123,10 +123,10 @@ function Footer() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className={styles.column}>
                             {/* Col 3 */}
 
-                            <div>
+                            <div >
                                 {/* Titre col 3 */}
                                 <h2>Support</h2>
                             </div>

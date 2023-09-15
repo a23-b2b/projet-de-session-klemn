@@ -42,7 +42,7 @@ function LoginForm() {
     return (
 
         <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Connexion</h2>
+            <h2 className={'global_title'}>Connexion</h2>
             <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
                 <div className={styles.form}>
                     <label className={'global_input_field_label'}>Courriel</label>

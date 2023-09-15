@@ -97,7 +97,7 @@ function RegisterForm() {
                         type="tel"
                         onChange={(e) => setTelephone(e.target.value)} />
 
-                    <button className={'global_button'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                    <button  className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                         Inscription
                     </button>
                 </div>

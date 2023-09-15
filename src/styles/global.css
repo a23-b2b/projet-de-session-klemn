@@ -46,7 +46,9 @@ body {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--auto_text_color);
     accent-color: var(--auto_accent_color);
+    min-height: 55vh;
     padding-top: 150px;
+    padding-bottom: 20px;
     transition: 0.3s;
     accent-color: var(--accent_color_dark);
 }
@@ -86,15 +88,6 @@ body {
     /* background-color: rgba(255, 255, 255, 0.7); */
 }
 
-.global_bouton {
-    padding: 10px 20px;
-    border: 0px;
-    width: fit-content;
-    border-radius: 100px;
-    color: var(--text_color_dark);
-    background-color: var(--accent_color_dark);
-    font-weight: bold;
-}
 
 .global_bouton {
     margin: 10px auto auto auto;

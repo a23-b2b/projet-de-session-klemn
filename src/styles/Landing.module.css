@@ -1,9 +1,8 @@
 #ConteneurLanding {
 padding-top:5%;
-min-height: 50vh;
-background-color: rgb(20, 14, 23);
-margin-left: 10%;
-margin-right: 10%;
+padding-bottom: 5%;
+margin-left: 5%;
+margin-right: 5%;
 }
 
 .flexbox {
@@ -22,6 +21,8 @@ margin-right: 10%;
 
 .paragraphe {
     display: inline-flex;
+    margin-bottom: 5%;
+
     
 }
 
