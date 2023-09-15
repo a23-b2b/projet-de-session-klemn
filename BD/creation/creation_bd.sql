@@ -33,18 +33,20 @@ CREATE TABLE type_post
 
 CREATE TABLE post
 (
-    id_post          VARCHAR(255)  NOT NULL
+    id_post             VARCHAR(255)  NOT NULL
         PRIMARY KEY,
-    id_compte        VARCHAR(255)  NOT NULL,
-    id_parent        VARCHAR(255)  NULL,
-    id_type_post     INT           NULL,
-    id_infos         VARCHAR(255)  NULL,
-    titre            VARCHAR(255)  NULL,
-    contenu          VARCHAR(4000) NOT NULL,
-    nombre_likes     INT           NOT NULL,
-    nombre_reposts   INT           NOT NULL,
-    nombre_partages  INT           NOT NULL,
-    date_publication DATETIME      NOT NULL,
+    id_compte           VARCHAR(255)  NOT NULL,
+    id_parent           VARCHAR(255)  NULL,
+    id_type_post        INT           NULL,
+    id_infos            VARCHAR(255)  NULL,
+    titre               VARCHAR(255)  NULL,
+    contenu             VARCHAR(4000) NOT NULL,
+    nombre_likes        INT           NOT NULL,
+    nombre_dislikes     INT           NOT NULL,
+    nombre_reposts      INT           NOT NULL,
+    nombre_commentaires INT           NOT NULL,
+    nombre_partages     INT           NOT NULL,
+    date_publication    DATETIME      NOT NULL,
     CONSTRAINT post_compte_id_compte_fk
         FOREIGN KEY (id_compte) REFERENCES compte (id_compte),
     CONSTRAINT post_post_id_post_fk
