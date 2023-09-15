@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PosteBlogue from '../components/PosteBlogue';
 import toast from 'react-hot-toast';
 import { BlogueProp } from '../components/PosteBlogue';
@@ -17,6 +17,11 @@ export interface PostProp {
     type: string;
     status: boolean;
     meilleureReponse: number;
+    nombreLike: number;
+    nombrePartage: number;
+    nombreCommentaire: number;
+    nombreDislike: number; 
+    idCompte: string;
 }
 
 
@@ -94,13 +99,15 @@ function Blogue() {
                                     titre={post.titre}
                                     contenu={post.contenu}
                                     type={post.type}
+                                    idCompte={post.idCompte}
+                                    
                                 />
                             </div>
                             )
 
                         }
 
-                        if (post.type == "Question") {
+                        else if (post.type == "Question") {
                             <div className='conteneurComposantPosteQuestion'>
                                 <PosteQuestion
                                     idPost={post.idPost}
@@ -113,12 +120,16 @@ function Blogue() {
                                     type={post.type}
                                     status={post.status}
                                     meilleureReponse={post.meilleureReponse}
+                                    idCompte={post.idCompte}
                                 />
                             </div>
                         }
                     })
                 }
             </div>
+            <Link to={""}>
+                <button>Charger post plus ancien</button>
+            </Link>
         </div>
     );
 }

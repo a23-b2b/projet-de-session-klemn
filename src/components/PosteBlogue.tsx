@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
@@ -10,6 +11,11 @@ export interface BlogueProp {
     titre: string;
     contenu: string;
     type: string;
+    idCompte: string; 
+    nombreLike: number;
+    nombreDislike: number; 
+    nombrePartage: number;
+    nombreCommentaire: number;
 }
 
 function PosteBlogue(props: BlogueProp) {
@@ -53,9 +59,12 @@ function PosteBlogue(props: BlogueProp) {
 
                 <div>
                     {/* Titre du post*/}
-                    <a href={ "http://localhost:1111/p/" + props.idPost.toString() }>
+                    {/* <a href={ "http://localhost:1111/p/" + props.idPost.toString() }>
                         <h2 className={styles.titre}>{props.titre}</h2>
-                    </a>
+                    </a> */}
+                    <Link to={`/p/${props.idCompte}`}>
+                        <h2 className={styles.titre}>{props.titre}</h2>
+                    </Link>
                 </div>
 
                 <div>

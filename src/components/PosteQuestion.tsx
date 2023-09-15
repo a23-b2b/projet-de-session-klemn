@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
@@ -12,6 +13,11 @@ export interface QuestionProp {
     type: string;
     status: boolean;
     meilleureReponse: number;
+    idCompte: string;
+    nombreLike: number;
+    nombreDislike: number; 
+    nombrePartage: number;
+    nombreCommentaire: number;
 }
 
 
@@ -23,7 +29,7 @@ function PosteQuestion(props: QuestionProp) {
                 {/* Section Info */}
                 <div>
                     {/* Date du post*/}
-                    <p className={styles.date}>props.date</p>
+                    <p className={styles.date}>{props.date}</p>
                 </div>
 
                 <div>
@@ -34,11 +40,12 @@ function PosteQuestion(props: QuestionProp) {
             </div>
             <div id={styles["SectionHaut"]}>
                 {/* Section Haut */}
-
-                <div>
-                    {/* Icone Utilisateur */}
-                    <img src={user} width="40" height="40" alt="User" />
-                </div>
+                <Link to={`/p/${props.idCompte}`}>
+                    <div>
+                        {/* Icone Utilisateur */}
+                        <img src={user} width="40" height="40" alt="User" />
+                    </div>
+                </Link>
 
                 <div>
                     {/* Nom Utilisateur et @*/}
@@ -54,10 +61,11 @@ function PosteQuestion(props: QuestionProp) {
 
                 <div id={styles["TitreQuestion"]}>
                     {/* Titre du post*/}
-
-                    <div>
-                        <h2 className={styles.titre}>{props.titre}</h2>
-                    </div>
+                    <Link to={`/p/${props.idPost}`}>
+                        <div>
+                            <h2 className={styles.titre}>{props.titre}</h2>
+                        </div>
+                    </Link>
                     <div>
                         <p className={styles.question}>Résolu: {props.status}</p>
                     </div>
@@ -72,22 +80,19 @@ function PosteQuestion(props: QuestionProp) {
                 {props.meilleureReponse && (
                     <div>
                         {/* Meilleur reponse */}
-                        <a href=''>
                             <p className={styles.meilleureReponse}>
                                 {props.meilleureReponse}
                             </p>
-                        </a>
                     </div>
                 )}
 
                 {!props.meilleureReponse && (
                     <div>
                         {/* Pas de reponse */}
-                        <a href=''>
+        
                             <p className={styles.meilleureReponse}>
                                 pas de reponse
                             </p>
-                        </a>
                     </div>
                 )}
 
