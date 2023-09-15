@@ -12,7 +12,7 @@ function Landing() {
 
     return (
 
-        <div className={styles.flexbox} id={styles["ConteneurLanding"]}>
+        <div className={styles.flexbox}>
             <div className={styles.flex_child}>
 
                 {formIsLogin && (
@@ -46,7 +46,7 @@ function Landing() {
                 )}
 
             </div>
-            <div className={styles.flex_child} id={styles["ConteneurContenu"]} >
+            <div className='global_conteneurCouleur' >
                 <h2>Contenu a droite ici!!</h2>
                 <p className={styles.p}>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.

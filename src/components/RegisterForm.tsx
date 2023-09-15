@@ -54,7 +54,7 @@ function RegisterForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
+        <div className={'global_conteneur'}>
             <h2 className={'global_title'}>Inscription</h2>
             <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>

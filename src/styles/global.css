@@ -21,6 +21,8 @@
     --gradient_dark_secondary:  linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
     --gradient_light_secondary: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary));
 
+    --gradient_dark_secondary_opacity: linear-gradient(rgba(255, 187, 0, 0.6), rgba(255, 111, 0, 0.6), rgba(255, 0, 72, 0.6));
+
     --logo_image_dark:"/../images/logo.png";
     --logo_image_light:"/../images/logo.png";
 
@@ -69,7 +71,7 @@ body {
     margin-bottom: -6px;
     font-size: 17px;
     font-weight: bold;
-    opacity: 90%;
+    opacity: 70%;
     padding: 5px;
 }
 
@@ -81,7 +83,6 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    border-radius: 12px;
     border: 1.5px solid white;
     background-color: rgba(255, 255, 255, 0.381);
     color: #ffffff;
@@ -97,6 +98,32 @@ body {
     border-radius: 20px;
     color: rgb(20, 14, 23);
     font-weight: bold;
+
+}
+
+.global_conteneur {
+    border-radius: 20px;
+    border: 1.5px solid white;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.global_conteneurCouleur{
+    background-image:var(--gradient_dark_secondary);
+    border-radius: 70px;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+.global_conteneurCouleurOpacity {
+    border-radius: 20px;
+    border: 1.5px solid white;
+    padding: 20px;
+    background-image: var(--gradient_dark_secondary_opacity);
+    background-color: rgba(255, 255, 255, 0.763);
 
 }
 
