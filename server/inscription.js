@@ -56,6 +56,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query.", err)
                     console.log(err)
+                    res.send(JSON.stringify(err))
                 } 
             }
         );
