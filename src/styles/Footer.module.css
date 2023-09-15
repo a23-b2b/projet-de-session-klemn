@@ -1,13 +1,15 @@
+/* Footer */
+
 #ConteneurFooter{
     margin: auto;
 }
 
+/*Footer Top Part */
 
 #FooterHaut {
+    margin: auto 5% auto 5%;
     display: inline-flex;
-    font-size: 14px;
     padding: 10px;
-
 }
 
 #FooterHaut div {
@@ -15,22 +17,19 @@
 }
 
 #SectionGauche {
-    width: 50%;
-    margin-left: 5%;
+    width: 40%;
 }
 
-#TitreSection {
+#TitreSectionGauche {
     opacity: 60%;
 }
 
-#DescriptionSection {
+#DescriptionSectionGauche {
     opacity: 40%;
 }
 
-
 #SectionDroite {
     display: inline-flex;
-    margin-left: 3%;
 }
 
 #SectionDroite h2{
@@ -38,7 +37,7 @@
 }
 
 #SectionDroite div {
-    margin-right: 5%;
+    margin-right: 15px;
 }
 
 
@@ -46,6 +45,7 @@
     opacity: 40%;
 }
 
+/*Footer Bottom Part */
 
 #FooterBas {
     display: inline-flex;
@@ -54,8 +54,14 @@
     font-size: 10px;
 }
 
+#Liens {
+    display: inline-flex;
+    width: 100%;
+    margin-left: 2%;
+
+}
+
 #NomSite {
-    color: rgb(213, 213, 213);
     padding: 5px;
     margin-left: 5px;
 
@@ -63,12 +69,11 @@
 
 #NomsSections {
     display: inline-flex;
-    color: rgb(151, 151, 151);
     padding: 5px;
 }
 
-#NomsSections h3 {
-    padding: 3px;
+h3 {
+    padding: 5px;
 }
 
 #SectionIcones {

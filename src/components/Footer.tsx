@@ -24,10 +24,10 @@ function Footer() {
 
                         <div>
                             {/* Description */}
-                            <div id={styles["TitreSection"]}>
+                            <div id={styles["TitreSectionGauche"]}>
                                 <h2>Titre section</h2>
                             </div>
-                            <div id={styles["DescriptionSection"]}>
+                            <div id={styles["DescriptionSectionGauche"]}>
                                 <h3>Curabitur id vestibulum nulla.
                                     Phasellus vehicula sem odio, non posuere tortor porta at.
                                     Integer tempor rutrum lorem, sed sagittis lacus commodo ac.
@@ -168,11 +168,13 @@ function Footer() {
                 <div id={styles["FooterBas"]}>
                     {/* Footer section bas*/}
 
-                    <div id={styles["FooterBas"]}>
+                    <div id={styles["Liens"]}>
                         {/* Section liens*/}
 
                         <div id={styles["NomSite"]}>
-                            <h2>@2023 KLEMN, Inc.</h2>
+                            <Link to={'/'} className='link'>
+                                <h2>@2023 KLEMN, Inc.</h2>
+                            </Link>
                         </div>
                         <div id={styles["NomsSections"]}>
                             <div>
