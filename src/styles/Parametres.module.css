@@ -11,7 +11,7 @@
 
 .sidebar {
     width: 400px;
-    background-color: rgb(255, 234, 0);
+    background-color: rgba(255, 255, 255, 0.081);
     border-radius: 16px;
 }
 
@@ -19,12 +19,26 @@
     border-radius: 12px 12px 6px 6px;
 }
 
+.selected {
+    font-weight: 700;
+    background-color: rgba(119, 119, 119, 0.215);
+}
+
+.link {
+    text-decoration: none;
+    color: var(--auto_text_color);
+}
+
 .settings_link {
     flex-grow: 1;
     font-size: 1.2rem;
-    font-weight: 600;
     margin: 4px;
-    background-color: red;
     padding: 10px 20px;
     border-radius: 6px;
+    transition: 0.2s;
+}
+
+.settings_link:hover {
+    background-color: rgba(119, 119, 119, 0.367);
+    transition: 0.2s;
 }

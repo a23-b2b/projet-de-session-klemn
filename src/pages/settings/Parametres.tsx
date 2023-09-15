@@ -11,6 +11,8 @@ function Parametres() {
     const [firebaseLoading, setFirebaseLoading] = useState(true);
     const [loggedIn, setLoggedIn] = useState(false);
 
+    const [selectedSettingsItem, setSelectedSettingsItem] = useState(0);
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -23,7 +25,7 @@ function Parametres() {
                 setLoggedIn(false)
             }
         })
-    })
+    }, [loggedIn]);
 
     if (!loggedIn && !firebaseLoading) {
         navigate('/')
@@ -33,10 +35,11 @@ function Parametres() {
         <div className={styles.body}>
             <div className={styles.container}>
                 <div className={styles.sidebar}>
-
-                    <Link className={styles.link} to={'profil'}>
-                        <div className={styles.settings_link} id={styles.first_link}>Profil</div>
+                    
+                    <Link className={styles.link} to={'profil'} onClick={() => setSelectedSettingsItem(1)} >
+                        <div className={`${styles.settings_link} ${selectedSettingsItem === 1 ? styles.selected : ''}`} id={styles.first_link}>Profil</div>
                     </Link>
+                    
                 </div>
 
                 <div className={styles.content}>
