@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import BlogueForm from "../components/BlogueForm";
+import {useState} from "react";
 
 function Blogue() {
     const navigate = useNavigate()
@@ -7,6 +9,7 @@ function Blogue() {
         <div>
             <div >
                 <h1>Page Blogue </h1>
+                <BlogueForm/>
             </div>
 
         </div>
