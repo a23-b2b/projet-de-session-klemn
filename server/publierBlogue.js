@@ -20,7 +20,6 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
-        const id_post = crypto.randomBytes(24).toString('hex');
         const id_compte = req.body.id_compte;
         const titre = req.body.titre;
         const contenu = req.body.contenu;
@@ -29,8 +28,8 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
         mysqlConnection.query(
             `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
                                nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-             VALUES (?, ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());`,
-            [id_post, id_compte, titre, contenu],
+             VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());`,
+            [id_compte, titre, contenu],
             function (err, results, fields) {
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query.", err)
