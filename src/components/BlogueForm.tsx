@@ -1,8 +1,8 @@
 import styles from '../styles/BlogueForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -11,23 +11,31 @@ function BlogueForm() {
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
-    function publierBlogue() {
+    async function publierBlogue() {
+        // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
-                fetch('http://localhost:1111/publier-blogue', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        id_compte: utilisateur.uid,
-                        titre: titre,
-                        contenu: contenu
-                    }),
-                }).then(() => {
-                    toast.success('Votre message a été publié!');
-                }).catch((error) => {
-                    toast.error('Une erreur est survenue');
-                })
+                utilisateur.getIdToken(/* forceRefresh */ true)
+                    .then((idToken) => {
+                        fetch('http://localhost:1111/publier-blogue', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                id_compte: utilisateur.uid,
+                                titre: titre,
+                                contenu: contenu,
+                                firebase_id_token: idToken
+                            }),
+                        }).then(response => response.json())
+                        .then(response => {
+                            console.log(response)
+                            toast.success('Votre message a été publié!');
+                        }).catch((error) => {
+                            toast.error('Une erreur est survenue');
+                        })
+                    })
+
             } else {
                 toast.error('Le contenu de la publication ne peut pas être vide.')
             }
@@ -51,13 +59,14 @@ function BlogueForm() {
 
                 <label className={'global_input_field_label'}>Contenu</label>
                 <textarea className={'global_input_field'}
-                          rows={10}
-                          maxLength={4000}
-                          placeholder="Exprimez-vous!"
-                          onChange={e => {
-                              setContenu(e.target.value)
-                              setNbCaracteres(e.target.textLength)
-                          }}></textarea>
+                    rows={10}
+                    maxLength={4000}
+                    placeholder="Exprimez-vous!"
+                    value={contenu}
+                    onChange={e => {
+                        setContenu(e.target.value)
+                        setNbCaracteres(e.target.textLength)
+                    }}></textarea>
             </div>
             <span>{nbCaracteres}/4000</span>
             <button className={'global_bouton'} onClick={() => publierBlogue()}>

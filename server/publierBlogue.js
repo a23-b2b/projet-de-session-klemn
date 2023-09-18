@@ -12,7 +12,8 @@ const mysqlConnection = mysql.createConnection({
     port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    database: process.env.MYSQL_DATABASE,
+    multipleStatements: true
 })
 
 
@@ -23,6 +24,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
         const id_compte = req.body.id_compte;
         const titre = req.body.titre;
         const contenu = req.body.contenu;
+        const idToken = req.body.firebase_id_token
 
 
         mysqlConnection.query(
