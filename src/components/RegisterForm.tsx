@@ -39,7 +39,7 @@ function RegisterForm() {
                 })
             }).then(() => {
                 toast.success('Vous êtes connecté!')
-                navigate('/accueil')
+                navigate('/accueilConnecte')
             })
             .catch((error) => {
                 switch (error.code) {
@@ -55,7 +55,7 @@ function RegisterForm() {
 
     return (
         <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Inscription</h2>
+            <h2 className={'global_title'}>Inscription</h2>
             <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>
 
@@ -97,7 +97,7 @@ function RegisterForm() {
                         type="tel"
                         onChange={(e) => setTelephone(e.target.value)} />
 
-                    <button className={'global_button'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                    <button  className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                         Inscription
                     </button>
                 </div>

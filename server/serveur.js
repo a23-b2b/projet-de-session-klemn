@@ -8,12 +8,21 @@ const mysql = require('mysql2')
 const cors = require('cors')
 const logger = require('./logger.js');
 const app = express()
+const admin = require('firebase-admin');
+const dotenv = require('dotenv');
+
+
+const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
+module.exports = admin.initializeApp({
+    credential: admin.credential.cert(firebaseServiceAccount)
+});
+
+
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors());
 
 // Paramètre env
-const dotenv = require('dotenv');
 dotenv.config();
 
 // Formatage et config de morgan !

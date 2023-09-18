@@ -8,6 +8,7 @@ import Forum from "./pages/Forum"
 import Blogue from "./pages/Blogue";
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
+import Blogue from "./pages/Blogue";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
 
@@ -25,7 +26,7 @@ function Layout() {
                     <Route path="/" element={<Landing />} />
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
-                    <Route path="/blogue" element={<Blogue />}/>
+                    <Route path="/blogue" element={<Blogue/>} />
                     <Route path="/projets" element={<Projets />} />
                     <Route path="/profil/:username" element={<Profil />} />
                 </Routes>

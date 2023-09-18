@@ -1,37 +1,40 @@
 #HeaderConnecte {
     background: var(--gradient_dark);
+    z-index:100;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+    
 }
+
 
 #IconeUtilisateur {
     text-align: right;
-    padding: 2%;
+    padding: 7px;
 }
 
 
-#HeaderSection2 {
+
+#HeaderHaut {
     display: inline-flex;
     text-align: center;
     width: 100%;
+    padding: 20px 20px 10px 20px;
+    
 }
 
-#HeaderSection2 div {
+#HeaderHaut div {
     margin: auto;
 }
 
-#HeaderSection2 h1 {
+#HeaderHaut h1 {
     padding: 5px;
     width: 100%
 }
 
-#BarreNavigation {
-    text-align: center;
-}
 
-#BarreNavigation {
-    width: 35%;
-    margin: auto;
-    margin-bottom: 2%;
-}
 
 @media (prefers-color-scheme: light) {
     #HeaderConnecte {
