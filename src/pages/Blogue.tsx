@@ -3,7 +3,8 @@ import PosteBlogue from '../components/PosteBlogue';
 import toast from 'react-hot-toast';
 import { request } from 'http';
 import { BlogueProp } from '../components/PosteBlogue';
-
+import BlogueForm from "../components/BlogueForm";
+import {useState} from "react";
 
 function Blogue() {
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ function Blogue() {
                         contenu = {blogue.contenu}
                     />
                 </div>
+                <BlogueForm/>
             </div>
 
         </div>

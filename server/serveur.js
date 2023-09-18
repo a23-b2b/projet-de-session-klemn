@@ -36,6 +36,8 @@ app.use('/inscription', inscription);
 const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
 
+const publierBlogue = require('./publierBlogue')
+app.use('/publier-blogue', publierBlogue);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
