@@ -29,6 +29,7 @@ function PosteBlogue(props: BlogueProp) {
 
             <PostContent
                 titre={props.titre}
+                idPost={props.idPost}
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
