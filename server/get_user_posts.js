@@ -21,7 +21,8 @@ module.exports = app.get('/:user_id', (req, res) => {
         from 
         post 
         where 
-        id_compte like ?;
+        id_compte like ?
+        order by date_publication desc;
     `, 
     [req.params.user_id],
     function (err, results, fields) {
