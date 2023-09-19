@@ -3,7 +3,7 @@ import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
 
 export interface QuestionProp {
-    idPost: number;
+    idPost: string;
     date: string;
     nom: string;
     prenom: string;
