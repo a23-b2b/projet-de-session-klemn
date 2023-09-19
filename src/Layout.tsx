@@ -28,6 +28,10 @@ function Layout() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/blogue" element={<Blogue/>} />
                     <Route path="/projets" element={<Projets />} />
+                    {/* 
+                    <Route path="/p/:id" element={composant post utilisateur zoomé + commentaires} /> 
+                    <Route path="/u/:id" element={composant page profil public} /> 
+                    */}
                     <Route path="/profil/:username" element={<Profil />} />
                 </Routes>
                 <Footer/>

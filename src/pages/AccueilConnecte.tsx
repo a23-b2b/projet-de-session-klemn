@@ -16,7 +16,6 @@ function AccueilConnecte() {
             {/*<PosteBlogue/> */}
             </div>
             <div style={{ maxWidth: "700px"}}>
-            <PosteQuestion/>
             </div>
 
         </div>
