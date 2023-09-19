@@ -92,8 +92,7 @@ function Blogue() {
                     <PosteBlogue
                         idPost={'1234'}
                         date={'2023-01-01'}
-                        nom={'bob'}
-                        prenom={'gratton'}
+                        nomAffichage={'bob'}
                         nomUtilisateur={'stephkill3r'}
                         titre={'mon post'}
                         contenu={'lorem ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum'}
