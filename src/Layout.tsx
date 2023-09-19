@@ -5,7 +5,6 @@ import AccueilConnecte from "./pages/AccueilConnecte";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Forum from "./pages/Forum"
-import Blogue from "./pages/Blogue";
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
@@ -27,6 +26,10 @@ function Layout() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/blogue" element={<Blogue/>} />
                     <Route path="/projets" element={<Projets />} />
+                    {/* 
+                    <Route path="/p/:id" element={composant post utilisateur zoomé + commentaires} /> 
+                    <Route path="/u/:id" element={composant page profil public} /> 
+                    */}
                     <Route path="/profil/:username" element={<Profil />} />
                 </Routes>
                 <Footer/>
