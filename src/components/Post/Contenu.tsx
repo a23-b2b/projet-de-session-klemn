@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from '../../styles/Post.module.css'
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 
 interface ContentProps {
     titre?: string;
     contenu: string;
+    idPost: string;
     isPostFullScreen: Boolean;
 }
 
@@ -48,7 +50,22 @@ const PostContent = (props: ContentProps) => {
 
     return (
         <div className={styles.contenu}>
-            <h2>{props.titre}</h2>
+
+            {
+                props.isPostFullScreen ?
+
+                    <h2 className={styles.titre}>
+                        {props.titre}
+                    </h2>
+                    :
+                    <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                        <h2>
+                            {props.titre}
+                        </h2>
+                    </Link>
+            }
+
+
 
 
             <motion.div>
