@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import user from '../images/user.png';
 import styles from '../styles/Post.module.css'
+import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
+import { BsFillReplyAllFill } from 'react-icons/bs'
 
 export interface BlogueProp {
     idPost: string;
@@ -11,68 +13,71 @@ export interface BlogueProp {
     titre: string;
     contenu: string;
     type: string;
-    idCompte: string; 
+    idCompte: string;
     nombreLike: number;
-    nombreDislike: number; 
+    nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
 }
 
 function PosteBlogue(props: BlogueProp) {
     return (
-        <div id={styles["ConteneurPost"]}>
-            {/* Post Blogue */}
-            <div id={styles["SectionInfo"]}>
-                {/* Section Info */}
-                <div>
-                    {/* Date du post*/}
-                    <p className={styles.date}>{ props.date }</p>
+        <div className={styles.container}>
+
+            <div className={styles.header}>
+
+                <div className={styles.header_content}>
+
+                    <img className={styles.image_profil} src='https://fr.web.img6.acsta.net/medias/nmedia/18/71/84/20/19146888.jpg' />
+
+                    <div className={styles.user_info}>
+                        <p className={styles.display_name}>{props.nom} {props.prenom}</p>
+                        <p className={styles.username}>@{props.nomUtilisateur}</p>
+                    </div>
+
                 </div>
 
-                <div>
-                    {/* Autre fonctionnalitées */}
-                    <p className={styles.autre}>⋮</p>
-                </div>
-
-            </div>
-            <div id={styles["SectionHaut"]}>
-                {/* Section Haut */}
-
-                <div>
-                    {/* Icone Utilisateur */}
-                    <img src={user} width="40" height="40" alt="User" />
-                </div>
-
-                <div>
-                    {/* Nom Utilisateur et @*/}
-                    <a href={ "http://localhost:1111/u/" + props.nomUtilisateur }>
-                        <h3 className={styles.nom}>{props.prenom} {props.nom}</h3>
-                        <h4 className={styles.nomUtilisateur}>@{props.nomUtilisateur}</h4>
-                    </a>
-                </div>
-
-
+                <p className={styles.date}>{props.date}</p>
             </div>
 
-            <div id={styles["SectionBas"]}>
-                {/* Section Bas */}
-
+            <div className={styles.contenu}>
                 <div>
-                    {/* Titre du post*/}
-                    {/* <a href={ "http://localhost:1111/p/" + props.idPost.toString() }>
-                        <h2 className={styles.titre}>{props.titre}</h2>
-                    </a> */}
-                    <Link to={`/p/${props.idCompte}`}>
-                        <h2 className={styles.titre}>{props.titre}</h2>
+                    <Link className={styles.titre} to={`/p/${props.idPost}`}>
+                        <h2>{props.titre}</h2>
                     </Link>
                 </div>
 
                 <div>
-                    {/* Description du post*/}
-                    <p className={styles.description}>
-                        {props.contenu}</p>
+                    <p className={styles.description}>{props.contenu.length > 250 ? `${props.contenu.slice(0, 247)}...` : props.contenu}</p>
                 </div>
 
+            </div>
+
+            <div className={styles.footer}>
+
+                <div className={styles.bouton_interraction} id={styles.bouton_interraction_reply}>
+                    <BsFillReplyAllFill className={styles.icone} id={styles.icone_reply} />
+                    <span className={styles.interraction_count}>{props.nombreCommentaire}</span>
+                </div>
+
+                <div className={styles.like_dislike_container}>
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_like}>
+                        <AiFillLike className={styles.icone} id={styles.icone_like} />
+                    </div>
+
+                    <span className={styles.interraction_count}>{props.nombreLike - props.nombreDislike}</span>
+
+
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_dislike}>
+                        <AiFillDislike className={styles.icone} id={styles.icone_dislike} />
+                    </div>
+                </div>
+
+
+                <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
+                    <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
+                    <span className={styles.interraction_count}>{props.nombrePartage}</span>
+                </div>
             </div>
         </div>
     );
