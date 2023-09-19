@@ -4,7 +4,7 @@ import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/PosteBlogue';
+import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
 
 function Profil() {
