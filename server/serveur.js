@@ -13,10 +13,9 @@ const dotenv = require('dotenv');
 
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
-module.exports = admin.initializeApp({
+exports.admin = adminApp = admin.initializeApp({
     credential: admin.credential.cert(firebaseServiceAccount)
 });
-
 
 app.use(express.json())
 app.use(express.urlencoded())
