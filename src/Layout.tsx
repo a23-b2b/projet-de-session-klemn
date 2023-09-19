@@ -7,7 +7,6 @@ import Footer from "./components/Footer";
 import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
-import Blogue from "./pages/Blogue";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
 
