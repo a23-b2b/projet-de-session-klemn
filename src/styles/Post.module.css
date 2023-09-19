@@ -25,6 +25,8 @@
 .user_info {
     padding-left: 15px;
     line-height: 0.2;
+    text-decoration: none;
+    color: var(--auto_text_color)
 }
 
 

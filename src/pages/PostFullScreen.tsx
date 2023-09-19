@@ -38,8 +38,8 @@ function PostFullScreen() {
                 <Post
                     idPost={postData.id_post}
                     date={postData.date_publication}
-                    nomAffichage={'a faire'}
-                    nomUtilisateur={'a faire'}
+                    nomAffichage={postData.nom_affichage}
+                    nomUtilisateur={postData.nom_utilisateur}
                     titre={postData.titre}
                     contenu={postData.contenu}
                     idCompte={postData.id_compte}
