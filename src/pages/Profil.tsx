@@ -4,6 +4,7 @@ import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PosteBlogue from '../components/PosteBlogue';
 
 function Profil() {
     let { username } = useParams();
@@ -12,39 +13,64 @@ function Profil() {
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [displayName, setDisplayName] = useState('');
-    const [dateCreationCompte, setDateCreationCompte] = useState('');    
+    const [dateCreationCompte, setDateCreationCompte] = useState('');
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
     const [nombreAbonnements, setNombreAbonnements] = useState(0);
     const [bio, setBio] = useState('');
-    const [urlImageProfil,setUrlImageProfil] = useState('');
+    const [urlImageProfil, setUrlImageProfil] = useState('');
     const [urlImageBanniere, setUrlImageBanniere] = useState('');
 
-    useEffect(() => {  
+    const [idCompte, setIdCompte] = useState('')
+
+    const [userPosts, setUserPosts] = useState<any[]>([])
+    const [loadingPosts, setLoadingPosts] = useState(true)
+
+    useEffect(() => {
         fetch(`http://localhost:1111/profil/${username}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
-        .then(response => response.json())
-        .then(response => {
-            let data = response[0]
+            .then(response => response.json())
+            .then(response => {
+                let data = response[0]
 
-            if (!data) {
-                navigate("/404")
-            }
+                if (!data) {
+                    navigate("/404")
+                }
+                setIdCompte(data.id_compte)
+                setNom(data.nom)
+                setPrenom(data.prenom)
+                setDisplayName(data.nom_affichage ? data.nom_affichage : username)
+                setDateCreationCompte(data.date_creation_compte)
+                setNombreAbonnes(data.nombre_abonnes)
+                setNombreAbonnements(data.nombre_abonnements)
+                setBio(data.biographie)
+                setUrlImageProfil(data.url_image_profil)
+                setUrlImageBanniere(data.url_image_banniere)
 
-            setNom(data.nom)
-            setPrenom(data.prenom)
-            setDisplayName(data.nom_affichage ? data.nom_affichage : username)
-            setDateCreationCompte(data.date_creation_compte)
-            setNombreAbonnes(data.nombre_abonnes)
-            setNombreAbonnements(data.nombre_abonnements)
-            setBio(data.biographie)
-            setUrlImageProfil(data.url_image_profil)
-            setUrlImageBanniere(data.url_image_banniere)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+                return data.id_compte;
+
+            }).then((userId) => {
+                fetch(`http://localhost:1111/user-posts/${userId}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(response => response.json())
+                    .then(response => {
+                        let data = response;
+
+                        setUserPosts(data);
+                        setLoadingPosts(false);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+
+
     }, [username]);
 
     return (
@@ -72,14 +98,42 @@ function Profil() {
                 <p className={styles.bio}>{bio}</p>
             </div>
 
-            <div className={styles.content}>
-                <div className={styles.temporaire_post} />
-                <div className={styles.temporaire_post} />
-                <div className={styles.temporaire_post} />
-                <div className={styles.temporaire_post} />
-                <div className={styles.temporaire_post} />
-                <div className={styles.temporaire_post} />
-            </div>
+            {loadingPosts && (
+                <div>Chargement...</div>
+            )}
+
+            {userPosts?.map(({
+                contenu,
+                date_publication,
+                id_compte,
+                id_infos,
+                id_parent,
+                id_post,
+                id_type_post,
+                nombre_commentaires,
+                nombre_dislikes,
+                nombre_likes,
+                nombre_partages,
+                nombre_reposts,
+                titre
+            }) => {
+                return (
+                    <PosteBlogue
+                        idPost={id_post}
+                        date={date_publication}
+                        nomAffichage={displayName}
+                        nomUtilisateur={username + ''}
+                        titre={titre}
+                        contenu={contenu}
+                        type={id_type_post}
+                        idCompte={id_compte}
+                        nombreLike={nombre_likes}
+                        nombreDislike={nombre_dislikes}
+                        nombrePartage={nombre_partages}
+                        nombreCommentaire={nombre_commentaires} />
+                )
+            })}
+
         </div>
     );
 }
