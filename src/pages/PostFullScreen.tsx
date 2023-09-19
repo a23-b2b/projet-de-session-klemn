@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Post from '../components/Post';
+import SectionReponses from '../components/SectionReponses';
 
 
 
@@ -25,8 +26,6 @@ function PostFullScreen() {
                 }
 
                 setPostData(data)
-
-                console.log(postData)
             })
             .catch((error) => {
                 console.log(error)
@@ -51,6 +50,8 @@ function PostFullScreen() {
                     isPostFullScreen={true}
                     type={postData.id_type_post}
                 />
+
+                <SectionReponses/>
             </div>
         );
     }
