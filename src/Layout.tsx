@@ -9,6 +9,7 @@ import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
+import Blogue from "./pages/Blogue";
 
 function Layout() {
     return (
