@@ -25,15 +25,12 @@ function Layout() {
                     <Route path="/" element={<Landing />} />
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
-                    <Route path="/blogue" element={<Blogue/>} />
+                    <Route path="/blogue" element={<Blogue />} />
                     <Route path="/projets" element={<Projets />} />
-                    {/* 
-                    <Route path="/p/:id" element={composant post utilisateur zoomé + commentaires} /> 
-                    <Route path="/u/:id" element={composant page profil public} /> 
-                    */}
-                    <Route path="/profil/:username" element={<Profil />} />
+                    <Route path="/u/:username" element={<Profil />} />
+                    {/* <Route path="/p/:postId" element={<PostOuvert />} /> */}
                 </Routes>
-                <Footer/>
+                <Footer />
             </BrowserRouter>
         </>
     );
