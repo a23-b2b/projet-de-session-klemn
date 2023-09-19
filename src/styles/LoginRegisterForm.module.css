@@ -1,16 +1,10 @@
 .conteneur {
     border-radius: 20px;
     border: 1.5px solid white;
-    background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
-
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
-.titre {
-    text-align: center;
-    color: white;
-
-}
 
 .form {
     display: flex;
@@ -19,44 +13,9 @@
     gap: 0.6rem;
     width: 450px;
     max-width: 550px;
-}
-
-.text_field {
-    box-sizing: border-box;
-    border-radius: 12px;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    max-width: 100%;
-    min-width: 100%;
-    border-radius: 12px;
-    border: 1.5px solid white;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.label {
-    margin-left: 8px;
-    margin-bottom: -6px;
-    font-size: 17px;
-    font-weight: bold;
-    color: rgb(151, 151, 151);
-    padding: 5px;
-}
-
-.button {
-    margin: auto;
 
 }
 
-.button button {
-    margin-top: 10px;
-    padding: 10px;
-    border: 0px;
-    width: 125px;
-    border-radius: 20px;
-    color: rgb(20, 14, 23);
-    font-weight: bold;
-}
 
 /* Ordinateur */
 @media only screen and (min-width: 601px) {

@@ -1,0 +1,127 @@
+:root {
+    
+    --text_color_dark: rgb(244, 244, 244);
+    --text_color_light: rgb(34, 34, 34);
+
+    --accent_color_dark: rgb(34, 34, 34);
+    --accent_color_light: rgb(244, 244, 244);
+
+    --background_dark: rgb(20, 14, 23);
+    --background_light: rgb(117, 10, 116);
+
+    --background_dark_secondary:rgb(73, 46, 92);
+    --background_light_secondary: rgb(184, 50, 83);
+
+    --background_dark_tertiary:rgb(96, 63, 119);
+    --background_light_tertiary: rgb(244, 165, 80) ;
+
+    --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--background_dark_secondary), transparent);
+    --gradient_light: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary), transparent);
+
+    --gradient_dark_secondary:  linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
+    --gradient_light_secondary: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary));
+
+    --logo_image_dark:"/../images/logo.png";
+    --logo_image_light:"/../images/logo.png";
+
+    /* ===================================== */
+    /* VARIABLES QUI CHANGENT SELON LE THEME */
+    /* ça utilise quand meme celles définies */
+    /* en haut, mais elles changent selon le */
+    /*         theme automatiquement         */
+    /* ===================================== */
+    --auto_text_color: var(--text_color_dark);
+    --auto_accent_color: var(--accent_color_dark);
+    --auto_background: var(--background_dark);
+    --auto_background_secondary: var(--background_dark_secondary);
+    --auto_background_tertiary: var(--background_dark_tertiary);
+    --auto_gradient: var(--gradient_dark);
+    --auto_gradient_secondary: var(--gradient_dark_secondary);
+    --auto_logo: var(--logo_image_dark);
+
+}
+
+body {
+    background-color: var(--auto_background);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: var(--auto_text_color);
+    accent-color: var(--auto_accent_color);
+    min-height: 55vh;
+    padding-top: 150px;
+    padding-bottom: 20px;
+    transition: 0.3s;
+    accent-color: var(--accent_color_dark);
+}
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--auto_text_color);
+}
+
+.global_title {
+    text-align: center;
+    color: var(--auto_text_color);
+}
+
+.global_input_field_label {
+    margin-left: 8px;
+    margin-bottom: -6px;
+    font-size: 17px;
+    font-weight: bold;
+    opacity: 90%;
+    padding: 5px;
+}
+
+.global_input_field {
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    border-radius: 12px;
+    border: 1.5px solid white;
+    background-color: rgba(255, 255, 255, 0.381);
+    color: #ffffff;
+    /* background-color: rgba(255, 255, 255, 0.7); */
+}
+
+textarea {
+    resize: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.global_bouton {
+    margin: 10px auto auto auto;
+    padding: 13px 30px 13px 30px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 20px;
+    color: rgb(20, 14, 23);
+    font-weight: bold;
+
+}
+
+
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --auto_text_color: var(--text_color_light);
+        --auto_accent_color: var(--accent_color_light);
+        --auto_background: var(--background_light);
+        --auto_background_secondary: var(--background_light_secondary);
+        --auto_background_tertiary: var(--background_light_tertiary);
+        --auto_gradient: var(--gradient_light);
+        --auto_gradient_secondary: var(--gradient_light_secondary);
+        --auto_logo: var(--logo_image_light);
+    }
+
+    .global_bouton {
+        color: var(--text_color_light);
+        background-color: var(--accent_color_light);
+    }
+}

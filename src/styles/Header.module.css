@@ -1,55 +1,43 @@
 #HeaderConnecte {
-    background-color: rgb(73, 46, 92);
+    background: var(--gradient_dark);
+    z-index:100;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
     
 }
 
 
 #IconeUtilisateur {
     text-align: right;
-    padding: 2%;
+    padding: 7px;
 }
 
 
-#HeaderSection2 {
-display: inline-flex;
-text-align: center;
-width: 100%;
-}
 
-#HeaderSection2 div{
-margin: auto;
-}
-
-#HeaderSection2 h1 {
-    padding: 5px;
-    color: rgb(213, 213, 213);
+#HeaderHaut {
+    display: inline-flex;
+    text-align: center;
     width: 100%;
+    padding: 20px 20px 10px 20px;
     
 }
 
-
-#BarreNavigation {
-text-align: center;
-}
-
-#BarreNavigation input {
-    border: 1.5px solid white ;
-    border-radius: 10px;
-    padding-left: 10px;
-    width: 35%;
+#HeaderHaut div {
     margin: auto;
-    margin-bottom: 2%;
-    background-color: rgba(255, 255, 255, 0.3);
-    height: 30px;
+}
+
+#HeaderHaut h1 {
+    padding: 5px;
+    width: 100%
 }
 
 
-::placeholder {
-    color: rgb(255, 255, 255);
 
-  }
-
-
-
-
-  
+@media (prefers-color-scheme: light) {
+    #HeaderConnecte {
+        background: var(--gradient_light);
+    }
+}

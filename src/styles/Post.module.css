@@ -88,6 +88,7 @@
     transition: 0.1s;
 }
 
+
 .interraction_count {
     margin: auto;
 }
@@ -96,7 +97,7 @@
 .like_dislike_container {
     display: flex;
     flex-direction: row;
-}
+
 
 #bouton_interraction_like, #bouton_interraction_dislike {
     padding: 8px 8px;
@@ -104,7 +105,6 @@
     border-radius: 100px;
     transition: 0.2s;
 }
-
 #bouton_interraction_like:hover {
     background-color: rgba(0, 255, 34, 0.192);
     transition: 0.1s;

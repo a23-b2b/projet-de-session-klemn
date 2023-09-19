@@ -4,7 +4,8 @@ import toast from 'react-hot-toast';
 import { BlogueProp } from '../components/PosteBlogue';
 import QuestionProp from '../components/PosteQuestion';
 import PosteQuestion from '../components/PosteQuestion';
-
+import BlogueForm from "../components/BlogueForm";
+import {useState} from "react";
 
 export interface PostProp {
     idPost: string;
@@ -23,6 +24,8 @@ export interface PostProp {
     nombreDislike: number;
     idCompte: string;
 }
+
+
 
 
 function Blogue() {
@@ -102,6 +105,7 @@ function Blogue() {
                         nombreCommentaire={273}
                     />
                 </div>
+
                 {/* {
                     lesBlogues?.map((post: PostProp) => {
                         if (post.type == "Blogue") {
@@ -124,6 +128,12 @@ function Blogue() {
                                     />
                                 </div>
                             )
+
+                <BlogueForm/>
+            </div>
+
+        </div>
+
 
                         }
 
