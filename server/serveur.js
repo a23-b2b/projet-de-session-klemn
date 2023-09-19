@@ -13,7 +13,7 @@ const dotenv = require('dotenv');
 
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
-exports.admin = adminApp = admin.initializeApp({
+exports.admin = admin.initializeApp({
     credential: admin.credential.cert(firebaseServiceAccount)
 });
 
