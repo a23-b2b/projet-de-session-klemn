@@ -10,6 +10,7 @@ import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
 import Blogue from "./pages/Blogue";
+import PostFullScreen from "./pages/PostFullScreen";
 
 function Layout() {
     return (
@@ -28,7 +29,7 @@ function Layout() {
                     <Route path="/blogue" element={<Blogue />} />
                     <Route path="/projets" element={<Projets />} />
                     <Route path="/u/:username" element={<Profil />} />
-                    {/* <Route path="/p/:postId" element={<PostOuvert />} /> */}
+                    <Route path="/p/:postId" element={<PostFullScreen />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>
