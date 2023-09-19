@@ -7,8 +7,7 @@ import { BsFillReplyAllFill } from 'react-icons/bs'
 export interface BlogueProp {
     idPost: string;
     date: string;
-    nom: string;
-    prenom: string;
+    nomAffichage: string,
     nomUtilisateur: string;
     titre: string;
     contenu: string;
@@ -31,7 +30,7 @@ function PosteBlogue(props: BlogueProp) {
                     <img className={styles.image_profil} src='https://fr.web.img6.acsta.net/medias/nmedia/18/71/84/20/19146888.jpg' />
 
                     <div className={styles.user_info}>
-                        <p className={styles.display_name}>{props.nom} {props.prenom}</p>
+                        <p className={styles.display_name}>{props.nomAffichage}</p>
                         <p className={styles.username}>@{props.nomUtilisateur}</p>
                     </div>
 
