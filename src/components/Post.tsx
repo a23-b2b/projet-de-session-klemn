@@ -44,7 +44,7 @@ function Post(props: Props) {
                     nombrePartage={props.nombrePartage}
                     nombreCommentaire={props.nombreCommentaire}
                     isPostFullScreen={props.isPostFullScreen}
-                    idPost={''} />
+                    idPost={props.idPost} />
 
             )
             }
