@@ -15,7 +15,7 @@ const mysqlConnection = mysql.createConnection({
 
 module.exports = app.get('/:username', (req, res) => {
     console.log(req.params)
-    mysqlConnection.query('SELECT date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, nombre_abonnes, nombre_abonnements, biographie, url_image_profil, url_image_banniere FROM compte WHERE ? LIKE nom_utilisateur', 
+    mysqlConnection.query('SELECT id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, nombre_abonnes, nombre_abonnements, biographie, url_image_profil, url_image_banniere FROM compte WHERE ? LIKE nom_utilisateur', 
     [req.params.username],
     function (err, results, fields) {
         if (err) {
