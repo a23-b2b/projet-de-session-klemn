@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/PosteBlogue';
+import PosteBlogue from '../components/Post/PosteBlogue';
 import toast from 'react-hot-toast';
-import { BlogueProp } from '../components/PosteBlogue';
+import { BlogueProp } from '../components/Post/PosteBlogue';
 import QuestionProp from '../components/PosteQuestion';
 import PosteQuestion from '../components/PosteQuestion';
 import BlogueForm from "../components/BlogueForm";
