@@ -35,11 +35,12 @@ function Parametres() {
         <div className={styles.body}>
             <div className={styles.container}>
                 <div className={styles.sidebar}>
-                    
+
                     <Link className={styles.link} to={'profil'} onClick={() => setSelectedSettingsItem(1)} >
                         <div className={`${styles.settings_link} ${selectedSettingsItem === 1 ? styles.selected : ''}`} id={styles.first_link}>Profil</div>
                     </Link>
-                    
+
+
                 </div>
 
                 <div className={styles.content}>

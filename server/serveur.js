@@ -18,7 +18,7 @@ dotenv.config();
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
-    stream: fs.createWriteStream('./logs/morgan.log', {flags: 'a'})
+    stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
 const inscription = require('./inscription')
