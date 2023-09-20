@@ -43,6 +43,7 @@ function Header() {
                     </Link>
                 </div>
 
+
                 <div>
                     {/* Lien page Offres d'emploi */}
                     <Link to={'/projets'} className='link'>
@@ -63,11 +64,14 @@ function Header() {
                     <img src={user} width="40" height="40" alt="User" onClick={() => navigate('/connexion')} />
                 </div>
             </div>
-
-            
-
-
         </div>
+
+
+
+
+
+
+
 
 
 

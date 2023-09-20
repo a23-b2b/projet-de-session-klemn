@@ -56,7 +56,7 @@ function LoginForm() {
                         className={'global_input_field'}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} />
-                    <div className={"global_bouton"}>
+                    <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                             Connexion
                         </button>

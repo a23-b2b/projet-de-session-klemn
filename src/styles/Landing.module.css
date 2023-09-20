@@ -1,4 +1,3 @@
-
 .flexbox {
     display: flex;
     flex-direction: row;
@@ -10,31 +9,24 @@
     margin-right: 5%;
 }
 
-.flex_child {
-    
-}
 
 /* "Vous êtes déjà inscrit?..."*/
-
-
 .paragraphe {
     display: inline-flex;
     margin-bottom: 5%;
-
+    margin-left: 8%;
 
 }
 
 .p1 {
-    color: rgb(151, 151, 151);
+    color: var(--auto_text_color);
 }
-
 
 .p2 {
-    margin-left: 5px;
-    color: white;
+margin-left: 7px;
+    color: var(--auto_accent_color);
     font-weight: 600;
 }
-
 
 .p {
     max-width: 400px;

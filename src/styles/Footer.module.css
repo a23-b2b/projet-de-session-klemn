@@ -53,15 +53,17 @@
 
 #FooterBas {
     display: inline-flex;
-    background-color: var(--background_dark_tertiary);
+    background-color: var(--auto_background_secondary);
     width: 100%;
     font-size: 10px;
+ 
 }
 
 #Liens {
     display: inline-flex;
     width: 100%;
     margin-left: 2%;
+   
 
 }
 
@@ -72,6 +74,7 @@
 #NomsSections {
     display: inline-flex;
     margin: auto;
+    
 }
 
 #NomsSections div {
@@ -82,14 +85,9 @@
 #SectionIcones {
     display: inline-flex;
     margin: auto 2% auto auto;
+    
 }
 
 #SectionIcones img {
     padding: 5px;
-}
-
-@media (prefers-color-scheme: light) {
-    #FooterBas {
-        background-color: var(--background_light_tertiary);
-    }
 }
