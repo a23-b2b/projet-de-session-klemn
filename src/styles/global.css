@@ -89,16 +89,20 @@ body {
     /* background-color: rgba(255, 255, 255, 0.7); */
 }
 
+textarea {
+    resize: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
 
 .global_bouton {
-    margin: 10px auto auto auto;
     padding: 13px 30px 13px 30px;
     border: 0px;
     width: fit-content;
     border-radius: 20px;
     color: rgb(20, 14, 23);
     font-weight: bold;
-
 }
 
 .global_conteneur {

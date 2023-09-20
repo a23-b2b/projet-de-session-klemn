@@ -7,9 +7,9 @@ import Footer from "./components/Footer";
 import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
-import Blogue from "./pages/Blogue";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
+import Blogue from "./pages/Blogue";
 
 function Layout() {
     return (
@@ -27,6 +27,10 @@ function Layout() {
                     <Route path="/forum" element={<Forum />} />
                     <Route path="/blogue" element={<Blogue/>} />
                     <Route path="/projets" element={<Projets />} />
+                    {/* 
+                    <Route path="/p/:id" element={composant post utilisateur zoomé + commentaires} /> 
+                    <Route path="/u/:id" element={composant page profil public} /> 
+                    */}
                     <Route path="/profil/:username" element={<Profil />} />
                 </Routes>
                 <Footer/>

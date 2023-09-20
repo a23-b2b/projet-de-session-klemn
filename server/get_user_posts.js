@@ -13,10 +13,18 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.get('/:username', (req, res) => {
+module.exports = app.get('/:user_id', (req, res) => {
     console.log(req.params)
-    mysqlConnection.query('SELECT id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, nombre_abonnes, nombre_abonnements, biographie, url_image_profil, url_image_banniere FROM compte WHERE ? LIKE nom_utilisateur', 
-    [req.params.username],
+    mysqlConnection.query(`
+        select 
+        * 
+        from 
+        post 
+        where 
+        id_compte like ?
+        order by date_publication desc;
+    `, 
+    [req.params.user_id],
     function (err, results, fields) {
         if (err) {
             // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
