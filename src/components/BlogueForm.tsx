@@ -31,6 +31,8 @@ function BlogueForm() {
                         .then(response => {
                             console.log(response)
                             toast.success('Votre message a été publié!');
+
+                            navigate(`/p/${response[1][0]['id_post']}`)
                         }).catch((error) => {
                             toast.error('Une erreur est survenue');
                         })
