@@ -3,39 +3,38 @@
     z-index: 100;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 150px;
     font-size: 20px;
 
 }
 
 
-#IconeUtilisateur {
+/* #IconeUtilisateur {
     text-align: right;
     padding: 7px;
-}
+} */
 
 
 
 #HeaderHaut {
-    display: inline-flex;
-    text-align: center;
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-top: 10px;
-
+    display: flex;
+    justify-content: space-between;
+    /* text-align: center; */
+    /* padding: 20px 10px; */
+    height: 75%;
+    width: 90%;
+    margin-inline: auto;
 }
 
-#HeaderHaut div {
-    margin: auto;
+#HeaderHaut > div {
+    margin-block: auto;
 }
 
-#HeaderHaut h1 {
+/* #HeaderHaut h1 {
     padding: 5px;
     width: 100%
-}
+} */
 
 
 
