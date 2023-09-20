@@ -17,7 +17,7 @@ function Chat() {
 
 
 
-  async function getdata() {
+  async function getMessage() {
     const docSnap = await getDoc(docRef);
     //console.log(docSnap.data())
     setMessages(docSnap.data())
@@ -25,45 +25,45 @@ function Chat() {
 
   }
 
-  // async function setdata() {
-  //   await setDoc(docRef, {
-  //     message: messageText
+  function getMessages() {
+    setDoc(docRef, {
+      message: messageText
 
-  //   });
-
-  // async function addData() {
-  //   await addDoc(collection(db, "messages"), {
-  //     message: messageText
-  //   });
-
-}
+    });
+  }
+  function addData() {
+    addDoc(collection(db, "messages"), {
+      message: messageText
+    });
 
 
-
-useEffect(() => {
-  getdata();
-
-})
+  }
 
 
+  useEffect(() => {
+    getMessage();
 
-return (
-  <div>
+  })
 
+
+
+  return (
     <div>
-      {messages?.message}
-      <br />
-      <input
-        className="new-message-input"
-        placeholder="Votre message..."
-        onChange={(e) => setMessageText(e.target.value)}
-      />
-      <button className="send-button" onClick={() => addData()}>
-        Send
-      </button>
+
+      <div>
+        {messages?.message}
+        <br />
+        <input
+          className="new-message-input"
+          placeholder="Votre message..."
+          onChange={(e) => setMessageText(e.target.value)}
+        />
+        <button className="send-button" onClick={() => addData()}>
+          Send
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default Chat;
