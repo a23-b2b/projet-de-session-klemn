@@ -29,6 +29,8 @@ function Home() {
 
     async function getPosts() {
 
+        console.log('chargement des posts...')
+
         await fetch(`http://localhost:1111/feed-posts/${postOffset}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
@@ -66,7 +68,7 @@ function Home() {
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
-                endMessage={<p>No more data to load.</p>}
+                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 <div>
                     {postData?.map(({
