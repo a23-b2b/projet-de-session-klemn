@@ -22,12 +22,12 @@ function Header() {
 
                 </div>
 
-                <div>
-                    {/* Lien page Forum */}
+                {/* <div>
+                    Lien page Forum
                     <Link to={'/'} className='link'>
                         <h3>Accueil</h3>
                     </Link>
-                </div>
+                </div> */}
 
                 <div id={styles["IconeUtilisateur"]}>
                     {/* IMG Icône Utilisateur */}
