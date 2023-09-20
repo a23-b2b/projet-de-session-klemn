@@ -10,6 +10,7 @@ export interface BlogueProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    idCompte: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;

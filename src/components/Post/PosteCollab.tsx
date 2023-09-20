@@ -4,6 +4,7 @@ import PostContent from './Contenu';
 import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
+import { useState } from 'react';
 
 export interface CollabProp {
     idPost: string;
@@ -12,6 +13,7 @@ export interface CollabProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    idCompte: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -22,26 +24,29 @@ export interface CollabProp {
     isPostFullScreen: Boolean;
 }
 
-function PosteQuestion(props: CollabProp) {
-    
-    function demanderCollabortion(props: CollabProp){
-        const auth = getAuth();
-        const user = auth.currentUser;
+function PosteCollab(props: CollabProp) {
+    var enabled = false;
+    const auth = getAuth();
+    const user = auth.currentUser;
 
+    function demanderCollabortion(props: CollabProp){        
         if (user !== null) {
             const uid = user.uid;
             fetch(`/p/${props.idPost}/${uid}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             })
-        } else {
-
-        }
-
-        
+        } 
     }
 
-    
+    function ActiverCollab(){
+        if (user !== null && props.idCompte !== user.uid) {
+            enabled = true;
+        } else {
+            enabled = false;
+        }
+        
+    }
 
     return (
         <div className={styles.container}>
@@ -57,7 +62,7 @@ function PosteQuestion(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
+            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
             
             <PostFooter
                 nombreLike={props.nombreLike}
@@ -70,4 +75,4 @@ function PosteQuestion(props: CollabProp) {
     );
 }
 
-export default PosteQuestion;
+export default PosteCollab;

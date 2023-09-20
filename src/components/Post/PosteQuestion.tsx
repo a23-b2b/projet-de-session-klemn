@@ -11,6 +11,7 @@ export interface QuestionProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    idCompte: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -37,11 +38,13 @@ function PosteQuestion(props: QuestionProp) {
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            <p>Résolu: {props.statutReponse.toString()}</p>
+            {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
 
-            <Link to={`/p/${props.idMeilleureReponse}`}>
-            <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
-            </Link>
+            { props.idMeilleureReponse && (
+                <Link to={`/p/${props.idMeilleureReponse}`}>
+                <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
+                </Link>
+            )}
 
             <PostFooter
                 nombreLike={props.nombreLike}

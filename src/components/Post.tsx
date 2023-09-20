@@ -46,6 +46,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
@@ -61,6 +62,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
@@ -79,6 +81,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
