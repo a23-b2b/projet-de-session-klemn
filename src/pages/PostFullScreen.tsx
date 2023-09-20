@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Post from '../components/Post';
 import SectionReponses from '../components/SectionReponses';
-
+import styles from '../styles/PostFullScreen.module.css'
 
 
 function PostFullScreen() {
@@ -34,7 +34,7 @@ function PostFullScreen() {
 
     if (postData) {
         return (
-            <div>
+            <div className={styles.body}>
                 <Post
                     idPost={postData.id_post}
                     date={postData.date_publication}
