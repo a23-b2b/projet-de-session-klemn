@@ -13,10 +13,9 @@ const dotenv = require('dotenv');
 
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
-module.exports = admin.initializeApp({
+exports.admin = admin.initializeApp({
     credential: admin.credential.cert(firebaseServiceAccount)
 });
-
 
 app.use(express.json())
 app.use(express.urlencoded())
@@ -38,6 +37,9 @@ app.use('/profil', get_profil);
 
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
+
+const get_single_post = require('./get_single_post.js')
+app.use('/single-post', get_single_post);
 
 const publierBlogue = require('./publierBlogue')
 app.use('/publier-blogue', publierBlogue);

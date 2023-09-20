@@ -1,5 +1,5 @@
 import styles from '../styles/AccueilConnecte.module.css'
-import PosteBlogue from '../components/PosteBlogue';
+import PosteBlogue from '../components/Post/PosteBlogue';
 import PosteQuestion from '../components/PosteQuestion';
 
 function AccueilConnecte() {

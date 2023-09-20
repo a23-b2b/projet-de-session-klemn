@@ -4,7 +4,8 @@ import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/PosteBlogue';
+import PosteBlogue from '../components/Post/PosteBlogue';
+import Post from '../components/Post';
 
 function Profil() {
     let { username } = useParams();
@@ -118,19 +119,20 @@ function Profil() {
                 titre
             }) => {
                 return (
-                    <PosteBlogue
+                    <Post
                         idPost={id_post}
                         date={date_publication}
                         nomAffichage={displayName}
                         nomUtilisateur={username + ''}
                         titre={titre}
                         contenu={contenu}
-                        type={id_type_post}
                         idCompte={id_compte}
                         nombreLike={nombre_likes}
                         nombreDislike={nombre_dislikes}
                         nombrePartage={nombre_partages}
-                        nombreCommentaire={nombre_commentaires} />
+                        nombreCommentaire={nombre_commentaires}
+                        type={id_type_post} 
+                        isPostFullScreen={false} />
                 )
             })}
 

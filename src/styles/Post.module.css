@@ -4,6 +4,8 @@
     padding: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.068);
+    border-radius: 8px;
 }
 
 .header {
@@ -23,6 +25,8 @@
 .user_info {
     padding-left: 15px;
     line-height: 0.2;
+    text-decoration: none;
+    color: var(--auto_text_color)
 }
 
 
@@ -53,7 +57,13 @@
     color: var(--auto_text_color)
 }
 
+.contenu {
+    word-wrap: break-word;
+}
+
 .footer {
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -140,3 +150,12 @@
     color: rgb(111, 0, 255);
     transition: 0.1s;
 }
+
+/* .post_ferme {
+    transition: 0.4s;
+}
+
+.post_ouvert {
+    background-color: blue;
+    transition: 0.4s;
+} */
