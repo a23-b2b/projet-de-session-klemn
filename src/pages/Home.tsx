@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import Bonjour from '../components/ComponentWithParameters';
 import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Home.module.css'
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Post from '../components/Post';
@@ -15,6 +17,13 @@ function Home() {
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            navigate('/authenticate')
+
+        }
+    });
 
     async function getPosts() {
 
