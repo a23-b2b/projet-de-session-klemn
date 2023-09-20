@@ -9,6 +9,8 @@ import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
+import Blogue from "./pages/Blogue";
+import PostFullScreen from "./pages/PostFullScreen";
 
 function Layout() {
     return (
@@ -24,15 +26,12 @@ function Layout() {
                     <Route path="/" element={<Landing />} />
                     <Route path="/accueilConnecte" element={<AccueilConnecte />} />
                     <Route path="/forum" element={<Forum />} />
-                    <Route path="/blogue" element={<Blogue/>} />
+                    <Route path="/blogue" element={<Blogue />} />
                     <Route path="/projets" element={<Projets />} />
-                    {/* 
-                    <Route path="/p/:id" element={composant post utilisateur zoomé + commentaires} /> 
-                    <Route path="/u/:id" element={composant page profil public} /> 
-                    */}
-                    <Route path="/profil/:username" element={<Profil />} />
+                    <Route path="/u/:username" element={<Profil />} />
+                    <Route path="/p/:postId" element={<PostFullScreen />} />
                 </Routes>
-                <Footer/>
+                <Footer />
             </BrowserRouter>
         </>
     );

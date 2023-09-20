@@ -36,6 +36,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
                      SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
+
                     [id_compte, titre, contenu, id_compte],
                     function (err, results, fields) {
                         if (err) {

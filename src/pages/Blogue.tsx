@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/PosteBlogue';
+import PosteBlogue from '../components/Post/PosteBlogue';
 import toast from 'react-hot-toast';
-import { BlogueProp } from '../components/PosteBlogue';
+import { BlogueProp } from '../components/Post/PosteBlogue';
 import QuestionProp from '../components/PosteQuestion';
 import PosteQuestion from '../components/PosteQuestion';
 import BlogueForm from "../components/BlogueForm";
-import {useState} from "react";
+import { useState } from "react";
 
 export interface PostProp {
     idPost: string;
@@ -87,23 +87,11 @@ function Blogue() {
 
     return (
         <div>
+
             <div>
                 <div className='conteneurComposantPosteBlogue'>
-                    <PosteBlogue
-                        idPost={'1234'}
-                        date={'2023-01-01'}
-                        nom={'bob'}
-                        prenom={'gratton'}
-                        nomUtilisateur={'stephkill3r'}
-                        titre={'mon post'}
-                        contenu={'lorem ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem  ipsum lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum'}
-                        type={'1'}
-                        idCompte={'abcd'}
-                        nombreLike={4}
-                        nombreDislike={482}
-                        nombrePartage={29}
-                        nombreCommentaire={273}
-                    />
+                    <BlogueForm />
+
                 </div>
 
                 {/* {
@@ -129,7 +117,6 @@ function Blogue() {
                                 </div>
                             )
 
-                <BlogueForm/>
             </div>
 
         </div>

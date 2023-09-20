@@ -96,14 +96,12 @@ textarea {
 }
 
 .global_bouton {
-    margin: 10px auto auto auto;
     padding: 13px 30px 13px 30px;
     border: 0px;
     width: fit-content;
     border-radius: 20px;
     color: rgb(20, 14, 23);
     font-weight: bold;
-
 }
 
 
