@@ -35,9 +35,6 @@ app.use('/inscription', inscription);
 const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
 
-const get_user_posts = require('./get_user_posts.js')
-app.use('/user-posts', get_user_posts);
-
 const get_single_post = require('./get_single_post.js')
 app.use('/single-post', get_single_post);
 
@@ -65,18 +62,6 @@ app.use('/changer_bio', changer_bio)
 
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
-
-const get_single_post = require('./get_single_post.js')
-app.use('/single-post', get_single_post);
-
-const get_replies = require('./get_replies')
-app.use('/replies', get_replies);
-
-const get_posts_feed = require('./get_posts_feed.js')
-app.use('/feed-posts', get_posts_feed);
-
-const publierBlogue = require('./publierBlogue')
-app.use('/publier-blogue', publierBlogue);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
