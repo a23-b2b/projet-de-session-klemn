@@ -54,7 +54,7 @@ function RegisterForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
+        <div className={'global_conteneur'}>
             <h2 className={'global_title'}>Inscription</h2>
             <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>
@@ -96,10 +96,12 @@ function RegisterForm() {
                         className={'global_input_field'}
                         type="tel"
                         onChange={(e) => setTelephone(e.target.value)} />
-
-                    <button  className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
-                        Inscription
-                    </button>
+                        
+                    <div className={styles.containerBouton}>
+                        <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                            Inscription
+                        </button>
+                    </div>
                 </div>
             </motion.div>
         </div>

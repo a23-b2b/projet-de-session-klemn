@@ -2,11 +2,12 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
+import { Link } from 'react-router-dom';
 
-export interface BlogueProp {
+export interface QuestionProp {
     idPost: string;
     date: string;
-    nomAffichage: string,
+    nomAffichage: string;
     nomUtilisateur: string;
     titre: string;
     contenu: string;
@@ -16,10 +17,13 @@ export interface BlogueProp {
     nombrePartage: number;
     nombreCommentaire: number;
 
+    idMeilleureReponse?: string;
+    statutReponse?: Boolean;
+
     isPostFullScreen: Boolean;
 }
 
-function PosteBlogue(props: BlogueProp) {
+function PosteQuestion(props: QuestionProp) {
 
     return (
         <div className={styles.container}>
@@ -34,8 +38,15 @@ function PosteBlogue(props: BlogueProp) {
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
+            {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
+
+            { props.idMeilleureReponse && (
+                <Link to={`/p/${props.idMeilleureReponse}`}>
+                <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
+                </Link>
+            )}
+
             <PostFooter
-                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
@@ -46,4 +57,4 @@ function PosteBlogue(props: BlogueProp) {
     );
 }
 
-export default PosteBlogue;
+export default PosteQuestion;

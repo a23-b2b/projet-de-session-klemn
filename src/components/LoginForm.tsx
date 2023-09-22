@@ -41,7 +41,7 @@ function LoginForm() {
 
     return (
 
-        <div className={styles.conteneur}>
+        <div className={'global_conteneur'}>
             <h2 className={'global_title'}>Connexion</h2>
             <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
                 <div className={styles.form}>
@@ -56,7 +56,7 @@ function LoginForm() {
                         className={'global_input_field'}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} />
-                    <div className={"global_bouton"}>
+                    <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                             Connexion
                         </button>

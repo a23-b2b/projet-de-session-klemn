@@ -12,18 +12,21 @@ function Landing() {
 
     return (
 
-        <div className={styles.flexbox} id={styles["ConteneurLanding"]}>
+        <div className={styles.flexbox}>
             <div className={styles.flex_child}>
 
                 {formIsLogin && (
-                    <div>
-                        <LoginForm />
+                    <div >
+                        <div>
+                            <LoginForm />
+                        </div>
+
                         <div className={styles.paragraphe}>
                             <div>
-                                <p  className={styles.p1}>Vous n'avez pas de compte?</p>
+                                <p className={styles.p1}>Vous n'avez pas de compte?</p>
                             </div>
                             <div>
-                                <p  className={styles.p2} onClick={() => setFormIsLogin(false)}>Inscrivez vous maintenant!</p>
+                                <p className={styles.p2} onClick={() => setFormIsLogin(false)}>Inscrivez vous maintenant!</p>
 
                             </div>
                         </div>
@@ -33,12 +36,15 @@ function Landing() {
 
                 {!formIsLogin && (
                     <div>
-                        <RegisterForm />
+                        <div>
+                            <RegisterForm />
+                        </div>
+
                         <div className={styles.paragraphe}>
                             <div>
-                                <p  className={styles.p1}>Vous êtes déjà inscrit?</p></div>
+                                <p className={styles.p1}>Vous êtes déjà inscrit?</p></div>
                             <div>
-                                <p  className={styles.p2} onClick={() => setFormIsLogin(true)}>Connectez vous maintenant!</p>
+                                <p className={styles.p2} onClick={() => setFormIsLogin(true)}>Connectez vous maintenant!</p>
 
                             </div>
                         </div>
@@ -46,7 +52,7 @@ function Landing() {
                 )}
 
             </div>
-            <div className={styles.flex_child} id={styles["ConteneurContenu"]} >
+            <div className='global_conteneurCouleur' >
                 <h2>Contenu a droite ici!!</h2>
                 <p className={styles.p}>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.

@@ -2,11 +2,14 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
+import { Link } from 'react-router-dom';
+import { getAuth } from "firebase/auth";
+import { useState } from 'react';
 
-export interface BlogueProp {
+export interface CollabProp {
     idPost: string;
     date: string;
-    nomAffichage: string,
+    nomAffichage: string;
     nomUtilisateur: string;
     titre: string;
     contenu: string;
@@ -16,10 +19,34 @@ export interface BlogueProp {
     nombrePartage: number;
     nombreCommentaire: number;
 
+    idCollaborateur?: string;
+
     isPostFullScreen: Boolean;
 }
 
-function PosteBlogue(props: BlogueProp) {
+function PosteCollab(props: CollabProp) {
+    var enabled = false;
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    function demanderCollabortion(props: CollabProp){        
+        if (user !== null) {
+            const uid = user.uid;
+            fetch(`/p/${props.idPost}/${uid}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+        } 
+    }
+
+    function ActiverCollab(){
+        if (user !== null && props.idCompte !== user.uid) {
+            enabled = true;
+        } else {
+            enabled = false;
+        }
+        
+    }
 
     return (
         <div className={styles.container}>
@@ -34,8 +61,10 @@ function PosteBlogue(props: BlogueProp) {
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
+            
+            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
+            
             <PostFooter
-                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
@@ -46,4 +75,4 @@ function PosteBlogue(props: BlogueProp) {
     );
 }
 
-export default PosteBlogue;
+export default PosteCollab;

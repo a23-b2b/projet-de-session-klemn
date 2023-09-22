@@ -1,28 +1,53 @@
 :root {
-    
-    --text_color_dark: rgb(244, 244, 244);
-    --text_color_light: rgb(34, 34, 34);
 
-    --accent_color_dark: rgb(34, 34, 34);
-    --accent_color_light: rgb(244, 244, 244);
+    /*Couleur du text*/
+    --text_color_dark: rgb(255, 255, 255);
+    --text_color_light: rgb(59, 30, 72);
 
+    /*Couleur d'accent*/
+    --accent_color_dark: rgb(121, 61, 154);
+    --accent_color_light: rgb(157, 102, 197);
+
+    /*Couleur de fond*/
     --background_dark: rgb(20, 14, 23);
-    --background_light: rgb(117, 10, 116);
+    --background_light: rgb(247, 228, 252);
 
-    --background_dark_secondary:rgb(73, 46, 92);
-    --background_light_secondary: rgb(184, 50, 83);
+    /*Couleur de fond secondaire*/
+    --background_dark_secondary: rgb(79, 39, 108);
+    --background_light_secondary: rgb(206, 141, 224);
 
-    --background_dark_tertiary:rgb(96, 63, 119);
-    --background_light_tertiary: rgb(244, 165, 80) ;
+    /*Couleur de fond tertiaire*/
+    --background_dark_tertiary: rgb(121, 73, 155);
+    --background_light_tertiary: rgb(88, 21, 119);
 
+    /*Couleur du gradient*/
     --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--background_dark_secondary), transparent);
     --gradient_light: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary), transparent);
 
-    --gradient_dark_secondary:  linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary));
+    /*Couleur du gradient secondaire*/
+    --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
 
-    --logo_image_dark:"/../images/logo.png";
-    --logo_image_light:"/../images/logo.png";
+    /*Couleur de fond container*/
+    --dark_container_color: rgba(255, 255, 255, 0.15);
+    --light_container_color: rgba(0, 0, 0, 0.062);
+
+    /*Couleur de fond input field*/
+    --dark_input_field_color: rgba(255, 255, 255, 0.25);
+    --light_input_field_color: rgba(0, 0, 0, 0.057);
+
+    /*Couleur de bordure (Input field et Container*/
+    --dark_border_color: rgb(255, 255, 255);
+    --light_border_color: rgba(172, 143, 184, 0.518);
+
+    /*Couleur de fond bouton*/
+    --dark_button_color: var(--accent_color_dark);
+    --light_button_color: var(--accent_color_light);
+
+    /*Couleur du text bouton*/
+    --dark_button_text_color: rgb(247, 232, 247);
+    --light_button_text_color: rgb(98, 9, 145);
+
 
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
@@ -30,6 +55,10 @@
     /* en haut, mais elles changent selon le */
     /*         theme automatiquement         */
     /* ===================================== */
+    /*                  | |                  */
+    /*                  v v                  */
+
+    /*Thème sombre*/
     --auto_text_color: var(--text_color_dark);
     --auto_accent_color: var(--accent_color_dark);
     --auto_background: var(--background_dark);
@@ -37,20 +66,41 @@
     --auto_background_tertiary: var(--background_dark_tertiary);
     --auto_gradient: var(--gradient_dark);
     --auto_gradient_secondary: var(--gradient_dark_secondary);
-    --auto_logo: var(--logo_image_dark);
+    --auto_container_color: var(--dark_container_color);
+    --auto_input_field_color: var(--dark_input_field_color);
+    --auto_border_color: var(--dark_border_color);
+    --auto_button_color: var(--dark_button_color);
+    --auto_button_text_color: var(--dark_button_text_color);
+
+
+    /*Thème clair*/
+    @media (prefers-color-scheme: light) {
+        --auto_text_color: var(--text_color_light);
+        --auto_accent_color: var(--accent_color_light);
+        --auto_background: var(--background_light);
+        --auto_background_secondary: var(--background_light_secondary);
+        --auto_background_tertiary: var(--background_light_tertiary);
+        --auto_gradient: var(--gradient_light);
+        --auto_gradient_secondary: var(--gradient_light_secondary);
+        --auto_container_color: var(--light_container_color);
+        --auto_input_field_color: var(--light_input_field_color);
+        --auto_border_color: var(--light_border_color);
+        --auto_button_color: var(--light_button_color);
+        --auto_button_text_color: var(--light_button_text_color);
+    }
 
 }
 
 body {
     background-color: var(--auto_background);
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--auto_text_color);
     accent-color: var(--auto_accent_color);
     min-height: 55vh;
-    padding-top: 150px;
+    padding-top: 170px;
     padding-bottom: 20px;
     transition: 0.3s;
-    accent-color: var(--accent_color_dark);
+    accent-color: var(--auto_accent_color);
 }
 
 .link {
@@ -69,7 +119,7 @@ body {
     margin-bottom: -6px;
     font-size: 17px;
     font-weight: bold;
-    opacity: 90%;
+    opacity: 70%;
     padding: 5px;
 }
 
@@ -81,45 +131,42 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    border-radius: 12px;
-    border: 1.5px solid white;
-    background-color: rgba(255, 255, 255, 0.381);
-    color: #ffffff;
-    /* background-color: rgba(255, 255, 255, 0.7); */
+    border: 1.5px solid var(--auto_border_color);
+    background-color: var(--auto_input_field_color);
+    color: var(--auto_text_color);
 }
 
 textarea {
     resize: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
 }
 
 .global_bouton {
     padding: 13px 30px 13px 30px;
     border: 0px;
     width: fit-content;
-    border-radius: 20px;
-    color: rgb(20, 14, 23);
+    border-radius: 50px;
+    color: var(--auto_text_color);
+    background-color: var(--auto_button_color);
     font-weight: bold;
+
+}
+
+.global_conteneur {
+    border-radius: 20px;
+    border: 1.5px solid var(--auto_border_color);
+    padding: 20px;
+    background-color: var(--auto_container_color);
 }
 
 
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --auto_text_color: var(--text_color_light);
-        --auto_accent_color: var(--accent_color_light);
-        --auto_background: var(--background_light);
-        --auto_background_secondary: var(--background_light_secondary);
-        --auto_background_tertiary: var(--background_light_tertiary);
-        --auto_gradient: var(--gradient_light);
-        --auto_gradient_secondary: var(--gradient_light_secondary);
-        --auto_logo: var(--logo_image_light);
-    }
-
-    .global_bouton {
-        color: var(--text_color_light);
-        background-color: var(--accent_color_light);
-    }
+.global_conteneurCouleur {
+    background-image: var(--auto_gradient_secondary);
+    border-radius: 70px;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
