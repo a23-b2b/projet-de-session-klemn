@@ -1,14 +1,12 @@
-import styles from '../styles/Post.module.css'
-import PostHeader from './Post/Header';
-import PostContent from './Post/Contenu';
-import PostFooter from './Post/Footer';
 import PosteBlogue from './Post/PosteBlogue';
 import PosteQuestion from './Post/PosteQuestion';
 import PosteCollab from './Post/PosteCollab';
+import Reponse from "./Reponse";
 
-const typeCollab = 3;
-const typeQuestion = 2;
-const typeBlogue = 1;
+export const TYPE_BLOGUE = 1;
+export const TYPE_QUESTION = 2;
+export const TYPE_COLLABORATION = 3;
+export const TYPE_REPONSE = 4;
 
 interface Props {
     idPost: string;
@@ -17,7 +15,6 @@ interface Props {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
-    idCompte: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -37,9 +34,8 @@ interface Props {
 function Post(props: Props) {
 
     return (
-        <>            
-            {props.type == typeBlogue && (
-
+        <>
+            {props.type == TYPE_BLOGUE && (
                 <PosteBlogue
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -53,9 +49,19 @@ function Post(props: Props) {
                     nombreCommentaire={props.nombreCommentaire}
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost} />
-
             )}
-            {props.type === typeQuestion && (
+            {props.type == TYPE_REPONSE && (
+                <Reponse idPost={props.idPost}
+                         date={props.date}
+                         nomAffichage={props.nomAffichage}
+                         nomUtilisateur={props.nomUtilisateur}
+                         contenu={props.contenu}
+                         nombreLike={props.nombreLike}
+                         nombreDislike={props.nombreDislike}
+                         nombrePartage={props.nombrePartage}
+                         nombreCommentaire={props.nombreCommentaire} />
+            )}
+            {props.type === TYPE_QUESTION && (
                 <PosteQuestion
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -74,7 +80,7 @@ function Post(props: Props) {
                     idMeilleureReponse={props.idMeilleureReponse}
                     statutReponse={props.statutReponse} />                
             )}
-            {props.type === typeCollab && (
+            {props.type === TYPE_COLLABORATION && (
                 <PosteCollab
                     date={props.date}
                     nomAffichage={props.nomAffichage}

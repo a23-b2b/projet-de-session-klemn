@@ -19,7 +19,8 @@ VALUES
     ('id_3', '2023-08-30 14:45:00', 'Lévesque', 'Pierre', 'Client_Pierre', 'Pierre Lévesque', 'pierre.levesque@example.com', '819-555-9012', 0, 0, 'Je viens d''arriver sur Klemn!', 2);
 
 INSERT INTO type_post (id_type_post, nom_type)
-VALUES  (3, 'Collaboration'),
+VALUES  (4, 'Réponse'),
+        (3, 'Collaboration'),
         (2, 'Question'),
         (1, 'Blogue');
 
