@@ -86,7 +86,7 @@ function BlogueForm() {
                 {/*Selection du type de post a générer lors de la publication*/}                
 
                 <label htmlFor={'menuTypePoste'}>
-                    <Select className='menuTypePoste' variant='filled' size='sm' value={type} onChange={changerType}>
+                    <Select className={'menuTypePoste'} variant='filled' size='sm' value={type} onChange={changerType}>
                         <option value='blogue'>Blogue</option>
                         <option value='question'>Question</option>
                         <option value='collab'>Collaboration</option>
