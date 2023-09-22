@@ -21,7 +21,7 @@ interface Props {
     nombreCommentaire: number;
 
     isPostFullScreen: Boolean;
-
+    idCompte: string;
     type: number;
 
     // props optionnels

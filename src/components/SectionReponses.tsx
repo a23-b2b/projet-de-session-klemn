@@ -34,6 +34,7 @@ function SectionReponses(props: SectionReponsesProps) {
                 <h3>Commentaires</h3>
                 {replies.map(({
                                   id_post,
+                                  id_compte,
                                   date_publication,
                                   nom_affichage,
                                   nom_utilisateur,
@@ -46,6 +47,7 @@ function SectionReponses(props: SectionReponsesProps) {
                               }) => {
                     return (
                         <Post idPost={id_post}
+                              idCompte={id_compte}
                               date={date_publication}
                               nomAffichage={nom_affichage}
                               nomUtilisateur={nom_utilisateur}

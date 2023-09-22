@@ -121,6 +121,7 @@ function Profil() {
                 return (
                     <Post
                         idPost={id_post}
+                        idCompte={id_compte}
                         date={date_publication}
                         nomAffichage={displayName}
                         nomUtilisateur={username + ''}

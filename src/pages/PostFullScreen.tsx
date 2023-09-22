@@ -40,6 +40,7 @@ function PostFullScreen() {
                     date={postData.date_publication}
                     nomAffichage={postData.nom_affichage}
                     nomUtilisateur={postData.nom_utilisateur}
+                    idCompte={postData.id_compte}
                     titre={postData.titre}
                     contenu={postData.contenu}
                     nombreLike={postData.nombre_likes}
