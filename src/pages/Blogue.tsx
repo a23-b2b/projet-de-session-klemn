@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { BlogueProp } from '../components/Post/PosteBlogue';
 import QuestionProp from '../components/Post/PosteQuestion';
 import PosteQuestion from '../components/Post/PosteQuestion';
+import BlogueForm from '../components/BlogueForm';
 
 
 
@@ -36,22 +37,7 @@ function Blogue() {
 
             <div>
                 <div className='conteneurComposantPosteBlogue'>
-                <PosteQuestion
-                    date="2 juin"
-                    nomAffichage="Nathan AFiichage"
-                    nomUtilisateur="TP2334"
-                    titre="titree"
-                    contenu="cont"
-                    idCompte="idCompte"
-                    nombreLike={1}
-                    nombreDislike={1} 
-                    nombrePartage= {1}
-                    nombreCommentaire={1} 
-                    isPostFullScreen={false}
-                    idPost="idPost" 
-
-                    
-                />
+                <BlogueForm/>
                 </div>                
             </div>
         </div>

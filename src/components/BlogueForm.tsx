@@ -11,6 +11,13 @@ function BlogueForm() {
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
+    // Hook pour le type de post
+    const [type, setType] = useState('blogue');
+
+    const changerType = (event: any) => {
+        setType(event.target.value);
+    };
+
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
@@ -18,7 +25,7 @@ function BlogueForm() {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch('http://localhost:1111/publier-blogue', {
+                        fetch(`http://localhost:1111/publier-${type}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -28,14 +35,14 @@ function BlogueForm() {
                                 firebase_id_token: idToken
                             }),
                         }).then(response => response.json())
-                        .then(response => {
-                            console.log(response)
-                            toast.success('Votre message a été publié!');
+                            .then(response => {
+                                console.log(response)
+                                toast.success('Votre message a été publié!');
 
-                            navigate(`/p/${response[1][0]['id_post']}`)
-                        }).catch((error) => {
-                            toast.error('Une erreur est survenue');
-                        })
+                                navigate(`/p/${response[1][0]['id_post']}`)
+                            }).catch((error) => {
+                                toast.error('Une erreur est survenue');
+                            })
                     })
 
             } else {
@@ -71,6 +78,18 @@ function BlogueForm() {
                     }}></textarea>
             </div>
             <span>{nbCaracteres}/4000</span>
+            
+            <label htmlFor={'menuTypePoste'}>
+                {/*
+                    Selection du type de post a générer lors de la publication
+                */}
+                <select className={'menuTypePoste'} value={type} onChange={changerType} >
+                    <option value="blogue">Blogue</option>
+                    <option value="question">Question</option>
+                    <option value="collab">Collaboration</option>
+                </select>
+            </label>
+
             <button className={'global_bouton'} onClick={() => publierBlogue()}>
                 Publier
             </button>
