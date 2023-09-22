@@ -3,6 +3,9 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChakraProvider } from '@chakra-ui/react'
+import { Select } from '@chakra-ui/react'
+
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -56,44 +59,44 @@ function BlogueForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Publication</h2>
-            <div className={styles.form}>
-                <label className={'global_input_field_label'}>Titre</label>
-                <input
-                    className={'global_input_field'}
-                    type="text"
-                    placeholder="Titre"
-                    onChange={(e) => setTitre(e.target.value)} />
+        <ChakraProvider>
+            <div className={styles.conteneur}>
+                <h2 className={styles.titre}>Publication</h2>
+                <div className={styles.form}>
+                    <label className={'global_input_field_label'}>Titre</label>
+                    <input
+                        className={'global_input_field'}
+                        type="text"
+                        placeholder="Titre"
+                        onChange={(e) => setTitre(e.target.value)} />
 
-                <label className={'global_input_field_label'}>Contenu</label>
-                <textarea className={'global_input_field'}
-                    rows={10}
-                    maxLength={4000}
-                    placeholder="Exprimez-vous!"
-                    value={contenu}
-                    onChange={e => {
-                        setContenu(e.target.value)
-                        setNbCaracteres(e.target.textLength)
-                    }}></textarea>
+                    <label className={'global_input_field_label'}>Contenu</label>
+                    <textarea className={'global_input_field'}
+                        rows={10}
+                        maxLength={4000}
+                        placeholder="Exprimez-vous!"
+                        value={contenu}
+                        onChange={e => {
+                            setContenu(e.target.value)
+                            setNbCaracteres(e.target.textLength)
+                        }}></textarea>
+                </div>
+                <span>{nbCaracteres}/4000</span>
+                                
+                {/*Selection du type de post a générer lors de la publication*/}                
+
+                <label htmlFor={'menuTypePoste'}>
+                    <Select className='menuTypePoste' variant='filled' size='sm' value={type} onChange={changerType}>
+                        <option value='blogue'>Blogue</option>
+                        <option value='question'>Question</option>
+                        <option value='collab'>Collaboration</option>
+                    </Select>
+                </label>
+                <button className={'global_bouton'} onClick={() => publierBlogue()}>
+                    Publier
+                </button>
             </div>
-            <span>{nbCaracteres}/4000</span>
-            
-            <label htmlFor={'menuTypePoste'}>
-                {/*
-                    Selection du type de post a générer lors de la publication
-                */}
-                <select className={'menuTypePoste'} value={type} onChange={changerType} >
-                    <option value="blogue">Blogue</option>
-                    <option value="question">Question</option>
-                    <option value="collab">Collaboration</option>
-                </select>
-            </label>
-
-            <button className={'global_bouton'} onClick={() => publierBlogue()}>
-                Publier
-            </button>
-        </div>
+        </ChakraProvider>
     )
 }
 
