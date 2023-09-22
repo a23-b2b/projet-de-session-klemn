@@ -1,0 +1,47 @@
+#HeaderConnecte {
+    background: var(--gradient_dark);
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 150px;
+    font-size: 20px;
+
+}
+
+
+/* #IconeUtilisateur {
+    text-align: right;
+    padding: 7px;
+} */
+
+
+
+#HeaderHaut {
+    display: flex;
+    justify-content: space-between;
+    /* text-align: center; */
+    /* padding: 20px 10px; */
+    height: 75%;
+    width: 90%;
+    margin-inline: auto;
+}
+
+#HeaderHaut > div {
+    margin-block: auto;
+}
+
+/* #HeaderHaut h1 {
+    padding: 5px;
+    width: 100%
+} */
+
+
+
+
+
+@media (prefers-color-scheme: light) {
+    #HeaderConnecte {
+        background: var(--gradient_light);
+    }
+}

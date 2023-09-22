@@ -1,4 +1,4 @@
-import styles from '../styles/Accueil.module.css'
+import styles from '../styles/AccueilConnecte.module.css'
 
 function Forum() {
     return (

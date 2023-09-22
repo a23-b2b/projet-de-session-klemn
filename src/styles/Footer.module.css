@@ -1,0 +1,93 @@
+/* Footer */
+
+#ConteneurFooter {
+    margin: auto;
+}
+
+/*Footer Top Part */
+
+#FooterHaut {
+    margin: auto 5% auto 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px 10px 20px 10px;
+}
+
+#FooterHaut div {
+    margin: auto;
+}
+
+#SectionGauche {
+    width: 50%;
+}
+
+#TitreSectionGauche {
+    opacity: 60%;
+}
+
+#DescriptionSectionGauche {
+    opacity: 40%;
+}
+
+#SectionDroite {
+    display: inline-flex;
+    margin: auto;
+}
+
+#SectionDroite h2 {
+    opacity: 60%;
+}
+
+.column {
+    padding: 15px;
+}
+
+
+#SectionDroite h3 {
+    opacity: 40%;
+}
+
+/*Footer Bottom Part */
+
+#FooterBas {
+    display: inline-flex;
+    background-color: var(--auto_background_secondary);
+    width: 100%;
+    font-size: 10px;
+ 
+}
+
+#Liens {
+    display: inline-flex;
+    width: 100%;
+    margin-left: 2%;
+   
+
+}
+
+#NomSite {
+    padding: 5px;
+}
+
+#NomsSections {
+    display: inline-flex;
+    margin: auto;
+    
+}
+
+#NomsSections div {
+    padding: 0px 20px 0px 20px;
+}
+
+/*Images Footer Bas */
+#SectionIcones {
+    display: inline-flex;
+    margin: auto 2% auto auto;
+    
+}
+
+#SectionIcones img {
+    padding: 5px;
+}

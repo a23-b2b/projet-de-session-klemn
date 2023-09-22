@@ -1,27 +1,54 @@
 const http = require("http");
 const express = require('express');
 const path = require("path");
-const logger = require("morgan");
-
+const fs = require("fs");
+const morgan = require("morgan");
+const winston = require("winston");
+const mysql = require('mysql2')
+const cors = require('cors')
+const logger = require('./logger.js');
+const app = express()
+const admin = require('firebase-admin');
 const dotenv = require('dotenv');
-dotenv.config();
-const port = process.env.PORT;
 
 
-const app = express();
-
-app.set("views", path.join(__dirname, "views"));
-app.set('view engine', 'jade');
-
-app.use()
-
-app.get('/', (req, res) => {
-    res.send("Test");
+const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
+exports.admin = admin.initializeApp({
+    credential: admin.credential.cert(firebaseServiceAccount)
 });
 
+app.use(express.json())
+app.use(express.urlencoded())
+app.use(cors());
 
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+// Paramètre env
+dotenv.config();
+
+// Formatage et config de morgan !
+app.use(morgan('tiny', {
+    stream: fs.createWriteStream('./logs/morgan.log', {flags: 'a'})
+}));
+
+const inscription = require('./inscription')
+app.use('/inscription', inscription);
+
+const get_profil = require('./get_profil')
+app.use('/profil', get_profil);
+
+const get_user_posts = require('./get_user_posts.js')
+app.use('/user-posts', get_user_posts);
+
+const get_single_post = require('./get_single_post.js')
+app.use('/single-post', get_single_post);
+
+const get_posts_feed = require('./get_posts_feed.js')
+app.use('/feed-posts', get_posts_feed);
+
+const publierBlogue = require('./publierBlogue')
+app.use('/publier-blogue', publierBlogue);
+
+app.listen(process.env.SERVER_PORT, () => {
+    logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
 
