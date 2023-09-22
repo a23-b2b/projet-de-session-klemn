@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
+import { auth } from '../firebase';
+import toast from 'react-hot-toast'
 
 function Profil() {
     let { username } = useParams();
@@ -69,10 +71,27 @@ function Profil() {
             .catch((error) => {
                 console.log(error)
             })
-
-
-
     }, [username]);
+
+    function followUser() {
+        auth.currentUser?.getIdToken(/* forceRefresh */ true)
+            .then((idToken) => {
+                fetch('http://localhost:1111/follow_user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: auth.currentUser?.uid,
+                        wants_to_follow: idCompte,
+                        firebase_id_token: idToken
+                    }),
+                }).then(response => response.json())
+                    .then(response => {
+                        toast.success('Le compte est suivi');
+                    }).catch((error) => {
+                        toast.error('Une erreur est survenue');
+                    })
+            })
+    }
 
     return (
         <div className={styles.flex}>
@@ -86,7 +105,9 @@ function Profil() {
                     <div className={styles.infos_profil}>
                         <h2 className={styles.nom}>{displayName}</h2>
                         <p className={styles.username}>@{username}</p>
-                        <button className={`${styles.bouton_follow} global_bouton`}>Suivre</button>
+                        {idCompte != auth.currentUser?.uid && auth.currentUser && (
+                            <button className={`${styles.bouton_follow} global_bouton`} onClick={() => followUser()}>Suivre</button>
+                        )}
                     </div>
 
                 </div>
@@ -131,7 +152,7 @@ function Profil() {
                         nombreDislike={nombre_dislikes}
                         nombrePartage={nombre_partages}
                         nombreCommentaire={nombre_commentaires}
-                        type={id_type_post} 
+                        type={id_type_post}
                         isPostFullScreen={false} />
                 )
             })}
