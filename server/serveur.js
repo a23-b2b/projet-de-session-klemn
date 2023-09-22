@@ -27,6 +27,18 @@ app.use('/inscription', inscription);
 const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
 
+const changer_nom_affichage = require('./changer_nom_affichage')
+app.use('/changer_nom_affichage', changer_nom_affichage)
+
+const changer_nom = require('./changer_nom')
+app.use('/changer_nom', changer_nom)
+
+const changer_prenom = require('./changer_prenom')
+app.use('/changer_prenom', changer_prenom)
+
+const changer_bio = require('./changer_bio')
+app.use('/changer_bio', changer_bio)
+
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

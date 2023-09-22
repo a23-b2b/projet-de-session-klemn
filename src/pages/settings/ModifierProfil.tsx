@@ -4,10 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
-// const express = require('express')
-// const app = express()
-// const { check, body, validationResult } = require('express-validator');
-// const mysql = require('mysql2')
+
 
 
 
@@ -18,23 +15,23 @@ function ModifierProfil() {
     const [newEmail, setNewEmail] = useState('');
     const [newEmailConfirmation, setNewEmailConfirmation] = useState('');
 
+    const [newNameAffichage, setNewNameAffichage] = useState('');
+    const [newNameAffichageConfirmation, setNewNameAffichageConfirmation] = useState('');
+
     const [newName, setNewName] = useState('');
     const [newNameConfirmation, setNewNameConfirmation] = useState('');
 
-    // const mysqlConnection = mysql.createConnection({
-    //     host: process.env.MYSQL_HOSTNAME,
-    //     port: process.env.MYSQL_PORT,
-    //     user: process.env.MYSQL_USERNAME,
-    //     password: process.env.MYSQL_PASSWORD,
-    //     database: process.env.MYSQL_DATABASE
-    // })
+    const [newPrenom, setNewPrenom] = useState('');
+    const [newPrenomConfirmation, setNewPrenomConfirmation] = useState('');
+
+    const [newBio, setNewBio] = useState('');
+
+
 
 
     const changeEmail = () => {
 
         let password = prompt('Pour continuer, entrez votre mot de passe');
-
-
 
         let user = auth.currentUser;
 
@@ -59,34 +56,141 @@ function ModifierProfil() {
         }
     }
 
-    // const changeName = () => {
-    //     let password = prompt('Pour continuer, entrez votre mot de passe');
+    const changeNameAffichage = () => {
 
-    //     let user = auth.currentUser;
+        let password = prompt('Pour continuer, entrez votre mot de passe');
 
-    //     if (user && user.email && password) {
-    //         var credential = EmailAuthProvider.credential(
-    //             user.email,
-    //             password
-    //         );
+        let user = auth.currentUser;
 
-    //         reauthenticateWithCredential(user, credential).then((user) => {
-    //             const id_compte = user.user; // Remplacez par le moyen de récupérer l'ID de l'utilisateur
-    //             const newName = "NouveauNom"; // Remplacez par le nouveau nom d'utilisateur
+        if (user && user.email && password) {
+            var credential = EmailAuthProvider.credential(
+                user.email,
+                password
+            );
 
-    //             // Vous devrez maintenant effectuer une requête MySQL pour mettre à jour le nom dans la base de données.
-    //             // Voici un exemple de requête MySQL pour mettre à jour le nom d'utilisateur :
+            reauthenticateWithCredential(user, credential).then((user) => {
+                fetch('http://localhost:1111/changer_nom_affichage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        new_name_affichage: newNameAffichage,
+                        id_compte: user.user.uid
+                    }),
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue! (${error.code})`)
+                // An error ocurred
+                // ...
+            });
 
-    //             mysqlConnection.query(
-    //                 `UPDATE compte SET nom_utilisateur = ? WHERE id_compte = ?`,
-    //                 [newName, id_compte],
+        }
+    }
 
-    //             );
-    //         }).catch((error) => {
-    //             toast.error(`Une erreur est survenue! (${error.code})`)
-    //         });
-    //     }
-    // }
+
+    const changeName = () => {
+
+        let password = prompt('Pour continuer, entrez votre mot de passe');
+
+        let user = auth.currentUser;
+
+        if (user && user.email && password) {
+            var credential = EmailAuthProvider.credential(
+                user.email,
+                password
+            );
+
+            reauthenticateWithCredential(user, credential).then((user) => {
+                fetch('http://localhost:1111/changer_nom', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        new_name: newName,
+                        id_compte: user.user.uid
+                    }),
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue! (${error.code})`)
+                // An error ocurred
+                // ...
+            });
+
+        }
+    }
+
+
+
+    const changePrenom = () => {
+
+        let password = prompt('Pour continuer, entrez votre mot de passe');
+
+        let user = auth.currentUser;
+
+        if (user && user.email && password) {
+            var credential = EmailAuthProvider.credential(
+                user.email,
+                password
+            );
+
+            reauthenticateWithCredential(user, credential).then((user) => {
+                fetch('http://localhost:1111/changer_prenom', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        new_prenom: newPrenom,
+                        id_compte: user.user.uid
+                    }),
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue! (${error.code})`)
+                // An error ocurred
+                // ...
+            });
+
+        }
+    }
+
+
+
+    const changeBio = () => {
+
+        let password = prompt('Pour continuer, entrez votre mot de passe');
+
+        let user = auth.currentUser;
+
+        if (user && user.email && password) {
+            var credential = EmailAuthProvider.credential(
+                user.email,
+                password
+            );
+
+            reauthenticateWithCredential(user, credential).then((user) => {
+                fetch('http://localhost:1111/changer_bio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        new_bio: newBio,
+                        id_compte: user.user.uid
+                    }),
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue! (${error.code})`)
+                // An error ocurred
+                // ...
+            });
+
+        }
+    }
+
+
+
 
 
     return (
@@ -109,27 +213,70 @@ function ModifierProfil() {
                     onChange={(e) => setNewEmailConfirmation(e.target.value)}
                 />
                 <button className={'global_button'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
-                    Inscription
+                    Modifier
                 </button>
             </div>
             <br />
 
 
-            <h3>Modifier le nom</h3>
-            <label className={'global_input_field_label'}>Nouveau nom</label>
+            <h3>Modifier le nom d'affichage</h3>
+            <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
+            <input
+                className={'global_input_field'}
+                onChange={(e) => setNewNameAffichage(e.target.value)}
+            />
+            <label className={'global_input_field_label'}>Confirmez le nom d'affichage</label>
+
+            <input
+                className={'global_input_field'}
+                onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
+            />
+            <button className={'global_button'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                Modifier
+            </button>
+
+            <h3>Modifier le nom </h3>
+            <label className={'global_input_field_label'}>Nouveau nom  </label>
             <input
                 className={'global_input_field'}
                 onChange={(e) => setNewName(e.target.value)}
             />
-            <label className={'global_input_field_label'}>Confirmez le nom</label>
+            <label className={'global_input_field_label'}>Confirmez le nom </label>
 
             <input
                 className={'global_input_field'}
                 onChange={(e) => setNewNameConfirmation(e.target.value)}
             />
-            {/* <button className={'global_button'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
-                Inscription
-            </button> */}
+            <button className={'global_button'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                Modifier
+            </button>
+
+
+            <h3>Modifier le prenom </h3>
+            <label className={'global_input_field_label'}>Nouveau prenom </label>
+            <input
+                className={'global_input_field'}
+                onChange={(e) => setNewPrenom(e.target.value)}
+            />
+            <label className={'global_input_field_label'}>Confirmez le prenom </label>
+
+            <input
+                className={'global_input_field'}
+                onChange={(e) => setNewPrenomConfirmation(e.target.value)}
+            />
+            <button className={'global_button'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                Modifier
+            </button>
+
+            <h3>Modifier le Bio </h3>
+            <label className={'global_input_field_label'}>Nouveau Bio </label>
+            <input
+                className={'global_input_field'}
+                onChange={(e) => setNewBio(e.target.value)}
+            />
+            <button className={'global_button'} onClick={() => changeBio()} disabled={newBio === ""}>
+                Modifier
+            </button>
 
 
 
