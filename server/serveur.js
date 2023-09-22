@@ -26,7 +26,7 @@ dotenv.config();
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
-    stream: fs.createWriteStream('./logs/morgan.log', {flags: 'a'})
+    stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
 const inscription = require('./inscription')
@@ -34,6 +34,34 @@ app.use('/inscription', inscription);
 
 const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
+
+const get_user_posts = require('./get_user_posts.js')
+app.use('/user-posts', get_user_posts);
+
+const get_single_post = require('./get_single_post.js')
+app.use('/single-post', get_single_post);
+
+const get_replies = require('./get_replies')
+app.use('/replies', get_replies);
+
+const get_posts_feed = require('./get_posts_feed.js')
+app.use('/feed-posts', get_posts_feed);
+
+const publierBlogue = require('./publierBlogue')
+app.use('/publier-blogue', publierBlogue);
+
+const changer_nom_affichage = require('./changer_nom_affichage')
+app.use('/changer_nom_affichage', changer_nom_affichage)
+
+const changer_nom = require('./changer_nom')
+app.use('/changer_nom', changer_nom)
+
+const changer_prenom = require('./changer_prenom')
+app.use('/changer_prenom', changer_prenom)
+
+const changer_bio = require('./changer_bio')
+app.use('/changer_bio', changer_bio)
+
 
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
