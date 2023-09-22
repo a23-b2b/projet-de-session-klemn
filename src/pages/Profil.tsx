@@ -126,7 +126,6 @@ function Profil() {
                         nomUtilisateur={username + ''}
                         titre={titre}
                         contenu={contenu}
-                        idCompte={id_compte}
                         nombreLike={nombre_likes}
                         nombreDislike={nombre_dislikes}
                         nombrePartage={nombre_partages}

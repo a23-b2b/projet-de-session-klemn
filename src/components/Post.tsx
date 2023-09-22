@@ -1,9 +1,10 @@
-import styles from '../styles/Post.module.css'
-import PostHeader from './Post/Header';
-import PostContent from './Post/Contenu';
-import PostFooter from './Post/Footer';
 import PosteBlogue from './Post/PosteBlogue';
+import Reponse from "./Reponse";
 
+export const TYPE_BLOGUE = 1;
+export const TYPE_QUESTION = 2;
+export const TYPE_COLLABORATION = 3;
+export const TYPE_REPONSE = 4;
 
 interface Props {
     idPost: string;
@@ -12,7 +13,6 @@ interface Props {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
-    idCompte: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -31,7 +31,7 @@ function Post(props: Props) {
 
     return (
         <>
-            {props.type == 1 && (
+            {props.type == TYPE_BLOGUE && (
 
                 <PosteBlogue
                     date={props.date}
@@ -46,6 +46,18 @@ function Post(props: Props) {
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost} />
 
+            )
+            }
+            {props.type == TYPE_REPONSE && (
+                <Reponse idPost={props.idPost}
+                         date={props.date}
+                         nomAffichage={props.nomAffichage}
+                         nomUtilisateur={props.nomUtilisateur}
+                         contenu={props.contenu}
+                         nombreLike={props.nombreLike}
+                         nombreDislike={props.nombreDislike}
+                         nombrePartage={props.nombrePartage}
+                         nombreCommentaire={props.nombreCommentaire} />
             )
             }
         </>

@@ -34,6 +34,7 @@ function PosteBlogue(props: BlogueProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
