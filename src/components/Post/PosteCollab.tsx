@@ -18,6 +18,7 @@ export interface CollabProp {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
+    urlImageProfil: string;
 
     idCollaborateur?: string;
 
@@ -53,7 +54,8 @@ function PosteCollab(props: CollabProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} />
+                nomUtilisateur={props.nomUtilisateur}
+                urlImageProfil={props.urlImageProfil} />
 
             <PostContent
                 titre={props.titre}

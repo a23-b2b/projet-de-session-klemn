@@ -43,22 +43,23 @@ function SectionReponses(props: SectionReponsesProps) {
                                   nombre_likes,
                                   nombre_dislikes,
                                   nombre_partages,
-                                  nombre_commentaires
+                                  nombre_commentaires,
+                                  url_image_profil
                               }) => {
                     return (
                         <Post idPost={id_post}
-                              idCompte={id_compte}
-                              date={date_publication}
-                              nomAffichage={nom_affichage}
-                              nomUtilisateur={nom_utilisateur}
-                              titre={titre}
-                              contenu={contenu}
-                              nombreLike={nombre_likes}
-                              nombreDislike={nombre_dislikes}
-                              nombrePartage={nombre_partages}
-                              nombreCommentaire={nombre_commentaires}
-                              isPostFullScreen={false}
-                              type={TYPE_REPONSE} />
+                        idCompte={id_compte}
+                        date={date_publication}
+                        nomAffichage={nom_affichage}
+                        nomUtilisateur={nom_utilisateur}
+                        titre={titre}
+                        contenu={contenu}
+                        nombreLike={nombre_likes}
+                        nombreDislike={nombre_dislikes}
+                        nombrePartage={nombre_partages}
+                        nombreCommentaire={nombre_commentaires}
+                        isPostFullScreen={false}
+                        type={TYPE_REPONSE} urlImageProfil={url_image_profil} />
                         )
                 })}
             </motion.div>
