@@ -84,10 +84,18 @@ function Profil() {
                         wants_to_follow: idCompte,
                         firebase_id_token: idToken
                     }),
-                }).then(response => response.json())
+                }).then(response => response)
                     .then(response => {
-                        toast.success('Le compte est suivi');
+                        if (response.status === 401) {
+                            toast.error("Vous ne pouvez pas suivre le même compte plus d'une fois.");
+                        }
+
+                        if (response.status === 200) {
+                            toast.success(`Vous suivez maintenant ${displayName}!`);
+                        }
+
                     }).catch((error) => {
+                        console.log(error)
                         toast.error('Une erreur est survenue');
                     })
             })
