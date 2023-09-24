@@ -6,6 +6,7 @@ import SectionReponses from '../SectionReponses';
 import { useState } from 'react';
 
 interface FooterProps {
+    idPost: string;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -47,7 +48,7 @@ const PostFooter = (props: FooterProps) => {
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses /> : ''}
+                    {isReponsesOpen ? <SectionReponses  idParent={props.idPost}/> : ''}
                 </AnimatePresence>)}
 
         </div>

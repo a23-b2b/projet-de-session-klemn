@@ -18,10 +18,10 @@ module.exports = app.get('/:offset', (req, res) => {
     const limit = 6
 
     mysqlConnection.query(`
-            select post.*, c.nom_affichage, c.nom_utilisateur
+            select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil
             from post
             inner join compte c on post.id_compte = c.id_compte
-            
+            where id_type_post != 4
             order by date_publication desc
             limit ? offset ?;
         `,

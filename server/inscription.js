@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const { check, body, validationResult  } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 
 const { logger } = require('./serveur.js')
@@ -16,9 +16,9 @@ const mysqlConnection = mysql.createConnection({
 
 module.exports = app.post('/', [body('username').notEmpty(), body('email').optional().trim().isEmail()], (req, res) => {
     const resultatValidation = validationResult(req);
-    if (resultatValidation.isEmpty()) {        
-        
-        const id_compte = req.body.id_compte; 
+    if (resultatValidation.isEmpty()) {
+
+        const id_compte = req.body.id_compte;
         const username = req.body.username;
         const email = req.body.email;
         const prenom = req.body.prenom;
@@ -39,25 +39,27 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 nom_affichage,
                 biographie,
                 autorisation_id_autorisation) 
+
             VALUES (
                 ?, NOW(), ?, ?, ?, ?, ?, 0, 0, ?, ?, ?);`,
             [
-                id_compte, 
-                nom, 
-                prenom, 
-                username, 
+                id_compte,
+                nom,
+                prenom,
+                username,
                 email,
-                telephone, 
-                `${prenom} ${nom}`, 
-                'Je viens d\'arriver sur Klemn!', 
+                telephone,
+                `${prenom} ${nom}`,
+                'Je viens d\'arriver sur Klemn!',
                 3
-            ], 
+            ],
             function (err, results, fields) {
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query.", err)
                     console.log(err)
                     res.send(JSON.stringify(err))
-                } 
+                }
+
             }
         );
 

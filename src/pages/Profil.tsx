@@ -116,23 +116,25 @@ function Profil() {
                 nombre_likes,
                 nombre_partages,
                 nombre_reposts,
-                titre
+                titre,
+                url_image_profil
             }) => {
                 return (
                     <Post
                         idPost={id_post}
+                        idCompte={id_compte}
                         date={date_publication}
                         nomAffichage={displayName}
                         nomUtilisateur={username + ''}
                         titre={titre}
                         contenu={contenu}
-                        idCompte={id_compte}
                         nombreLike={nombre_likes}
                         nombreDislike={nombre_dislikes}
                         nombrePartage={nombre_partages}
                         nombreCommentaire={nombre_commentaires}
-                        type={id_type_post} 
-                        isPostFullScreen={false} />
+                        type={id_type_post}
+                        isPostFullScreen={false} 
+                        urlImageProfil={urlImageProfil} />
                 )
             })}
 

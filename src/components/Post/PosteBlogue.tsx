@@ -15,6 +15,7 @@ export interface BlogueProp {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
+    urlImageProfil: string;
 
     isPostFullScreen: Boolean;
 }
@@ -26,7 +27,8 @@ function PosteBlogue(props: BlogueProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} />
+                nomUtilisateur={props.nomUtilisateur} 
+                urlImageProfil={props.urlImageProfil} />
 
             <PostContent
                 titre={props.titre}
@@ -35,6 +37,7 @@ function PosteBlogue(props: BlogueProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
