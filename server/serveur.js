@@ -36,7 +36,10 @@ const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
 
 const follow_user = require('./follow_user');
-app.use('/follow_user', follow_user);
+app.use('/follow-user', follow_user);
+
+const unfollow_user = require('./unfollow_user');
+app.use('/unfollow-user', unfollow_user);
 
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
