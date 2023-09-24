@@ -21,7 +21,7 @@ module.exports = app.get('/:user_id', (req, res) => {
         from 
         post 
         where 
-        id_compte like ?
+        id_compte like ? AND id_type_post != 4
         order by date_publication desc;
     `, 
     [req.params.user_id],

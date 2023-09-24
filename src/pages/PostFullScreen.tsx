@@ -40,9 +40,9 @@ function PostFullScreen() {
                     date={postData.date_publication}
                     nomAffichage={postData.nom_affichage}
                     nomUtilisateur={postData.nom_utilisateur}
+                    idCompte={postData.id_compte}
                     titre={postData.titre}
                     contenu={postData.contenu}
-                    idCompte={postData.id_compte}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}
@@ -51,7 +51,7 @@ function PostFullScreen() {
                     type={postData.id_type_post}
                 />
 
-                <SectionReponses/>
+                <SectionReponses idParent={postData.id_post}/>
             </div>
         );
     }

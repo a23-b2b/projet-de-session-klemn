@@ -47,6 +47,7 @@ function PosteQuestion(props: QuestionProp) {
             )}
 
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}

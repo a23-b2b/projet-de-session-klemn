@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const { check, body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 
 const { logger } = require('./serveur.js')
@@ -13,27 +14,23 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.get('/:offset', (req, res) => {
-    const offset = parseInt(req.params.offset);
-    const limit = 6
+module.exports = app.post('/', [], (req, res) => {
+    const resultatValidation = validationResult(req);
 
-    mysqlConnection.query(`
-            select post.*, c.nom_affichage, c.nom_utilisateur
-            from post
-            inner join compte c on post.id_compte = c.id_compte
-            where id_type_post != 4
-            order by date_publication desc
-            limit ? offset ?;
-        `,
-        [limit, offset],
-        function (err, results, fields) {
+
+    const id_compte = req.body.id_compte;
+    const newPrenom = req.body.new_prenom;
+
+    mysqlConnection.query(
+        `UPDATE compte SET prenom = ? WHERE id_compte = ?`,
+        [newPrenom, id_compte],
+        function (err, results) {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-                res.status(500)
+                res.status(500).send('Erreur de base de données', err)
             }
             if (results) {
-                console.log(results)
                 res.status(200).send(results)
             }
-        })
+        });
 });

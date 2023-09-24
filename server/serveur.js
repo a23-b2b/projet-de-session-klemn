@@ -26,7 +26,7 @@ dotenv.config();
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
-    stream: fs.createWriteStream('./logs/morgan.log', {flags: 'a'})
+    stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
 const inscription = require('./inscription')
@@ -44,6 +44,9 @@ app.use('/user-posts', get_user_posts);
 const get_single_post = require('./get_single_post.js')
 app.use('/single-post', get_single_post);
 
+const get_replies = require('./get_replies')
+app.use('/replies', get_replies);
+
 const get_posts_feed = require('./get_posts_feed.js')
 app.use('/feed-posts', get_posts_feed);
 
@@ -52,6 +55,18 @@ app.use('/feed-followed', get_followed_users_feed)
 
 const publierBlogue = require('./publierBlogue')
 app.use('/publier-blogue', publierBlogue);
+
+const changer_nom_affichage = require('./changer_nom_affichage')
+app.use('/changer_nom_affichage', changer_nom_affichage)
+
+const changer_nom = require('./changer_nom')
+app.use('/changer_nom', changer_nom)
+
+const changer_prenom = require('./changer_prenom')
+app.use('/changer_prenom', changer_prenom)
+
+const changer_bio = require('./changer_bio')
+app.use('/changer_bio', changer_bio)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

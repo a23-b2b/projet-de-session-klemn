@@ -65,6 +65,7 @@ function PosteCollab(props: CollabProp) {
             <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
             
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}

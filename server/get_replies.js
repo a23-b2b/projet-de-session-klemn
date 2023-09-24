@@ -16,7 +16,10 @@ const mysqlConnection = mysql.createConnection({
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)
     mysqlConnection.query(`
-        select * from post where id_parent like ?;
+        select post.*, c.nom_affichage, c.nom_utilisateur
+        from post
+        inner join compte c on post.id_compte = c.id_compte
+        where id_parent like ?;
     `,
         [req.params.post_id],
         function (err, results, fields) {
