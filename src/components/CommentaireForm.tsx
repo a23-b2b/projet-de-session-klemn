@@ -4,42 +4,43 @@ import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function BlogueForm() {
+export interface CommentaireFormProps {
+    idParent: string
+}
+
+function CommentaireForm(props: CommentaireFormProps) {
     const navigate = useNavigate();
 
-    const [titre, setTitre] = useState('');
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
-    async function publierBlogue() {
+    async function publierCommentaire() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch('http://localhost:1111/publier-blogue', {
+                        fetch('http://localhost:1111/publier-commentaire', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 id_compte: utilisateur.uid,
-                                titre: titre,
+                                id_parent: props.idParent,
                                 contenu: contenu,
                                 firebase_id_token: idToken
                             }),
-                        }).then(response => response.json())
-                        .then(response => {
-                            console.log(response)
-                            toast.success('Votre message a été publié!');
-
-                            navigate(`/p/${response[1][0]['id_post']}`)
+                        }).then(() => {
+                            toast.success('Votre commentaire a été publié!');
                         }).catch((error) => {
+                            console.log(error)
                             toast.error('Une erreur est survenue');
                         })
+
                     })
 
             } else {
-                toast.error('Le contenu de la publication ne peut pas être vide.')
+                toast.error('Le contenu du commentaire ne peut pas être vide.')
             }
         } else {
             toast.error('Veuillez vous connecter avant de publier.');
@@ -49,33 +50,24 @@ function BlogueForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Publication</h2>
+        <div className={styles.conteneurCommentaire}>
             <div className={styles.form}>
-                <label className={'global_input_field_label'}>Titre</label>
-                <input
-                    className={'global_input_field'}
-                    type="text"
-                    placeholder="Titre"
-                    onChange={(e) => setTitre(e.target.value)} />
-
-                <label className={'global_input_field_label'}>Contenu</label>
                 <textarea className={'global_input_field'}
-                    rows={10}
-                    maxLength={4000}
-                    placeholder="Exprimez-vous!"
-                    value={contenu}
-                    onChange={e => {
-                        setContenu(e.target.value)
-                        setNbCaracteres(e.target.textLength)
-                    }}></textarea>
+                          rows={5}
+                          maxLength={4000}
+                          placeholder="Écrivez un commentaire"
+                          value={contenu}
+                          onChange={e => {
+                              setContenu(e.target.value)
+                              setNbCaracteres(e.target.textLength)
+                          }}></textarea>
             </div>
             <span>{nbCaracteres}/4000</span>
-            <button className={'global_bouton'} onClick={() => publierBlogue()}>
+            <button className={'global_bouton'} onClick={() => publierCommentaire()}>
                 Publier
             </button>
         </div>
     )
 }
 
-export default BlogueForm
+export default CommentaireForm

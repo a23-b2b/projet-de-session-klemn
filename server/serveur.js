@@ -50,6 +50,9 @@ app.use('/feed-posts', get_posts_feed);
 const publierBlogue = require('./publierBlogue')
 app.use('/publier-blogue', publierBlogue);
 
+const publierCommentaire = require('./publierCommentaire')
+app.use('/publier-commentaire', publierCommentaire)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
