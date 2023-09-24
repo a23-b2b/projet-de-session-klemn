@@ -86,7 +86,8 @@ function Home() {
                         nombre_reposts,
                         titre,
                         nom_affichage,
-                        nom_utilisateur
+                        nom_utilisateur,
+                        url_image_profil
                     }) => {
                         return (
                             <Post
@@ -102,7 +103,8 @@ function Home() {
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 type={id_type_post}
-                                isPostFullScreen={false} />
+                                isPostFullScreen={false} 
+                                urlImageProfil={url_image_profil} />
                         )
                     })}
                 </div>
