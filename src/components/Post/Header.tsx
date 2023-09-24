@@ -3,18 +3,21 @@ import styles from '../../styles/Post.module.css'
 
 interface HeaderProps {
     date: string;
-    nomAffichage: string,
+    nomAffichage: string;
     nomUtilisateur: string;
+    urlImageProfil: string;
 }
 
 const PostHeader = (props: HeaderProps) => {
+
+    console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
 
             <div className={styles.header_content}>
 
                 <Link to={`/u/${props.nomUtilisateur}`}>
-                    <img className={styles.image_profil} src='https://fr.web.img6.acsta.net/medias/nmedia/18/71/84/20/19146888.jpg' />
+                    <img className={styles.image_profil} src={props.urlImageProfil} />
                 </Link>
 
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
@@ -27,12 +30,6 @@ const PostHeader = (props: HeaderProps) => {
             <p className={styles.date}>{props.date}</p>
         </div>
     )
-}
-
-interface ContentProps {
-    titre?: string;
-    contenu: string;
-    isPostFullScreen: Boolean;
 }
 
 export default PostHeader;

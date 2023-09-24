@@ -4,7 +4,6 @@ import './styles/global.css'
 import AccueilConnecte from "./pages/AccueilConnecte";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
