@@ -8,6 +8,7 @@ import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
 import { auth } from '../firebase';
 import toast from 'react-hot-toast'
+import { onAuthStateChanged } from 'firebase/auth';
 
 function Profil() {
     let { username } = useParams();
@@ -22,6 +23,7 @@ function Profil() {
     const [bio, setBio] = useState('');
     const [urlImageProfil, setUrlImageProfil] = useState('');
     const [urlImageBanniere, setUrlImageBanniere] = useState('');
+    const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
 
     const [idCompte, setIdCompte] = useState('')
 
@@ -29,54 +31,63 @@ function Profil() {
     const [loadingPosts, setLoadingPosts] = useState(true)
 
     useEffect(() => {
-        fetch(`http://localhost:1111/profil/${username}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(response => response.json())
-            .then(response => {
-                let data = response[0]
-
-                if (!data) {
-                    navigate("/404")
-                }
-                setIdCompte(data.id_compte)
-                setNom(data.nom)
-                setPrenom(data.prenom)
-                setDisplayName(data.nom_affichage ? data.nom_affichage : username)
-                setDateCreationCompte(data.date_creation_compte)
-                setNombreAbonnes(data.nombre_abonnes)
-                setNombreAbonnements(data.nombre_abonnements)
-                setBio(data.biographie)
-                setUrlImageProfil(data.url_image_profil)
-                setUrlImageBanniere(data.url_image_banniere)
-
-                return data.id_compte;
-
-            }).then((userId) => {
-                fetch(`http://localhost:1111/user-posts/${userId}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(response => response.json())
-                    .then(response => {
-                        let data = response;
-
-                        setUserPosts(data);
-                        setLoadingPosts(false);
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+        onAuthStateChanged(auth, (user) => {
+            fetch(`http://localhost:1111/profil`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: username,
+                    is_followed_by: auth.currentUser?.uid
+                }),
+                headers: { 'Content-Type': 'application/json' }
             })
-            .catch((error) => {
-                console.log(error)
-            })
+                .then(response => response.json())
+                .then(response => {
+                    let data = response
+
+                    // if (!data) {
+                    //     navigate("/404")
+                    // }
+
+                    setIdCompte(data.id_compte)
+                    setNom(data.nom)
+                    setPrenom(data.prenom)
+                    setDisplayName(data.nom_affichage ? data.nom_affichage : username)
+                    setDateCreationCompte(data.date_creation_compte)
+                    setNombreAbonnes(data.nombre_abonnes)
+                    setNombreAbonnements(data.nombre_abonnements)
+                    setBio(data.biographie)
+                    setUrlImageProfil(data.url_image_profil)
+                    setUrlImageBanniere(data.url_image_banniere)
+                    setVisitorFollowsUser(data.visitor_follows_profile)
+
+                    return data.id_compte;
+
+                }).then((userId) => {
+                    fetch(`http://localhost:1111/user-posts/${userId}`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(response => response.json())
+                        .then(response => {
+                            let data = response;
+
+                            setUserPosts(data);
+                            setLoadingPosts(false);
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        });
+
     }, [username]);
 
     function followUser() {
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch('http://localhost:1111/follow_user', {
+                fetch('http://localhost:1111/follow-user', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -92,6 +103,38 @@ function Profil() {
 
                         if (response.status === 200) {
                             toast.success(`Vous suivez maintenant ${displayName}!`);
+                            setNombreAbonnes(nombreAbonnes + 1)
+                            setVisitorFollowsUser(true)
+                        }
+
+                    }).catch((error) => {
+                        console.log(error)
+                        toast.error('Une erreur est survenue');
+                    })
+            })
+    }
+
+    function unfollowUser() {
+        auth.currentUser?.getIdToken(/* forceRefresh */ true)
+            .then((idToken) => {
+                fetch('http://localhost:1111/unfollow-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: auth.currentUser?.uid,
+                        wants_to_unfollow: idCompte,
+                        firebase_id_token: idToken
+                    }),
+                }).then(response => response)
+                    .then(response => {
+                        if (response.status === 401) {
+                            toast.error("Vous ne suivez pas cet utilisateur.");
+                        }
+
+                        if (response.status === 200) {
+                            toast.success(`Vous ne suivez plus ${displayName}.`);
+                            setNombreAbonnes(nombreAbonnes - 1)
+                            setVisitorFollowsUser(false)
                         }
 
                     }).catch((error) => {
@@ -113,8 +156,12 @@ function Profil() {
                     <div className={styles.infos_profil}>
                         <h2 className={styles.nom}>{displayName}</h2>
                         <p className={styles.username}>@{username}</p>
-                        {idCompte != auth.currentUser?.uid && auth.currentUser && (
+                        {idCompte != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == false && (
                             <button className={`${styles.bouton_follow} global_bouton`} onClick={() => followUser()}>Suivre</button>
+                        )}
+
+                        {idCompte != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == true && (
+                            <button className={`${styles.bouton_follow} global_bouton`} onClick={() => unfollowUser()}>Ne plus suivre</button>
                         )}
                     </div>
 

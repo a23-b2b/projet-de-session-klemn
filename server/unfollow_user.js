@@ -46,10 +46,9 @@ module.exports = app.post('/', (req, res) => {
                         // logger.info("Erreur lors de lexecution de la query.", err)
                         console.log(err)
                         res.status(500).send("ERREUR: " + err.code)
-
                     }
 
-                    if (results[0]["count(*)"] < 1) {
+                    if (results[0]["count(*)"] === 0) {
                         res.status(401).send("Vous ne suivez pas cet utilisateur.")
                     }
 
@@ -57,7 +56,7 @@ module.exports = app.post('/', (req, res) => {
                         mysqlConnection.query(
                             `DELETE FROM compte_suivi
                             WHERE compte = ? 
-                            AND suit = ?
+                            AND suit = ?;
             
                             UPDATE compte 
                             SET nombre_abonnements = nombre_abonnements - 1 
@@ -74,7 +73,6 @@ module.exports = app.post('/', (req, res) => {
                                     return res.status(500).send("ERREUR: " + err.code)
 
                                 } else {
-                                    console.log(results)
                                     return res.send(JSON.stringify(results))
                                 }
                             }
