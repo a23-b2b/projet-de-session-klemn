@@ -16,10 +16,15 @@ const mysqlConnection = mysql.createConnection({
 module.exports = app.post('/', (req, res) => {
     const offset = parseInt(req.body.offset);
     const limit = 6
-    const userId = req.body.user_id
+    const userId = req.body.user_id;
+
+    console.log(userId)
 
     mysqlConnection.query(`
-        SELECT * FROM post inner join compte_suivi cs on post.id_compte = cs.suit WHERE compte LIKE ?
+        SELECT * FROM post 
+        inner join compte c on post.id_compte = c.id_compte
+        inner join compte_suivi cs on post.id_compte = cs.suit 
+        WHERE compte LIKE ?
         
         order by date_publication desc
         limit ? offset ?;`,

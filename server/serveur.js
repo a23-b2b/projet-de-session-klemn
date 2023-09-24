@@ -47,6 +47,9 @@ app.use('/single-post', get_single_post);
 const get_posts_feed = require('./get_posts_feed.js')
 app.use('/feed-posts', get_posts_feed);
 
+const get_followed_users_feed = require('./get_followed_users_feed.js')
+app.use('/feed-followed', get_followed_users_feed)
+
 const publierBlogue = require('./publierBlogue')
 app.use('/publier-blogue', publierBlogue);
 

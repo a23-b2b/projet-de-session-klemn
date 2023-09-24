@@ -23,11 +23,10 @@ function Home() {
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             navigate('/authenticate')
-
         }
     });
 
-    async function getPosts() {
+    async function getGlobalPosts() {
 
         console.log('chargement des posts...')
 
@@ -51,12 +50,42 @@ function Home() {
             .catch((error) => {
                 toast.error(`Une erreur est survenue: ${error}`)
             })
+    }
 
+    async function getSubscribedPosts() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetch(`http://localhost:1111/feed-followed`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: user.uid,
+                        offset: postOffset
+                    })
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        let data = response
 
+                        setPostOffset(postOffset + OFFSET)
+
+                        if (data.length < OFFSET) {
+                            setIsEndOfFeed(true)
+                        }
+
+                        setPostData(postData.concat(data))
+
+                    })
+                    .catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
+            }
+        });
     }
 
     useEffect(() => {
-        getPosts()
+        // getGlobalPosts()
+        getSubscribedPosts()
     }, []);
 
     return (
@@ -65,7 +94,7 @@ function Home() {
 
             <InfiniteScroll
                 dataLength={postData.length}
-                next={() => getPosts()}
+                next={() => getSubscribedPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
