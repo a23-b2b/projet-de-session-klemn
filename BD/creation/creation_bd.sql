@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS type_post;
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
+DROP TABLE IF EXISTS post_collab;
+DROP TABLE IF EXISTS demande_collab;
 
 CREATE TABLE autorisation (
     id_autorisation     int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -73,7 +75,7 @@ CREATE TABLE image_post
 
 CREATE TABLE post_collab 
 (
-    id_collab INT           NOT NULL PRIMARY KEY,
+    id_collab INT           PRIMARY KEY,
     est_ouvert BOOLEAN      NOT NULL,
     url_git VARCHAR2 (255) 
     post_id_post INT,
@@ -84,11 +86,12 @@ CREATE TABLE post_collab
 
 CREATE TABLE demande_collab 
 (
-    id_demande_collab INT NOT NULL PRIMARY KEY,
-    statut BOOLEAN NOT NULL,
+    id_demande_collab INT PRIMARY KEY,
     
-    post_collab_id_collab INT,
-    id_collaborateur INT,    
+    statut BOOLEAN NOT NULL DEFAULT FALSE,
+    
+    post_collab_id_collab INT,    
+    id_collaborateur VARCHAR (255),    
 
     CONSTRAINT demande_collab_post_collab_id_collab_fk
         FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab),
