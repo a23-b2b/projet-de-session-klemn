@@ -70,3 +70,28 @@ CREATE TABLE image_post
     CONSTRAINT image_post_post_id_post_fk
         FOREIGN KEY (id_post) REFERENCES post (id_post)
 );
+
+CREATE TABLE post_collab 
+(
+    id_collab INT           NOT NULL PRIMARY KEY,
+    est_ouvert BOOLEAN      NOT NULL,
+    url_git VARCHAR2 (255) 
+    post_id_post INT,
+
+    CONSTRAINT post_collab_post_id_post_fk 
+        FOREIGN KEY (post_id_post) REFERENCES post (id_post)
+);
+
+CREATE TABLE demande_collab 
+(
+    id_demande_collab INT NOT NULL PRIMARY KEY,
+    statut BOOLEAN NOT NULL,
+    
+    post_collab_id_collab INT,
+    id_collaborateur INT,    
+
+    CONSTRAINT demande_collab_post_collab_id_collab_fk
+        FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab),
+    CONSTRAINT demande_collab_id_collaborateur_fk
+        FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)    
+);
