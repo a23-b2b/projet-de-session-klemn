@@ -4,24 +4,13 @@ const path = require("path");
 const fs = require("fs");
 const morgan = require("morgan");
 const winston = require("winston");
-const mysql = require('mysql2');
-
-// Paramètre env
+const mysql = require('mysql2')
+const cors = require('cors')
+const logger = require('./logger.js');
+const admin = require('firebase-admin');
 const dotenv = require('dotenv');
+// Paramètre env
 dotenv.config();
-
-// Info de connexion à la BD
-const hote = process.env.DB_HOTE;
-const utilisateur = process.env.DB_UTILISATEUR;
-const motDePasse = process.env.DB_MOT_DE_PASSE;
-const bd = process.env.DB_NOM;
-
-const connexion = mysql.createConnection({
-    host: hote,
-    user: utilisateur,
-    password: motDePasse, 
-    database: bd
-});
 
 // Logger config
 
@@ -29,7 +18,7 @@ const connexion = mysql.createConnection({
 const formatConfig = winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm' }),
     winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`
+        (info) => `${info.timestamp} ${info.level}: ${info.message}`
     )
 );
 
@@ -40,7 +29,7 @@ const transportsConfig = [
 ];
 
 // Creation de l'objet de log
-const logger =  winston.createLogger({
+const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
     format: formatConfig,
     transports: transportsConfig
@@ -52,17 +41,45 @@ const app = express();
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
-    stream: fs.createWriteStream('logs/morgan.log', {flags: 'a'})
+    stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
-app.get('/', (req, res) => {
-    res.send("Test");
-});
+const inscription = require('./inscription')
+app.use('/inscription', inscription);
+
+const get_profil = require('./get_profil')
+app.use('/profil', get_profil);
+
+const get_single_post = require('./get_single_post.js')
+app.use('/single-post', get_single_post);
+
+const get_replies = require('./get_replies')
+app.use('/replies', get_replies);
+
+const get_posts_feed = require('./get_posts_feed.js')
+app.use('/feed-posts', get_posts_feed);
+
+const publierBlogue = require('./publierBlogue')
+app.use('/publier-blogue', publierBlogue);
+
+const changer_nom_affichage = require('./changer_nom_affichage')
+app.use('/changer_nom_affichage', changer_nom_affichage)
+
+const changer_nom = require('./changer_nom')
+app.use('/changer_nom', changer_nom)
+
+const changer_prenom = require('./changer_prenom')
+app.use('/changer_prenom', changer_prenom)
+
+const changer_bio = require('./changer_bio')
+app.use('/changer_bio', changer_bio)
 
 
-const port = process.env.PORT;
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+const get_user_posts = require('./get_user_posts.js')
+app.use('/user-posts', get_user_posts);
+
+app.listen(process.env.SERVER_PORT, () => {
+    logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
 

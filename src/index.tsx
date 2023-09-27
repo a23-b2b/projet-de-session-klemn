@@ -1,29 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './styles/global.css'
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import HelloWorld from './pages/HelloWorld';
-import Accueil from './pages/Accueil';
+import Layout from './Layout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Accueil/>,
-  },
-]);
-
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Layout />
   </React.StrictMode>
 );
 

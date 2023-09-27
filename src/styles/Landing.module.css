@@ -1,0 +1,56 @@
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+/* "Vous êtes déjà inscrit?..."*/
+.paragraphe {
+    display: inline-flex;
+    margin-bottom: 5%;
+    margin-left: 8%;
+
+}
+
+.p1 {
+    color: var(--auto_text_color);
+}
+
+.p2 {
+margin-left: 7px;
+    color: var(--auto_accent_color);
+    font-weight: 600;
+}
+
+.p {
+    max-width: 400px;
+    max-height: 400px;
+
+}
+
+#ConteneurContenu h2 {
+    color: white;
+}
+
+#ConteneurContenu p {
+    color: rgb(209, 209, 209);
+}
+
+
+@media (prefers-color-scheme: light) {
+    #ConteneurLanding {
+        background: var(--background_light);
+    }
+
+    #ConteneurContenu {
+        background-image: var(--gradient_light_secondary);
+
+    }
+
+}
