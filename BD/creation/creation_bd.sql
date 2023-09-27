@@ -95,6 +95,6 @@ CREATE TABLE demande_collab
 
     CONSTRAINT demande_collab_post_collab_id_collab_fk
         FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab),
-    CONSTRAINT demande_collab_id_collaborateur_fk
+    CONSTRAINT demande_collab_compte_id_collaborateur_fk
         FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)    
 );
