@@ -1,7 +1,7 @@
 import { BsFillReplyAllFill } from 'react-icons/bs';
 import styles from '../../styles/Post.module.css'
 import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, useAnimate } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
 import { useState } from 'react';
 import { auth } from '../../firebase';
@@ -21,8 +21,40 @@ const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [postScore, setPostScore] = useState(props.nombreLike - props.nombreDislike)
     const [userVote, setUserVote] = useState(props.userVote) // le vote de lutilisateur pour afficher le bouton en couleur ou non
+    const [scopeLike, animateLike] = useAnimate()
+    const [scopeDislike, animateDisike] = useAnimate()
 
     function handleVote(score: number) {
+
+        if (score > 0) {
+
+            animateLike(scopeLike.current, {
+                scale: 1.1,
+                y: '-18px',
+                rotate: Math.floor(Math.random() * 40) - 20,
+            }, { duration: 0.15, ease: "anticipate" }).then(() => {
+                animateLike(scopeLike.current, {
+                    scale: 1,
+                    y: '0px',
+                    rotate: 0,
+                }, { duration: 0.3, type: "spring", bounce: 0.6 })
+            })
+        }
+
+        if (score < 0) {
+            animateDisike(scopeDislike.current, {
+                scale: 1.1,
+                y: '18px',
+                rotate: Math.floor(Math.random() * 40) - 20,
+            }, { duration: 0.15, ease: "anticipate" }).then(() => {
+                animateDisike(scopeDislike.current, {
+                    scale: 1,
+                    y: '0px',
+                    rotate: 0,
+                }, { duration: 0.3, type: "spring", bounce: 0.6 })
+            })
+        }
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
                 fetch('http://localhost:1111/vote', {
@@ -35,7 +67,7 @@ const PostFooter = (props: FooterProps) => {
                         firebase_id_token: idToken
                     }),
                 }).then(response => response.json())
-                .then(response => {
+                    .then(response => {
                         // console.log('before', postScore)
                         // console.log('diff', score)
                         // console.log('result:', response['postScoreDifference'] + postScore)
@@ -59,13 +91,18 @@ const PostFooter = (props: FooterProps) => {
 
                 <div className={styles.like_dislike_container}>
                     <div className={styles.bouton_interraction} id={styles.bouton_interraction_like} onClick={() => handleVote(1)}>
-                        <AiFillLike className={`styles.icone ${userVote === 1 && styles.liked_post}`} id={styles.icone_like} />
+                        <div ref={scopeLike}>
+                            <AiFillLike className={`styles.icone ${userVote === 1 && styles.liked_post}`} id={styles.icone_like} />
+                        </div>
+
                     </div>
 
                     <span className={styles.interraction_count}>{postScore}</span>
 
                     <div className={styles.bouton_interraction} id={styles.bouton_interraction_dislike} onClick={() => handleVote(-1)}>
-                        <AiFillDislike className={`styles.icone ${userVote === -1 && styles.disliked_post}`} id={styles.icone_dislike} />
+                        <div ref={scopeDislike}>
+                            <AiFillDislike className={`styles.icone ${userVote === -1 && styles.disliked_post}`} id={styles.icone_dislike} />
+                        </div>
                     </div>
                 </div>
 
