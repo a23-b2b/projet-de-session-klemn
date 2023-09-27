@@ -26,7 +26,7 @@ export interface CollabProp {
 }
 
 function PosteCollab(props: CollabProp) {
-    var enabled = false;
+    var enabled = ActiverCollab();
     const auth = getAuth();
     const user = auth.currentUser;
 
@@ -42,14 +42,15 @@ function PosteCollab(props: CollabProp) {
 
     function ActiverCollab(){
         if (user !== null && props.idCompte !== user.uid) {
-            enabled = true;
+            return true;
         } else {
-            enabled = false;
+            return false;
         }
         
     }
 
     return (
+        
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
