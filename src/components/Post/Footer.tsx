@@ -29,10 +29,11 @@ const PostFooter = (props: FooterProps) => {
         if (score > 0) {
 
             animateLike(scopeLike.current, {
-                scale: 1.1,
+                scale: 1.3,
                 y: '-18px',
                 rotate: Math.floor(Math.random() * 40) - 20,
-            }, { duration: 0.15, ease: "anticipate" }).then(() => {
+            }, { duration: 0.15, ease: "anticipate" })
+            .then(() => {
                 animateLike(scopeLike.current, {
                     scale: 1,
                     y: '0px',
@@ -43,7 +44,7 @@ const PostFooter = (props: FooterProps) => {
 
         if (score < 0) {
             animateDisike(scopeDislike.current, {
-                scale: 1.1,
+                scale: 0.7,
                 y: '18px',
                 rotate: Math.floor(Math.random() * 40) - 20,
             }, { duration: 0.15, ease: "anticipate" }).then(() => {
