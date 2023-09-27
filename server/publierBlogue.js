@@ -57,7 +57,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                         if (typePoste == 'collab') {
                             mysqlConnection.query(
                                 `INSERT INTO post_collab (id_collab, est_ouvert, url_git, post_id_post)
-                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, null, ?)`, 
+                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, null, ?);`, 
                                 // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
                                 [id_post], 
                                 function (err, results) {
@@ -67,7 +67,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                         } else if (typePoste == 'question') {
                             mysqlConnection.query(
                                 `INSERT INTO post_question (id_question, est_resolu, id_reponse_choisie, post_id_post)
-                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?)`, 
+                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?);`, 
                                 [id_post], 
                                 function (err, results) {
                                     gererErreur(err, res, results, "POSTER QUESTION ERR");
@@ -77,11 +77,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                     }
                     
                 );
-                                
-
-                
-
-                
+            
             })
             .catch((error) => {
                 res.status(500).send("ERREUR: " + error.code)

@@ -20,8 +20,6 @@ export interface PostProp {
 }
 
 
-
-
 function Blogue() {
     const navigate = useNavigate();
     
