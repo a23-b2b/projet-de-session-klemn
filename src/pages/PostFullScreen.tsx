@@ -48,8 +48,9 @@ function PostFullScreen() {
                     nombrePartage={postData.nombre_partages}
                     nombreCommentaire={postData.nombre_commentaires}
                     isPostFullScreen={true}
-                    type={postData.id_type_post} 
-                    urlImageProfil={postData.url_image_profil} />
+                    type={postData.id_type_post}
+                    urlImageProfil={postData.url_image_profil} 
+                    userVote={postData.vote} />
 
                 <SectionReponses idParent={postData.id_post}/>
             </div>

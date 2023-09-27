@@ -126,6 +126,14 @@
     transition: 0.1s;
 }
 
+.disliked_post {
+    color: rgb(170, 0, 0);
+}
+
+.liked_post {
+    color: rgb(0, 187, 62);
+}
+
 #icone_like, #icone_dislike {
     margin: 0;
     margin-bottom: -2px;

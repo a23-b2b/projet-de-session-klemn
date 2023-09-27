@@ -20,6 +20,7 @@ interface Props {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
+    userVote: number;
 
     isPostFullScreen: Boolean;
     idCompte: string;
@@ -50,7 +51,8 @@ function Post(props: Props) {
                     nombreCommentaire={props.nombreCommentaire}
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil} />
+                    urlImageProfil={props.urlImageProfil} 
+                    userVote={props.userVote}/>
             )}
             {props.type == TYPE_REPONSE && (
                 <Reponse idPost={props.idPost}
@@ -62,7 +64,8 @@ function Post(props: Props) {
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
                     nombreCommentaire={props.nombreCommentaire}
-                    urlImageProfil={props.urlImageProfil} />
+                    urlImageProfil={props.urlImageProfil} 
+                    userVote={props.userVote} />
             )}
             {props.type === TYPE_QUESTION && (
                 <PosteQuestion
@@ -79,6 +82,7 @@ function Post(props: Props) {
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
+                    userVote={props.userVote}
 
                     // Question Prop
                     idMeilleureReponse={props.idMeilleureReponse}
@@ -99,6 +103,7 @@ function Post(props: Props) {
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
+                    userVote={props.userVote}
 
                     // Collab Prop
                     idCollaborateur={props.idCollaborateur}

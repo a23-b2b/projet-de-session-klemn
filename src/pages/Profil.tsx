@@ -117,7 +117,8 @@ function Profil() {
                 nombre_partages,
                 nombre_reposts,
                 titre,
-                url_image_profil
+                url_image_profil,
+                vote
             }) => {
                 return (
                     <Post
@@ -133,8 +134,9 @@ function Profil() {
                         nombrePartage={nombre_partages}
                         nombreCommentaire={nombre_commentaires}
                         type={id_type_post}
-                        isPostFullScreen={false} 
-                        urlImageProfil={urlImageProfil} />
+                        isPostFullScreen={false}
+                        urlImageProfil={urlImageProfil} 
+                        userVote={vote} />
                 )
             })}
 

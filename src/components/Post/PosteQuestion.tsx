@@ -17,6 +17,7 @@ export interface QuestionProp {
     nombrePartage: number;
     nombreCommentaire: number;
     urlImageProfil: string;
+    userVote: number;
 
     idMeilleureReponse?: string;
     statutReponse?: Boolean;
@@ -55,6 +56,7 @@ function PosteQuestion(props: QuestionProp) {
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
+                userVote={props.userVote}
             />
         </div>
     );

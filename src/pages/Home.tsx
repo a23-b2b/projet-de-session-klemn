@@ -31,8 +31,12 @@ function Home() {
 
         console.log('chargement des posts...')
 
-        await fetch(`http://localhost:1111/feed-posts/${postOffset}`, {
-            method: 'GET',
+        await fetch(`http://localhost:1111/feed-posts`, {
+            method: 'POST',
+            body: JSON.stringify({
+                user_id: 'qmZUWHYeRWdarOZBjBF7avE0gHF2',
+                offset: postOffset
+            }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(response => response.json())
@@ -87,7 +91,8 @@ function Home() {
                         titre,
                         nom_affichage,
                         nom_utilisateur,
-                        url_image_profil
+                        url_image_profil,
+                        vote
                     }) => {
                         return (
                             <Post
@@ -103,8 +108,9 @@ function Home() {
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 type={id_type_post}
-                                isPostFullScreen={false} 
-                                urlImageProfil={url_image_profil} />
+                                isPostFullScreen={false}
+                                urlImageProfil={url_image_profil} 
+                                userVote={vote} />
                         )
                     })}
                 </div>

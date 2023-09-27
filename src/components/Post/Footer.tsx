@@ -14,12 +14,13 @@ interface FooterProps {
     nombrePartage: number;
     nombreCommentaire: number;
     isPostFullScreen: Boolean;
+    userVote: number;
 }
 
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [postScore, setPostScore] = useState(props.nombreLike - props.nombreDislike)
-    const [userVote, setUserVote] = useState() // le vote de lutilisateur pour afficher le bouton en couleur ou non
+    const [userVote, setUserVote] = useState(props.userVote) // le vote de lutilisateur pour afficher le bouton en couleur ou non
 
     function handleVote(score: number) {
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -35,10 +36,11 @@ const PostFooter = (props: FooterProps) => {
                     }),
                 }).then(response => response.json())
                 .then(response => {
-                    console.log('before', postScore)
-                    console.log('diff', score)
-                    console.log('result:', response['postScoreDifference'] + postScore)
+                        // console.log('before', postScore)
+                        // console.log('diff', score)
+                        // console.log('result:', response['postScoreDifference'] + postScore)
                         setPostScore(response['postScoreDifference'] + postScore)
+                        setUserVote(response['currentUserVote'])
                     }).catch((error) => {
                         console.log(error)
                         toast.error('Une erreur est survenue');
@@ -57,13 +59,13 @@ const PostFooter = (props: FooterProps) => {
 
                 <div className={styles.like_dislike_container}>
                     <div className={styles.bouton_interraction} id={styles.bouton_interraction_like} onClick={() => handleVote(1)}>
-                        <AiFillLike className={styles.icone} id={styles.icone_like} />
+                        <AiFillLike className={`styles.icone ${userVote === 1 && styles.liked_post}`} id={styles.icone_like} />
                     </div>
 
                     <span className={styles.interraction_count}>{postScore}</span>
 
                     <div className={styles.bouton_interraction} id={styles.bouton_interraction_dislike} onClick={() => handleVote(-1)}>
-                        <AiFillDislike className={styles.icone} id={styles.icone_dislike} />
+                        <AiFillDislike className={`styles.icone ${userVote === -1 && styles.disliked_post}`} id={styles.icone_dislike} />
                     </div>
                 </div>
 
