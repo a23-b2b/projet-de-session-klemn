@@ -45,7 +45,7 @@ const get_posts_feed = require('./get_posts_feed.js')
 app.use('/feed-posts', get_posts_feed);
 
 const publierBlogue = require('./publierBlogue')
-app.use('blogue/publier/:type', publierBlogue);
+app.use('publier/:type', publierBlogue);
 
 const changer_nom_affichage = require('./changer_nom_affichage')
 app.use('/changer_nom_affichage', changer_nom_affichage)
