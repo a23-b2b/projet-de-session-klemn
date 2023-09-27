@@ -20,43 +20,41 @@ function Home() {
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            navigate('/authenticate')
-
-        }
-    });
-
     async function getPosts() {
 
         console.log('chargement des posts...')
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                navigate('/authenticate')
+            }
 
-        await fetch(`http://localhost:1111/feed-posts`, {
-            method: 'POST',
-            body: JSON.stringify({
-                user_id: 'qmZUWHYeRWdarOZBjBF7avE0gHF2',
-                offset: postOffset
-            }),
-            headers: { 'Content-Type': 'application/json' }
+            if (user) {
+                fetch(`http://localhost:1111/feed-posts`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        user_id: user.uid,
+                        offset: postOffset
+                    }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        let data = response
+
+                        setPostOffset(postOffset + OFFSET)
+
+                        if (data.length < OFFSET) {
+                            setIsEndOfFeed(true)
+                        }
+
+                        setPostData(postData.concat(data))
+
+                    })
+                    .catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
+            }
         })
-            .then(response => response.json())
-            .then(response => {
-                let data = response
-
-                setPostOffset(postOffset + OFFSET)
-
-                if (data.length < OFFSET) {
-                    setIsEndOfFeed(true)
-                }
-
-                setPostData(postData.concat(data))
-
-            })
-            .catch((error) => {
-                toast.error(`Une erreur est survenue: ${error}`)
-            })
-
-
     }
 
     useEffect(() => {
@@ -109,7 +107,7 @@ function Home() {
                                 nombreCommentaire={nombre_commentaires}
                                 type={id_type_post}
                                 isPostFullScreen={false}
-                                urlImageProfil={url_image_profil} 
+                                urlImageProfil={url_image_profil}
                                 userVote={vote} />
                         )
                     })}
