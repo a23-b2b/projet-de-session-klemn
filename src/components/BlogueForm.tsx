@@ -28,10 +28,10 @@ function BlogueForm() {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch(`http://localhost:1111/publier-${type}`, {
+                        fetch(`http://localhost:1111/publier/${type}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
+                            body: JSON.stringify({ 
                                 id_compte: utilisateur.uid,
                                 titre: titre,
                                 contenu: contenu,
@@ -85,8 +85,8 @@ function BlogueForm() {
                                 
                 {/*Selection du type de post a générer lors de la publication*/}                
 
-                <label htmlFor={'menuTypePoste'}>
-                    <Select className={'menuTypePoste'} variant='filled' size='sm' value={type} onChange={changerType}>
+                <label className={'global_input_field_label'}>
+                    <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
                         <option value='blogue'>Blogue</option>
                         <option value='question'>Question</option>
                         <option value='collab'>Collaboration</option>

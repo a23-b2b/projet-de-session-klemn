@@ -1,12 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/Post/PosteBlogue';
-import toast from 'react-hot-toast';
-import { BlogueProp } from '../components/Post/PosteBlogue';
-import QuestionProp from '../components/Post/PosteQuestion';
-import PosteQuestion from '../components/Post/PosteQuestion';
 import BlogueForm from '../components/BlogueForm';
-
-
 
 export interface PostProp {
     idPost: string;
