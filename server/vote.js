@@ -92,7 +92,8 @@ module.exports = app.post('/', (req, res) => {
                                     }
 
                                     res.status(200).send(JSON.stringify({
-                                        postScoreDifference: score
+                                        postScoreDifference: score,
+                                        currentUserVote: score
                                     }))
                                 }
 
@@ -125,7 +126,8 @@ module.exports = app.post('/', (req, res) => {
                                         }
 
                                         res.status(200).send(JSON.stringify({
-                                            postScoreDifference: -score
+                                            postScoreDifference: -score,
+                                            currentUserVote: 0                                            
                                         }))
                                     }
 
@@ -155,7 +157,8 @@ module.exports = app.post('/', (req, res) => {
                                         }
 
                                         res.status(200).send(JSON.stringify({
-                                            postScoreDifference: score * 2
+                                            postScoreDifference: score * 2,
+                                            currentUserVote: score
                                         }))
                                     }
 
