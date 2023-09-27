@@ -17,8 +17,39 @@ const mysqlConnection = mysql.createConnection({
     multipleStatements: true
 })
 
+// la valeur d'un vote, laisse la place a un Super vote qui vaudrait plus par exemple.
+const voteStrength = 1;
+
+function setPostScore(postId, type, score) {
+    if (type === "like") {
+        mysqlConnection.query(
+            `UPDATE post 
+            SET nombre_likes = nombre_likes + ? 
+            WHERE id_post = ?;`,
+            [score, postId],
+            (err, results, fields) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+    }
+
+    if (type === "dislike") {
+        mysqlConnection.query(
+            `UPDATE post 
+            SET nombre_dislikes = nombre_dislikes + ? 
+            WHERE id_post = ?;`,
+            [score, postId],
+            (err, results, fields) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+    }
+}
 
 module.exports = app.post('/', (req, res) => {
+    // TODO: express validator pour verifier que le score est valide (et pas 10000 points)
     const userId = req.body.user_id;
     const postId = req.body.post_id;
     const score = req.body.score;
@@ -34,7 +65,7 @@ module.exports = app.post('/', (req, res) => {
                 AND id_post=?`,
                 [userId, postId],
                 function (err, results, fields) {
-                    
+
                     if (err) {
                         // logger.info("Erreur lors de lexecution de la query.", err)
                         console.log(err)
@@ -43,6 +74,7 @@ module.exports = app.post('/', (req, res) => {
 
                     // L'utilisateur n'a pas de vote associe au post
                     if (!results[0]) {
+                        console.log(`${userId} voted ${score} on post ${postId}`)
                         mysqlConnection.query(
                             `INSERT INTO vote 
                             (id_compte, id_post, score) 
@@ -51,7 +83,17 @@ module.exports = app.post('/', (req, res) => {
                             [userId, postId, score],
                             (err, results, fields) => {
                                 if (!err) {
-                                    res.status(200).send("")
+                                    if (score > 0) {
+                                        setPostScore(postId, "like", voteStrength)
+                                    }
+
+                                    if (score < 0) {
+                                        setPostScore(postId, "dislike", voteStrength)
+                                    }
+
+                                    res.status(200).send(JSON.stringify({
+                                        postScoreDifference: score
+                                    }))
                                 }
 
                                 if (err) {
@@ -65,6 +107,8 @@ module.exports = app.post('/', (req, res) => {
                     if (results[0]) {
                         // si le nouveau score est le meme que celui qui existe, on le supprime
                         if (results[0]["score"] == score) {
+                            console.log(`${userId} cancelled their ${score} vote on post ${postId}`)
+
                             mysqlConnection.query(
                                 `DELETE FROM vote 
                                 WHERE id_compte = ? 
@@ -72,7 +116,17 @@ module.exports = app.post('/', (req, res) => {
                                 [userId, postId],
                                 (err, results, fields) => {
                                     if (!err) {
-                                        res.status(200).send("Vote supprimé.")
+                                        if (score > 0) {
+                                            setPostScore(postId, "like", -voteStrength)
+                                        }
+    
+                                        if (score < 0) {
+                                            setPostScore(postId, "dislike", -voteStrength)
+                                        }
+
+                                        res.status(200).send(JSON.stringify({
+                                            postScoreDifference: -score
+                                        }))
                                     }
 
                                     if (err) {
@@ -90,7 +144,19 @@ module.exports = app.post('/', (req, res) => {
                                 [score, userId, postId],
                                 (err, results, fields) => {
                                     if (!err) {
-                                        res.status(200).send("Vote changé.")
+                                        if (score > 0) {
+                                            setPostScore(postId, "dislike", -voteStrength)
+                                            setPostScore(postId, "like", voteStrength)
+                                        }
+    
+                                        if (score < 0) {
+                                            setPostScore(postId, "like", -voteStrength)
+                                            setPostScore(postId, "dislike", voteStrength)
+                                        }
+
+                                        res.status(200).send(JSON.stringify({
+                                            postScoreDifference: score * 2
+                                        }))
                                     }
 
                                     if (err) {
