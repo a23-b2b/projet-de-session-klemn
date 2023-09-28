@@ -25,10 +25,10 @@ const VoteWidget = (props: FooterProps) => {
     // const [cancelledVote, setCancelledVote] = useRef(false)
     const cancelledVoteRef = useRef(false);
 
-    // useEffect(() => {
-    //     console.info("cancelledVote UPDATED!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    //     console.info(cancelledVote)
-    // }, [cancelledVote])
+    useEffect(() => {
+        if (!localStorage.getItem("voteClickAnimation")) localStorage.setItem("voteClickAnimation", "shake")
+        if (!localStorage.getItem("voteTextAnimation")) localStorage.setItem("voteTextAnimation", "slide")
+    }, [])
 
     function handleVote(score: number) {
 
