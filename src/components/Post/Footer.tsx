@@ -3,7 +3,7 @@ import styles from '../../styles/Post.module.css'
 import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence, motion, useAnimate } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 
@@ -20,23 +20,53 @@ interface FooterProps {
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [postScore, setPostScore] = useState(props.nombreLike - props.nombreDislike)
-    const [userVote, setUserVote] = useState(props.userVote) // le vote de lutilisateur pour afficher le bouton en couleur ou non
+    const [userVote, setUserVote] = useState(props.userVote || 0) // le vote de lutilisateur pour afficher le bouton en couleur ou non
     const [scoreDifference, setScoreDifference] = useState(0)
     const [scopeLike, animateLike] = useAnimate()
     const [scopeDislike, animateDisike] = useAnimate()
     const [scopeNumberScore, animateNumberScore] = useAnimate()
+
+    // const [cancelledVote, setCancelledVote] = useRef(false)
+    const cancelledVoteRef = useRef(false);
+
+    // useEffect(() => {
+    //     console.info("cancelledVote UPDATED!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    //     console.info(cancelledVote)
+    // }, [cancelledVote])
 
     function handleVote(score: number) {
 
         const onVoteIconAnimationType = localStorage.getItem("voteClickAnimation")
         const onVoteTextAnimationType = localStorage.getItem("voteTextAnimation")
 
-        console.log('current text animation setting', onVoteTextAnimationType)
-        console.log('current icon animation setting', onVoteIconAnimationType)
+        // console.log()
+        // console.log('userVote', userVote)
+        // console.log('score', score)
+        // console.log('add', userVote + score)
 
         if (score > 0) {
+            if (userVote + score == 2) {
+                cancelledVoteRef.current = true
+            }
+            else cancelledVoteRef.current = false
+        }
 
-            if (scoreDifference > 0 && onVoteIconAnimationType === "shake") {
+        if (score < 0) {
+            if (userVote + score == -2) {
+                cancelledVoteRef.current = true
+            }
+            else cancelledVoteRef.current = false
+        }
+
+        // console.log("userVote", userVote)
+        // console.log("score", score)
+        // console.log('cancelled vote:', cancelledVoteRef.current)
+
+        // Animation pouce LIKE
+        if (score > 0) {
+
+            // afficher animation speciale shake
+            if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
                 animateLike(scopeLike.current, {
                     x: [-10, 10, -7, 3, 0],
                 }, {
@@ -45,6 +75,7 @@ const PostFooter = (props: FooterProps) => {
                 })
             }
 
+            // animation normale
             else {
                 animateLike(scopeLike.current, {
                     scale: 1.3,
@@ -61,8 +92,10 @@ const PostFooter = (props: FooterProps) => {
             }
         }
 
+        // Animation pouce DISLIKE
         if (score < 0) {
-            if (scoreDifference < 0 && onVoteIconAnimationType === "shake") {
+            // animation speciale shake
+            if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
                 animateDisike(scopeDislike.current, {
                     x: [-10, 10, -7, 3, 0],
                 }, {
@@ -71,6 +104,7 @@ const PostFooter = (props: FooterProps) => {
                 })
             }
 
+            // Animation normale
             else {
                 animateDisike(scopeDislike.current, {
                     scale: 0.7,
@@ -85,11 +119,12 @@ const PostFooter = (props: FooterProps) => {
                         }, { duration: 0.3, type: "spring", bounce: 0.6 })
                     })
             }
-
         }
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            if (scoreDifference <= 0) {
+
+            // Animation slide texte vers le bas (LIKE et CANCEL DISLIKE)
+            if (cancelledVoteRef.current || score > 0) {
                 animateNumberScore(scopeNumberScore.current, {
                     y: onVoteTextAnimationType === "slide" && '20px',
                     opacity: 0,
@@ -98,7 +133,8 @@ const PostFooter = (props: FooterProps) => {
                 })
             }
 
-            if (scoreDifference > 0) {
+            // Animation slide texte vers le haut (DISLIKE et CANCEL LIKE)
+            else if (cancelledVoteRef.current || score < 0) {
                 animateNumberScore(scopeNumberScore.current, {
                     y: onVoteTextAnimationType === "slide" && '-20px',
                     opacity: 0,
@@ -128,7 +164,11 @@ const PostFooter = (props: FooterProps) => {
                     console.log(error)
                     toast.error('Une erreur est survenue');
                 }).then(() => {
-                    if (scoreDifference <= 0) {
+
+                    console.log("LIKE & CANCEL DISLIKE", score > 0 || cancelledVoteRef.current && score < 0)
+                    console.log("DISLIKE & CANCEL LIKE", score < 0 || cancelledVoteRef.current && score > 0)
+                    // Animation slide texte vers le haut (LIKE et CANCEL DISLIKE)
+                    if (score > 0 || cancelledVoteRef.current && score < 0) {
                         animateNumberScore(scopeNumberScore.current, {
                             y: onVoteTextAnimationType === "slide" && [-20, 0],
                             opacity: [0, 1],
@@ -136,8 +176,9 @@ const PostFooter = (props: FooterProps) => {
                             duration: 0.1
                         })
                     }
-
-                    if (scoreDifference > 0) {
+                    
+                    // Animation slide texte vers le haut (DISLIKE et CANCEL LIKE)
+                    else if (score < 0 || cancelledVoteRef.current && score > 0) {
                         animateNumberScore(scopeNumberScore.current, {
                             y: onVoteTextAnimationType === "slide" && [20, 0],
                             opacity: [0, 1],
