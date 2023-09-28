@@ -28,52 +28,82 @@ const PostFooter = (props: FooterProps) => {
 
     function handleVote(score: number) {
 
+        const onVoteIconAnimationType = localStorage.getItem("voteClickAnimation")
+        const onVoteTextAnimationType = localStorage.getItem("voteTextAnimation")
+
+        console.log('current text animation setting', onVoteTextAnimationType)
+        console.log('current icon animation setting', onVoteIconAnimationType)
+
         if (score > 0) {
 
-            animateLike(scopeLike.current, {
-                scale: 1.3,
-                y: '-18px',
-                rotate: Math.floor(Math.random() * 40) - 20,
-            }, { duration: 0.15, ease: "anticipate" })
-                .then(() => {
-                    animateLike(scopeLike.current, {
-                        scale: 1,
-                        y: '0px',
-                        rotate: 0,
-                    }, { duration: 0.3, type: "spring", bounce: 0.6 })
+            if (scoreDifference > 0 && onVoteIconAnimationType === "shake") {
+                animateLike(scopeLike.current, {
+                    x: [-10, 10, -7, 3, 0],
+                }, {
+                    duration: 0.4,
+                    ease: "anticipate"
                 })
+            }
+
+            else {
+                animateLike(scopeLike.current, {
+                    scale: 1.3,
+                    y: '-18px',
+                    rotate: Math.floor(Math.random() * 40) - 20,
+                }, { duration: 0.15, ease: "anticipate" })
+                    .then(() => {
+                        animateLike(scopeLike.current, {
+                            scale: 1,
+                            y: '0px',
+                            rotate: 0,
+                        }, { duration: 0.3, type: "spring", bounce: 0.6 })
+                    })
+            }
         }
 
         if (score < 0) {
-            animateDisike(scopeDislike.current, {
-                scale: 0.7,
-                y: '18px',
-                rotate: Math.floor(Math.random() * 40) - 20,
-            }, { duration: 0.15, ease: "anticipate" }).then(() => {
+            if (scoreDifference < 0 && onVoteIconAnimationType === "shake") {
                 animateDisike(scopeDislike.current, {
-                    scale: 1,
-                    y: '0px',
-                    rotate: 0,
-                }, { duration: 0.3, type: "spring", bounce: 0.6 })
-            })
+                    x: [-10, 10, -7, 3, 0],
+                }, {
+                    duration: 0.4,
+                    ease: "anticipate"
+                })
+            }
+
+            else {
+                animateDisike(scopeDislike.current, {
+                    scale: 0.7,
+                    y: '18px',
+                    rotate: Math.floor(Math.random() * 40) - 20,
+                }, { duration: 0.15, ease: "anticipate" })
+                    .then(() => {
+                        animateDisike(scopeDislike.current, {
+                            scale: 1,
+                            y: '0px',
+                            rotate: 0,
+                        }, { duration: 0.3, type: "spring", bounce: 0.6 })
+                    })
+            }
+
         }
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             if (scoreDifference <= 0) {
                 animateNumberScore(scopeNumberScore.current, {
-                    y: '20px',
+                    y: onVoteTextAnimationType === "slide" && '20px',
                     opacity: 0,
                 }, {
-                    duration: 0.3
+                    duration: 0.1
                 })
             }
 
             if (scoreDifference > 0) {
                 animateNumberScore(scopeNumberScore.current, {
-                    y: '-20px',
+                    y: onVoteTextAnimationType === "slide" && '-20px',
                     opacity: 0,
                 }, {
-                    duration: 0.3
+                    duration: 0.1
                 })
             }
 
@@ -100,19 +130,19 @@ const PostFooter = (props: FooterProps) => {
                 }).then(() => {
                     if (scoreDifference <= 0) {
                         animateNumberScore(scopeNumberScore.current, {
-                            y: [-20, 0],
+                            y: onVoteTextAnimationType === "slide" && [-20, 0],
                             opacity: [0, 1],
                         }, {
-                            duration: 0.3
+                            duration: 0.1
                         })
                     }
 
                     if (scoreDifference > 0) {
                         animateNumberScore(scopeNumberScore.current, {
-                            y: [20, 0],
+                            y: onVoteTextAnimationType === "slide" && [20, 0],
                             opacity: [0, 1],
                         }, {
-                            duration: 0.3
+                            duration: 0.1
                         })
                     }
                 })
