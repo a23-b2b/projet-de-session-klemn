@@ -35,6 +35,7 @@ function CommentaireForm(props: CommentaireFormProps) {
                             .then(response => {
                                 props.ajouterNouvCommentaire(response[1]);
                                 setContenu('');
+                                setNbCaracteres(0);
                                 toast.success('Votre commentaire a été publié!');
                             }).catch((error) => {
                                 console.log(error)
