@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export interface CommentaireFormProps {
     idParent: string
+    ajouterNouvCommentaire: (nouvCommentaire: any) => void
 }
 
 function CommentaireForm(props: CommentaireFormProps) {
@@ -30,12 +31,15 @@ function CommentaireForm(props: CommentaireFormProps) {
                                 contenu: contenu,
                                 firebase_id_token: idToken
                             }),
-                        }).then(() => {
-                            toast.success('Votre commentaire a été publié!');
-                        }).catch((error) => {
-                            console.log(error)
-                            toast.error('Une erreur est survenue');
-                        })
+                        }).then(response => response.json())
+                            .then(response => {
+                                props.ajouterNouvCommentaire(response[1]);
+                                setContenu('');
+                                toast.success('Votre commentaire a été publié!');
+                            }).catch((error) => {
+                                console.log(error)
+                                toast.error('Une erreur est survenue');
+                            })
 
                     })
 

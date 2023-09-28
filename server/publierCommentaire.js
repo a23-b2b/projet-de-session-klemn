@@ -12,7 +12,8 @@ const mysqlConnection = mysql.createConnection({
     port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
+    database: process.env.MYSQL_DATABASE,
+    multipleStatements: true
 })
 
 
@@ -30,8 +31,15 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                 mysqlConnection.query(
                     `INSERT INTO post (id_post, id_compte, id_parent, id_type_post, contenu, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, 4, ?, 0, 0, 0, 0, 0, NOW());`,
-                    [id_compte, id_parent, contenu, id_compte],
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, 4, ?, 0, 0, 0, 0, 0, NOW());
+
+                     SELECT p.id_post, p.id_compte,p.date_publication, p.titre, p.contenu, p.nombre_likes, p.nombre_dislikes,
+                      p.nombre_partages, p.nombre_commentaires, c.nom_affichage, c.nom_utilisateur
+                     FROM post p
+                     JOIN compte c ON p.id_compte = c.id_compte
+                     WHERE p.id_compte = ?
+                     ORDER BY date_publication DESC LIMIT 1;`,
+                    [id_compte, id_parent, contenu, id_compte, id_compte],
                     function (err, results, fields) {
                         if (err) {
                             // logger.info("Erreur lors de lexecution de la query.", err)
@@ -39,7 +47,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                             res.status(500).send("ERREUR: " + err.code)
 
                         } else {
-                            res.send('Commentaire publie')
+                            res.json(results)
                         }
                     }
                 );

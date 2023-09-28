@@ -1,7 +1,5 @@
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import Post from "./Post";
-import {TYPE_REPONSE} from "./Post";
+import {motion} from 'framer-motion';
+import Post, {TYPE_REPONSE} from "./Post";
 import {useEffect, useState} from "react";
 import CommentaireForm from "./CommentaireForm";
 
@@ -13,15 +11,19 @@ function SectionReponses(props: SectionReponsesProps) {
 
     const [replies, setReplies] = useState<any[]>([])
 
+    function ajouterNouvCommentaire(nouvCommentaire: any) {
+        setReplies(nouvCommentaire.concat(replies));
+        console.log(replies);
+        console.log(nouvCommentaire);
+    }
+
     useEffect(() => {
         fetch(`http://localhost:1111/replies/${props.idParent}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         }).then(reponse => reponse.json())
             .then(response => {
-                let data = response;
-
-                setReplies(data)
+                setReplies(response)
             })
             .catch((error) => {
                 console.log(error)
@@ -32,7 +34,7 @@ function SectionReponses(props: SectionReponsesProps) {
         <div>
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                 <h3>Commentaires</h3>
-                <CommentaireForm idParent={props.idParent}/>
+                <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire}/>
                 {replies.map(({
                                   id_post,
                                   id_compte,
