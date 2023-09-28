@@ -123,7 +123,7 @@ const VoteWidget = (props: FooterProps) => {
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
 
             // Animation slide texte vers le bas (LIKE et CANCEL DISLIKE)
-            if (cancelledVoteRef.current || score > 0) {
+            if (!cancelledVoteRef.current && score > 0 || cancelledVoteRef.current && score < 0) {
                 animateNumberScore(scopeNumberScore.current, {
                     y: onVoteTextAnimationType === "slide" && '20px',
                     opacity: 0,
@@ -133,7 +133,7 @@ const VoteWidget = (props: FooterProps) => {
             }
 
             // Animation slide texte vers le haut (DISLIKE et CANCEL LIKE)
-            else if (cancelledVoteRef.current || score < 0) {
+            else if (!cancelledVoteRef.current && score < 0 || cancelledVoteRef.current && score > 0) {
                 animateNumberScore(scopeNumberScore.current, {
                     y: onVoteTextAnimationType === "slide" && '-20px',
                     opacity: 0,
@@ -167,7 +167,7 @@ const VoteWidget = (props: FooterProps) => {
                     console.log("LIKE & CANCEL DISLIKE", score > 0 || cancelledVoteRef.current && score < 0)
                     console.log("DISLIKE & CANCEL LIKE", score < 0 || cancelledVoteRef.current && score > 0)
                     // Animation slide texte vers le haut (LIKE et CANCEL DISLIKE)
-                    if (score > 0 || cancelledVoteRef.current && score < 0) {
+                    if (!cancelledVoteRef.current && score > 0 || cancelledVoteRef.current && score < 0) {
                         animateNumberScore(scopeNumberScore.current, {
                             y: onVoteTextAnimationType === "slide" && [-20, 0],
                             opacity: [0, 1],
@@ -177,7 +177,7 @@ const VoteWidget = (props: FooterProps) => {
                     }
 
                     // Animation slide texte vers le haut (DISLIKE et CANCEL LIKE)
-                    else if (score < 0 || cancelledVoteRef.current && score > 0) {
+                    else if (!cancelledVoteRef.current && score < 0 || cancelledVoteRef.current && score > 0) {
                         animateNumberScore(scopeNumberScore.current, {
                             y: onVoteTextAnimationType === "slide" && [20, 0],
                             opacity: [0, 1],
