@@ -97,7 +97,7 @@ const VoteWidget = (props: FooterProps) => {
             // animation speciale shake
             if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
                 animateDisike(scopeDislike.current, {
-                    x: [0, -10, 10, -7, 3, 0],
+                    x: [0, 10, -10, 7, -3, 0],
                 }, {
                     duration: 0.4
                 })
