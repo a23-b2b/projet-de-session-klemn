@@ -41,7 +41,7 @@ function Parametres() {
                     </Link>
 
                     <Link className={styles.link} to={'interface'} onClick={() => setSelectedSettingsItem(2)} >
-                        <div className={`${styles.settings_link} ${selectedSettingsItem === 1 ? styles.selected : ''}`}>Interface</div>
+                        <div className={`${styles.settings_link} ${selectedSettingsItem === 2 ? styles.selected : ''}`}>Interface</div>
                     </Link>
                 </div>
 
