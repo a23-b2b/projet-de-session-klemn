@@ -32,10 +32,18 @@ const VoteWidget = (props: FooterProps) => {
 
     function handleVote(score: number) {
 
+        if (props.idPost === '0') {
+            setPostScore(postScore + score)
+            setUserVote(score)
+        }
 
         const onVoteIconAnimationType = localStorage.getItem("voteClickAnimation")
         const onVoteTextAnimationType = localStorage.getItem("voteTextAnimation")
 
+        console.log()
+        console.log('userVote', userVote)
+        console.log('score', score)
+        console.log('add', userVote + score)
 
         if (score > 0) {
             if (userVote + score == 2) {
@@ -50,6 +58,10 @@ const VoteWidget = (props: FooterProps) => {
             }
             else cancelledVoteRef.current = false
         }
+
+        // console.log("userVote", userVote)
+        // console.log("score", score)
+        // console.log('cancelled vote:', cancelledVoteRef.current)
 
         // Animation pouce LIKE
         if (score > 0) {
@@ -143,6 +155,9 @@ const VoteWidget = (props: FooterProps) => {
                 }),
             }).then(response => response.json())
                 .then(response => {
+                    // console.log('before', postScore)
+                    // console.log('diff', score)
+                    // console.log('result:', response['postScoreDifference'] + postScore)
                     setPostScore(response['postScoreDifference'] + postScore)
                     setUserVote(response['currentUserVote'])
                     setScoreDifference(response['postScoreDifference'])

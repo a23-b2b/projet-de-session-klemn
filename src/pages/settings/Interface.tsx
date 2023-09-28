@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
+import VoteWidget from '../../components/Post/voteWidget';
 
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
     const [voteClickAnimation, setVoteClickAnimation] = useState("");
     const [voteTextAnimation, setVoteTextAnimation] = useState("");
-    
+
 
     function changeLikeAnimationSetting(type: string) {
         switch (type) {
@@ -82,6 +83,10 @@ function Interface() {
                     {/* <option value="fade_fade">Fade only</option> */}
                     {/* <option value="none">None</option> */}
                 </select>
+
+                <div style={{maxWidth: '100px'}}>
+                    <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
+                </div>
             </div>
             <br />
         </motion.div>
