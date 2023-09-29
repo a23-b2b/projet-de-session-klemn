@@ -142,7 +142,7 @@ const VoteWidget = (props: FooterProps) => {
                 })
             }
 
-            fetch(props.idPost === "0" ? '0' : 'http://localhost:1111/vote', {
+            fetch(props.idPost === "0" ? '0' : process.env.REACT_APP_API_URL + '/vote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

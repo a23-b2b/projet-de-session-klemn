@@ -13,7 +13,7 @@ function PostFullScreen() {
     const [postData, setPostData] = useState<any>();
 
     useEffect(() => {
-        fetch(`http://localhost:1111/single-post/${postId}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/single-post/${postId}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
