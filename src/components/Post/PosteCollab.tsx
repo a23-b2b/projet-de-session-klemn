@@ -20,15 +20,17 @@ export interface CollabProp {
     nombreCommentaire: number;
     urlImageProfil: string;
 
-    idCollaborateur?: string;
+    git_url? : string;
 
     isPostFullScreen: Boolean;
 }
 
 function PosteCollab(props: CollabProp) {
-    var enabled = ActiverCollab();
     const auth = getAuth();
     const user = auth.currentUser;
+    
+    var enabled = ActiverCollab();
+    
 
     function demanderCollabortion(props: CollabProp){        
         if (user !== null) {
