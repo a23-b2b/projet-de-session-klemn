@@ -1,5 +1,11 @@
 -- Active: 1693586986008@@localhost@32769@dev
 
+DROP TABLE IF EXISTS demande_collab;
+
+DROP TABLE IF EXISTS post_collab;
+
+DROP TABLE IF EXISTS post_question;
+
 DROP TABLE IF EXISTS image_post;
 
 DROP TABLE IF EXISTS post;
@@ -12,7 +18,6 @@ DROP TABLE IF EXISTS autorisation;
 
 DROP TABLE IF EXISTS post_collab;
 
-DROP TABLE IF EXISTS demande_collab;
 
 CREATE TABLE
     autorisation (

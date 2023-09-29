@@ -42,18 +42,19 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
 
 
         admin.auth().verifyIdToken(idToken, true)
-            .then((payload) => {
-
+            .then((payload) => {                
                 mysqlConnection.query(
                     `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     
                      SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
                     [id_compte, titre, contenu, id_compte],
                     function (err, results, fields) {
                         gererErreur(err, res, results, "POSTER BLOGUE ERR");
-                        console.log(results.toString());
-                        const id_post = results[0].id_post;
+                        console.log(results);
+                        console.log()
+                        const id_post = results[1][0].id_post;
 
                         if (typePoste == 'collab') {
                             mysqlConnection.query(
