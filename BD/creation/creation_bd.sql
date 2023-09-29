@@ -1,4 +1,4 @@
--- Active: 1693586986008@@localhost@32769@dev
+-- Active: 1694035110728@@localhost@3306@dev
 
 DROP TABLE IF EXISTS demande_collab;
 
@@ -47,7 +47,7 @@ CREATE TABLE
 
 CREATE TABLE
     type_post (
-        id_type_post VARCHAR(255) PRIMARY KEY,
+        id_type_post INT PRIMARY KEY,
         nom_type VARCHAR(255) NOT NULL
     );
 

@@ -18,7 +18,7 @@ const mysqlConnection = mysql.createConnection({
 
 function gererErreur(err, res, results, msg) {
     if (err) {
-        console.log("ERR" + JSON.stringify(err));
+        logger.info("[Logger-Log] ERR: " + JSON.stringify(err));
         res.status(500).send(`ERREUR: ` + err.code + `; Log: [${msg}]`)
     } else if (results) {
         res.status(200).send(results)
@@ -73,7 +73,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                         // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
                                         [id_post],
                                         function (err, results) {
-                                            // gererErreur(err, res, results, "POSTER COLLAB ERR");
+                                            gererErreur(err, res, results, "POSTER COLLAB ERR");
                                         }
                                     );
                                 } else if (typePoste == 'question') {
@@ -82,7 +82,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?);`,
                                         [id_post],
                                         function (err, results) {
-                                            // gererErreur(err, res, results, "POSTER QUESTION ERR");
+                                            gererErreur(err, res, results, "POSTER QUESTION ERR");
                                         }
                                     );
                                 }
