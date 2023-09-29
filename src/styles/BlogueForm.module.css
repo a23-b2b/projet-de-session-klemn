@@ -2,12 +2,30 @@
     margin-bottom: 30px;
 }
 
+#labelTitreBlogueForm{
+    margin-left: 5%;
+
+}
+
+#labelContenuBlogueForm{
+    margin-left: 5%;
+}
+
 #inputFieldBlogueForm {
-    width: 80%;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 5px;
+    font-size: 16px;
+
+    border-radius: 15px 15px 7px 7px;
+
 }
 
 #textareaBlogueForm {
-    width: 90%;
+    width: 95%;
+    margin: auto;
+
+    border-radius: 8px 8px 15px 15px;
 }
 
 
@@ -17,4 +35,18 @@
     align-items: flex-start;
     gap: 0.6rem;
     width: 100%;
+    margin-bottom: 20px;
+}
+
+#conteneurBoutonSpan{
+    text-align: right;
+
+}
+
+#buttonBlogueForm{
+    margin-right: 2.5%;
+}
+
+#spanBlogueForm{
+    margin-right: 20px;
 }

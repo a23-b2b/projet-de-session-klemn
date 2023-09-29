@@ -93,8 +93,9 @@
 
 body {
     background-color: var(--auto_background);
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: var(--auto_text_color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;color: var(--auto_text_color);
     accent-color: var(--auto_accent_color);
     min-height: 55vh;
     padding-top: 170px;
@@ -115,7 +116,7 @@ body {
 }
 
 .global_input_field_label {
-
+    border-radius: 10px;
     font-size: 17px;
     font-weight: bold;
     opacity: 70%;
@@ -123,39 +124,42 @@ body {
 }
 
 .global_input_field {
-    margin: auto;
     
     box-sizing: border-box;
     width: 100%;
 
     border: 1.5px solid var(--auto_border_color);
-    border-radius: 12px;
+    border-radius: 15px;
 
     padding: 10px;
 
     color: var(--auto_text_color);
+   
+
     background-color: var(--auto_input_field_color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;color: var(--auto_text_color);
     
 }
 
 .global_textarea {
-    margin: auto;
 
     box-sizing: border-box;
     width: 100%;
     
 
     resize: none;
-    padding: 20px;
+    padding: 10px;
 
     border: 1.5px solid var(--auto_border_color);
-    border-radius: 12px;
+    border-radius: 15px;
 
     color: var(--auto_text_color);
+    
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    font-weight: 600;
+        sans-serif;color: var(--auto_text_color);
 
     background-color: var(--auto_input_field_color);
 }

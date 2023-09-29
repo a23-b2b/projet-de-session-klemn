@@ -52,7 +52,6 @@ function BlogueForm() {
         <div id={styles["conteneurBlogueForm"]} className={'global_conteneur'}>
             <h2 className={'global_title'}>Publication</h2>
             <div className={styles.form}>
-                <label className={'global_input_field_label'}>Titre</label>
                 <input
                     id={styles["inputFieldBlogueForm"]}
                     className={'global_input_field'}
@@ -60,8 +59,7 @@ function BlogueForm() {
                     placeholder="Titre"
                     onChange={(e) => setTitre(e.target.value)} />
 
-                <label className={'global_input_field_label'}>Contenu</label>
-                <textarea id={styles["textareaBlogueForm"]} className={'global_textarea'}
+               <textarea id={styles["textareaBlogueForm"]} className={'global_textarea'}
                     rows={10}
                     maxLength={4000}
                     placeholder="Exprimez-vous!"
@@ -71,10 +69,13 @@ function BlogueForm() {
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
             </div>
-            <span>{nbCaracteres}/4000</span>
-            <button className={'global_bouton'} onClick={() => publierBlogue()}>
+            <div id={styles["conteneurBoutonSpan"]}>
+            <span id={styles["spanBlogueForm"]}>{nbCaracteres}/4000</span>
+            <button id={styles["buttonBlogueForm"]} className={'global_bouton'} onClick={() => publierBlogue()}>
                 Publier
             </button>
+            </div>
+            
         </div>
     )
 }
