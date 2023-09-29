@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import BlogueForm from '../components/BlogueForm';
+import PosteCollab from "../components/Post/PosteCollab";
 
 export interface PostProp {
     idPost: string;
@@ -28,7 +29,23 @@ function Blogue() {
 
             <div>
                 <div className='conteneurComposantPosteBlogue'>
-                <BlogueForm/>
+                <PosteCollab
+                    date="22222"
+                    nomAffichage="222222"
+                    nomUtilisateur="2"
+                    titre="tt"
+                    contenu="xx"
+                    idCompte="22"
+                    nombreLike={0}
+                    nombreDislike={0}
+                    nombrePartage={0}
+                    nombreCommentaire={0}
+                    isPostFullScreen={false}
+                    idPost=""
+                    urlImageProfil=""
+
+                    // TODO: AJOUTER URL_GIT
+                />
                 </div>                
             </div>
         </div>

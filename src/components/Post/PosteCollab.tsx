@@ -20,8 +20,6 @@ export interface CollabProp {
     nombreCommentaire: number;
     urlImageProfil: string;
 
-    git_url? : string;
-
     isPostFullScreen: Boolean;
 }
 
@@ -42,7 +40,7 @@ function PosteCollab(props: CollabProp) {
         } 
     }
 
-    function ActiverCollab(){
+    function ActiverCollab() : Boolean{
         if (user !== null && props.idCompte !== user.uid) {
             return true;
         } else {
@@ -67,7 +65,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
+            {<button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>}
             
             <PostFooter
                 idPost={props.idPost}

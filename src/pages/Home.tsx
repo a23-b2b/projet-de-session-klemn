@@ -39,13 +39,15 @@ function Home() {
             .then(response => {
                 let data = response
 
-                setPostOffset(postOffset + OFFSET)
 
+                setPostOffset(postOffset + OFFSET)
                 if (data.length < OFFSET) {
                     setIsEndOfFeed(true)
                 }
 
                 setPostData(postData.concat(data))
+
+                console.log(postData)
 
             })
             .catch((error) => {
