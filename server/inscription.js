@@ -60,14 +60,22 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
             function (err, results, fields) {
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query.", err)
-                    console.log(err)
-                    res.send(JSON.stringify(err))
+                    if (err.code === 'ER_DUP_ENTRY') {
+                        res.status(401).send(JSON.stringify({
+                            message: "Le compte existe déjà.",
+                            username: username,
+                            code: "ERR_USERNAME_TAKEN"
+                        }))
+                    } else {
+                        res.status(500).send("Erreur de base de donn/es")
+                    }
                 }
 
+                if (!err && results) {
+                    res.status(200).send("Compte enregistre")
+                }
             }
         );
-
-        res.status(200).send('ABOUT From about.js file')
     } else {
         // Erreur de validation des donnees (Express-validator)
         // res.send({ errors: results.array() });
