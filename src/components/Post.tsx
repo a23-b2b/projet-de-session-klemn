@@ -29,7 +29,7 @@ interface Props {
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // TODO: URL_GIT
 }
 
 function Post(props: Props) {
@@ -100,8 +100,7 @@ function Post(props: Props) {
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
 
-                    // Collab Prop
-                    idCollaborateur={props.idCollaborateur}
+                    // TODO: AJOUTER URL_GIT
                 />
             )}
         </>
