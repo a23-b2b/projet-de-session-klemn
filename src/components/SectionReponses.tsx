@@ -1,6 +1,6 @@
-import {motion} from 'framer-motion';
-import Post, {TYPE_REPONSE} from "./Post";
-import {useEffect, useState} from "react";
+import { motion } from 'framer-motion';
+import Post, { TYPE_REPONSE } from "./Post";
+import { useEffect, useState } from "react";
 import CommentaireForm from "./CommentaireForm";
 
 export interface SectionReponsesProps {
@@ -34,36 +34,37 @@ function SectionReponses(props: SectionReponsesProps) {
         <div>
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                 <h3>Commentaires</h3>
-                <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire}/>
+                <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire} />
                 {replies.map(({
-                                  id_post,
-                                  id_compte,
-                                  date_publication,
-                                  nom_affichage,
-                                  nom_utilisateur,
-                                  titre,
-                                  contenu,
-                                  nombre_likes,
-                                  nombre_dislikes,
-                                  nombre_partages,
-                                  nombre_commentaires,
-                                  url_image_profil
-                              }) => {
+                    id_post,
+                    id_compte,
+                    date_publication,
+                    nom_affichage,
+                    nom_utilisateur,
+                    titre,
+                    contenu,
+                    nombre_likes,
+                    nombre_dislikes,
+                    nombre_partages,
+                    nombre_commentaires,
+                    url_image_profil
+                }) => {
                     return (
-                        <Post idPost={id_post}
-                        idCompte={id_compte}
-                        date={date_publication}
-                        nomAffichage={nom_affichage}
-                        nomUtilisateur={nom_utilisateur}
-                        titre={titre}
-                        contenu={contenu}
-                        nombreLike={nombre_likes}
-                        nombreDislike={nombre_dislikes}
-                        nombrePartage={nombre_partages}
-                        nombreCommentaire={nombre_commentaires}
-                        isPostFullScreen={false}
-                        type={TYPE_REPONSE} urlImageProfil={url_image_profil} />
-                        )
+                        <Post
+                            idPost={id_post}
+                            idCompte={id_compte}
+                            date={date_publication}
+                            nomAffichage={nom_affichage}
+                            nomUtilisateur={nom_utilisateur}
+                            titre={titre}
+                            contenu={contenu}
+                            nombreLike={nombre_likes}
+                            nombreDislike={nombre_dislikes}
+                            nombrePartage={nombre_partages}
+                            nombreCommentaire={nombre_commentaires}
+                            isPostFullScreen={false}
+                            type={TYPE_REPONSE} urlImageProfil={url_image_profil} />
+                    )
                 })}
             </motion.div>
         </div>
