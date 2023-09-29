@@ -10,6 +10,7 @@ import { auth } from '../firebase';
 import toast from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth';
 import FollowButton from '../components/FollowButton';
+import { useAnimate } from 'framer-motion';
 
 function Profil() {
     let { username } = useParams();
@@ -20,6 +21,7 @@ function Profil() {
     const [displayName, setDisplayName] = useState('');
     const [dateCreationCompte, setDateCreationCompte] = useState('');
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
+    const [nombreAbonnesBefore, setNombreAbonnesBefore] = useState(nombreAbonnes);
     const [nombreAbonnements, setNombreAbonnements] = useState(0);
     const [bio, setBio] = useState('');
     const [urlImageProfil, setUrlImageProfil] = useState('');
@@ -30,6 +32,54 @@ function Profil() {
 
     const [userPosts, setUserPosts] = useState<any[]>([])
     const [loadingPosts, setLoadingPosts] = useState(true)
+
+    const [followerNumberScope, animateFollowerNumber] = useAnimate()
+
+
+    useEffect(() => {
+        // Unfollow
+        if (nombreAbonnes < nombreAbonnesBefore) {
+            animateFollowerNumber(followerNumberScope.current, {
+                y: -20,
+                opacity: 0,
+                scale: 0.5,
+            }, {
+                duration: 0.1
+            })
+            .then(() => setNombreAbonnesBefore(nombreAbonnes))
+            .then(() => {
+                animateFollowerNumber(followerNumberScope.current, {
+                    y: [20, 0],
+                    opacity: [0, 1],
+                    scale: 1,
+                }, {
+                    duration: 0.1
+                })
+            })
+        }
+
+        // Follow
+        else if (nombreAbonnes > nombreAbonnesBefore) {
+            animateFollowerNumber(followerNumberScope.current, {
+                y: 20,
+                opacity: 0,
+                scale: 0.5,
+            }, {
+                duration: 0.1
+            })
+            .then(() => setNombreAbonnesBefore(nombreAbonnes))
+            .then(() => {
+                animateFollowerNumber(followerNumberScope.current, {
+                    y: [-20, 0],
+                    opacity: [0, 1],
+                    scale: 1,
+                }, {
+                    duration: 0.1
+                })
+            })
+        }
+    }, [nombreAbonnes])
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -108,7 +158,7 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p>{nombreAbonnes}</p> abonnés</div>
+                    <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
                     <div><p>{nombreAbonnements}</p> Abonnements</div>
                 </div>
 
