@@ -1,8 +1,8 @@
 const express = require('express')
-const {body, validationResult} = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const crypto = require('crypto')
-const {logger} = require('./serveur.js')
+const { logger } = require('./serveur.js')
 const { admin } = require('./serveur.js')
 
 const app = express()
@@ -17,16 +17,17 @@ const mysqlConnection = mysql.createConnection({
     multipleStatements: true
 })
 
-function gererErreur(err, res, results, msg) {
+async function gererErreur(err, res, results, msg) {
     if (err) {
         logger.info(`ERREUR: ` + err.code + `; Log: [${msg}]`)
-        res.status(500).send(`ERREUR: ` + err.code + `; Log: [${msg}]`)
-    } else {
-        if (results) res.send(JSON.stringify(results));        
+        await res.status(500).send(`ERREUR: ` + err.code + `; Log: [${msg}]`)
+    } else if (results) {
+        await res.send(JSON.stringify(results));
     }
 }
 
-module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
+
+module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
@@ -38,7 +39,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
 
         const typePoste = req.params.type;
 
-        
+
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {
@@ -48,18 +49,18 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
                      SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
-                    [id_compte, titre, contenu, id_compte], 
+                    [id_compte, titre, contenu, id_compte],
                     function (err, results, fields) {
                         gererErreur(err, res, results, "POSTER BLOGUE ERR");
-
+                        console.log(results.toString());
                         const id_post = results[0].id_post;
 
                         if (typePoste == 'collab') {
                             mysqlConnection.query(
                                 `INSERT INTO post_collab (id_collab, est_ouvert, url_git, post_id_post)
-                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, null, ?);`, 
+                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, null, ?);`,
                                 // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
-                                [id_post], 
+                                [id_post],
                                 function (err, results) {
                                     gererErreur(err, res, results, "POSTER COLLAB ERR");
                                 }
@@ -67,17 +68,17 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                         } else if (typePoste == 'question') {
                             mysqlConnection.query(
                                 `INSERT INTO post_question (id_question, est_resolu, id_reponse_choisie, post_id_post)
-                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?);`, 
-                                [id_post], 
+                                VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?);`,
+                                [id_post],
                                 function (err, results) {
                                     gererErreur(err, res, results, "POSTER QUESTION ERR");
                                 }
                             );
                         }
                     }
-                    
+
                 );
-            
+
             })
             .catch((error) => {
                 res.status(500).send("ERREUR: " + error.code)
