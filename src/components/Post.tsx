@@ -34,6 +34,8 @@ interface Props {
 
 function Post(props: Props) {
 
+    console.log('type post', props.type)
+
     return (
         <>
             {props.type == TYPE_BLOGUE && (
@@ -64,7 +66,7 @@ function Post(props: Props) {
                     nombreCommentaire={props.nombreCommentaire}
                     urlImageProfil={props.urlImageProfil} />
             )}
-            {props.type === TYPE_QUESTION && (
+            {props.type == TYPE_QUESTION && (
                 <PosteQuestion
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -84,7 +86,7 @@ function Post(props: Props) {
                     idMeilleureReponse={props.idMeilleureReponse}
                     statutReponse={props.statutReponse} />
             )}
-            {props.type === TYPE_COLLABORATION && (
+            {props.type == TYPE_COLLABORATION && (
                 <PosteCollab
                     date={props.date}
                     nomAffichage={props.nomAffichage}

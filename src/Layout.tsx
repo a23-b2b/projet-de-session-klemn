@@ -29,7 +29,7 @@ function Layout() {
                     <Route path="/authenticate" element={<Landing />} />
                     {/* <Route path="/accueilConnecte" element={<AccueilConnecte />} /> */}
                     {/* <Route path="/forum" element={<Forum />} /> */}
-                    <Route path="/blogue" element={<Test/>} />
+                    <Route path="/test" element={<Test/>} />
                     {/* <Route path="/projets" element={<Projets />} /> */}
                     <Route path="/u/:username" element={<Profil />} />
                     <Route path="/p/:postId" element={<PostFullScreen />} />

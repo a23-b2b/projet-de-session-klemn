@@ -56,7 +56,7 @@ CREATE TABLE
         id_post VARCHAR(255) PRIMARY KEY,
         id_compte VARCHAR(255) NOT NULL,
         id_parent VARCHAR(255) NULL,
-        id_type_post VARCHAR(255) NULL,
+        id_type_post INT NULL,
         id_infos VARCHAR(255) NULL,
         titre VARCHAR(255) NULL,
         contenu VARCHAR(4000) NOT NULL,
