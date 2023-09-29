@@ -15,6 +15,8 @@ function Home() {
 
     const OFFSET = 6;
 
+    console.log(process.env.REACT_APP_API_URL)
+
 
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
@@ -31,7 +33,7 @@ function Home() {
 
         console.log('chargement des posts...')
 
-        await fetch(`http://localhost:1111/feed-posts/${postOffset}`, {
+        await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
