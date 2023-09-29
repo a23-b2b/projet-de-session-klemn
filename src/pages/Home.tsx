@@ -32,14 +32,13 @@ function Home() {
             }
 
             if (user) {
-                await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
-                    method: 'GET',
+                fetch(`${process.env.REACT_APP_API_URL}/feed-posts/`, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         user_id: user.uid,
                         offset: postOffset
-                    }),
-                    headers: { 'Content-Type': 'application/json' }
+                    })
                 })
                     .then(response => response.json())
                     .then(response => {
