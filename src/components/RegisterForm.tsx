@@ -11,6 +11,8 @@ function RegisterForm() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+
     const [telephone, setTelephone] = useState('');
     const [username, setUsername] = useState('');
     const [prenom, setPrenom] = useState('');
@@ -18,45 +20,46 @@ function RegisterForm() {
     const [registerError, setRegisterError] = useState('')
 
     function registerWithEmailAndPassword(email: string, password: string) {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                return user;
-            }).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/inscription', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: username,
-                        email: email,
-                        telephone: telephone,
-                        prenom: prenom,
-                        nom: nom,
-                        id_compte: user.uid
-                    }),
+        if (password !== passwordConfirmation) {
+            toast.error("Les mots de passe ne correspondent pas.")
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    return user;
+                }).then((user) => {
+                    fetch(process.env.REACT_APP_API_URL + '/inscription', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            telephone: telephone,
+                            prenom: prenom,
+                            nom: nom,
+                            id_compte: user.uid
+                        }),
+                    })
                 }).catch((error) => {
-                    console.log(error)
-                    setRegisterError(error)
-                })
-            }).catch((error) => {
-                console.log(error.code)
-                setRegisterError(error.code)
-            });
+                    console.log(error.code)
+                    setRegisterError(error.code)
+                });
 
-        try {
-            let error = registerError
-            console.log(error)
+            try {
+                let error = registerError
+                console.log(error)
 
-            switch (error) {
-                case 'auth/invalid-email':
-                    toast.error('Le courriel est invalide.')
-                    break;
-                default:
-                    toast.error('Une erreur est survenue: ' + error)
-                    break;
+                switch (error) {
+                    case 'auth/invalid-email':
+                        toast.error('Le courriel est invalide.')
+                        break;
+                    default:
+                        toast.error('Une erreur est survenue: ' + error)
+                        break;
+                }
+            } catch (error) {
+                console.log(error)
             }
-        } catch (error) {
-            console.log(error)
         }
     }
 
@@ -84,6 +87,13 @@ function RegisterForm() {
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} />
 
+                    <label className={'global_input_field_label'}>Confirmation mot de passe</label>
+
+                    <input
+                        className={'global_input_field'}
+                        type="password"
+                        onChange={(e) => setPasswordConfirmation(e.target.value)} />
+
                     <label className={'global_input_field_label'}>Nom</label>
                     <input
                         className={'global_input_field'}
@@ -98,14 +108,9 @@ function RegisterForm() {
                         onChange={(e) => setPrenom(e.target.value)} />
 
 
-                    <label className={'global_input_field_label'}>Numéro de téléphone</label>
-                    <input
-                        className={'global_input_field'}
-                        type="tel"
-                        onChange={(e) => setTelephone(e.target.value)} />
-
                     <div className={styles.containerBouton}>
-                        <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
+                        <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)
+                        } >
                             Inscription
                         </button>
                     </div>
