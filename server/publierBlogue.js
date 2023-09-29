@@ -18,10 +18,10 @@ const mysqlConnection = mysql.createConnection({
 
 function gererErreur(err, res, results, msg) {
     if (err) {
-        //logger.info("ERREUR: " + err.code + `; Log: [${msg}]`);
+        console.log("ERR" + JSON.stringify(err));
         res.status(500).send(`ERREUR: ` + err.code + `; Log: [${msg}]`)
     } else if (results) {
-        res.send(JSON.stringify(results));
+        res.status(200).send(results)
     }
 }
 
@@ -39,13 +39,15 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
         
         var id_type_post = 1;
 
+        console.log("Type Poste: " + typePoste);
+
         if (typePoste == "question") {
             id_type_post = 2;
         } else if (typePoste == "collab") {
             id_type_post = 3;
-        }
+        }        
 
-        console.log(JSON.stringify(req.body));
+        console.log("Type Poste: " + id_type_post);
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {
@@ -55,15 +57,14 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, ?, ?, 0, 0, 0, 0, 0, NOW());`,
                     [id_compte, id_type_post,  titre, contenu],
                     function (err, results, fields) {
-                        // gererErreur(err, res, results, "POSTER BLOGUE ERR");
+                        gererErreur(err, res, results, "POSTER BLOGUE ERR");
                         
                         mysqlConnection.query(
                             `SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1;`,
                             [id_compte],
                             function (err, results, fields) {
-                                // gererErreur(err, res, results, "POSTER BLOGUE ERR");
-
-                                const id_post = JSON.stringifyresults;
+                                const id_post = JSON.parse(JSON.stringify(results[0])).id_post;
+                                console.log("id_post avant insert collab: " + id_post);
 
                                 if (typePoste == 'collab') {
                                     mysqlConnection.query(

@@ -18,7 +18,6 @@ DROP TABLE IF EXISTS autorisation;
 
 DROP TABLE IF EXISTS post_collab;
 
-
 CREATE TABLE
     autorisation (
         id_autorisation int PRIMARY KEY AUTO_INCREMENT,
@@ -86,9 +85,8 @@ CREATE TABLE
         est_ouvert BOOLEAN NOT NULL,
         url_git VARCHAR (255),
         post_id_post VARCHAR(255),
-
-CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
-);
+        CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
+    );
 
 CREATE TABLE
     demande_collab (
