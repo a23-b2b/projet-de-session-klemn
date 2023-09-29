@@ -6,8 +6,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Profil() {
+    const OFFSET = 6;
+
     let { username } = useParams();
     const navigate = useNavigate();
 
@@ -24,10 +27,11 @@ function Profil() {
     const [idCompte, setIdCompte] = useState('')
 
     const [userPosts, setUserPosts] = useState<any[]>([])
-    const [loadingPosts, setLoadingPosts] = useState(true)
+    const [postOffset, setPostOffset] = useState(0)
+    const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/profil/${username}`, {
+    async function chargementInitial() {
+        await fetch(`${process.env.REACT_APP_API_URL}/profil/${username}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
@@ -49,30 +53,39 @@ function Profil() {
                 setUrlImageProfil(data.url_image_profil)
                 setUrlImageBanniere(data.url_image_banniere)
 
-                return data.id_compte;
+                setIdCompte(data.id_compte)
 
-            }).then((userId) => {
-                fetch(`${process.env.REACT_APP_API_URL}/user-posts/${userId}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
-                }).then(response => response.json())
-                    .then(response => {
-                        let data = response;
+            }).catch((error) => {
+                console.log(error)
+            })
+        getPosts()
+    }
 
-                        setUserPosts(data);
-                        setLoadingPosts(false);
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+    async function getPosts() {
+        console.log('Chargement des posts')
+        await fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(response => response.json())
+            .then(response => {
+                let data = response;
+
+                setPostOffset(postOffset + OFFSET)
+
+                if (data.length < OFFSET) {
+                    setIsEndOfFeed(true)
+                }
+
+                setUserPosts(userPosts.concat(data));
             })
             .catch((error) => {
                 console.log(error)
             })
+    }
 
-
-
-    }, [username]);
+    useEffect(() => {
+        chargementInitial();
+    }, []);
 
     return (
         <div className={styles.flex}>
@@ -99,45 +112,48 @@ function Profil() {
                 <p className={styles.bio}>{bio}</p>
             </div>
 
-            {loadingPosts && (
-                <div>Chargement...</div>
-            )}
-
-            {userPosts?.map(({
-                contenu,
-                date_publication,
-                id_compte,
-                id_infos,
-                id_parent,
-                id_post,
-                id_type_post,
-                nombre_commentaires,
-                nombre_dislikes,
-                nombre_likes,
-                nombre_partages,
-                nombre_reposts,
-                titre,
-                url_image_profil
-            }) => {
-                return (
-                    <Post
-                        idPost={id_post}
-                        idCompte={id_compte}
-                        date={date_publication}
-                        nomAffichage={displayName}
-                        nomUtilisateur={username + ''}
-                        titre={titre}
-                        contenu={contenu}
-                        nombreLike={nombre_likes}
-                        nombreDislike={nombre_dislikes}
-                        nombrePartage={nombre_partages}
-                        nombreCommentaire={nombre_commentaires}
-                        type={id_type_post}
-                        isPostFullScreen={false} 
-                        urlImageProfil={urlImageProfil} />
-                )
-            })}
-
+            <InfiniteScroll
+                dataLength={userPosts.length}
+                next={() => getPosts()}
+                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                loader={<p>Chargement...</p>}
+                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
+            >
+                {userPosts?.map(({
+                    contenu,
+                    date_publication,
+                    id_compte,
+                    id_infos,
+                    id_parent,
+                    id_post,
+                    id_type_post,
+                    nombre_commentaires,
+                    nombre_dislikes,
+                    nombre_likes,
+                    nombre_partages,
+                    nombre_reposts,
+                    titre,
+                    url_image_profil
+                }) => {
+                    return (
+                        <Post
+                            idPost={id_post}
+                            idCompte={id_compte}
+                            date={date_publication}
+                            nomAffichage={displayName}
+                            nomUtilisateur={username + ''}
+                            titre={titre}
+                            contenu={contenu}
+                            nombreLike={nombre_likes}
+                            nombreDislike={nombre_dislikes}
+                            nombrePartage={nombre_partages}
+                            nombreCommentaire={nombre_commentaires}
+                            type={id_type_post}
+                            isPostFullScreen={false}
+                            urlImageProfil={urlImageProfil} />
+                    )
+                })}
+            </InfiniteScroll>
         </div>
     );
 }
