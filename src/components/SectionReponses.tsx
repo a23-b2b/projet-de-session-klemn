@@ -14,7 +14,7 @@ function SectionReponses(props: SectionReponsesProps) {
     const [replies, setReplies] = useState<any[]>([])
 
     useEffect(() => {
-        fetch(`http://localhost:1111/replies/${props.idParent}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/replies/${props.idParent}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         }).then(reponse => reponse.json())
