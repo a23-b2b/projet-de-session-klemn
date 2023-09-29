@@ -69,7 +69,7 @@ function ModifierProfil() {
             );
 
             reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_nom_affichage', {
+                fetch('http://localhost:1111/changer_nom_affichage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -102,7 +102,7 @@ function ModifierProfil() {
             );
 
             reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_nom', {
+                fetch('http://localhost:1111/changer_nom', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -136,7 +136,7 @@ function ModifierProfil() {
             );
 
             reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_prenom', {
+                fetch('http://localhost:1111/changer_prenom', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -170,7 +170,7 @@ function ModifierProfil() {
             );
 
             reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_bio', {
+                fetch('http://localhost:1111/changer_bio', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -18,7 +18,7 @@ function BlogueForm() {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
+                        fetch('http://localhost:1111/publier-blogue', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

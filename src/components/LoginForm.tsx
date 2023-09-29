@@ -19,7 +19,7 @@ function LoginForm() {
                 const user = userCredential.user;
                 toast.success('Vous êtes connecté!')
                 // TODO: Ajouter le ID dans la BD MySQL
-                navigate('/')
+                navigate('/accueilConnecte')
             })
             .catch((error) => {
                 switch (error.code) {

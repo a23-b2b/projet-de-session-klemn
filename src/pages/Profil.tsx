@@ -27,7 +27,7 @@ function Profil() {
     const [loadingPosts, setLoadingPosts] = useState(true)
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/profil/${username}`, {
+        fetch(`http://localhost:1111/profil/${username}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
@@ -52,7 +52,7 @@ function Profil() {
                 return data.id_compte;
 
             }).then((userId) => {
-                fetch(`${process.env.REACT_APP_API_URL}/user-posts/${userId}`, {
+                fetch(`http://localhost:1111/user-posts/${userId}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 }).then(response => response.json())
