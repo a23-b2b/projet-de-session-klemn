@@ -15,6 +15,8 @@ function Home() {
 
     const OFFSET = 6;
 
+    console.log(process.env.REACT_APP_API_URL)
+
 
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
@@ -23,14 +25,16 @@ function Home() {
     async function getPosts() {
 
         console.log('chargement des posts...')
+
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 navigate('/authenticate')
             }
 
             if (user) {
-                fetch(`http://localhost:1111/feed-posts`, {
-                    method: 'POST',
+                await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         user_id: user.uid,
                         offset: postOffset
