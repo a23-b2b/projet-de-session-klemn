@@ -9,6 +9,7 @@ import Post from '../components/Post';
 import { auth } from '../firebase';
 import toast from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth';
+import FollowButton from '../components/FollowButton';
 
 function Profil() {
     let { username } = useParams();
@@ -84,65 +85,6 @@ function Profil() {
 
     }, [username]);
 
-    function followUser() {
-        auth.currentUser?.getIdToken(/* forceRefresh */ true)
-            .then((idToken) => {
-                fetch('http://localhost:1111/follow-user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: auth.currentUser?.uid,
-                        wants_to_follow: idCompte,
-                        firebase_id_token: idToken
-                    }),
-                }).then(response => response)
-                    .then(response => {
-                        if (response.status === 401) {
-                            toast.error("Vous ne pouvez pas suivre le même compte plus d'une fois.");
-                        }
-
-                        if (response.status === 200) {
-                            toast.success(`Vous suivez maintenant ${displayName}!`);
-                            setNombreAbonnes(nombreAbonnes + 1)
-                            setVisitorFollowsUser(true)
-                        }
-
-                    }).catch((error) => {
-                        console.log(error)
-                        toast.error('Une erreur est survenue');
-                    })
-            })
-    }
-
-    function unfollowUser() {
-        auth.currentUser?.getIdToken(/* forceRefresh */ true)
-            .then((idToken) => {
-                fetch('http://localhost:1111/unfollow-user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: auth.currentUser?.uid,
-                        wants_to_unfollow: idCompte,
-                        firebase_id_token: idToken
-                    }),
-                }).then(response => response)
-                    .then(response => {
-                        if (response.status === 401) {
-                            toast.error("Vous ne suivez pas cet utilisateur.");
-                        }
-
-                        if (response.status === 200) {
-                            toast.success(`Vous ne suivez plus ${displayName}.`);
-                            setNombreAbonnes(nombreAbonnes - 1)
-                            setVisitorFollowsUser(false)
-                        }
-
-                    }).catch((error) => {
-                        console.log(error)
-                        toast.error('Une erreur est survenue');
-                    })
-            })
-    }
 
     return (
         <div className={styles.flex}>
@@ -156,13 +98,11 @@ function Profil() {
                     <div className={styles.infos_profil}>
                         <h2 className={styles.nom}>{displayName}</h2>
                         <p className={styles.username}>@{username}</p>
-                        {idCompte != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == false && (
-                            <button className={`${styles.bouton_follow} global_bouton`} onClick={() => followUser()}>Suivre</button>
-                        )}
-
-                        {idCompte != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == true && (
-                            <button className={`${styles.bouton_follow} global_bouton`} onClick={() => unfollowUser()}>Ne plus suivre</button>
-                        )}
+                        <FollowButton
+                            userId={idCompte}
+                            displayName={displayName}
+                            nombreAbonnes={nombreAbonnes}
+                            setNombreAbonnes={setNombreAbonnes} />
                     </div>
 
                 </div>
@@ -209,7 +149,7 @@ function Profil() {
                         nombrePartage={nombre_partages}
                         nombreCommentaire={nombre_commentaires}
                         type={id_type_post}
-                        isPostFullScreen={false} 
+                        isPostFullScreen={false}
                         urlImageProfil={urlImageProfil} />
                 )
             })}
