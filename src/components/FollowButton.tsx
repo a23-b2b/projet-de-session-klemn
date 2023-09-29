@@ -2,6 +2,7 @@ import styles from '../styles/Profil.module.css'
 import { Dispatch, SetStateAction, useState } from 'react';
 import { auth } from '../firebase';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 interface Props {
     userId: string;
