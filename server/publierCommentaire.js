@@ -33,12 +33,14 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, 4, ?, 0, 0, 0, 0, 0, NOW());
 
-                     SELECT p.id_post, p.id_compte,p.date_publication, p.titre, p.contenu, p.nombre_likes, p.nombre_dislikes,
-                      p.nombre_partages, p.nombre_commentaires, c.nom_affichage, c.nom_utilisateur
+                     SELECT p.id_post, p.id_compte, p.date_publication, p.titre, p.contenu, p.nombre_likes, p.nombre_dislikes,
+                      p.nombre_partages, p.nombre_commentaires, c.nom_affichage, c.nom_utilisateur, c.url_image_profil
                      FROM post p
                      JOIN compte c ON p.id_compte = c.id_compte
                      WHERE p.id_compte = ?
-                     ORDER BY date_publication DESC LIMIT 1;`,
+                     ORDER BY date_publication DESC LIMIT 1;
+                     
+                     `,
                     [id_compte, id_parent, contenu, id_compte, id_compte],
                     function (err, results, fields) {
                         if (err) {
@@ -47,7 +49,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                             res.status(500).send("ERREUR: " + err.code)
 
                         } else {
-                            res.json(results)
+                            res.json(results[1])
                         }
                     }
                 );

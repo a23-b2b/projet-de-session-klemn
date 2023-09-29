@@ -33,7 +33,7 @@ function CommentaireForm(props: CommentaireFormProps) {
                             }),
                         }).then(response => response.json())
                             .then(response => {
-                                props.ajouterNouvCommentaire(response[1]);
+                                props.ajouterNouvCommentaire(response);
                                 setContenu('');
                                 setNbCaracteres(0);
                                 toast.success('Votre commentaire a été publié!');
