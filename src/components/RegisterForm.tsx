@@ -15,14 +15,14 @@ function RegisterForm() {
     const [username, setUsername] = useState('');
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
+    const [registerError, setRegisterError] = useState('')
 
     function registerWithEmailAndPassword(email: string, password: string) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 return user;
-            })
-            .then((user) => {
+            }).then((user) => {
                 fetch(process.env.REACT_APP_API_URL + '/inscription', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -36,21 +36,28 @@ function RegisterForm() {
                     }),
                 }).catch((error) => {
                     console.log(error)
+                    setRegisterError(error)
                 })
-            }).then(() => {
-                toast.success('Vous êtes connecté!')
-                navigate('/')
-            })
-            .catch((error) => {
-                switch (error.code) {
-                    case 'auth/invalid-email':
-                        toast.error('Le courriel est invalide.')
-                        break;
-                    default:
-                        toast.error('Une erreur est survenue: ' + error.name)
-                        break;
-                }
+            }).catch((error) => {
+                console.log(error.code)
+                setRegisterError(error.code)
             });
+
+        try {
+            let error = registerError
+            console.log(error)
+
+            switch (error) {
+                case 'auth/invalid-email':
+                    toast.error('Le courriel est invalide.')
+                    break;
+                default:
+                    toast.error('Une erreur est survenue: ' + error)
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -96,7 +103,7 @@ function RegisterForm() {
                         className={'global_input_field'}
                         type="tel"
                         onChange={(e) => setTelephone(e.target.value)} />
-                        
+
                     <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                             Inscription
