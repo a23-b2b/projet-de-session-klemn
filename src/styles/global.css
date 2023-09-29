@@ -26,7 +26,7 @@
 
     /*Couleur du gradient secondaire*/
     --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
     --dark_container_color: rgba(255, 255, 255, 0.15);
@@ -37,8 +37,8 @@
     --light_input_field_color: rgba(0, 0, 0, 0.057);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgb(255, 255, 255);
-    --light_border_color: rgba(172, 143, 184, 0.518);
+    --dark_border_color: rgba(255, 255, 255, 0.363);
+    --light_border_color: rgba(172, 143, 184, 0.557);
 
     /*Couleur de fond bouton*/
     --dark_button_color: var(--accent_color_dark);
@@ -115,8 +115,7 @@ body {
 }
 
 .global_input_field_label {
-    margin-left: 8px;
-    margin-bottom: -6px;
+
     font-size: 17px;
     font-weight: bold;
     opacity: 70%;
@@ -124,39 +123,58 @@ body {
 }
 
 .global_input_field {
+    margin: auto;
+    
     box-sizing: border-box;
-    border-radius: 12px;
-    padding: 10px;
-    border: none;
     width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+
     border: 1.5px solid var(--auto_border_color);
-    background-color: var(--auto_input_field_color);
+    border-radius: 12px;
+
+    padding: 10px;
+
     color: var(--auto_text_color);
+    background-color: var(--auto_input_field_color);
+    
 }
 
-textarea {
+.global_textarea {
+    margin: auto;
+
+    box-sizing: border-box;
+    width: 100%;
+    
+
     resize: none;
+    padding: 20px;
+
+    border: 1.5px solid var(--auto_border_color);
+    border-radius: 12px;
+
+    color: var(--auto_text_color);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
+    font-weight: 600;
+
+    background-color: var(--auto_input_field_color);
 }
 
 .global_bouton {
     padding: 13px 30px 13px 30px;
-    border: 0px;
     width: fit-content;
-    border-radius: 50px;
+    font-weight: bold;
     color: var(--auto_text_color);
     background-color: var(--auto_button_color);
-    font-weight: bold;
+    border: 0px;
+    border-radius: 50px;
+
 
 }
 
 .global_conteneur {
-    border-radius: 20px;
     border: 1.5px solid var(--auto_border_color);
+    border-radius: 20px;
     padding: 20px;
     background-color: var(--auto_container_color);
 }

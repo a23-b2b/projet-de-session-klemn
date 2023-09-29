@@ -28,14 +28,14 @@ function BlogueForm() {
                                 firebase_id_token: idToken
                             }),
                         }).then(response => response.json())
-                        .then(response => {
-                            console.log(response)
-                            toast.success('Votre message a été publié!');
+                            .then(response => {
+                                console.log(response)
+                                toast.success('Votre message a été publié!');
 
-                            navigate(`/p/${response[1][0]['id_post']}`)
-                        }).catch((error) => {
-                            toast.error('Une erreur est survenue');
-                        })
+                                navigate(`/p/${response[1][0]['id_post']}`)
+                            }).catch((error) => {
+                                toast.error('Une erreur est survenue');
+                            })
                     })
 
             } else {
@@ -49,18 +49,19 @@ function BlogueForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Publication</h2>
+        <div id={styles["conteneurBlogueForm"]} className={'global_conteneur'}>
+            <h2 className={'global_title'}>Publication</h2>
             <div className={styles.form}>
                 <label className={'global_input_field_label'}>Titre</label>
                 <input
+                    id={styles["inputFieldBlogueForm"]}
                     className={'global_input_field'}
                     type="text"
                     placeholder="Titre"
                     onChange={(e) => setTitre(e.target.value)} />
 
                 <label className={'global_input_field_label'}>Contenu</label>
-                <textarea className={'global_input_field'}
+                <textarea id={styles["textareaBlogueForm"]} className={'global_textarea'}
                     rows={10}
                     maxLength={4000}
                     placeholder="Exprimez-vous!"

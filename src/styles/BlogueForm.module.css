@@ -1,17 +1,15 @@
-.conteneur {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.13);
-    padding: 20px;
+#conteneurBlogueForm {
     margin-bottom: 30px;
 }
 
-.titre {
-    text-align: center;
-    color: white;
+#inputFieldBlogueForm {
+    width: 80%;
 }
+
+#textareaBlogueForm {
+    width: 90%;
+}
+
 
 .form {
     display: flex;
