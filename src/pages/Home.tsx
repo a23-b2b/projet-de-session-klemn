@@ -15,6 +15,8 @@ function Home() {
 
     const OFFSET = 6;
 
+    console.log(process.env.REACT_APP_API_URL)
+
 
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
@@ -27,8 +29,9 @@ function Home() {
         }
     });
 
-    function getGlobalPosts() {
-        fetch(`http://localhost:1111/feed-posts/${postOffset}`, {
+    async function getPosts() {
+
+        await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
