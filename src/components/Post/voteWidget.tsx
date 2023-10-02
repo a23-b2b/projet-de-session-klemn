@@ -21,6 +21,7 @@ const VoteWidget = (props: FooterProps) => {
     const [scopeLike, animateLike] = useAnimate()
     const [scopeDislike, animateDisike] = useAnimate()
     const [scopeNumberScore, animateNumberScore] = useAnimate()
+    const [loading, setLoading] = useState(false)
 
     // const [cancelledVote, setCancelledVote] = useRef(false)
     const cancelledVoteRef = useRef(false);
@@ -31,6 +32,10 @@ const VoteWidget = (props: FooterProps) => {
     }, [])
 
     function handleVote(score: number) {
+
+        if (loading) return
+
+        setLoading(true)
 
         if (props.idPost === '0') {
             setPostScore(postScore + score)
@@ -159,6 +164,7 @@ const VoteWidget = (props: FooterProps) => {
                     setPostScore(response['postScoreDifference'] + postScore)
                     setUserVote(response['currentUserVote'])
                     setScoreDifference(response['postScoreDifference'])
+                    setLoading(false)
                 }).catch((error) => {
                     console.log(error)
                     props.idPost != '0' && toast.error('Une erreur est survenue');
@@ -192,6 +198,7 @@ const VoteWidget = (props: FooterProps) => {
     return (
         <div>
             <motion.div className={styles.like_dislike_container} layout>
+                
                 <motion.div className={styles.bouton_interraction} id={styles.bouton_interraction_like} onClick={() => handleVote(1)}>
                     <div ref={scopeLike}>
                         <AiFillLike className={`styles.icone ${userVote === 1 && styles.liked_post}`} id={styles.icone_like} />
