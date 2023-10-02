@@ -73,6 +73,7 @@ const VoteWidget = (props: FooterProps) => {
 
             // afficher animation speciale shake
             if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
+                navigator.vibrate([15, 15, 15, 15, 15])
                 animateLike(scopeLike.current, {
                     x: [0, -10, 10, -7, 3, 0],
                 }, {
@@ -82,6 +83,7 @@ const VoteWidget = (props: FooterProps) => {
 
             // animation normale
             else {
+                navigator.vibrate([10, 5, 20])
                 animateLike(scopeLike.current, {
                     scale: 1.3,
                     y: '-18px',
@@ -101,6 +103,7 @@ const VoteWidget = (props: FooterProps) => {
         if (score < 0) {
             // animation speciale shake
             if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
+                navigator.vibrate([15, 15, 15, 15, 15])
                 animateDisike(scopeDislike.current, {
                     x: [0, 10, -10, 7, -3, 0],
                 }, {
@@ -110,6 +113,7 @@ const VoteWidget = (props: FooterProps) => {
 
             // Animation normale
             else {
+                navigator.vibrate([10, 5, 20])
                 animateDisike(scopeDislike.current, {
                     scale: 0.7,
                     y: '18px',
