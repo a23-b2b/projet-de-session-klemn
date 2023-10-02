@@ -84,7 +84,6 @@ function Home() {
 
     function getPosts() {
         let localStorageFeedType = localStorage.getItem("feedType")
-        // console.log("getPosts()", localStorageFeedType)
 
         switch (localStorageFeedType) {
             case "followed":
@@ -98,13 +97,7 @@ function Home() {
                 break;
         }
 
-        // if (localStorageFeedType === "followed") {
-        //     getSubscribedPosts();
-        // }
 
-        // if (localStorageFeedType === "global") {
-        //     getGlobalPosts();
-        // }
     }
 
     function changeFeedType(type: any) {
