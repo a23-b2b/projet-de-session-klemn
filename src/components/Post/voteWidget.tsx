@@ -37,7 +37,9 @@ const VoteWidget = (props: FooterProps) => {
 
         setLoading(true)
 
+        // idPost = 0 => widget de test dans les parametres
         if (props.idPost === '0') {
+            setLoading(false)
             setPostScore(postScore + score)
             setUserVote(score)
         }
