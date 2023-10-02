@@ -2,19 +2,22 @@ import styles from '../styles/Profil.module.css'
 import { Dispatch, SetStateAction, useState } from 'react';
 import { auth } from '../firebase';
 import toast from 'react-hot-toast';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion, useAnimate } from 'framer-motion';
 
 interface Props {
     userId: string;
     displayName: string;
+    visitorFollowsUser: boolean;
+    setVisitorFollowsUser: Dispatch<SetStateAction<boolean>>;
+
 
     nombreAbonnes: number;
     setNombreAbonnes: Dispatch<SetStateAction<number>>;
 }
 
 function FollowButton(props: Props) {
-    const [visitorFollowsUser, setVisitorFollowsUser] = useState(false);
     const [databaseLoading, setDatabaseLoading] = useState(false);
+    const [buttonScope, animateButton] = useAnimate()
 
     function followUser() {
         setDatabaseLoading(true)
@@ -38,7 +41,7 @@ function FollowButton(props: Props) {
                         if (response.status === 200) {
                             toast.success(`Vous suivez maintenant ${props.displayName}!`);
                             props.setNombreAbonnes(props.nombreAbonnes + 1)
-                            setVisitorFollowsUser(true)
+                            props.setVisitorFollowsUser(true)
                             setDatabaseLoading(false)
                         }
 
@@ -72,7 +75,7 @@ function FollowButton(props: Props) {
                         if (response.status === 200) {
                             toast.success(`Vous ne suivez plus ${props.displayName}.`);
                             props.setNombreAbonnes(props.nombreAbonnes - 1)
-                            setVisitorFollowsUser(false)
+                            props.setVisitorFollowsUser(false)
                             setDatabaseLoading(false)
                         }
 
@@ -85,20 +88,17 @@ function FollowButton(props: Props) {
     }
 
     return (
-        <motion.div initial={{ width: 'auto' }} animate={{ width: 'auto' }}>
+        <motion.div>
             <div>
-                {props.userId != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == false && (
+                {props.userId != auth.currentUser?.uid && auth.currentUser && (
                     <button
+                        ref={buttonScope}
                         className={`${styles.bouton_follow} global_bouton`}
-                        onClick={() => followUser()}
-                        disabled={databaseLoading}>Suivre</button>
-                )}
+                        onClick={props.visitorFollowsUser ? () => unfollowUser() : () => followUser()}
+                        disabled={databaseLoading}>
 
-                {props.userId != auth.currentUser?.uid && auth.currentUser && visitorFollowsUser == true && (
-                    <button
-                        className={`${styles.bouton_follow} global_bouton`}
-                        onClick={() => unfollowUser()}
-                        disabled={databaseLoading}>Ne plus suivre</button>
+                        { props.visitorFollowsUser ? 'Ne plus suivre' : 'Suivre' }
+                    </button>
                 )}
             </div>
         </motion.div>

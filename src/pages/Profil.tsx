@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import Bonjour from '../components/ComponentWithParameters';
 import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
@@ -152,7 +152,9 @@ function Profil() {
                             userId={idCompte}
                             displayName={displayName}
                             nombreAbonnes={nombreAbonnes}
-                            setNombreAbonnes={setNombreAbonnes} />
+                            setNombreAbonnes={setNombreAbonnes} 
+                            visitorFollowsUser={visitorFollowsUser} 
+                            setVisitorFollowsUser={setVisitorFollowsUser} />
                     </div>
 
                 </div>
