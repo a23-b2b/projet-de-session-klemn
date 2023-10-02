@@ -29,7 +29,7 @@ function Home() {
         }
     });
 
-    async function getPosts() {
+    async function getGlobalPosts() {
 
         await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
             method: 'GET',
