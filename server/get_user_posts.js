@@ -13,8 +13,11 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.get('/:user_id', (req, res) => {
+module.exports = app.get('/:user_id/:offset', (req, res) => {
     console.log(req.params)
+    const offset = parseInt(req.params.offset);
+    const limit = 6
+
     mysqlConnection.query(`
         select 
         * 
@@ -22,9 +25,10 @@ module.exports = app.get('/:user_id', (req, res) => {
         post 
         where 
         id_compte like ? AND id_type_post != 4
-        order by date_publication desc;
+        order by date_publication desc
+        limit ? offset ?;
     `, 
-    [req.params.user_id],
+    [req.params.user_id, limit, offset],
     function (err, results, fields) {
         if (err) {
             // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
