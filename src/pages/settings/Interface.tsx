@@ -67,26 +67,32 @@ function Interface() {
     }, [])
 
     return (
-        <motion.div className={styles.container} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
-            <h1>Interface</h1>
+        <motion.div className={'global_conteneur_parametres'} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
+            <h1 id={styles["titre_modifier_profil"]} className={'global_title'}>Interface</h1>
 
             <h3>Animations</h3>
+            <hr className={styles.hr}></hr>
 
             <div className={styles.form}>
-                <label className={'global_input_field_label'}>Animation d'interraction avec une publication (like, dislike)</label>
+                <div className={styles.conteneur_elements_animations}>
+                <label id={styles["dropdown_label"]} className={'global_input_field_label'}>Animation d'interraction avec une publication (like, dislike)</label>
+               
+                    <select className={styles.dropdown} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
+                        <option className={styles.dropdown_option} value="shake_slide">Shake + slide</option>
+                        <option className={styles.dropdown_option} value="shake_fade">Shake + fade</option>
+                        <option className={styles.dropdown_option} value="same_slide">Same + slide</option>
+                        <option className={styles.dropdown_option} value="same_fade">Same + fade</option>
+                        {/* <option value="fade_fade">Fade only</option> */}
+                        {/* <option value="none">None</option> */}
+                    </select>
 
-                <select value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
-                    <option value="shake_slide">Shake + slide</option>
-                    <option value="shake_fade">Shake + fade</option>
-                    <option value="same_slide">Same + slide</option>
-                    <option value="same_fade">Same + fade</option>
-                    {/* <option value="fade_fade">Fade only</option> */}
-                    {/* <option value="none">None</option> */}
-                </select>
-
-                <div style={{maxWidth: '100px'}}>
-                    <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
+                    
                 </div>
+
+                <div className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
+                        <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
+                    </div>
+
             </div>
             <br />
         </motion.div>

@@ -194,12 +194,13 @@ function ModifierProfil() {
 
 
     return (
-        <motion.div className={styles.container} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
-            <h1 className={'global_title'}>Modifier Profil</h1>
+        <motion.div className={'global_conteneur_parametres'} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
+            <h1 id={styles["titre_modifier_profil"]} className={'global_title'}>Modifier Profil</h1>
 
-            <div className={'global_conteneur'}>
+            <div>
 
-                <h3 className={'global_section_titre'}>Modifier le courriel</h3>
+                <h3 className={styles.section_titre}>Modifier le courriel</h3>
+                <hr className={styles.hr}></hr>
 
                 <div className={styles.form}>
                     <label className={'global_input_field_label'}>Nouveau courriel</label>
@@ -214,7 +215,8 @@ function ModifierProfil() {
                         type="email"
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
-                    <button className={'global_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+
+                    <button id={styles["section_boutton"]} className={'global_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
                         Modifier
                     </button>
                 </div>
@@ -223,9 +225,11 @@ function ModifierProfil() {
 
             <br />
 
-            <div className={'global_conteneur'}>
+            <div>
 
-                <h3 className={'global_section_titre'}>Modifier le nom d'affichage</h3>
+                <h3 className={styles.section_titre}>Modifier le nom d'affichage</h3>
+                <hr className={styles.hr}></hr>
+                
                 <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
                 <input
                     className={'global_input_field'}
@@ -237,15 +241,17 @@ function ModifierProfil() {
                     className={'global_input_field'}
                     onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                 />
-                <button className={'global_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                <button id={styles["section_boutton"]} className={'global_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
                     Modifier
                 </button>
 
             </div>
             <br />
 
-            <div className={'global_conteneur'}>
-                <h3 className={'global_section_titre'}>Modifier le nom </h3>
+            <div>
+                <h3 className={styles.section_titre}>Modifier le nom </h3>
+                <hr className={styles.hr}></hr>
+
                 <label className={'global_input_field_label'}>Nouveau nom  </label>
                 <input
                     className={'global_input_field'}
@@ -257,14 +263,16 @@ function ModifierProfil() {
                     className={'global_input_field'}
                     onChange={(e) => setNewNameConfirmation(e.target.value)}
                 />
-                <button className={'global_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                <button id={styles["section_boutton"]} className={'global_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
                     Modifier
                 </button>
             </div>
 
             <br />
-            <div className={'global_conteneur'}>
-                <h3 className={'global_section_titre'}>Modifier le prenom </h3>
+            <div >
+                <h3 className={styles.section_titre}>Modifier le prenom </h3>
+                <hr className={styles.hr}></hr>
+                
                 <label className={'global_input_field_label'}>Nouveau prenom </label>
                 <input
                     className={'global_input_field'}
@@ -276,20 +284,22 @@ function ModifierProfil() {
                     className={'global_input_field'}
                     onChange={(e) => setNewPrenomConfirmation(e.target.value)}
                 />
-                <button className={'global_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                <button id={styles["section_boutton"]} className={'global_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
                     Modifier
                 </button>
             </div>
 
             <br />
-            <div className={'global_conteneur'}>
-                <h3 className={'global_section_titre'}>Modifier le Bio </h3>
+            <div >
+                <h3 className={styles.section_titre}>Modifier le Bio </h3>
+                <hr className={styles.hr}></hr>
+
                 <label className={'global_input_field_label'}>Nouveau Bio </label>
                 <input
                     className={'global_input_field'}
                     onChange={(e) => setNewBio(e.target.value)}
                 />
-                <button className={'global_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                <button id={styles["section_boutton"]} className={'global_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
                     Modifier
                 </button>
 

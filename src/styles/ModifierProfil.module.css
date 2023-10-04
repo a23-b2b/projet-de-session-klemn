@@ -2,6 +2,68 @@
     margin-left: 5%;
 }
 
-#SectionTitle {
+#section_boutton {
+    margin-top: 20px;
+
+}
+
+.section_titre{
+    margin-left: 10px;
+    font-size: 21px;
+    font-weight: bold;
+    opacity: 85%;
+}
+
+
+
+#titre_modifier_profil {
+    background-color: rgba(255, 255, 255, 0.11);
+    border-radius: 15px 15px 7px 7px;
+    height: 50px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    padding: 5px;
     
+
+}
+
+
+#section_boutton {
+ 
+    float: right;
+    
+
+}
+
+.form {
+    margin-bottom: 40px;
+}
+
+
+/*Interface*/
+.exemple_animation {
+    padding-top: 10px;
+    margin: auto;
+}
+
+.conteneur_elements_animations {
+    display: flex;
+}
+
+#dropdown_label {
+    margin: 5px;
+}
+
+.dropdown_option {
+   
+}
+
+.dropdown {
+    border-radius: 13px;
+    border: none;
+    height: 40px;
+    padding: 5px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.541);
+
 }

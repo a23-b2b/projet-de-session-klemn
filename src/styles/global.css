@@ -37,7 +37,7 @@
     --light_input_field_color: rgba(0, 0, 0, 0.057);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgba(255, 255, 255, 0.285);
+    --dark_border_color: rgba(255, 255, 255, 0.194);
     --light_border_color: rgba(172, 143, 184, 0.557);
 
     /*Couleur de fond bouton*/
@@ -115,12 +115,15 @@ body {
     color: var(--auto_text_color);
 }
 
-.global_section_titre{
-    margin-left: 20px;
+.global_sous_titre {
+    text-align: center;
+    color: var(--auto_text_color);
 }
 
+
+
 .global_input_field_label {
-    border-radius: 10px;
+
     font-size: 17px;
     font-weight: bold;
     opacity: 70%;
@@ -133,12 +136,14 @@ body {
     width: 100%;
 
     border: 1.5px solid var(--auto_border_color);
-    border-radius: 15px;
+    border-radius: 11px;
 
     padding: 10px;
 
     color: var(--auto_text_color);
    
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     background-color: var(--auto_input_field_color);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -240,4 +245,11 @@ body {
 
 .global_conteneur_commentaire {
     
+}
+
+/*Styles paramétres*/
+.global_conteneur_parametres {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--auto_container_color);
 }
