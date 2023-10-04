@@ -16,6 +16,7 @@ export interface BlogueProp {
     nombrePartage: number;
     nombreCommentaire: number;
     urlImageProfil: string;
+    userVote: number;
 
     isPostFullScreen: Boolean;
 }
@@ -42,8 +43,8 @@ function PosteBlogue(props: BlogueProp) {
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
-                isPostFullScreen={props.isPostFullScreen}
-            />
+                isPostFullScreen={props.isPostFullScreen} 
+                userVote={props.userVote} />
         </div>
     );
 }

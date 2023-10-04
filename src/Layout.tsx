@@ -12,6 +12,7 @@ import Parametres from "./pages/settings/Parametres";
 import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
+import Interface from "./pages/settings/Interface";
 
 function Layout() {
     return (
@@ -30,6 +31,7 @@ function Layout() {
                     <Route path="/p/:postId" element={<PostFullScreen />} />
                     <Route path="/parametres" element={<Parametres />}>
                         <Route path="profil" element={<ModifierProfil />} />
+                        <Route path="interface" element={<Interface />} />
                     </Route>
                 </Routes>
                 <Footer />

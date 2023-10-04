@@ -83,3 +83,14 @@ create table compte_suivi
 )
     comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
 
+create table vote
+(
+    id_compte varchar(255) not null,
+    id_post   varchar(255) not null,
+    score     int          not null,
+    constraint vote_compte_id_compte_fk
+        foreign key (id_compte) references compte (id_compte),
+    constraint vote_post_id_post_fk
+        foreign key (id_post) references post (id_post)
+)
+    comment 'Contient les votes (like, dislike) associés aux posts.';
