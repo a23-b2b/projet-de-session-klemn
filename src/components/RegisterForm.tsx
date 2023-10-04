@@ -23,7 +23,7 @@ function RegisterForm() {
                 return user;
             })
             .then((user) => {
-                fetch('http://localhost:1111/inscription', {
+                fetch(process.env.REACT_APP_API_URL + '/inscription', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -39,7 +39,7 @@ function RegisterForm() {
                 })
             }).then(() => {
                 toast.success('Vous êtes connecté!')
-                navigate('/accueilConnecte')
+                navigate('/')
             })
             .catch((error) => {
                 switch (error.code) {
