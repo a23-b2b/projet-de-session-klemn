@@ -1,14 +1,10 @@
 const express = require('express')
 const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
-<<<<<<< HEAD
 const {logger} = require('./serveur.js')
-const { admin } = require('./serveur.js')
-=======
-const crypto = require('crypto')
 const { admin } = require('./serveur.js');
 const { type } = require('os');
->>>>>>> table-collab
+
 
 const app = express()
 

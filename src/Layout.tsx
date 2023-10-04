@@ -12,11 +12,8 @@ import Parametres from "./pages/settings/Parametres";
 import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
-<<<<<<< HEAD
 import Interface from "./pages/settings/Interface";
-=======
 import Test from "./pages/test";
->>>>>>> table-collab
 
 function Layout() {
     return (

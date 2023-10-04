@@ -51,36 +51,69 @@ CREATE TABLE
         nom_type VARCHAR(255) NOT NULL
     );
 
-CREATE TABLE image_post
-(
-    id_image  VARCHAR(255)  NOT NULL
-        PRIMARY KEY,
-    id_post   VARCHAR(255)  NOT NULL,
-    url_image VARCHAR(4000) NOT NULL,
-    CONSTRAINT image_post_post_id_post_fk
-        FOREIGN KEY (id_post) REFERENCES post (id_post)
+
+CREATE TABLE
+    post (
+        id_post VARCHAR(255) PRIMARY KEY,
+        id_compte VARCHAR(255) NOT NULL,
+        id_parent VARCHAR(255) NULL,
+        id_type_post INT NULL,
+        id_infos VARCHAR(255) NULL,
+        titre VARCHAR(255) NULL,
+        contenu VARCHAR(4000) NOT NULL,
+        nombre_likes INT NOT NULL,
+        nombre_dislikes INT NOT NULL,
+        nombre_reposts INT NOT NULL,
+        nombre_commentaires INT NOT NULL,
+        nombre_partages INT NOT NULL,
+        date_publication DATETIME NOT NULL,
+        CONSTRAINT post_compte_id_compte_fk FOREIGN KEY (id_compte) REFERENCES compte (id_compte),
+        CONSTRAINT post_post_id_post_fk FOREIGN KEY (id_parent) REFERENCES post (id_post),
+        CONSTRAINT post_type_post_id_type_post_fk FOREIGN KEY (id_type_post) REFERENCES type_post (id_type_post)
+    );
+
+CREATE TABLE
+    image_post (
+        id_image VARCHAR(255) NOT NULL PRIMARY KEY,
+        id_post VARCHAR(255) NOT NULL,
+        url_image VARCHAR(4000) NOT NULL,
+        CONSTRAINT image_post_post_id_post_fk FOREIGN KEY (id_post) REFERENCES post (id_post)
+    );
+
+create table
+    compte_suivi (
+        compte varchar(255) not null comment 'id du compte qui suit lautre compte (colonne suit)',
+        suit varchar(255) not null comment 'compte qui est suivi par compte',
+        suit_depuis datetime not null comment 'date depuis id_compte suit le compte',
+        constraint compte_suivi_compte_id_compte_fk foreign key (compte) references compte (id_compte),
+        constraint compte_suivi_compte_id_compte_fk2 foreign key (suit) references compte (id_compte)
+    ) comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
+
+create table
+    vote (
+        id_compte varchar(255) not null,
+        id_post varchar(255) not null,
+        score int not null,
+        constraint vote_compte_id_compte_fk foreign key (id_compte) references compte (id_compte),
+        constraint vote_post_id_post_fk foreign key (id_post) references post (id_post)
+    ) comment 'Contient les votes (like, dislike) associés aux posts.';
+
+CREATE TABLE
+    post_collab (
+        id_collab VARCHAR(255) PRIMARY KEY,
+        est_ouvert BOOLEAN NOT NULL DEFAULT TRUE,
+        url_git VARCHAR (255),
+        post_id_post VARCHAR(255),
+        CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
+    );
+
+CREATE TABLE
+    demande_collab (
+        id_demande_collab VARCHAR(255) PRIMARY KEY,
+        statut BOOLEAN NOT NULL DEFAULT FALSE,
+        post_collab_id_collab VARCHAR(255),
+        id_collaborateur VARCHAR (255),
+
+CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab),
+CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
 );
-
-create table compte_suivi
-(
-    compte      varchar(255) not null comment 'id du compte qui suit lautre compte (colonne suit)',
-    suit        varchar(255) not null comment 'compte qui est suivi par compte',
-    suit_depuis datetime     not null comment 'date depuis id_compte suit le compte',
-    constraint compte_suivi_compte_id_compte_fk
-        foreign key (compte) references compte (id_compte),
-    constraint compte_suivi_compte_id_compte_fk2
-        foreign key (suit) references compte (id_compte)
-)
-    comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
-
-create table vote
-(
-    id_compte varchar(255) not null,
-    id_post   varchar(255) not null,
-    score     int          not null,
-    constraint vote_compte_id_compte_fk
-        foreign key (id_compte) references compte (id_compte),
-    constraint vote_post_id_post_fk
-        foreign key (id_post) references post (id_post)
-)
-    comment 'Contient les votes (like, dislike) associés aux posts.';
