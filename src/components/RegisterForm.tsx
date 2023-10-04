@@ -5,6 +5,8 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { error } from "console";
+import { response } from "express";
 
 function RegisterForm() {
     const navigate = useNavigate()
@@ -13,7 +15,7 @@ function RegisterForm() {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    const [telephone, setTelephone] = useState('');
+    // const [telephone, setTelephone] = useState('');
     const [username, setUsername] = useState('');
     const [prenom, setPrenom] = useState('');
     const [nom, setNom] = useState('');
@@ -21,46 +23,73 @@ function RegisterForm() {
 
     function registerWithEmailAndPassword(email: string, password: string) {
         if (password !== passwordConfirmation) {
-            toast.error("Les mots de passe ne correspondent pas.")
+            toast.error("Les mots de passe ne correspondent pas.");
+
         } else {
             createUserWithEmailAndPassword(auth, email, password)
+
                 .then((userCredential) => {
+
                     const user = userCredential.user;
+                    // Successfully created user, now make API call
+
                     return user;
-                }).then((user) => {
+
+                })
+                .then((user) => {
                     fetch(process.env.REACT_APP_API_URL + '/inscription', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             username: username,
                             email: email,
-                            telephone: telephone,
                             prenom: prenom,
                             nom: nom,
                             id_compte: user.uid
-                        }),
-                    })
+                        })
+                    }).then(response => response.json())
+                        .then(response => {
+                            console.log(response)
+
+                            if (response.code == "ERR_USERNAME_TAKEN") {
+                                toast.error(response.message);
+                            }
+
+                        }).catch((error) => {
+                            console.log(error);
+                            setRegisterError(error.code);
+                        })
+
+
                 }).catch((error) => {
-                    console.log(error.code)
+                    console.log(error.code);
                     setRegisterError(error.code)
+
+                    if (error.code === "auth/email-already-in-use") {
+                        toast.error("L'adresse e-mail est déjà associée à un compte.");
+                    } else if (error.code === "auth/invalid-email") {
+                        toast.error("Le courriel est invalide.");
+                    } else {
+                        toast.error('Une erreur est survenue: ' + error.message);
+                    }
                 });
 
-            try {
-                let error = registerError
-                console.log(error)
+            // if (registerError) {
+            //     if (registerError === "auth/email-already-in-use") {
+            //         toast.error("L'adresse e-mail est déjà associée à un compte.");
+            //     } else if (registerError === "auth/invalid-email") {
+            //         toast.error("Le courriel est invalide.");
 
-                switch (error) {
-                    case 'auth/invalid-email':
-                        toast.error('Le courriel est invalide.')
-                        break;
-                    default:
-                        toast.error('Une erreur est survenue: ' + error)
-                        break;
-                }
-            } catch (error) {
-                console.log(error)
-            }
+            //     } else if (registerError === "ERR_USERNAME_TAKEN") {
+            //         toast.error("Le nom d'utilisateur existe déjà ");
+
+
+            //     } else {
+            //         toast.error('Une erreur est survenue: ' + registerError);
+            //     }
+            // }
         }
+
     }
 
     return (
