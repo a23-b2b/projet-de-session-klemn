@@ -59,6 +59,9 @@ app.use('/feed-followed', get_followed_users_feed)
 const publierBlogue = require('./publierBlogue')
 app.use('/publier-blogue', publierBlogue);
 
+const publierCommentaire = require('./publierCommentaire')
+app.use('/publier-commentaire', publierCommentaire)
+
 const changer_nom_affichage = require('./changer_nom_affichage')
 app.use('/changer_nom_affichage', changer_nom_affichage)
 
