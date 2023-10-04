@@ -66,7 +66,6 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                             [id_compte],
                             function (err, results, fields) {
                                 const id_post = JSON.parse(JSON.stringify(results[0])).id_post;
-                                console.log("id_post avant insert collab: " + id_post);
 
                                 if (typePoste == 'collab') {
                                     mysqlConnection.query(
