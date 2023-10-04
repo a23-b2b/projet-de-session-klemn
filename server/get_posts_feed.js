@@ -18,7 +18,7 @@ module.exports = app.get('/:offset', (req, res) => {
     const limit = 6
 
     mysqlConnection.query(`
-            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert  
+            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, v.score as vote  
             from post
             inner join compte c on post.id_compte = c.id_compte
             INNER JOIN post_collab p ON post.id_post = p.post_id_post

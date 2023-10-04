@@ -29,23 +29,7 @@ function Blogue() {
 
             <div>
                 <div className='conteneurComposantPosteBlogue'>
-                <PosteCollab
-                    date="22222"
-                    nomAffichage="222222"
-                    nomUtilisateur="2"
-                    titre="tt"
-                    contenu="xx"
-                    idCompte="22"
-                    nombreLike={0}
-                    nombreDislike={0}
-                    nombrePartage={0}
-                    nombreCommentaire={0}
-                    isPostFullScreen={false}
-                    idPost=""
-                    urlImageProfil=""
-
-                    // TODO: AJOUTER URL_GIT
-                />
+                
                 </div>                
             </div>
         </div>
