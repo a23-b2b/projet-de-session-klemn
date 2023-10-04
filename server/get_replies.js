@@ -15,16 +15,20 @@ const mysqlConnection = mysql.createConnection({
 
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)
+    const userId = req.headers.authorization
+
     mysqlConnection.query(`
-        select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil
+        select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
         from post
+        left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         inner join compte c on post.id_compte = c.id_compte
-        where id_parent like ?;
+        where post.id_parent like ?;
     `,
-        [req.params.post_id],
+        [userId, req.params.post_id],
         function (err, results, fields) {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+                console.log(err)
                 res.status(500).send('Erreur de base de données', err)
             }
             if (results) {
