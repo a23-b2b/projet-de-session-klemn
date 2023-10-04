@@ -22,7 +22,7 @@ module.exports = app.get('/:post_id', (req, res) => {
         from post
         left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         inner join compte c on post.id_compte = c.id_compte
-        where post.id_parent like ?;
+        where post.id_parent like ?
         order by date_publication desc;
     `,
         [userId, req.params.post_id],
