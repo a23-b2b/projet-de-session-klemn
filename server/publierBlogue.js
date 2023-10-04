@@ -79,8 +79,8 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                     );
                                 } else if (typePoste == 'question') {
                                     mysqlConnection.query(
-                                        `INSERT INTO post_question (id_question, est_resolu, id_reponse_choisie, post_id_post)
-                                        VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, null, ?);`,
+                                        `INSERT INTO post_question (id_question, est_resolu, post_id_post, post_meilleure_reponse)
+                                        VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, ?, null);`,
                                         [id_post],
                                         function (err, results) {
                                             gererErreur(err, res, results, "POSTER QUESTION ERR");

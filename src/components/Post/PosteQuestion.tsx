@@ -19,7 +19,7 @@ export interface QuestionProp {
     urlImageProfil: string;
 
     idMeilleureReponse?: string;
-    statutReponse?: Boolean;
+    resolu?: Boolean;
 
     isPostFullScreen: Boolean;
 }
@@ -40,7 +40,7 @@ function PosteQuestion(props: QuestionProp) {
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
+            {props.resolu && (<p>Résolu: {props.resolu.toString()}</p>)}
 
             { props.idMeilleureReponse && (
                 <Link to={`/p/${props.idMeilleureReponse}`}>

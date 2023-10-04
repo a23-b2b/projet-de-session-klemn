@@ -26,7 +26,7 @@ interface Props {
     type: number;
 
     // props question optionnels
-    statutReponse?: Boolean;
+    resolu?: Boolean;
     idMeilleureReponse?: string;
 
     // props collab optionnels
@@ -84,7 +84,7 @@ function Post(props: Props) {
 
                     // Question Prop
                     idMeilleureReponse={props.idMeilleureReponse}
-                    statutReponse={props.statutReponse} />
+                    resolu={props.resolu} />
             )}
             {props.type == TYPE_COLLABORATION && (
                 <PosteCollab
@@ -102,6 +102,7 @@ function Post(props: Props) {
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
 
+                    // Colllab Props
                     urlGit={props.urlGit}
                     estOuvert={props.estOuvert}
                 />
