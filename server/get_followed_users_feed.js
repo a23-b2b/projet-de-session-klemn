@@ -21,14 +21,16 @@ module.exports = app.post('/', (req, res) => {
     console.log(userId)
 
     mysqlConnection.query(`
-        SELECT * FROM post 
+        SELECT * , v.score as vote
+        from post
+        left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         inner join compte c on post.id_compte = c.id_compte
         inner join compte_suivi cs on post.id_compte = cs.suit 
         WHERE compte LIKE ?
         
         order by date_publication desc
         limit ? offset ?;`,
-        [userId, limit, offset],
+        [userId, userId, limit, offset],
         function (err, results, fields) {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
