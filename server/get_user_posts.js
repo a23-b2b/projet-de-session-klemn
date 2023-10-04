@@ -17,27 +17,27 @@ module.exports = app.get('/:user_id/:offset', (req, res) => {
     const offset = parseInt(req.params.offset);
     const limit = 6
 
-    const userId = req.headers.authorization
+    const authUserId = req.headers.authorization
 
     mysqlConnection.query(`
         select 
-        *, v.score as vote
+        post.*, v.score as vote
         from post
         left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         where post.id_compte like ? AND post.id_type_post != 4
-        order by post.date_publication desc;
+        order by post.date_publication desc
         limit ? offset ?;
-    `, 
-    [req.params.user_id, limit, offset],
+    `,
+        [authUserId, req.params.user_id, limit, offset],
 
-    function (err, results, fields) {
-        if (err) {
-            // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-            console.log(err)
-            res.status(500).send('Erreur de base de données', err)
-        }
-        if (results) {
-            res.status(200).send(results)
-        }
-    })
+        function (err, results, fields) {
+            if (err) {
+                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+                console.log(err)
+                res.status(500).send('Erreur de base de données', err)
+            }
+            if (results) {
+                res.status(200).send(results)
+            }
+        })
 });

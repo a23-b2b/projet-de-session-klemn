@@ -90,81 +90,70 @@ function Profil() {
 
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            fetch(`http://localhost:1111/profil`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: username,
-                    is_followed_by: auth.currentUser?.uid
-                }),
-                headers: { 'Content-Type': 'application/json' }
+
+        fetch(`http://localhost:1111/profil`, {
+            method: 'POST',
+            body: JSON.stringify({
+                username: username,
+                is_followed_by: auth.currentUser?.uid
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(response => {
+                let data = response
+
+                // if (!data) {
+                //     navigate("/404")
+                // }
+
+                setIdCompte(data.id_compte)
+                setNom(data.nom)
+                setPrenom(data.prenom)
+                setDisplayName(data.nom_affichage ? data.nom_affichage : username)
+                setDateCreationCompte(data.date_creation_compte)
+                setNombreAbonnes(data.nombre_abonnes)
+                setNombreAbonnements(data.nombre_abonnements)
+                setBio(data.biographie)
+                setUrlImageProfil(data.url_image_profil)
+                setUrlImageBanniere(data.url_image_banniere)
+                setVisitorFollowsUser(data.visitor_follows_profile)
+
+                return data.id_compte;
+
+            }).catch((error) => {
+                console.log(error)
             })
-                .then(response => response.json())
-                .then(response => {
-                    let data = response
 
-                    // if (!data) {
-                    //     navigate("/404")
-                    // }
-
-                    setIdCompte(data.id_compte)
-                    setNom(data.nom)
-                    setPrenom(data.prenom)
-                    setDisplayName(data.nom_affichage ? data.nom_affichage : username)
-                    setDateCreationCompte(data.date_creation_compte)
-                    setNombreAbonnes(data.nombre_abonnes)
-                    setNombreAbonnements(data.nombre_abonnements)
-                    setBio(data.biographie)
-                    setUrlImageProfil(data.url_image_profil)
-                    setUrlImageBanniere(data.url_image_banniere)
-                    setVisitorFollowsUser(data.visitor_follows_profile)
-
-                    return data.id_compte;
-
-                }).then((userId) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/user-posts/${userId}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            authorization: user?.uid || ""
-                        }
-                    }).then(response => response.json())
-                        .then(response => {
-                            let data = response;
-
-                            setUserPosts(data);
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        });
 
     }, [username]);
 
     function getPosts() {
         if (idCompte) {
-            fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            }).then(response => response.json())
-                .then(response => {
-                    let data = response;
-
-                    setPostOffset(postOffset + OFFSET)
-
-                    if (data.length < OFFSET) {
-                        setIsEndOfFeed(true)
+            onAuthStateChanged(auth, (user) => {
+                fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: user?.uid || ""
                     }
+                }).then(response => response.json())
+                    .then(response => {
+                        let data = response;
 
-                    setUserPosts(userPosts.concat(data));
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                        setPostOffset(postOffset + OFFSET)
+
+                        if (data.length < OFFSET) {
+                            setIsEndOfFeed(true)
+                        }
+
+                        setUserPosts(userPosts.concat(data));
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+            )
         }
     }
 
@@ -208,22 +197,22 @@ function Profil() {
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 {userPosts?.map(({
-                                     contenu,
-                                     date_publication,
-                                     id_compte,
-                                     id_infos,
-                                     id_parent,
-                                     id_post,
-                                     id_type_post,
-                                     nombre_commentaires,
-                                     nombre_dislikes,
-                                     nombre_likes,
-                                     nombre_partages,
-                                     nombre_reposts,
-                                     titre,
-                                     url_image_profil,
-                                     vote
-                                 }) => {
+                    contenu,
+                    date_publication,
+                    id_compte,
+                    id_infos,
+                    id_parent,
+                    id_post,
+                    id_type_post,
+                    nombre_commentaires,
+                    nombre_dislikes,
+                    nombre_likes,
+                    nombre_partages,
+                    nombre_reposts,
+                    titre,
+                    url_image_profil,
+                    vote
+                }) => {
                     return (
                         <Post
                             key={id_post}
@@ -240,7 +229,7 @@ function Profil() {
                             nombreCommentaire={nombre_commentaires}
                             type={id_type_post}
                             isPostFullScreen={false}
-                            urlImageProfil={urlImageProfil} 
+                            urlImageProfil={urlImageProfil}
                             userVote={vote} />
                     )
                 })}
