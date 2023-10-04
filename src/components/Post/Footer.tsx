@@ -1,10 +1,9 @@
 import { BsFillReplyAllFill } from 'react-icons/bs';
 import styles from '../../styles/Post.module.css'
-import { AiOutlineShareAlt } from 'react-icons/ai';
+import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
-import VoteWidget from './voteWidget';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 interface FooterProps {
     idPost: string;
@@ -13,12 +12,10 @@ interface FooterProps {
     nombrePartage: number;
     nombreCommentaire: number;
     isPostFullScreen: Boolean;
-    userVote: number;
 }
 
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
-    const [nombreReponses, setNombreReponses] = useState(props.nombreCommentaire)
 
     return (
         <div>
@@ -26,14 +23,22 @@ const PostFooter = (props: FooterProps) => {
 
                 <div className={styles.bouton_interraction} id={styles.bouton_interraction_reply} onClick={() => setIsReponsesOpen(!isReponsesOpen)}>
                     <BsFillReplyAllFill className={styles.icone} id={styles.icone_reply} />
-                    <span className={styles.interraction_count}>{nombreReponses}</span>
+                    <span className={styles.interraction_count}>{props.nombreCommentaire}</span>
                 </div>
 
-                <VoteWidget
-                    idPost={props.idPost}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    userVote={props.userVote} />
+                <div className={styles.like_dislike_container}>
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_like}>
+                        <AiFillLike className={styles.icone} id={styles.icone_like} />
+                    </div>
+
+                    <span className={styles.interraction_count}>{props.nombreLike - props.nombreDislike}</span>
+
+
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_dislike}>
+                        <AiFillDislike className={styles.icone} id={styles.icone_dislike} />
+                    </div>
+                </div>
+
 
                 <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
                     <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
@@ -43,7 +48,7 @@ const PostFooter = (props: FooterProps) => {
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses}/> : ''}
+                    {isReponsesOpen ? <SectionReponses  idParent={props.idPost}/> : ''}
                 </AnimatePresence>)}
 
         </div>

@@ -13,7 +13,6 @@ export interface ReponseProps {
     nombrePartage: number;
     nombreCommentaire: number;
     urlImageProfil: string;
-    userVote: number;
 }
 
 function Reponse(props: ReponseProps) {
@@ -22,7 +21,7 @@ function Reponse(props: ReponseProps) {
             <PostHeader date={props.date} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} />
             <PostContent contenu={props.contenu} idPost={props.idPost} isPostFullScreen={false} />
             <PostFooter idPost={props.idPost} nombreLike={props.nombreLike} nombreDislike={props.nombreDislike}
-            nombrePartage={props.nombrePartage} nombreCommentaire={props.nombreCommentaire} isPostFullScreen={false} userVote={props.userVote} />
+                        nombrePartage={props.nombrePartage} nombreCommentaire={props.nombreCommentaire} isPostFullScreen={false} />
         </div>
     );
 }

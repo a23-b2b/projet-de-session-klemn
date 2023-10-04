@@ -13,30 +13,27 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.post('/', (req, res) => {
-    const offset = parseInt(req.body.offset);
-    const userId = req.body.user_id
+module.exports = app.get('/:offset', (req, res) => {
+    const offset = parseInt(req.params.offset);
     const limit = 6
 
-    console.log(userId)
-
     mysqlConnection.query(`
-            select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
+            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert  
             from post
-            left join vote v on post.id_post = v.id_post and v.id_compte = ?
             inner join compte c on post.id_compte = c.id_compte
+            INNER JOIN post_collab p ON post.id_post = p.post_id_post
             where id_type_post != 4
             order by date_publication desc
             limit ? offset ?;
         `,
-        [userId, limit, offset],
+        [limit, offset],
         function (err, results, fields) {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                 res.status(500)
             }
             if (results) {
-                // console.log(results)
+                console.log(results)
                 res.status(200).send(results)
             }
         })

@@ -20,17 +20,18 @@ interface Props {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
-    userVote: number;
 
     isPostFullScreen: Boolean;
     idCompte: string;
     type: number;
 
-    // props optionnels
+    // props question optionnels
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // props collab optionnels
+    urlGit?: string; 
+    estOuvert?: Boolean;
 }
 
 function Post(props: Props) {
@@ -51,8 +52,7 @@ function Post(props: Props) {
                     nombreCommentaire={props.nombreCommentaire}
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil} 
-                    userVote={props.userVote}/>
+                    urlImageProfil={props.urlImageProfil} />
             )}
             {props.type == TYPE_REPONSE && (
                 <Reponse idPost={props.idPost}
@@ -64,10 +64,9 @@ function Post(props: Props) {
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
                     nombreCommentaire={props.nombreCommentaire}
-                    urlImageProfil={props.urlImageProfil} 
-                    userVote={props.userVote} />
+                    urlImageProfil={props.urlImageProfil} />
             )}
-            {props.type === TYPE_QUESTION && (
+            {props.type == TYPE_QUESTION && (
                 <PosteQuestion
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -82,13 +81,12 @@ function Post(props: Props) {
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote}
 
                     // Question Prop
                     idMeilleureReponse={props.idMeilleureReponse}
                     statutReponse={props.statutReponse} />
             )}
-            {props.type === TYPE_COLLABORATION && (
+            {props.type == TYPE_COLLABORATION && (
                 <PosteCollab
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -103,10 +101,9 @@ function Post(props: Props) {
                     isPostFullScreen={props.isPostFullScreen}
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote}
 
-                    // Collab Prop
-                    idCollaborateur={props.idCollaborateur}
+                    urlGit={props.urlGit}
+                    estOuvert={props.estOuvert}
                 />
             )}
         </>
