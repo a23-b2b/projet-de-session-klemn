@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
 import Test from "./pages/test";
 
+
 function Layout() {
     return (
         <>
@@ -28,10 +29,6 @@ function Layout() {
 
                     <Route path="/" element={<Home />} />
                     <Route path="/authenticate" element={<Landing />} />
-                    {/* <Route path="/accueilConnecte" element={<AccueilConnecte />} /> */}
-                    {/* <Route path="/forum" element={<Forum />} /> */}
-                    <Route path="/test" element={<Test/>} />
-                    {/* <Route path="/projets" element={<Projets />} /> */}
                     <Route path="/u/:username" element={<Profil />} />
                     <Route path="/p/:postId" element={<PostFullScreen />} />
                     <Route path="/parametres" element={<Parametres />}>
