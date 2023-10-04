@@ -11,9 +11,11 @@ function BlogueForm() {
     const navigate = useNavigate();
 
     const [hidden, setHidden] = useState(false);
+
     const [titre, setTitre] = useState('');
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
+    const [urlGit, setUrlGit] = useState('');
 
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
@@ -35,6 +37,14 @@ function BlogueForm() {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
+                        var bodyUrlGit;
+
+                        if (urlGit.trim() == '') {
+                            bodyUrlGit = null;
+                        } else {
+                            bodyUrlGit = urlGit;
+                        }
+
                         fetch(`http://localhost:1111/publier/${type}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -42,7 +52,8 @@ function BlogueForm() {
                                 id_compte: utilisateur.uid,
                                 titre: titre,
                                 contenu: contenu,
-                                firebase_id_token: idToken
+                                firebase_id_token: idToken,
+                                urlGit: bodyUrlGit
                             }),
                         }).then(response => response.json())
                             .then(response => {
@@ -74,11 +85,12 @@ function BlogueForm() {
                 <h2 className={styles.titre}>Publication</h2>
                 <div className={styles.form}>
                 {hidden && <div >
-
                         <label className={'global_input_field_label'}>URL du projet GitHub</label>
-                        <input 
+                        <input
+                            placeholder='https://github.com/'                                                      
                             type="text"
-                            className={'global_input_field'}/>
+                            className={'global_input_field'}
+                            onChange={(e) => setUrlGit(e.target.value)}/>
                     </div>}
                     <label className={'global_input_field_label'}>Titre</label>
                     <input

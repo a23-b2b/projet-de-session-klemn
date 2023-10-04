@@ -1,4 +1,4 @@
--- Active: 1694035110728@@localhost@3306@dev
+-- Active: 1693586986008@@localhost@32769@dev
 
 DROP TABLE IF EXISTS demande_collab;
 
@@ -82,7 +82,7 @@ CREATE TABLE
 CREATE TABLE
     post_collab (
         id_collab VARCHAR(255) PRIMARY KEY,
-        est_ouvert BOOLEAN NOT NULL,
+        est_ouvert BOOLEAN NOT NULL DEFAULT TRUE,
         url_git VARCHAR (255),
         post_id_post VARCHAR(255),
         CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)

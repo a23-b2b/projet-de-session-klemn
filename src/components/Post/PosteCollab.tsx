@@ -21,6 +21,7 @@ export interface CollabProp {
     urlImageProfil: string;
 
     urlGit?: string;
+    estOuvert?: Boolean;
 
     isPostFullScreen: Boolean;
 }
@@ -37,7 +38,7 @@ function PosteCollab(props: CollabProp) {
             const uid = user.uid;
             fetch(`/p/${props.idPost}/${uid}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' }                
             })
         } 
     }
@@ -69,6 +70,12 @@ function PosteCollab(props: CollabProp) {
             
             {<button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>}
             
+            {props.urlGit !== null && props.estOuvert === true && ( 
+                <a href={props.urlGit}>
+                    URL de projet GitHub
+                </a>
+            )}    
+
             <PostFooter
                 idPost={props.idPost}
                 nombreLike={props.nombreLike}
