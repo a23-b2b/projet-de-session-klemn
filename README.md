@@ -33,8 +33,8 @@ pour démarrer l'API.
 
 ## Contributeurs (A-Z)
 
-Alfrieh, Elie
-Cournoyer, Nathan
-Miranda Carrillo
-Terehov, Lada
-Vincent-Charland, Maxime 
+- Alfrieh, Elie
+- Cournoyer, Nathan
+- Miranda Carrillo
+- Terehov, Lada
+- Vincent-Charland, Maxime 
