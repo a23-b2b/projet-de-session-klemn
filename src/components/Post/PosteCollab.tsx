@@ -39,7 +39,7 @@ function PosteCollab(props: CollabProp) {
             const uid = user.uid;
             user.getIdToken(true)
                 .then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idPostCollab}/${uid}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idCollab}/${uid}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
