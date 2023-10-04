@@ -12,7 +12,11 @@ import Parametres from "./pages/settings/Parametres";
 import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
+<<<<<<< HEAD
 import Interface from "./pages/settings/Interface";
+=======
+import Test from "./pages/test";
+>>>>>>> table-collab
 
 function Layout() {
     return (
@@ -27,6 +31,10 @@ function Layout() {
 
                     <Route path="/" element={<Home />} />
                     <Route path="/authenticate" element={<Landing />} />
+                    {/* <Route path="/accueilConnecte" element={<AccueilConnecte />} /> */}
+                    {/* <Route path="/forum" element={<Forum />} /> */}
+                    <Route path="/test" element={<Test/>} />
+                    {/* <Route path="/projets" element={<Projets />} /> */}
                     <Route path="/u/:username" element={<Profil />} />
                     <Route path="/p/:postId" element={<PostFullScreen />} />
                     <Route path="/parametres" element={<Parametres />}>

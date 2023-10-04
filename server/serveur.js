@@ -57,7 +57,7 @@ const get_followed_users_feed = require('./get_followed_users_feed.js')
 app.use('/feed-followed', get_followed_users_feed)
 
 const publierBlogue = require('./publierBlogue')
-app.use('/publier-blogue', publierBlogue);
+app.use('/publier', publierBlogue);
 
 const publierCommentaire = require('./publierCommentaire')
 app.use('/publier-commentaire', publierCommentaire)
@@ -76,6 +76,9 @@ app.use('/changer_bio', changer_bio)
 
 const send_vote = require('./vote.js')
 app.use('/vote', send_vote);
+
+// TODO: http://localhost:3000/p/d4ed72163f35/yjoI2WF3w4WVr3kD9L01shSjjnL2
+// /p/:id_post/:id_compte_collaborateur
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

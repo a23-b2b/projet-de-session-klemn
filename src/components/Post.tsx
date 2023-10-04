@@ -26,11 +26,13 @@ interface Props {
     idCompte: string;
     type: number;
 
-    // props optionnels
+    // props question optionnels
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // props collab optionnels
+    urlGit?: string; 
+    estOuvert?: Boolean;
 }
 
 function Post(props: Props) {
@@ -67,7 +69,7 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil} 
                     userVote={props.userVote} />
             )}
-            {props.type === TYPE_QUESTION && (
+            {props.type == TYPE_QUESTION && (
                 <PosteQuestion
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -88,7 +90,7 @@ function Post(props: Props) {
                     idMeilleureReponse={props.idMeilleureReponse}
                     statutReponse={props.statutReponse} />
             )}
-            {props.type === TYPE_COLLABORATION && (
+            {props.type == TYPE_COLLABORATION && (
                 <PosteCollab
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -105,8 +107,8 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil}
                     userVote={props.userVote}
 
-                    // Collab Prop
-                    idCollaborateur={props.idCollaborateur}
+                    urlGit={props.urlGit}
+                    estOuvert={props.estOuvert}
                 />
             )}
         </>
