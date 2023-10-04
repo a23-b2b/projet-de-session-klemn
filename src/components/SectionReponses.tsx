@@ -38,53 +38,82 @@ function SectionReponses(props: SectionReponsesProps) {
     }, [])
 
     const RepliesContent = () => {
+        if (replies.length > 0) {
+            return (
+                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+                    {
+                        replies.map(({
+                            id_post,
+                            id_compte,
+                            date_publication,
+                            nom_affichage,
+                            nom_utilisateur,
+                            titre,
+                            contenu,
+                            nombre_likes,
+                            nombre_dislikes,
+                            nombre_partages,
+                            nombre_commentaires,
+                            url_image_profil
+                        }) => {
+                            return (
+                                <Post
+                                    idPost={id_post}
+                                    idCompte={id_compte}
+                                    date={date_publication}
+                                    nomAffichage={nom_affichage}
+                                    nomUtilisateur={nom_utilisateur}
+                                    titre={titre}
+                                    contenu={contenu}
+                                    nombreLike={nombre_likes}
+                                    nombreDislike={nombre_dislikes}
+                                    nombrePartage={nombre_partages}
+                                    nombreCommentaire={nombre_commentaires}
+                                    isPostFullScreen={false}
+                                    type={TYPE_REPONSE}
+                                    urlImageProfil={url_image_profil} />
+                            )
+                        })
+                    }
+                </motion.div>
+            )
+        }
+
         return (
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                {
-                    replies.map(({
-                        id_post,
-                        id_compte,
-                        date_publication,
-                        nom_affichage,
-                        nom_utilisateur,
-                        titre,
-                        contenu,
-                        nombre_likes,
-                        nombre_dislikes,
-                        nombre_partages,
-                        nombre_commentaires,
-                        url_image_profil
-                    }) => {
-                        return (
-                            <Post
-                                idPost={id_post}
-                                idCompte={id_compte}
-                                date={date_publication}
-                                nomAffichage={nom_affichage}
-                                nomUtilisateur={nom_utilisateur}
-                                titre={titre}
-                                contenu={contenu}
-                                nombreLike={nombre_likes}
-                                nombreDislike={nombre_dislikes}
-                                nombrePartage={nombre_partages}
-                                nombreCommentaire={nombre_commentaires}
-                                isPostFullScreen={false}
-                                type={TYPE_REPONSE}
-                                urlImageProfil={url_image_profil} />
-                        )
-                    })
-                }
+                <h2>Aucun commentaire.</h2>
+                <h4>Soyez le premier utilisateur a commenter!</h4>
             </motion.div>
         )
+
     }
 
     return (
-        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+        <motion.div
+        style={{ overflow: "hidden"}}
+            initial={{
+                height: 0,
+                opacity: 0,
+                scale: 0.8,
+                y: -50,
+            }}
+            animate={{
+                height: 'auto',
+                opacity: 1,
+                scale: 1,
+                y: 0,
+            }}
+            exit={{
+                height: 0,
+                opacity: 0,
+                scale: 0.6,
+                y: -20,
+            }}>
             <h3>Commentaires</h3>
             <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire} />
 
             <AnimatePresence>
-                {loading ? <p>Chargement...</p> : <RepliesContent />}
+                {loading ? '' : <RepliesContent />}
             </AnimatePresence>
 
         </motion.div>
