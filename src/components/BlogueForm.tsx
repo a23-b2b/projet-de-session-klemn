@@ -1,4 +1,4 @@
-import styles from '../styles/BlogueForm.module.css'
+import styles from '../styles/PostsForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";

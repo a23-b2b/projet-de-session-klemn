@@ -25,6 +25,7 @@
     margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.068);
     border-radius: 8px;
+    z-index: 10;
 }
 
 .header {
@@ -86,6 +87,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    z-index: 0;
 }
 
 .bouton_interraction {
@@ -106,17 +108,6 @@
     transition: 0.1s;
 }
 
-#bouton_interraction_reply:hover {
-    background-color: rgba(255, 208, 0, 0.192);
-    transition: 0.1s;
-}
-
-#icone_reply:hover {
-    color: rgb(255, 123, 0);
-    transition: 0.1s;
-}
-
-
 .interraction_count {
     margin: auto;
 }
@@ -127,48 +118,76 @@
     flex-direction: row;
 }
 
-
-#bouton_interraction_like, #bouton_interraction_dislike {
+#bouton_interraction_like,
+#bouton_interraction_dislike {
     padding: 8px 8px;
     margin: 0px 4px;
     border-radius: 100px;
     transition: 0.2s;
 }
-#bouton_interraction_like:hover {
-    background-color: rgba(0, 255, 34, 0.192);
-    transition: 0.1s;
+
+.disliked_post {
+    transition: 0.5s;
+    color: rgb(170, 0, 0);
 }
 
-#bouton_interraction_dislike:hover {
-    background-color: rgba(255, 0, 0, 0.192);
-    transition: 0.1s;
+.liked_post {
+    transition: 0.5s;
+    color: rgb(0, 187, 62);
 }
 
-#icone_like, #icone_dislike {
+#icone_like,
+#icone_dislike {
     margin: 0;
     margin-bottom: -2px;
+    transition: 0.5s;
 }
 
-#icone_like:hover {
-    color: rgb(0, 187, 62);
-    transition: 0.1s;
+@media (hover: hover) and (pointer: fine) {
+    #icone_like:hover {
+        color: rgb(0, 187, 62);
+        transition: 0.1s;
+    }
+
+    #icone_dislike:hover {
+        color: rgb(170, 0, 0);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_like:hover {
+        background-color: rgba(0, 255, 34, 0.192);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_dislike:hover {
+        background-color: rgba(255, 0, 0, 0.192);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_reply:hover {
+        background-color: rgba(255, 208, 0, 0.192);
+        transition: 0.1s;
+    }
+    
+    #icone_reply:hover {
+        color: rgb(255, 123, 0);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_partage:hover {
+        background-color: rgba(153, 0, 255, 0.13);
+        transition: 0.1s;
+    }
+    
+    #icone_partage:hover {
+        color: rgb(111, 0, 255);
+        transition: 0.1s;
+    }
 }
 
-#icone_dislike:hover {
-    color: rgb(170, 0, 0);
-    transition: 0.1s;
-}
 /* === Widget like/dislike === */
 
-#bouton_interraction_partage:hover {
-    background-color: rgba(153, 0, 255, 0.13);
-    transition: 0.1s;
-}
 
-#icone_partage:hover {
-    color: rgb(111, 0, 255);
-    transition: 0.1s;
-}
 
 /* .post_ferme {
     transition: 0.4s;

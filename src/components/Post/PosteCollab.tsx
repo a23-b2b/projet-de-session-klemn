@@ -19,6 +19,7 @@ export interface CollabProp {
     nombrePartage: number;
     nombreCommentaire: number;
     urlImageProfil: string;
+    userVote: number;
 
     idCollaborateur?: string;
 
@@ -73,6 +74,7 @@ function PosteCollab(props: CollabProp) {
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
+                userVote={props.userVote}
             />
         </div>
     );
