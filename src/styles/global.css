@@ -115,6 +115,10 @@ body {
     color: var(--auto_text_color);
 }
 
+.global_section_titre{
+    margin-left: 20px;
+}
+
 .global_input_field_label {
     border-radius: 10px;
     font-size: 17px;

@@ -372,3 +372,5 @@ GET /feed-posts/0 304 - - 12.712 ms
 GET /feed-posts/0 304 - - 9.497 ms
 GET /replies/568358bfa62a 304 - - 8.469 ms
 GET /replies/568358bfa62a 304 - - 2.484 ms
+POST /inscription 200 24 - 4.558 ms
+POST /publier-blogue 200 139 - 595.009 ms

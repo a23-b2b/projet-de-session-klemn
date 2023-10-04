@@ -195,88 +195,105 @@ function ModifierProfil() {
 
     return (
         <motion.div className={styles.container} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
-            <h1>Modifier Profil</h1>
+            <h1 className={'global_title'}>Modifier Profil</h1>
 
-            <h3>Modifier le courriel</h3>
+            <div className={'global_conteneur'}>
 
-            <div className={styles.form}>
-                <label className={'global_input_field_label'}>Nouveau courriel</label>
+                <h3 className={'global_section_titre'}>Modifier le courriel</h3>
+
+                <div className={styles.form}>
+                    <label className={'global_input_field_label'}>Nouveau courriel</label>
+                    <input
+                        className={'global_input_field'}
+                        type="email"
+                        onChange={(e) => setNewEmail(e.target.value)}
+                    />
+                    <label className={'global_input_field_label'}>Confirmez le courriel</label>
+                    <input
+                        className={'global_input_field'}
+                        type="email"
+                        onChange={(e) => setNewEmailConfirmation(e.target.value)}
+                    />
+                    <button className={'global_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                        Modifier
+                    </button>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div className={'global_conteneur'}>
+
+                <h3 className={'global_section_titre'}>Modifier le nom d'affichage</h3>
+                <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
                 <input
                     className={'global_input_field'}
-                    type="email"
-                    onChange={(e) => setNewEmail(e.target.value)}
+                    onChange={(e) => setNewNameAffichage(e.target.value)}
                 />
-                <label className={'global_input_field_label'}>Confirmez le courriel</label>
+                <label className={'global_input_field_label'}>Confirmez le nom d'affichage</label>
+
                 <input
                     className={'global_input_field'}
-                    type="email"
-                    onChange={(e) => setNewEmailConfirmation(e.target.value)}
+                    onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                 />
-                <button className={'global_button'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                <button className={'global_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
                     Modifier
                 </button>
+
             </div>
             <br />
 
+            <div className={'global_conteneur'}>
+                <h3 className={'global_section_titre'}>Modifier le nom </h3>
+                <label className={'global_input_field_label'}>Nouveau nom  </label>
+                <input
+                    className={'global_input_field'}
+                    onChange={(e) => setNewName(e.target.value)}
+                />
+                <label className={'global_input_field_label'}>Confirmez le nom </label>
 
-            <h3>Modifier le nom d'affichage</h3>
-            <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewNameAffichage(e.target.value)}
-            />
-            <label className={'global_input_field_label'}>Confirmez le nom d'affichage</label>
+                <input
+                    className={'global_input_field'}
+                    onChange={(e) => setNewNameConfirmation(e.target.value)}
+                />
+                <button className={'global_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                    Modifier
+                </button>
+            </div>
 
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
-            />
-            <button className={'global_button'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
-                Modifier
-            </button>
+            <br />
+            <div className={'global_conteneur'}>
+                <h3 className={'global_section_titre'}>Modifier le prenom </h3>
+                <label className={'global_input_field_label'}>Nouveau prenom </label>
+                <input
+                    className={'global_input_field'}
+                    onChange={(e) => setNewPrenom(e.target.value)}
+                />
+                <label className={'global_input_field_label'}>Confirmez le prenom </label>
 
-            <h3>Modifier le nom </h3>
-            <label className={'global_input_field_label'}>Nouveau nom  </label>
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewName(e.target.value)}
-            />
-            <label className={'global_input_field_label'}>Confirmez le nom </label>
+                <input
+                    className={'global_input_field'}
+                    onChange={(e) => setNewPrenomConfirmation(e.target.value)}
+                />
+                <button className={'global_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                    Modifier
+                </button>
+            </div>
 
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewNameConfirmation(e.target.value)}
-            />
-            <button className={'global_button'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
-                Modifier
-            </button>
+            <br />
+            <div className={'global_conteneur'}>
+                <h3 className={'global_section_titre'}>Modifier le Bio </h3>
+                <label className={'global_input_field_label'}>Nouveau Bio </label>
+                <input
+                    className={'global_input_field'}
+                    onChange={(e) => setNewBio(e.target.value)}
+                />
+                <button className={'global_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                    Modifier
+                </button>
 
-
-            <h3>Modifier le prenom </h3>
-            <label className={'global_input_field_label'}>Nouveau prenom </label>
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewPrenom(e.target.value)}
-            />
-            <label className={'global_input_field_label'}>Confirmez le prenom </label>
-
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewPrenomConfirmation(e.target.value)}
-            />
-            <button className={'global_button'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
-                Modifier
-            </button>
-
-            <h3>Modifier le Bio </h3>
-            <label className={'global_input_field_label'}>Nouveau Bio </label>
-            <input
-                className={'global_input_field'}
-                onChange={(e) => setNewBio(e.target.value)}
-            />
-            <button className={'global_button'} onClick={() => changeBio()} disabled={newBio === ""}>
-                Modifier
-            </button>
+            </div>
 
 
 
