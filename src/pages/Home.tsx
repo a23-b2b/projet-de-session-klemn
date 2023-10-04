@@ -21,11 +21,10 @@ function Home() {
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
+    const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
-    async function getPosts() {
 
-        console.log('chargement des posts...')
-
+    async function getGlobalPosts() {
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 navigate('/authenticate')
@@ -58,67 +57,139 @@ function Home() {
                     })
             }
         })
+
+
+        function getSubscribedPosts() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetch(`http://localhost:1111/feed-followed`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_id: user.uid,
+                            offset: postOffset
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(response => {
+                            let data = response
+
+                            setPostOffset(postOffset + OFFSET)
+
+                            if (data.length < OFFSET) {
+                                setIsEndOfFeed(true)
+                            }
+
+                            setPostData(postData.concat(data))
+                        })
+                        .catch((error) => {
+                            toast.error(`Une erreur est survenue: ${error}`)
+                        })
+                }
+            });
+        }
+
+        function getPosts() {
+            let localStorageFeedType = localStorage.getItem("feedType")
+
+            switch (localStorageFeedType) {
+                case "followed":
+                    getSubscribedPosts();
+                    break;
+                case "global":
+                    getGlobalPosts();
+                    break;
+                default:
+                    getGlobalPosts()
+                    break;
+            }
+        }
+
+        function changeFeedType(type: any) {
+            console.log("Changing feed to", type)
+            localStorage.setItem("feedType", type.toString())
+            setFeedType(type)
+
+            // console.log('BEFORE CLEAR: ', postData)
+            setPostData([])
+            setIsEndOfFeed(false)
+            setPostOffset(0)
+            // console.log('AFTER CLEAR: ', postData)
+
+
+            // getPosts()
+            // console.log('AFTER POPULATING: ', postData)
+        }
+
+        useEffect(() => {
+            getPosts()
+        }, [feedType]);
+
+        return (
+            <div className={styles.body}>
+                <BlogueForm />
+
+                <select value={feedType} onChange={e => changeFeedType(e.target.value)}>
+                    <option value="global">Global</option>
+                    <option value="followed">Abonnements</option>
+                </select>
+
+                <InfiniteScroll
+                    dataLength={postData.length}
+                    next={() => getPosts()}
+                    hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                    loader={<p>Chargement...</p>}
+                    endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
+                >
+                    <div>
+                        {postData?.map(({
+                            contenu,
+                            date_publication,
+                            id_compte,
+                            id_infos,
+                            id_parent,
+                            id_post,
+                            id_type_post,
+                            nombre_commentaires,
+                            nombre_dislikes,
+                            nombre_likes,
+                            nombre_partages,
+                            nombre_reposts,
+                            titre,
+                            nom_affichage,
+                            nom_utilisateur,
+                            url_image_profil,
+                            vote
+                        }) => {
+                            return (
+
+                                <div key={id_post}>
+                                    <Post
+                                        idPost={id_post}
+                                        date={date_publication}
+                                        nomAffichage={nom_affichage}
+                                        nomUtilisateur={nom_utilisateur}
+                                        titre={titre}
+                                        contenu={contenu}
+                                        idCompte={id_compte}
+                                        nombreLike={nombre_likes}
+                                        nombreDislike={nombre_dislikes}
+                                        nombrePartage={nombre_partages}
+                                        nombreCommentaire={nombre_commentaires}
+                                        type={id_type_post}
+                                        isPostFullScreen={false}
+                                        urlImageProfil={url_image_profil}
+                                        userVote={vote} />
+                                </div>
+
+                            )
+                        })}
+                    </div>
+
+                </InfiniteScroll>
+            </div>
+        );
     }
-
-    useEffect(() => {
-        getPosts()
-    }, []);
-
-    return (
-        <div className={styles.body}>
-            <BlogueForm />
-
-            <InfiniteScroll
-                dataLength={postData.length}
-                next={() => getPosts()}
-                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
-                loader={<p>Chargement...</p>}
-                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            >
-                <div>
-                    {postData?.map(({
-                        contenu,
-                        date_publication,
-                        id_compte,
-                        id_infos,
-                        id_parent,
-                        id_post,
-                        id_type_post,
-                        nombre_commentaires,
-                        nombre_dislikes,
-                        nombre_likes,
-                        nombre_partages,
-                        nombre_reposts,
-                        titre,
-                        nom_affichage,
-                        nom_utilisateur,
-                        url_image_profil,
-                        vote
-                    }) => {
-                        return (
-                            <Post
-                                idPost={id_post}
-                                date={date_publication}
-                                nomAffichage={nom_affichage}
-                                nomUtilisateur={nom_utilisateur}
-                                titre={titre}
-                                contenu={contenu}
-                                idCompte={id_compte}
-                                nombreLike={nombre_likes}
-                                nombreDislike={nombre_dislikes}
-                                nombrePartage={nombre_partages}
-                                nombreCommentaire={nombre_commentaires}
-                                type={id_type_post}
-                                isPostFullScreen={false}
-                                urlImageProfil={url_image_profil}
-                                userVote={vote} />
-                        )
-                    })}
-                </div>
-
-            </InfiniteScroll>
-        </div>
-    );
 }
 
 export default Home;
