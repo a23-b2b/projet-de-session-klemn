@@ -12,11 +12,13 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
+module.exports = app.get('/:user_id/:offset', (req, res) => {
+    console.log(req.params)
+    const offset = parseInt(req.params.offset);
+    const limit = 6
 
-module.exports = app.get('/:user_id', (req, res) => {
     const userId = req.headers.authorization
 
-    console.log(req.params)
     mysqlConnection.query(`
         select 
         *, v.score as vote
@@ -24,8 +26,10 @@ module.exports = app.get('/:user_id', (req, res) => {
         left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         where post.id_compte like ? AND post.id_type_post != 4
         order by post.date_publication desc;
+        limit ? offset ?;
     `, 
-    [userId, req.params.user_id],
+    [req.params.user_id, limit, offset],
+
     function (err, results, fields) {
         if (err) {
             // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)

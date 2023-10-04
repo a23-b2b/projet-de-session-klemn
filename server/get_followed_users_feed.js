@@ -26,8 +26,7 @@ module.exports = app.post('/', (req, res) => {
         left join vote v on post.id_post = v.id_post and v.id_compte = ? 
         inner join compte c on post.id_compte = c.id_compte
         inner join compte_suivi cs on post.id_compte = cs.suit 
-        WHERE compte LIKE ?
-        
+        WHERE compte LIKE ? AND id_type_post != 4
         order by date_publication desc
         limit ? offset ?;`,
         [userId, userId, limit, offset],
