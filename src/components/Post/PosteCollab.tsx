@@ -2,9 +2,10 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
-import { Link } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
-import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useState } from "react";
+
 
 export interface CollabProp {
     idPost: string;
@@ -22,6 +23,7 @@ export interface CollabProp {
 
     urlGit?: string;
     estOuvert?: Boolean;
+    idCollab?: string;
 
     isPostFullScreen: Boolean;
 }
@@ -30,26 +32,27 @@ function PosteCollab(props: CollabProp) {
     const auth = getAuth();
     const user = auth.currentUser;
     
-    var enabled = ActiverCollab();
-    
+    const actif = true; //(user && props.idCompte !== user.uid) 
 
     async function demanderCollabortion(props: CollabProp){        
-        if (user !== null) {
+        if (user) {
             const uid = user.uid;
-            fetch(`/p/${props.idPost}/${uid}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }                
-            })
+            user.getIdToken(true)
+                .then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idPostCollab}/${uid}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firebase_id_token: idToken
+                        })             
+                    }).then(response => response.json())
+                        .then(response => {
+                            toast.success('Votre demande de collab a été envoyé');
+                        }).catch((error) => {
+                            toast.error('Une erreur est survenue');
+                    })
+                })
         } 
-    }
-
-    function ActiverCollab() : Boolean{
-        if (user !== null && props.idCompte !== user.uid) {
-            return true;
-        } else {
-            return false;
-        }
-        
     }
 
     return (
@@ -68,7 +71,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            {<button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>}
+            <button disabled={!actif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>
             
             {props.urlGit !== null && props.estOuvert === true && ( 
                 <a href={props.urlGit}>

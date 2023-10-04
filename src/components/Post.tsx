@@ -32,6 +32,7 @@ interface Props {
     // props collab optionnels
     urlGit?: string; 
     estOuvert?: Boolean;
+    idCollab?: string;
 }
 
 function Post(props: Props) {
@@ -105,7 +106,7 @@ function Post(props: Props) {
                     // Colllab Props
                     urlGit={props.urlGit}
                     estOuvert={props.estOuvert}
-                />
+                    idCollab={props.idCollab} />
             )}
         </>
     );

@@ -66,8 +66,8 @@ app.use('/changer_bio', changer_bio)
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
 
-// TODO: http://localhost:3000/p/d4ed72163f35/yjoI2WF3w4WVr3kD9L01shSjjnL2
-// /p/:id_post/:id_compte_collaborateur
+const demander_collab = require('./demande_collab')
+app.use('/collab', demander_collab);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

@@ -2,7 +2,9 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const crypto = require('crypto')
-const {logger, admin} = require('./serveur.js')
+const { admin } = require('./serveur.js')
+const { logger } = require('./logger.js');
+
 
 const app = express()
 
@@ -39,15 +41,11 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
         
         var id_type_post = 1;
 
-        console.log("Type Poste: " + typePoste);
-
         if (typePoste == "question") {
             id_type_post = 2;
         } else if (typePoste == "collab") {
             id_type_post = 3;
         }        
-
-        console.log("Type Poste: " + id_type_post);
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {

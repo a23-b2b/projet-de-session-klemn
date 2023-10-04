@@ -47,4 +47,7 @@ INSERT INTO post_collab
 VALUES 
     (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, 'https://github.com/', 'post_collab_id_3');
 COMMIT;
-
+INSERT INTO demande_collab 
+                    (id_demande_collab, est_accepte, post_collab_id_collab, id_collaborateur)
+                VALUES
+                    (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, '610ef2fce0a0', 'yjoI2WF3w4WVr3kD9L01shSjjnL2');

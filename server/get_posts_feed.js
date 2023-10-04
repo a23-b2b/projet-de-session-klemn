@@ -2,8 +2,6 @@ const express = require('express')
 const app = express()
 const mysql = require('mysql2')
 
-const { logger } = require('./serveur.js')
-
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
     port: process.env.MYSQL_PORT,
@@ -18,7 +16,7 @@ module.exports = app.get('/:offset', (req, res) => {
     const limit = 6
 
     mysqlConnection.query(`
-            SELECT post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, q.est_resolu, q.post_meilleure_reponse 
+            SELECT post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse 
             FROM post
             LEFT JOIN compte c on post.id_compte = c.id_compte
             LEFT JOIN post_collab p ON post.id_post = p.post_id_post
@@ -30,11 +28,9 @@ module.exports = app.get('/:offset', (req, res) => {
         [limit, offset],
         function (err, results, fields) {
             if (err) {
-                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                 res.status(500)
             }
             if (results) {
-                console.log(results)
                 res.status(200).send(results)
             }
         })
