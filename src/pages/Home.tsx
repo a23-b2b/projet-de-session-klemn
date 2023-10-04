@@ -23,34 +23,42 @@ function Home() {
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            navigate('/authenticate')
-        }
-    });
 
     async function getGlobalPosts() {
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                navigate('/authenticate')
+            }
 
-        await fetch(`${process.env.REACT_APP_API_URL}/feed-posts/${postOffset}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            if (user) {
+                fetch(`${process.env.REACT_APP_API_URL}/feed-posts/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: user.uid,
+                        offset: postOffset
+                    })
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        let data = response
+
+                        setPostOffset(postOffset + OFFSET)
+
+                        if (data.length < OFFSET) {
+                            setIsEndOfFeed(true)
+                        }
+
+                        setPostData(postData.concat(data))
+
+                    })
+                    .catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
+            }
         })
-            .then(response => response.json())
-            .then(response => {
-                let data = response
-
-                setPostOffset(postOffset + OFFSET)
-
-                if (data.length < OFFSET) {
-                    setIsEndOfFeed(true)
-                }
-
-                setPostData(postData.concat(data))
-            })
-            .catch((error) => {
-                toast.error(`Une erreur est survenue: ${error}`)
-            })
     }
+
 
     function getSubscribedPosts() {
         onAuthStateChanged(auth, (user) => {
@@ -96,8 +104,6 @@ function Home() {
                 getGlobalPosts()
                 break;
         }
-
-
     }
 
     function changeFeedType(type: any) {
@@ -153,9 +159,11 @@ function Home() {
                         titre,
                         nom_affichage,
                         nom_utilisateur,
-                        url_image_profil
+                        url_image_profil,
+                        vote
                     }) => {
                         return (
+
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -170,9 +178,11 @@ function Home() {
                                     nombrePartage={nombre_partages}
                                     nombreCommentaire={nombre_commentaires}
                                     type={id_type_post}
-                                    isPostFullScreen={false} 
-                                    urlImageProfil={url_image_profil} />
+                                    isPostFullScreen={false}
+                                    urlImageProfil={url_image_profil}
+                                    userVote={vote} />
                             </div>
+
                         )
                     })}
                 </div>
@@ -180,6 +190,7 @@ function Home() {
             </InfiniteScroll>
         </div>
     );
+
 }
 
 export default Home;
