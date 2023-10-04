@@ -14,20 +14,22 @@ const mysqlConnection = mysql.createConnection({
 
 
 module.exports = app.get('/:user_id', (req, res) => {
+    const userId = req.headers.authorization
+
     console.log(req.params)
     mysqlConnection.query(`
         select 
-        * 
-        from 
-        post 
-        where 
-        id_compte like ? AND id_type_post != 4
-        order by date_publication desc;
+        *, v.score as vote
+        from post
+        left join vote v on post.id_post = v.id_post and v.id_compte = ? 
+        where post.id_compte like ? AND post.id_type_post != 4
+        order by post.date_publication desc;
     `, 
-    [req.params.user_id],
+    [userId, req.params.user_id],
     function (err, results, fields) {
         if (err) {
             // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+            console.log(err)
             res.status(500).send('Erreur de base de données', err)
         }
         if (results) {
