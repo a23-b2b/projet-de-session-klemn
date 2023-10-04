@@ -116,7 +116,10 @@ function Profil() {
                 }).then((userId) => {
                     fetch(`http://localhost:1111/user-posts/${userId}`, {
                         method: 'GET',
-                        headers: { 'Content-Type': 'application/json' }
+                        headers: { 
+                            'Content-Type': 'application/json',
+                        authorization: user?.uid || ""
+                    }
                     }).then(response => response.json())
                         .then(response => {
                             let data = response;
