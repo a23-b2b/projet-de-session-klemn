@@ -35,6 +35,15 @@ app.use('/inscription', inscription);
 const get_profil = require('./get_profil')
 app.use('/profil', get_profil);
 
+const follow_user = require('./follow_user');
+app.use('/follow-user', follow_user);
+
+const unfollow_user = require('./unfollow_user');
+app.use('/unfollow-user', unfollow_user);
+
+const get_user_posts = require('./get_user_posts.js')
+app.use('/user-posts', get_user_posts);
+
 const get_single_post = require('./get_single_post.js')
 app.use('/single-post', get_single_post);
 
@@ -44,8 +53,14 @@ app.use('/replies', get_replies);
 const get_posts_feed = require('./get_posts_feed.js')
 app.use('/feed-posts', get_posts_feed);
 
+const get_followed_users_feed = require('./get_followed_users_feed.js')
+app.use('/feed-followed', get_followed_users_feed)
+
 const publierBlogue = require('./publierBlogue')
-app.use('/publier', publierBlogue);
+app.use('/publier-blogue', publierBlogue);
+
+const publierCommentaire = require('./publierCommentaire')
+app.use('/publier-commentaire', publierCommentaire)
 
 const changer_nom_affichage = require('./changer_nom_affichage')
 app.use('/changer_nom_affichage', changer_nom_affichage)
@@ -59,12 +74,8 @@ app.use('/changer_prenom', changer_prenom)
 const changer_bio = require('./changer_bio')
 app.use('/changer_bio', changer_bio)
 
-
-const get_user_posts = require('./get_user_posts.js')
-app.use('/user-posts', get_user_posts);
-
-// TODO: http://localhost:3000/p/d4ed72163f35/yjoI2WF3w4WVr3kD9L01shSjjnL2
-// /p/:id_post/:id_compte_collaborateur
+const send_vote = require('./vote.js')
+app.use('/vote', send_vote);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

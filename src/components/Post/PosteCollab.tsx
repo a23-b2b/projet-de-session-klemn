@@ -19,41 +19,38 @@ export interface CollabProp {
     nombrePartage: number;
     nombreCommentaire: number;
     urlImageProfil: string;
+    userVote: number;
 
-    urlGit?: string;
-    estOuvert?: Boolean;
+    idCollaborateur?: string;
 
     isPostFullScreen: Boolean;
 }
 
 function PosteCollab(props: CollabProp) {
+    var enabled = false;
     const auth = getAuth();
     const user = auth.currentUser;
-    
-    var enabled = ActiverCollab();
-    
 
-    async function demanderCollabortion(props: CollabProp){        
+    function demanderCollabortion(props: CollabProp){        
         if (user !== null) {
             const uid = user.uid;
             fetch(`/p/${props.idPost}/${uid}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }                
+                headers: { 'Content-Type': 'application/json' }
             })
         } 
     }
 
-    function ActiverCollab() : Boolean{
+    function ActiverCollab(){
         if (user !== null && props.idCompte !== user.uid) {
-            return true;
+            enabled = true;
         } else {
-            return false;
+            enabled = false;
         }
         
     }
 
     return (
-        
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
@@ -68,14 +65,8 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            {<button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>}
+            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
             
-            {props.urlGit !== null && props.estOuvert === true && ( 
-                <a href={props.urlGit}>
-                    URL de projet GitHub
-                </a>
-            )}    
-
             <PostFooter
                 idPost={props.idPost}
                 nombreLike={props.nombreLike}
@@ -83,6 +74,7 @@ function PosteCollab(props: CollabProp) {
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
+                userVote={props.userVote}
             />
         </div>
     );

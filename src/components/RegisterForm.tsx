@@ -23,7 +23,7 @@ function RegisterForm() {
                 return user;
             })
             .then((user) => {
-                fetch('http://localhost:1111/inscription', {
+                fetch(process.env.REACT_APP_API_URL + '/inscription', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
