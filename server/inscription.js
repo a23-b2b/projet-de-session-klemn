@@ -38,10 +38,12 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 nombre_abonnements,
                 nom_affichage,
                 biographie,
+                url_image_profil,
+                url_image_banniere,
                 autorisation_id_autorisation) 
 
             VALUES (
-                ?, NOW(), ?, ?, ?, ?, ?, 0, 0, ?, ?, ?);`,
+                ?, NOW(), ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?);`,
             [
                 id_compte,
                 nom,
@@ -51,6 +53,8 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 telephone,
                 `${prenom} ${nom}`,
                 'Je viens d\'arriver sur Klemn!',
+                'http://localhost:3000/default_profile_image.jpg',
+                'http://localhost:3000/default_banner_image.webp',
                 3
             ],
             function (err, results, fields) {
