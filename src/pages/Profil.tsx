@@ -30,10 +30,33 @@ function Profil() {
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
-    async function chargementInitial() {
-        await fetch(`${process.env.REACT_APP_API_URL}/profil/${username}`, {
+    function getPosts() {
+        if (idCompte){
+            fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            }).then(response => response.json())
+                .then(response => {
+                    let data = response;
+
+                    setPostOffset(postOffset + OFFSET)
+
+                    if (data.length < OFFSET) {
+                        setIsEndOfFeed(true)
+                    }
+
+                    setUserPosts(userPosts.concat(data));
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/profil/${username}`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: {'Content-Type': 'application/json'}
         })
             .then(response => response.json())
             .then(response => {
@@ -42,6 +65,7 @@ function Profil() {
                 if (!data) {
                     navigate("/404")
                 }
+
                 setIdCompte(data.id_compte)
                 setNom(data.nom)
                 setPrenom(data.prenom)
@@ -53,39 +77,14 @@ function Profil() {
                 setUrlImageProfil(data.url_image_profil)
                 setUrlImageBanniere(data.url_image_banniere)
 
-                setIdCompte(data.id_compte)
-
             }).catch((error) => {
                 console.log(error)
             })
-        getPosts()
-    }
-
-    async function getPosts() {
-        console.log('Chargement des posts')
-        await fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        }).then(response => response.json())
-            .then(response => {
-                let data = response;
-
-                setPostOffset(postOffset + OFFSET)
-
-                if (data.length < OFFSET) {
-                    setIsEndOfFeed(true)
-                }
-
-                setUserPosts(userPosts.concat(data));
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    }, []);
 
     useEffect(() => {
-        chargementInitial();
-    }, []);
+        getPosts()
+    }, [idCompte])
 
     return (
         <div className={styles.flex}>
@@ -137,6 +136,7 @@ function Profil() {
                 }) => {
                     return (
                         <Post
+                            key={id_post}
                             idPost={id_post}
                             idCompte={id_compte}
                             date={date_publication}
