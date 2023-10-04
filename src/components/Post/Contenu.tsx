@@ -12,6 +12,7 @@ interface ContentProps {
 }
 
 const PostContent = (props: ContentProps) => {
+
     const [postContent, setPostContent] = useState('')
     const [isPostExpanded, setIsPostExpanded] = useState(false);
 

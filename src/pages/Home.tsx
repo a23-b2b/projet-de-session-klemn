@@ -68,7 +68,7 @@ function Home() {
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
-                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
+                endMessage={<h1 className={styles.h1}>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 <div>
                     {postData?.map(({
