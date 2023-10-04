@@ -54,11 +54,11 @@ const PostContent = (props: ContentProps) => {
             {
                 props.isPostFullScreen ?
 
-                    <h2 className={styles.titre}>
+                    <h2 className={'global_titre_post'}>
                         {props.titre}
                     </h2>
                     :
-                    <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                    <Link to={`/p/${props.idPost}`} className={'global_titre_post'}>
                         <h2>
                             {props.titre}
                         </h2>
@@ -73,7 +73,7 @@ const PostContent = (props: ContentProps) => {
                 {/* <p className={styles.contenu}>{props.contenu.length > 250 && !props.isContentExpanded ? `${props.contenu.slice(0, 247)}...` : props.contenu}</p> */}
                 {/* {props.isContentExpanded ? <p className={styles.contenu}>{props.contenu}</p> : <p className={styles.contenu}>{truncatedPostContent}</p>} */}
 
-                <div className={styles.contenu} onClick={() => handleExpandContent()}>
+                <div className={'global_contenu_post'} onClick={() => handleExpandContent()}>
 
 
                     {/* {postContent} */}

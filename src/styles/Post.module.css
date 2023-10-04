@@ -12,12 +12,10 @@
     margin: auto;
     align-items: end;
     padding-right: 20px;
-    
-}
-
-#date{
+    font-weight:3200;
 
 }
+
 
 .container {
     display: flex;

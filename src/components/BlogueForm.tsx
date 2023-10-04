@@ -49,7 +49,7 @@ function BlogueForm() {
     }
 
     return (
-        <div id={styles["conteneurBlogueForm"]} className={'global_conteneur'}>
+        <div id={styles["conteneurBlogueForm"]} className={'global_conteneur_blogueForm'}>
             <h2 className={'global_title'}>Publication</h2>
             <div className={styles.form}>
                 <input

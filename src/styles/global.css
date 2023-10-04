@@ -37,7 +37,7 @@
     --light_input_field_color: rgba(0, 0, 0, 0.057);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgba(255, 255, 255, 0.363);
+    --dark_border_color: rgba(255, 255, 255, 0.285);
     --light_border_color: rgba(172, 143, 184, 0.557);
 
     /*Couleur de fond bouton*/
@@ -194,7 +194,12 @@ body {
 }
 
 
-
+/*Styles éléments de BlogueForm*/
+.global_conteneur_blogueForm {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--auto_container_color);
+}
 
 /*Styles éléments de Post*/
 
@@ -202,6 +207,7 @@ body {
     border-radius: 20px;
     padding: 17px;
     background-color: var(--auto_container_color);
+    margin-bottom: 30px;
 }
 
 .global_header_post {
@@ -209,6 +215,19 @@ body {
     border-radius: 15px 15px 9px 9px;
 }
 
-.global_contenu_post {
+.global_titre_post {
     text-align: center;
+    color: var(--auto_text_color);
+    text-decoration: none;
+    width:70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.global_contenu_post {
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }
