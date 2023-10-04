@@ -3,7 +3,7 @@ import styles from '../../styles/Post.module.css'
 import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface FooterProps {
     idPost: string;
@@ -16,6 +16,7 @@ interface FooterProps {
 
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
+    const [nombreReponses, setNombreReponses] = useState(props.nombreCommentaire)
 
     return (
         <div>
@@ -23,7 +24,7 @@ const PostFooter = (props: FooterProps) => {
 
                 <div className={styles.bouton_interraction} id={styles.bouton_interraction_reply} onClick={() => setIsReponsesOpen(!isReponsesOpen)}>
                     <BsFillReplyAllFill className={styles.icone} id={styles.icone_reply} />
-                    <span className={styles.interraction_count}>{props.nombreCommentaire}</span>
+                    <span className={styles.interraction_count}>{nombreReponses}</span>
                 </div>
 
                 <div className={styles.like_dislike_container}>
@@ -48,7 +49,7 @@ const PostFooter = (props: FooterProps) => {
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses  idParent={props.idPost}/> : ''}
+                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses}/> : ''}
                 </AnimatePresence>)}
 
         </div>
