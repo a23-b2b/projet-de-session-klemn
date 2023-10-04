@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Post, { TYPE_REPONSE } from "./Post";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CommentaireForm from "./CommentaireForm";
 
 export interface SectionReponsesProps {
     idParent: string;
+    setNombreCommentaire?: Dispatch<SetStateAction<number>>;
 }
 
 function SectionReponses(props: SectionReponsesProps) {
@@ -14,8 +15,7 @@ function SectionReponses(props: SectionReponsesProps) {
 
     function ajouterNouvCommentaire(nouvCommentaire: any) {
         setReplies(nouvCommentaire.concat(replies));
-        console.log(replies);
-        console.log(nouvCommentaire);
+        if (props.setNombreCommentaire) props.setNombreCommentaire(replies.length + 1)
     }
 
     useEffect(() => {
