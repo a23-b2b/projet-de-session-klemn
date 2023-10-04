@@ -70,3 +70,16 @@ CREATE TABLE image_post
     CONSTRAINT image_post_post_id_post_fk
         FOREIGN KEY (id_post) REFERENCES post (id_post)
 );
+
+create table compte_suivi
+(
+    compte      varchar(255) not null comment 'id du compte qui suit lautre compte (colonne suit)',
+    suit        varchar(255) not null comment 'compte qui est suivi par compte',
+    suit_depuis datetime     not null comment 'date depuis id_compte suit le compte',
+    constraint compte_suivi_compte_id_compte_fk
+        foreign key (compte) references compte (id_compte),
+    constraint compte_suivi_compte_id_compte_fk2
+        foreign key (suit) references compte (id_compte)
+)
+    comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
+
