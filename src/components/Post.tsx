@@ -31,6 +31,7 @@ interface Props {
 
     // props collab optionnels
     urlGit?: string; 
+    estOuvert?: Boolean;
 }
 
 function Post(props: Props) {
@@ -102,7 +103,7 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil}
 
                     urlGit={props.urlGit}
-                    // TODO: AJOUTER URL_GIT
+                    estOuvert={props.estOuvert}
                 />
             )}
         </>

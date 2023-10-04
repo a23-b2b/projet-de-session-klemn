@@ -34,6 +34,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
         const titre = req.body.titre;
         const contenu = req.body.contenu;
         const idToken = req.body.firebase_id_token;
+        const urlGit = req.body.urlGit
 
         const typePoste = req.params.type;
         
@@ -69,9 +70,9 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 if (typePoste == 'collab') {
                                     mysqlConnection.query(
                                         `INSERT INTO post_collab (id_collab, est_ouvert, url_git, post_id_post)
-                                        VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, null, ?);`,
+                                        VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, ?, ?);`,
                                         // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
-                                        [id_post],
+                                        [urlGit, id_post],
                                         function (err, results) {
                                             gererErreur(err, res, results, "POSTER COLLAB ERR");
                                         }
