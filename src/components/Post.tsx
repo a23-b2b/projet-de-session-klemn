@@ -25,16 +25,15 @@ interface Props {
     idCompte: string;
     type: number;
 
-    // props optionnels
+    // props question optionnels
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    // TODO: URL_GIT
+    // props collab optionnels
+    urlGit?: string; 
 }
 
 function Post(props: Props) {
-
-    console.log('type post', props.type)
 
     return (
         <>
@@ -102,6 +101,7 @@ function Post(props: Props) {
                     idPost={props.idPost}
                     urlImageProfil={props.urlImageProfil}
 
+                    urlGit={props.urlGit}
                     // TODO: AJOUTER URL_GIT
                 />
             )}

@@ -1,4 +1,4 @@
--- Active: 1694035110728@@localhost@3306@dev
+-- Active: 1693586986008@@localhost@32769@dev
 INSERT INTO autorisation (titre_autorisation) VALUES ('admin');     -- 1
 INSERT INTO autorisation (titre_autorisation) VALUES ('client');    -- 2
 INSERT INTO autorisation (titre_autorisation) VALUES ('inconnu');   -- 3

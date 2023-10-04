@@ -21,7 +21,7 @@ function gererErreur(err, res, results, msg) {
         logger.info("[Logger-Log] ERR: " + JSON.stringify(err));
         res.status(500).send(`ERREUR: ` + err.code + `; Log: [${msg}]`)
     } else if (results) {
-        res.status(200).send(results)
+        res.status(200)
     }
 }
 

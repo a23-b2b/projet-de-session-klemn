@@ -20,6 +20,8 @@ export interface CollabProp {
     nombreCommentaire: number;
     urlImageProfil: string;
 
+    urlGit?: string;
+
     isPostFullScreen: Boolean;
 }
 
@@ -30,7 +32,7 @@ function PosteCollab(props: CollabProp) {
     var enabled = ActiverCollab();
     
 
-    function demanderCollabortion(props: CollabProp){        
+    async function demanderCollabortion(props: CollabProp){        
         if (user !== null) {
             const uid = user.uid;
             fetch(`/p/${props.idPost}/${uid}`, {

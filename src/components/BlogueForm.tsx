@@ -1,7 +1,7 @@
 import styles from '../styles/BlogueForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
@@ -10,6 +10,7 @@ import { Select } from '@chakra-ui/react'
 function BlogueForm() {
     const navigate = useNavigate();
 
+    const [hidden, setHidden] = useState(false);
     const [titre, setTitre] = useState('');
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
@@ -19,6 +20,12 @@ function BlogueForm() {
 
     const changerType = (event: any) => {
         setType(event.target.value);
+
+        if (event.target.value == 'collab') {
+            setHidden(true)
+        } else {
+            setHidden(false)
+        }
     };
 
     async function publierBlogue() {
@@ -58,11 +65,21 @@ function BlogueForm() {
 
     }
 
+
     return (
+        
+    
         <ChakraProvider>
             <div className={styles.conteneur}>
                 <h2 className={styles.titre}>Publication</h2>
                 <div className={styles.form}>
+                {hidden && <div >
+
+                        <label className={'global_input_field_label'}>URL du projet GitHub</label>
+                        <input 
+                            type="text"
+                            className={'global_input_field'}/>
+                    </div>}
                     <label className={'global_input_field_label'}>Titre</label>
                     <input
                         className={'global_input_field'}
