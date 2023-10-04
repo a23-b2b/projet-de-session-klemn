@@ -1,3 +1,24 @@
+#header_conteneur_droit {
+    display: flex;
+    flex: 8;
+}
+
+#inner_droit_nom_utilisateur {
+    display: flex;
+    flex: 8;
+}
+
+#inner_droit_date {
+    margin: auto;
+    align-items: end;
+    padding-right: 20px;
+    
+}
+
+#date{
+
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -23,7 +44,7 @@
 }
 
 .user_info {
-    padding-left: 15px;
+    padding-left: 20px;
     line-height: 0.2;
     text-decoration: none;
     color: var(--auto_text_color)
@@ -41,15 +62,14 @@
 }
 
 
-.date {
-    align-items: end;
-}
+
 
 .image_profil {
     object-fit: cover;
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    margin-right: 17px;
 }
 
 .titre {

@@ -197,3 +197,18 @@ body {
 
 
 /*Styles éléments de Post*/
+
+.global_conteneur_post {
+    border-radius: 20px;
+    padding: 17px;
+    background-color: var(--auto_container_color);
+}
+
+.global_header_post {
+    background-color: var(--auto_container_color);
+    border-radius: 15px 15px 9px 9px;
+}
+
+.global_contenu_post {
+    text-align: center;
+}

@@ -37,7 +37,7 @@ function PostFullScreen() {
             <div className={styles.body}>
                 <Post
                     idPost={postData.id_post}
-                    date={postData.date_publication}
+                    date={postData.date_publication} 
                     nomAffichage={postData.nom_affichage}
                     nomUtilisateur={postData.nom_utilisateur}
                     idCompte={postData.id_compte}

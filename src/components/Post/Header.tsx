@@ -16,18 +16,24 @@ const PostHeader = (props: HeaderProps) => {
 
             <div className={styles.header_content}>
 
-                <Link to={`/u/${props.nomUtilisateur}`}>
+                <Link to={`/u/${props.nomUtilisateur}`} >
                     <img className={styles.image_profil} src={props.urlImageProfil} />
                 </Link>
 
-                <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
-                    <p className={styles.display_name}>{props.nomAffichage}</p>
-                    <p className={styles.username}>@{props.nomUtilisateur}</p>
-                </Link>
-
+            </div>
+            <div id={styles["header_conteneur_droit"]} className={'global_header_post'}>
+                <div id={styles["inner_droit_nom_utilisateur"]}>
+                    <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
+                        <p className={styles.display_name}>{props.nomAffichage}</p>
+                        <p className={styles.username}>@{props.nomUtilisateur}</p>
+                    </Link>
+                </div>
+                <div id={styles["inner_droit_date"]}>
+                    <p id={styles["date"]} >{props.date}</p>
+                </div>
+                
             </div>
 
-            <p className={styles.date}>{props.date}</p>
         </div>
     )
 }

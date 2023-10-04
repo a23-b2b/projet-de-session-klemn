@@ -23,7 +23,7 @@ export interface BlogueProp {
 function PosteBlogue(props: BlogueProp) {
 
     return (
-        <div className={styles.container}>
+        <div className={'global_conteneur_post'}>
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
