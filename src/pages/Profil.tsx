@@ -6,12 +6,12 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PosteBlogue from '../components/Post/PosteBlogue';
 import Post from '../components/Post';
-import InfiniteScroll from "react-infinite-scroll-component";
 import { auth } from '../firebase';
 import toast from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth';
 import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function Profil() {
     const OFFSET = 6;
@@ -36,36 +36,13 @@ function Profil() {
     const [userPosts, setUserPosts] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
-    
+
     const [followerNumberScope, animateFollowerNumber] = useAnimate()
 
-    function getPosts() {
-        if (idCompte){
-            fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            }).then(response => response.json())
-                .then(response => {
-                    let data = response;
-
-                    setPostOffset(postOffset + OFFSET)
-
-                    if (data.length < OFFSET) {
-                        setIsEndOfFeed(true)
-                    }
-
-                    setUserPosts(userPosts.concat(data));
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-        }
-    }
-    
     useEffect(() => {
+        // Lorsque l'id du compte est charge, on va chercher les posts du user dans la bd
         getPosts()
     }, [idCompte])
-
 
     useEffect(() => {
         // Unfollow
@@ -77,16 +54,16 @@ function Profil() {
             }, {
                 duration: 0.1
             })
-            .then(() => setNombreAbonnesBefore(nombreAbonnes))
-            .then(() => {
-                animateFollowerNumber(followerNumberScope.current, {
-                    y: [20, 0],
-                    opacity: [0, 1],
-                    scale: 1,
-                }, {
-                    duration: 0.1
+                .then(() => setNombreAbonnesBefore(nombreAbonnes))
+                .then(() => {
+                    animateFollowerNumber(followerNumberScope.current, {
+                        y: [20, 0],
+                        opacity: [0, 1],
+                        scale: 1,
+                    }, {
+                        duration: 0.1
+                    })
                 })
-            })
         }
 
         // Follow
@@ -98,16 +75,16 @@ function Profil() {
             }, {
                 duration: 0.1
             })
-            .then(() => setNombreAbonnesBefore(nombreAbonnes))
-            .then(() => {
-                animateFollowerNumber(followerNumberScope.current, {
-                    y: [-20, 0],
-                    opacity: [0, 1],
-                    scale: 1,
-                }, {
-                    duration: 0.1
+                .then(() => setNombreAbonnesBefore(nombreAbonnes))
+                .then(() => {
+                    animateFollowerNumber(followerNumberScope.current, {
+                        y: [-20, 0],
+                        opacity: [0, 1],
+                        scale: 1,
+                    }, {
+                        duration: 0.1
+                    })
                 })
-            })
         }
     }, [nombreAbonnes])
 
@@ -145,26 +122,49 @@ function Profil() {
                     return data.id_compte;
 
                 }).then((userId) => {
-                    fetch(`http://localhost:1111/user-posts/${userId}`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' }
-                    }).then(response => response.json())
-                        .then(response => {
-                            let data = response;
+                fetch(`http://localhost:1111/user-posts/${userId}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(response => response.json())
+                    .then(response => {
+                        let data = response;
 
-                            setUserPosts(data);
-                            setLoadingPosts(false);
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                })
+                        setUserPosts(data);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
                 .catch((error) => {
                     console.log(error)
                 })
         });
 
     }, [username]);
+
+    function getPosts() {
+        if (idCompte){
+            fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            }).then(response => response.json())
+                .then(response => {
+                    let data = response;
+
+                    setPostOffset(postOffset + OFFSET)
+
+                    if (data.length < OFFSET) {
+                        setIsEndOfFeed(true)
+                    }
+
+                    setUserPosts(userPosts.concat(data));
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
 
     return (
         <div className={styles.flex}>
@@ -182,8 +182,8 @@ function Profil() {
                             userId={idCompte}
                             displayName={displayName}
                             nombreAbonnes={nombreAbonnes}
-                            setNombreAbonnes={setNombreAbonnes} 
-                            visitorFollowsUser={visitorFollowsUser} 
+                            setNombreAbonnes={setNombreAbonnes}
+                            visitorFollowsUser={visitorFollowsUser}
                             setVisitorFollowsUser={setVisitorFollowsUser} />
                     </div>
 
@@ -205,21 +205,21 @@ function Profil() {
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 {userPosts?.map(({
-                    contenu,
-                    date_publication,
-                    id_compte,
-                    id_infos,
-                    id_parent,
-                    id_post,
-                    id_type_post,
-                    nombre_commentaires,
-                    nombre_dislikes,
-                    nombre_likes,
-                    nombre_partages,
-                    nombre_reposts,
-                    titre,
-                    url_image_profil
-                }) => {
+                                     contenu,
+                                     date_publication,
+                                     id_compte,
+                                     id_infos,
+                                     id_parent,
+                                     id_post,
+                                     id_type_post,
+                                     nombre_commentaires,
+                                     nombre_dislikes,
+                                     nombre_likes,
+                                     nombre_partages,
+                                     nombre_reposts,
+                                     titre,
+                                     url_image_profil
+                                 }) => {
                     return (
                         <Post
                             key={id_post}
