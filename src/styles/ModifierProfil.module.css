@@ -55,7 +55,9 @@
 }
 
 .dropdown_option {
-   
+    appearance: none;
+   border: none;
+   cursor: pointer;
 }
 
 .dropdown {
@@ -64,6 +66,8 @@
     height: 40px;
     padding: 5px;
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.541);
+    background-color: rgb(121, 61, 154);
+    color: #ffffff;
+    font-weight: bold;
 
 }
