@@ -16,8 +16,7 @@
     margin: auto;
     margin-bottom: 5px;
     font-size: 16px;
-
-    border-radius: 15px 15px 9px 9px;
+    border-radius: 16px 16px 9px 9px;
 
 }
 
@@ -25,7 +24,7 @@
     width: 95%;
     margin: auto;
 
-    border-radius: 9px 9px 15px 15px;
+    border-radius: 9px 9px 18px 18px;
 }
 
 
