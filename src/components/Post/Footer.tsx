@@ -70,22 +70,10 @@ const PostFooter = (props: FooterProps) => {
                         <span className={styles.interraction_count}>{props.nombrePartage}</span>
                     </div>
                 }
-                
+
                     transition={true}
                     menuClassName={styles.share_menu}
                     onItemClick={(e) => handleShareItemClick(e.value)}>
-                    {/* <div>
-                        <div>
-                            <FaQuoteRight className={styles.share_menu_icon} />
-                            <p>{props.nombrePartage}</p>
-                        </div>
-
-                        <div>
-                            <HiMiniRocketLaunch className={styles.share_menu_icon} />
-                            <p>Booster</p>
-                        </div>
-                    </div> 
-                    <MenuDivider />*/}
 
                     <MenuItem value={'quote'} className={styles.share_menu_item}><FaQuoteRight className={styles.share_menu_icon} /><span>Citer</span></MenuItem>
                     <MenuItem value={'repost'} className={styles.share_menu_item}><FaRetweet className={styles.share_menu_icon} /><span>Republier</span></MenuItem>

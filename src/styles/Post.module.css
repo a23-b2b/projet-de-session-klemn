@@ -202,11 +202,19 @@
     transition: 0.3s;
     padding: 8px 12px;
     outline: none;
-    border-radius: 8px;
+    border-radius: 4px;
+}
+
+.share_menu_item:nth-child(2) {
+    border-radius: 8px 8px 4px 4px;
 }
 
 .share_menu_item:not(:last-child) {
     margin-bottom: 4px;
+}
+
+.share_menu_item:last-child {
+    border-radius: 4px 4px 8px 8px;
 }
 
 .share_menu_item:hover {
