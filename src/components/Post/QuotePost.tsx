@@ -4,6 +4,8 @@ import PostFooter from './Footer';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PostContent from './Contenu';
 
 interface Props {
     idPost: string;
@@ -26,6 +28,7 @@ interface Props {
 }
 
 function QuotePost(props: Props) {
+    const navigate = useNavigate()
     const [quotedPostData, setQuotedPostData] = useState<any>();
 
     useEffect(() => {
@@ -63,14 +66,24 @@ function QuotePost(props: Props) {
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil} />
 
-            {quotedPostData && (
-                <div className={styles.quoted_post_container}>
-                    <div className={styles.header}>
-                        <img className={styles.image_profil} src={quotedPostData.url_image_profil}></img>
-                        <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
+            <PostContent
+                contenu={props.contenu}
+                idPost={props.idPost}
+                isPostFullScreen={props.isPostFullScreen} />
 
+            {quotedPostData && (
+                <Link to={`/p/${quotedPostData.id_post}`} style={{ textDecoration: 'none' }}>
+
+                    <div className={styles.quoted_post_container}>
+                        <div className={styles.header}>
+                            <img className={styles.image_profil} src={quotedPostData.url_image_profil}></img>
+                            <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
+                        </div>
+
+                        <p className={styles.contenu}>{quotedPostData.contenu}</p>
                     </div>
-                </div>
+                </Link>
+
             )}
 
 
