@@ -1,15 +1,25 @@
 .quoted_post_container {
-    margin-left: 84px;
+    /* margin-left: 84px; */
     background-color: rgba(255, 255, 255, 0.146);
     border: 1px solid grey;
     border-radius: 16px;
-    padding: 8px 16px;
+    padding: 0px 16px;
+    text-decoration: none;
+    color: var(--auto_text_color);
+    transition: 0.2s;
+}
+
+.quoted_post_container:hover {
+    background-color: rgba(228, 228, 228, 0.279);
+    transition: 0.2s;
 }
 
 .header {
     display: flex;
     align-items: center;
     gap: 8px;
+    height: fit-content;
+    /* line-height: 10px; */
 }
 
 .image_profil {
@@ -17,4 +27,9 @@
     border-radius: 50%;
     height: 24px;
     width: 24px;
+}
+
+.contenu {
+    /* line-height: 8px; */
+    margin-top: -8px;
 }
