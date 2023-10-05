@@ -1,0 +1,20 @@
+.quoted_post_container {
+    margin-left: 84px;
+    background-color: rgba(255, 255, 255, 0.146);
+    border: 1px solid grey;
+    border-radius: 16px;
+    padding: 8px 16px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.image_profil {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+}
