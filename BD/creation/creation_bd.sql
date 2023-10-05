@@ -94,3 +94,13 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
+
+create table dev.post_partage
+(
+    id_post_original varchar(255) not null,
+    id_quoted_post   varchar(255) null,
+    constraint post_partage_post_id_post_fk
+        foreign key (id_post_original) references dev.post (id_post),
+    constraint post_partage_post_id_post_fk2
+        foreign key (id_quoted_post) references dev.post (id_post)
+);
