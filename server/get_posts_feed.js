@@ -21,9 +21,10 @@ module.exports = app.post('/', (req, res) => {
     console.log(userId)
 
     mysqlConnection.query(`
-            select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
+            select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote, post_partage.id_quoted_post
             from post
             left join vote v on post.id_post = v.id_post and v.id_compte = ?
+            left join post_partage on post.id_post = post_partage.id_post_original
             inner join compte c on post.id_compte = c.id_compte
             where id_type_post != 4
             order by date_publication desc
