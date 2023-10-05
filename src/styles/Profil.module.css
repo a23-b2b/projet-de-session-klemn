@@ -20,10 +20,12 @@
 .sous_banniere {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
+    align-items: center;
+    justify-content: space-between;
     flex: 1;
     padding: 5%;
     flex-direction: row;
+    transform: translateY(-35%);
     margin-bottom: -80px;
 }
 
@@ -32,7 +34,7 @@
     width: 150px;
     height: 150px;
     border-radius: 100%;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     
     /* Box shadow de: https://shadows.brumm.af/ */
     box-shadow:
@@ -48,8 +50,7 @@
     flex: 2;
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
-    transform: translateY(-40%);
+    margin-left: 5%;
     width: fit-content;
     gap: 5px;
 }
@@ -106,20 +107,20 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .infos_profil {
+    /* .infos_profil {
         transform: translateY(-35px);
         margin-left: 0px;
         margin-bottom: 0px;
-    }
+    } */
 
     .sous_banniere {
-        flex-direction: column;
-        /* margin-bottom: -30px; */
+        /* flex-direction: column; */
+        margin-bottom: -30px;
     }
 
     .photo_profil {
-        width: 100px;
-        height: 100px;
+        width: 25vmin;
+        height: 25vmin;
     }
 
     .follows {
