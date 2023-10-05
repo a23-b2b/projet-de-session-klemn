@@ -70,6 +70,7 @@ const PostFooter = (props: FooterProps) => {
                         <span className={styles.interraction_count}>{props.nombrePartage}</span>
                     </div>
                 }
+                
                     transition={true}
                     menuClassName={styles.share_menu}
                     onItemClick={(e) => handleShareItemClick(e.value)}>

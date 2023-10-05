@@ -182,13 +182,13 @@
 } */
 
 .share_menu {
-    backdrop-filter: blur(20px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
     padding: 6px;
     margin: 0;
     width: max-content;
     border-radius: 12px;
-    background-color: #ffffff31;
+    background-color: #ffffff18;
     box-shadow:
         0px 1.2px 2.2px rgba(0, 0, 0, 0.02),
         0px 2.9px 5.3px rgba(0, 0, 0, 0.028),
@@ -211,7 +211,8 @@
 
 .share_menu_item:hover {
     transition: 0.3s;
-    background-color: #6d005e5e;
+    background-color: var(--accent_color_light);
+    color: var(--text_color_dark);
     outline: none;
     cursor: pointer;
 }
