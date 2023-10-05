@@ -98,9 +98,10 @@ create table vote
 create table dev.post_partage
 (
     id_post_original varchar(255) not null,
-    id_quoted_post   varchar(255) null,
+    id_shared_post   varchar(255) null,
+    is_quoted_post   tinyint(1)   null,
     constraint post_partage_post_id_post_fk
         foreign key (id_post_original) references dev.post (id_post),
     constraint post_partage_post_id_post_fk2
-        foreign key (id_quoted_post) references dev.post (id_post)
+        foreign key (id_shared_post) references dev.post (id_post)
 );

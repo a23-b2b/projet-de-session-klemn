@@ -34,7 +34,8 @@ interface Props {
 
     idCollaborateur?: string;
 
-    quotedPostId?: string;
+    sharedPostId?: string;
+    isSharedPostQuote?: boolean;
 }
 
 function Post(props: Props) {
@@ -114,7 +115,7 @@ function Post(props: Props) {
                 />
             )}
 
-            {props.type === TYPE_QUOTE_POST && props.quotedPostId && (
+            {props.type === TYPE_QUOTE_POST && props.sharedPostId && props.isSharedPostQuote && (
                 <QuotePost
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -131,7 +132,7 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil}
                     userVote={props.userVote} 
 
-                    quotedPostId={props.quotedPostId}
+                    quotedPostId={props.sharedPostId}
                 />
             )}
         </>

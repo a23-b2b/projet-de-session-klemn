@@ -161,7 +161,8 @@ function Home() {
                         nom_utilisateur,
                         url_image_profil,
                         vote,
-                        id_quoted_post
+                        id_shared_post,
+                        is_quoted_post,
                     }) => {
                         return (
 
@@ -182,7 +183,9 @@ function Home() {
                                     isPostFullScreen={false}
                                     urlImageProfil={url_image_profil}
                                     userVote={vote} 
-                                    quotedPostId={id_quoted_post}/>
+
+                                    sharedPostId={id_shared_post}
+                                    isSharedPostQuote={is_quoted_post}/>
                             </div>
 
                         )
