@@ -4,7 +4,7 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
 import VoteWidget from './voteWidget';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 interface FooterProps {
     idPost: string;
@@ -15,6 +15,8 @@ interface FooterProps {
     isPostFullScreen: Boolean;
     userVote: number;
 }
+
+
 
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
@@ -35,15 +37,18 @@ const PostFooter = (props: FooterProps) => {
                     nombreDislike={props.nombreDislike}
                     userVote={props.userVote} />
 
+
                 <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
                     <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
                     <span className={styles.interraction_count}>{props.nombrePartage}</span>
                 </div>
+
+
             </div>
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses}/> : ''}
+                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses} /> : ''}
                 </AnimatePresence>)}
 
         </div>
