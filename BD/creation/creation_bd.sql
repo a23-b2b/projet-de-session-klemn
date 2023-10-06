@@ -99,7 +99,7 @@ create table vote
 create table post_partage
 (
     id_post_original varchar(255) not null,
-    id_shared_post   varchar(255) null,
+    id_shared_post   varchar(255) not null,
     is_quoted_post   tinyint(1)   null,
     constraint post_partage_post_id_post_fk
         foreign key (id_post_original) references post (id_post),
