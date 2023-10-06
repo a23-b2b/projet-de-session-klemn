@@ -85,6 +85,18 @@ CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborate
 );
 
 
+CREATE TABLE
+    post_question (
+        id_question VARCHAR(255) PRIMARY KEY,
+        est_resolu BOOLEAN NOT NULL DEFAULT FALSE,
+        post_id_post VARCHAR(255),
+        post_meilleure_reponse VARCHAR(255) NULL,
+
+CONSTRAINT post_question_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post),
+CONSTRAINT post_question_post_meilleure_reponse_fk FOREIGN KEY (post_meilleure_reponse) REFERENCES post (id_post)
+);
+
+
 CREATE TABLE image_post
 (
     id_image  VARCHAR(255)  NOT NULL
