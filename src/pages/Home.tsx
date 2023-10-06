@@ -10,6 +10,9 @@ import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+import {TYPE_BLOGUE, TYPE_QUESTION , TYPE_COLLABORATION} from '../components/Post';
+
+
 function Home() {
     const navigate = useNavigate();
 
