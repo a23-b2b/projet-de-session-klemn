@@ -73,4 +73,45 @@ app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
+export function validerAutorisation(mysqlConnection, req, res ) {
+    const idToken = req.body.firebase_id_token
+    const idAutorisation = recupererSetAutorisation(mysqlConnection, req.body.idCompte)[0].;
+
+    if (idCompte && idToken) {
+        admin.auth().verifyIdToken(idToken, true)
+        .then((payload) => {
+            mysqlConnection.query(
+                `SELECT url_requete 
+                FROM droit
+                INNER JOIN autorisation a ON droit.autorisation_id_autorisation = a.id_autorisation  
+                WHERE id_compte = ?;`, 
+                    [idCompte], 
+                    function (err, results, fields) {
+                        if (err) {
+                            res.status(500).send();
+                        } else {
+                            res.status(200);
+                        }
+                    });
+        }).catch((error) => {
+            res.status(500).send("ERREUR: " + error.code)
+        })
+    }
+} 
+
+function recupererSetAutorisation(mysqlConnection, idCompte) {
+    mysqlConnection.query(`
+            SELECT autorisation_id_autorisation FROM compte WHERE id_compte = ?;
+        `,
+        [idCompte],
+        function (err, results) {
+            if (err) {
+                res.status(500)
+            }
+            if (results) {
+                return results
+            }
+        })
+}
+
 

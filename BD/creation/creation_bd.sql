@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS type_post;
 
 DROP TABLE IF EXISTS compte;
 
+DROP TABLE IF EXISTS droit;
 DROP TABLE IF EXISTS autorisation;
 
 DROP TABLE IF EXISTS post_collab;
@@ -22,9 +23,19 @@ DROP TABLE IF EXISTS post_question;
 
 CREATE TABLE
     autorisation (
-        id_autorisation int PRIMARY KEY AUTO_INCREMENT,
+        id_autorisation VARCHAR(255) PRIMARY KEY,
         titre_autorisation varchar(255)
     );
+
+CREATE TABLE 
+    droit (
+        id_droit VARCHAR (255) PRIMARY KEY,
+        url_requete VARCHAR(1000) NOT NULL,
+        autorisation_id_autorisation VARCHAR(255) NOT NULL,
+
+        CONSTRAINT droit_autorisation_id_autorisation_fk 
+        FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation (id_autorisation)
+);
 
 CREATE TABLE
     compte(
@@ -41,8 +52,8 @@ CREATE TABLE
         biographie VARCHAR(1000),
         url_image_profil VARCHAR(1000),
         url_image_banniere VARCHAR(1000),
-        autorisation_id_autorisation int NOT NULL,
-        FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
+        autorisation_id_autorisation VARCHAR(255) NOT NULL,
+        FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation (id_autorisation),
         CONSTRAINT uc_compte_nom_utilisateur UNIQUE (nom_utilisateur),
         CONSTRAINT uc_compte_courriel UNIQUE (courriel)
     );
@@ -101,12 +112,10 @@ CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_c
 CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
 );
 
-
-CREATE TABLE 
+CREATE TABLE
     post_question (
         id_question VARCHAR(255) PRIMARY KEY,
         est_resolu BOOLEAN NOT NULL DEFAULT FALSE,
-        
         post_id_post VARCHAR(255),
         post_meilleure_reponse VARCHAR(255) NULL,
 

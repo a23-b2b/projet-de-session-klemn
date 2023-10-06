@@ -29,7 +29,6 @@ module.exports = app.post('/p/:id_post_collab/:id_compte_collaborateur', (req, r
                     [id_post_collab, id_collaborateur], 
                     function (err, results, fields) {
                         if (err) {
-                            console.log(err)
                             res.status(500).send();
                         } else {
                             res.status(200);
