@@ -1,32 +1,6 @@
 -- Active: 1693586986008@@localhost@32769@dev
 
-INSERT INTO autorisation (titre_autorisation) VALUES ('admin');
-
--- 1
-
-INSERT INTO
-    autorisation (titre_autorisation)
-VALUES ('client');
-
--- 2
-
-INSERT INTO
-    autorisation (titre_autorisation)
-VALUES ('inconnu');
-
--- 3
-
-INSERT INTO autorisation (titre_autorisation) VALUES ('dieu');
-
--- 4
-
-/*
- INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/admin", 1);          -- 1 : Admin connecté
- INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/index", 2);          -- 2 : Client connecté
- INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/", 3);               -- 3 : Inconnu/Non-connecté
- INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/inscription", 3);
- INSERT INTO droit (chemin, autorisation_id_autorisation) VALUES ("/dieu", 4);           -- 4 : Super user
- */
+INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_2', 'admin');
 
 INSERT INTO
     compte (
@@ -55,7 +29,7 @@ VALUES (
         0,
         0,
         'Je viens d''arriver sur Klemn!',
-        1
+        'pre_made_set_2'
     ), (
         'id_2',
         '2023-08-30 11:30:00',
@@ -68,7 +42,7 @@ VALUES (
         0,
         0,
         'Je viens d''arriver sur Klemn!',
-        2
+        'pre_made_set_2'
     ), (
         'id_3',
         '2023-08-30 14:45:00',
@@ -81,12 +55,14 @@ VALUES (
         0,
         0,
         'Je viens d''arriver sur Klemn!',
-        2
+        'pre_made_set_2'
     );
 
 INSERT INTO
     type_post (id_type_post, nom_type)
 VALUES (4, 'Réponse'), (3, 'Collaboration'), (2, 'Question'), (1, 'Blogue');
+
+
 
 INSERT INTO
     post (
