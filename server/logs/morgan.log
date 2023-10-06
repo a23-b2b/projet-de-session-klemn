@@ -126,3 +126,14 @@ POST /inscription 401 90 - 5.381 ms
 POST /inscription 200 17 - 8.132 ms
 POST /inscription 401 84 - 7.676 ms
 POST /inscription 401 84 - 5.691 ms
+GET /feed-posts/0 304 - - 15.695 ms
+GET /feed-posts/0 304 - - 4.873 ms
+POST /inscription 401 84 - 11.664 ms
+POST /inscription 401 84 - 6.484 ms
+POST /inscription 200 13 - 12.057 ms
+POST /inscription 401 95 - 14.694 ms
+POST /inscription 401 95 - 9.271 ms
+POST /inscription 401 95 - 12.405 ms
+POST /inscription 401 95 - 7.740 ms
+POST /inscription 401 95 - 2.010 ms
+POST /inscription 401 84 - 9.869 ms

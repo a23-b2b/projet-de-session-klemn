@@ -5,8 +5,6 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { error } from "console";
-import { response } from "express";
 
 function RegisterForm() {
     const navigate = useNavigate()
@@ -21,11 +19,17 @@ function RegisterForm() {
     const [nom, setNom] = useState('');
     const [registerError, setRegisterError] = useState('')
 
+    // function verificationNomUtilisateur(username: string) {
+    //     if (username == ){
+
+    //     }
+    // }
+
     function registerWithEmailAndPassword(email: string, password: string) {
         if (password !== passwordConfirmation) {
             toast.error("Les mots de passe ne correspondent pas.");
-
         } else {
+
             createUserWithEmailAndPassword(auth, email, password)
 
                 .then((userCredential) => {
@@ -50,6 +54,7 @@ function RegisterForm() {
                     }).then(response => response.json())
                         .then(response => {
                             console.log(response)
+
 
                             if (response.code == "ERR_USERNAME_TAKEN") {
                                 toast.error(response.message);
