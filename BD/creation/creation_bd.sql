@@ -3,12 +3,13 @@ DROP TABLE IF EXISTS image_post;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS type_post;
 DROP TABLE IF EXISTS compte;
+
+DROP TABLE IF EXISTS droit;
 DROP TABLE IF EXISTS autorisation;
 
-CREATE TABLE autorisation (
-    id_autorisation     int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    titre_autorisation  varchar(255)
-);
+DROP TABLE IF EXISTS post_collab;
+
+DROP TABLE IF EXISTS post_question;
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
@@ -94,3 +95,19 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
+
+CREATE TABLE
+    autorisation (
+        id_autorisation VARCHAR(255) PRIMARY KEY,
+        titre_autorisation varchar(255)
+    );
+
+CREATE TABLE 
+    droit (
+        id_droit VARCHAR (255) PRIMARY KEY,
+        url_requete VARCHAR(1000) NOT NULL,
+        autorisation_id_autorisation VARCHAR(255) NOT NULL,
+
+        CONSTRAINT droit_autorisation_id_autorisation_fk 
+        FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation (id_autorisation)
+);
