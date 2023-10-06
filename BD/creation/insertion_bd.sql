@@ -24,4 +24,149 @@ VALUES  (4, 'Réponse'),
         (2, 'Question'),
         (1, 'Blogue');
 
+        
+INSERT INTO
+    post (
+        id_post,
+        id_compte,
+        id_type_post,
+        titre,
+        contenu,
+        nombre_likes,
+        nombre_dislikes,
+        nombre_reposts,
+        nombre_commentaires,
+        nombre_partages,
+        date_publication
+    )
+VALUES (
+        'post_blogue_id_1',
+        'yjoI2WF3w4WVr3kD9L01shSjjnL2',
+        1,
+        "Titre de Blogue",
+        "Contenu de Blogue",
+        0,
+        0,
+        0,
+        0,
+        0,
+        NOW()
+    ), (
+        'post_question_id_2',
+        'yjoI2WF3w4WVr3kD9L01shSjjnL2',
+        2,
+        "Titre de Question",
+        "Contenu de Question",
+        0,
+        0,
+        0,
+        0,
+        0,
+        NOW()
+    ), (
+        'post_collab_id_3',
+        'yjoI2WF3w4WVr3kD9L01shSjjnL2',
+        3,
+        "Titre de Collaboration",
+        "Contenu de Collaboration",
+        0,
+        0,
+        0,
+        0,
+        0,
+        NOW()
+    );
+
+INSERT INTO
+    post_question (
+        id_question,
+        est_resolu,
+        post_meilleure_reponse,
+        post_id_post
+    )
+VALUES (
+        SUBSTRING(
+            MD5(UUID())
+            FROM
+                1 FOR 12
+        ),
+        false,
+        null,
+        'post_question_id_2'
+    );
+
+INSERT INTO
+    post_collab (
+        id_collab,
+        est_ouvert,
+        url_git,
+        post_id_post
+    )
+VALUES (
+        '610ef2fce0a0',
+        true,
+        'https://github.com/',
+        'post_collab_id_3'
+    );
+
+COMMIT;
+
+-- Isolé pour illustrer une demande de collaboration, référence aux FK
+
+INSERT INTO
+    post (
+        id_post,
+        id_compte,
+        id_type_post,
+        titre,
+        contenu,
+        nombre_likes,
+        nombre_dislikes,
+        nombre_reposts,
+        nombre_commentaires,
+        nombre_partages,
+        date_publication
+    )
+VALUES (
+        'post_collab_id',
+        'yjoI2WF3w4WVr3kD9L01shSjjnL2',
+        1,
+        "Titre de Blogue",
+        "Contenu de Blogue",
+        0,
+        0,
+        0,
+        0,
+        0,
+        NOW()
+    );
+
+INSERT INTO
+    post_collab (
+        id_collab,
+        est_ouvert,
+        url_git,
+        post_id_post
+    )
+VALUES (
+        'id_collab',
+        true,
+        'https://github.com/',
+        'post_collab_id'
+    );
+
+INSERT INTO
+    demande_collab (
+        id_demande_collab,
+        est_accepte,
+        post_collab_id_collab,
+        id_collaborateur
+    )
+VALUES (
+        "id_demande",
+        false,
+        "id_collab",
+        "yjoI2WF3w4WVr3kD9L01shSjjnL2"
+    );
+
 COMMIT;
