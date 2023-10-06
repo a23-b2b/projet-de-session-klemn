@@ -11,6 +11,19 @@ function BlogueForm() {
     const [titre, setTitre] = useState('');
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
+    // Hook pour le type de post
+    const [type, setType] = useState('blogue');
+    const [hidden, setHidden] = useState(true);
+
+    const changerType = (event: any) => {
+        setType(event.target.value);
+
+        if (event.target.value == 'collab') {
+            setHidden(true)
+        } else {
+            setHidden(false)
+        }
+    };
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)

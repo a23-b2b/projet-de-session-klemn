@@ -1,12 +1,15 @@
 -- Active: 1693586986008@@localhost@32769@dev
+DROP TABLE IF EXISTS compte_suivi;
+DROP TABLE IF EXISTS vote;
 DROP TABLE IF EXISTS image_post;
-DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS post_collab;
 DROP TABLE IF EXISTS demande_collab;
+DROP TABLE IF EXISTS post_collab;
 DROP TABLE IF EXISTS post_question;
-DROP TABLE IF EXISTS type_post;
+DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
+
+DROP TABLE IF EXISTS type_post;
 
 CREATE TABLE autorisation (
     id_autorisation     int NOT NULL PRIMARY KEY AUTO_INCREMENT,
