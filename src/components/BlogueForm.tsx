@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {ChakraProvider} from 'chakra/@react'
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -49,6 +50,8 @@ function BlogueForm() {
     }
 
     return (
+        <ChakraProvider>
+
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Publication</h2>
             <div className={styles.form}>
@@ -82,6 +85,8 @@ function BlogueForm() {
                 Publier
             </button>
         </div>
+        </ChakraProvider>
+
     )
 }
 
