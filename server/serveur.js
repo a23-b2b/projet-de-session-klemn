@@ -81,25 +81,35 @@ app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
-export function validerAutorisation(mysqlConnection, req, res ) {
+export function validerAutorisation(url, mysqlConnection, req, res) {
     const idToken = req.body.firebase_id_token
-    const idAutorisation = recupererSetAutorisation(mysqlConnection, req.body.idCompte)[0].;
+    const idAutorisation = JSON.parse(JSON.stringify(recupererSetAutorisation(mysqlConnection, req.body.idCompte)[0]));
+    var estAutorise = false;
 
     if (idCompte && idToken) {
         admin.auth().verifyIdToken(idToken, true)
-        .then((payload) => {
+        .then(() => {
             mysqlConnection.query(
-                `SELECT url_requete 
+                `SELECT JSON_ARRAYAGG(JSON_OBJECT('url_requete', url_requete))  
                 FROM droit
-                INNER JOIN autorisation a ON droit.autorisation_id_autorisation = a.id_autorisation  
-                WHERE id_compte = ?;`, 
-                    [idCompte], 
-                    function (err, results, fields) {
+                INNER JOIN autorisation a ON droit.autorisation_id_autorisation = a.id_autorisation
+                WHERE a.id_autorisation = ? ;`, 
+                    [idAutorisation], 
+                    function (err, results) {
                         if (err) {
                             res.status(500).send();
                         } else {
                             res.status(200);
+                            const URLs = JSON.parse(results.rows)
+                            URLs.forEach(element => {
+                                if (element.url_requete === url) {
+                                    logger.debug(`${url} fait partie de vos URL autorisées...`);
+                                    estAutorise = true;
+                                }
+                            });
                         }
+
+                        return estAutorise;
                     });
         }).catch((error) => {
             res.status(500).send("ERREUR: " + error.code)
