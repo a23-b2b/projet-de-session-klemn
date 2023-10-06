@@ -170,11 +170,9 @@ function Home() {
                         est_ouvert,
                         id_collab
                     }) => {
-                        return (
-
-                            <div key={id_post}>
+                        return (<>
+                            {id_type_post == TYPE_BLOGUE && (
                                 <Post
-                                    idPost={id_post}
                                     date={date_publication}
                                     nomAffichage={nom_affichage}
                                     nomUtilisateur={nom_utilisateur}
@@ -185,13 +183,58 @@ function Home() {
                                     nombreDislike={nombre_dislikes}
                                     nombrePartage={nombre_partages}
                                     nombreCommentaire={nombre_commentaires}
-                                    type={id_type_post}
                                     isPostFullScreen={false}
+                                    idPost={id_post}
+                                    urlImageProfil={url_image_profil} 
+                                    type={id_type_post}
+                                    userVote={vote}/>
+                            )}
+                            {id_type_post == TYPE_QUESTION && (
+                                <Post
+                                    date={date_publication}
+                                    nomAffichage={nom_affichage}
+                                    nomUtilisateur={nom_utilisateur}
+                                    titre={titre}
+                                    contenu={contenu}
+                                    idCompte={id_compte}
+                                    nombreLike={nombre_likes}
+                                    nombreDislike={nombre_dislikes}
+                                    nombrePartage={nombre_partages}
+                                    nombreCommentaire={nombre_commentaires}
+                                    isPostFullScreen={false}
+                                    idPost={id_post}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} />
-                            </div>
+                                    type={id_type_post}
+                                    userVote={vote}
 
-                        )
+                                    // Question Prop
+                                    idMeilleureReponse={post_meilleure_reponse}
+                                    resolu={est_resolu} />
+                            )}
+                            {id_type_post == TYPE_COLLABORATION && (
+                                <Post
+                                    date={date_publication}
+                                    nomAffichage={nom_affichage}
+                                    nomUtilisateur={nom_utilisateur}
+                                    titre={titre}
+                                    contenu={contenu}
+                                    idCompte={id_compte}
+                                    nombreLike={nombre_likes}
+                                    nombreDislike={nombre_dislikes}
+                                    nombrePartage={nombre_partages}
+                                    nombreCommentaire={nombre_commentaires}
+                                    isPostFullScreen={false}
+                                    idPost={id_post}
+                                    urlImageProfil={url_image_profil}
+                                    type={id_type_post}
+                                    userVote={vote}
+                                    
+                                    // Colllab Props
+                                    urlGit={url_git}
+                                    estOuvert={est_ouvert}
+                                    idCollab={id_collab} />
+                            )}
+                        </>)
                     })}
                 </div>
 
