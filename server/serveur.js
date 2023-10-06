@@ -44,6 +44,9 @@ app.use('/unfollow-user', unfollow_user);
 const get_user_posts = require('./get_user_posts.js')
 app.use('/user-posts', get_user_posts);
 
+const demander_collab = require('./demande_collab')
+app.use('/collab', demander_collab);
+
 const get_single_post = require('./get_single_post.js')
 app.use('/single-post', get_single_post);
 
