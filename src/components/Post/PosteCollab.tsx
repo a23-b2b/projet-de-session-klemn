@@ -32,7 +32,7 @@ function PosteCollab(props: CollabProp) {
     const auth = getAuth();
     const user = auth.currentUser;
     
-    const actif = true; // (user && props.idCompte !== user.uid) 
+    const actif = (user && props.idCompte !== user.uid) 
 
     async function demanderCollabortion(props: CollabProp){        
         if (user) {
