@@ -32,13 +32,14 @@ function PosteCollab(props: CollabProp) {
     const auth = getAuth();
     const user = auth.currentUser;
     
-    const actif = true; //(user && props.idCompte !== user.uid) 
+    const actif = true; // (user && props.idCompte !== user.uid) 
 
     async function demanderCollabortion(props: CollabProp){        
         if (user) {
             const uid = user.uid;
             user.getIdToken(true)
                 .then((idToken) => {
+                    console.log(props.idCollab)
                     fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idCollab}/${uid}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },

@@ -48,3 +48,18 @@ VALUES
     ('610ef2fce0a0', true, 'https://github.com/', 'post_collab_id_3');
 COMMIT;
 
+
+INSERT INTO post 
+    (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes, nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
+VALUES 
+    ('post_collab_id', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', 1, "Titre de Blogue", "Contenu de Blogue", 0, 0, 0, 0, 0, NOW());
+
+INSERT INTO post_collab 
+    (id_collab, est_ouvert, url_git, post_id_post)
+VALUES 
+    ('id_collab', true, 'https://github.com/', 'post_collab_id');
+
+INSERT INTO demande_collab 
+    (id_demande_collab, est_accepte, post_collab_id_collab, id_collaborateur)
+VALUES
+    ("id_demande", false, "id_collab", "yjoI2WF3w4WVr3kD9L01shSjjnL2");
