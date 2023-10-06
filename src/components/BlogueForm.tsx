@@ -71,6 +71,13 @@ function BlogueForm() {
                     }}></textarea>
             </div>
             <span>{nbCaracteres}/4000</span>
+            <label className={'global_input_field_label'}>
+                    <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
+                        <option value='blogue'>Blogue</option>
+                        <option value='question'>Question</option>
+                        <option value='collab'>Collaboration</option>
+                    </Select>
+                </label>
             <button className={'global_bouton'} onClick={() => publierBlogue()}>
                 Publier
             </button>
