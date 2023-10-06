@@ -88,7 +88,7 @@ function PosteCollab(props: CollabProp) {
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
-                userVote={vote}
+                userVote={props.userVote}
             />
         </div>
     );
