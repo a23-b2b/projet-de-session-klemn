@@ -160,7 +160,15 @@ function Home() {
                         nom_affichage,
                         nom_utilisateur,
                         url_image_profil,
-                        vote
+                        vote,
+
+                        // Question et Collab
+                        post_meilleure_reponse,
+                        est_resolu,
+
+                        url_git,
+                        est_ouvert,
+                        id_collab
                     }) => {
                         return (
 
