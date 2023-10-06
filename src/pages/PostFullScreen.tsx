@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Post from '../components/Post';
 import SectionReponses from '../components/SectionReponses';
 import styles from '../styles/PostFullScreen.module.css'
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 
 
 function PostFullScreen() {
@@ -13,26 +15,35 @@ function PostFullScreen() {
     const [postData, setPostData] = useState<any>();
 
     useEffect(() => {
-        fetch(`http://localhost:1111/single-post/${postId}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(response => response.json())
-            .then(response => {
-                let data = response[0]
-
-                if (!data) {
-                    navigate("/404")
+        onAuthStateChanged(auth, (user) => {
+            console.log(user?.uid)
+            fetch(`${process.env.REACT_APP_API_URL}/single-post/${postId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: user?.uid || ""
                 }
+            })
+                .then(response => response.json())
+                .then(response => {
+                    let data = response[0]
+    
+                    if (!data) {
+                        navigate("/404")
+                    }
+    
+                    setPostData(data)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        });
 
-                setPostData(data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        
     }, [postId]);
 
     if (postData) {
+        console.log(postData)
         return (
             <div className={styles.body}>
                 <Post
@@ -40,18 +51,19 @@ function PostFullScreen() {
                     date={postData.date_publication}
                     nomAffichage={postData.nom_affichage}
                     nomUtilisateur={postData.nom_utilisateur}
+                    idCompte={postData.id_compte}
                     titre={postData.titre}
                     contenu={postData.contenu}
-                    idCompte={postData.id_compte}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}
                     nombreCommentaire={postData.nombre_commentaires}
                     isPostFullScreen={true}
                     type={postData.id_type_post}
-                />
+                    urlImageProfil={postData.url_image_profil}
+                    userVote={postData.vote} />
 
-                <SectionReponses/>
+                <SectionReponses idParent={postData.id_post} />
             </div>
         );
     }

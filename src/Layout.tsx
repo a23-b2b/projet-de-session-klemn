@@ -4,14 +4,15 @@ import './styles/global.css'
 import AccueilConnecte from "./pages/AccueilConnecte";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Forum from "./pages/Forum"
 import Projets from "./pages/Projets";
 import Landing from "./pages/Landing";
 import Profil from "./pages/Profil";
 import Erreur404 from "./pages/404";
-import Blogue from "./pages/Blogue";
+import Parametres from "./pages/settings/Parametres";
+import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
+import Interface from "./pages/settings/Interface";
 
 function Layout() {
     return (
@@ -26,12 +27,12 @@ function Layout() {
 
                     <Route path="/" element={<Home />} />
                     <Route path="/authenticate" element={<Landing />} />
-                    {/* <Route path="/accueilConnecte" element={<AccueilConnecte />} /> */}
-                    {/* <Route path="/forum" element={<Forum />} /> */}
-                    {/* <Route path="/blogue" element={<Blogue />} /> */}
-                    {/* <Route path="/projets" element={<Projets />} /> */}
                     <Route path="/u/:username" element={<Profil />} />
                     <Route path="/p/:postId" element={<PostFullScreen />} />
+                    <Route path="/parametres" element={<Parametres />}>
+                        <Route path="profil" element={<ModifierProfil />} />
+                        <Route path="interface" element={<Interface />} />
+                    </Route>
                 </Routes>
                 <Footer />
             </BrowserRouter>

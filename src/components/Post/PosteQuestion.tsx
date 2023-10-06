@@ -16,6 +16,8 @@ export interface QuestionProp {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
+    urlImageProfil: string;
+    userVote: number;
 
     idMeilleureReponse?: string;
     statutReponse?: Boolean;
@@ -30,7 +32,8 @@ function PosteQuestion(props: QuestionProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} />
+                nomUtilisateur={props.nomUtilisateur} 
+                urlImageProfil={props.urlImageProfil} />
 
             <PostContent
                 titre={props.titre}
@@ -47,11 +50,13 @@ function PosteQuestion(props: QuestionProp) {
             )}
 
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
+                userVote={props.userVote}
             />
         </div>
     );
