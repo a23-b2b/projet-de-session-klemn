@@ -73,12 +73,17 @@ app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
 
-export function validerAutorisation(url, mysqlConnection, req, res) {
+function validerAutorisation(url, mysqlConnection, req, res) {
     const idToken = req.body.firebase_id_token
-    const idAutorisation = JSON.parse(JSON.stringify(recupererSetAutorisation(mysqlConnection, req.body.idCompte)[0]));
+    var idAutorisation = 'pre_made_set_3'
+
+    if (req.body.idCompte){ 
+        idAutorisation = JSON.parse(JSON.stringify(recupererSetAutorisation(mysqlConnection, req.body.idCompte)[0]))
+    }
+
     var estAutorise = false;
 
-    if (idCompte && idToken) {
+    if (idAutorisation && idToken) {
         admin.auth().verifyIdToken(idToken, true)
         .then(() => {
             mysqlConnection.query(
@@ -106,6 +111,8 @@ export function validerAutorisation(url, mysqlConnection, req, res) {
         }).catch((error) => {
             res.status(500).send("ERREUR: " + error.code)
         })
+    } else {
+
     }
 } 
 
