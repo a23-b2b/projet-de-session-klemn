@@ -18,6 +18,8 @@ export interface CollabProp {
     nombreDislike: number;
     nombrePartage: number;
     nombreCommentaire: number;
+    urlImageProfil: string;
+    userVote: number;
 
     idCollaborateur?: string;
 
@@ -53,7 +55,8 @@ function PosteCollab(props: CollabProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} />
+                nomUtilisateur={props.nomUtilisateur}
+                urlImageProfil={props.urlImageProfil} />
 
             <PostContent
                 titre={props.titre}
@@ -65,11 +68,13 @@ function PosteCollab(props: CollabProp) {
             <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
             
             <PostFooter
+                idPost={props.idPost}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
+                userVote={props.userVote}
             />
         </div>
     );
