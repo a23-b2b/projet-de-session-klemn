@@ -1,6 +1,9 @@
 -- Active: 1693586986008@@localhost@32769@dev
 DROP TABLE IF EXISTS image_post;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS post_collab;
+DROP TABLE IF EXISTS demande_collab;
+DROP TABLE IF EXISTS post_question;
 DROP TABLE IF EXISTS type_post;
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
@@ -60,6 +63,27 @@ CREATE TABLE post
     CONSTRAINT post_type_post_id_type_post_fk
         FOREIGN KEY (id_type_post) REFERENCES type_post (id_type_post)
 );
+
+CREATE TABLE
+    post_collab (
+        id_collab VARCHAR(255) PRIMARY KEY,
+        est_ouvert BOOLEAN NOT NULL DEFAULT TRUE,
+        url_git VARCHAR (255),
+        post_id_post VARCHAR(255),
+        CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
+    );
+
+CREATE TABLE
+    demande_collab (
+        id_demande_collab VARCHAR(255) PRIMARY KEY,
+        est_accepte BOOLEAN NOT NULL DEFAULT FALSE,
+        post_collab_id_collab VARCHAR(255),
+        id_collaborateur VARCHAR (255),
+
+CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab),
+CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
+);
+
 
 CREATE TABLE image_post
 (
