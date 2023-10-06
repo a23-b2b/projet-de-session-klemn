@@ -26,11 +26,14 @@ interface Props {
     idCompte: string;
     type: number;
 
-    // props optionnels
-    statutReponse?: Boolean;
+    // props question optionnels
+    resolu?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // props collab optionnels
+    urlGit?: string; 
+    estOuvert?: Boolean;
+    idCollab?: string;
 }
 
 function Post(props: Props) {
