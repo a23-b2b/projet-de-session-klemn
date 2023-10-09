@@ -178,7 +178,8 @@
 .post_ouvert {
     background-color: blue;
     transition: 0.4s;
-} */} */
+} */
+
 .tooltip {
     backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
