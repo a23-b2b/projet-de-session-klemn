@@ -10,6 +10,15 @@ interface HeaderProps {
 
 const PostHeader = (props: HeaderProps) => {
 
+    const datePost = new Date(props.date)
+    const datePostUTC = new Date(Date.UTC(datePost.getUTCFullYear(), datePost.getUTCMonth(), datePost.getUTCDate(), datePost.getUTCHours() - datePost.getTimezoneOffset() / 60, datePost.getUTCMinutes(), datePost.getUTCSeconds()))
+    const datePostSeconds = Math.round(datePostUTC.getTime() / 1000)
+
+    const dateNow = new Date()
+    const dateNowUTC = new Date(dateNow.toISOString())
+    const dateNowSeconds = Math.round(dateNowUTC.getTime()/ 1000)
+
+    const timeDifference = dateNowSeconds - datePostSeconds
     console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
