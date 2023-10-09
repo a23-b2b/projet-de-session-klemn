@@ -24,7 +24,7 @@ function FollowButton(props: Props) {
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch('http://localhost:1111/follow-user', {
+                fetch(process.env.REACT_APP_API_URL + '/follow-user', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -58,7 +58,7 @@ function FollowButton(props: Props) {
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch('http://localhost:1111/unfollow-user', {
+                fetch(process.env.REACT_APP_API_URL + '/unfollow-user', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -91,7 +91,7 @@ function Profil() {
 
     useEffect(() => {
 
-        fetch(`http://localhost:1111/profil`, {
+        fetch(`${process.env.REACT_APP_API_URL}/profil`, {
             method: 'POST',
             body: JSON.stringify({
                 username: username,
