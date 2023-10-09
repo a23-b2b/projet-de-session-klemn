@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
+import { Tooltip } from "@chakra-ui/react"
 
 interface HeaderProps {
     date: string;
@@ -23,11 +24,11 @@ const PostHeader = (props: HeaderProps) => {
 
     const dateNow = new Date()
     const dateNowUTC = new Date(dateNow.toISOString())
-    const dateNowSeconds = Math.round(dateNowUTC.getTime()/ 1000)
+    const dateNowSeconds = Math.round(dateNowUTC.getTime() / 1000)
 
     const timeDifference = dateNowSeconds - datePostSeconds
 
-
+    const formattedData = datePostUTC.toLocaleString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })
 
     let timeStampText = ""
     // afficher en secondes
@@ -72,7 +73,12 @@ const PostHeader = (props: HeaderProps) => {
 
             </div>
 
-            <p className={styles.date}>{timeStampText}</p>
+
+
+            <Tooltip label={formattedData} placement='top'>
+                <p className={styles.date}>{timeStampText}</p>
+            </Tooltip>
+
         </div>
     )
 }
