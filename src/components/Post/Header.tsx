@@ -20,14 +20,21 @@ const PostHeader = (props: HeaderProps) => {
                     <img className={styles.image_profil} src={props.urlImageProfil} />
                 </Link>
 
-                <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
-                    <p className={styles.display_name}>{props.nomAffichage}</p>
-                    <p className={styles.username}>@{props.nomUtilisateur}</p>
-                </Link>
+            </div>
+            <div id={styles["header_conteneur_droit"]}>
+                <div id={styles["inner_droit_nom_utilisateur"]}>
+                    <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
+                        <p className={styles.display_name}>{props.nomAffichage}</p>
+                        <p className={styles.username}>@{props.nomUtilisateur}</p>
+                    </Link>
+                </div>
+                <div>
+                    <p className={styles.date}>{props.date}</p>
+                </div>
 
             </div>
 
-            <p className={styles.date}>{props.date}</p>
+
         </div>
     )
 }
