@@ -4,9 +4,11 @@
 }
 
 .container {
-    height: 100vh;
+    height: 180vh;
     display: flex;
     flex-direction: row;
+    margin-bottom: 100px;
+
 }
 
 .sidebar {
