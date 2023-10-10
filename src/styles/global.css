@@ -123,10 +123,11 @@ body {
 .global_subtitle {
     text-align: center;
     color: var(--auto_text_color);
+    margin-left: 5px;
+    opacity: .85;
 }
 
 .global_input_field_label {
-    margin-left: 8px;
     margin-bottom: 3px;
     font-size: 17px;
     font-weight: bold;
@@ -187,5 +188,12 @@ textarea {
     border-radius: 20px;
     border: none;
     padding: 20px;
+    background-color: var(--auto_container_post_color);
+}
+
+.global_conteneur_parametres {
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
     background-color: var(--auto_container_post_color);
 }
