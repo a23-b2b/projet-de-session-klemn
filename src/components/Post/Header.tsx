@@ -11,7 +11,7 @@ interface HeaderProps {
 
 
 const UNE_MINUTE_EN_SECONDES = 60
-const UNE_HEURE_EN_SECONDE = 3600
+const UNE_HEURE_EN_SECONDES = 3600
 const UN_JOUR_EN_SECONDES = 86400
 const DEUX_SEMAINES_EN_SECONDES = 1209600
 
@@ -37,12 +37,12 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     // afficher en minutes
-    if (timeDifference >= UNE_MINUTE_EN_SECONDES && timeDifference < UNE_HEURE_EN_SECONDE) {
+    if (timeDifference >= UNE_MINUTE_EN_SECONDES && timeDifference < UNE_HEURE_EN_SECONDES) {
         timeStampText = `${Math.round(timeDifference / 60)} min`
     }
 
     // afficher en heures
-    if (timeDifference >= UNE_HEURE_EN_SECONDE && timeDifference < UN_JOUR_EN_SECONDES) {
+    if (timeDifference >= UNE_HEURE_EN_SECONDES && timeDifference < UN_JOUR_EN_SECONDES) {
         timeStampText = `${Math.round(timeDifference / 60 / 60)}h`
     }
 
