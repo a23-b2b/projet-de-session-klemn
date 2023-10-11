@@ -46,9 +46,14 @@ const PostHeader = (props: HeaderProps) => {
         timeStampText = `${Math.round(timeDifference / 60 / 60)}h`
     }
 
+    // afficher quand il y a 1 jour. multiplier par 1.5 pour contrer l'effet du Round
+    if (timeDifference >= UN_JOUR_EN_SECONDES && timeDifference < UN_JOUR_EN_SECONDES * 1.5) {
+        timeStampText = `${Math.round(timeDifference / 60 / 60 / 24)} jour`
+    }
+
     // afficher en jours
-    if (timeDifference >= UN_JOUR_EN_SECONDES && timeDifference < DEUX_SEMAINES_EN_SECONDES) {
-        timeStampText = `${Math.round(timeDifference / 60 / 60 / 60)} jours`
+    if (timeDifference >= UN_JOUR_EN_SECONDES * 1.5 && timeDifference < DEUX_SEMAINES_EN_SECONDES) {
+        timeStampText = `${Math.round(timeDifference / 60 / 60 / 24)} jours`
     }
 
     // la date
