@@ -30,11 +30,11 @@
 
     /*Couleur de fond container*/
     --dark_container_color: rgba(255, 255, 255, 0.199);
-    --light_container_color: rgba(0, 0, 0, 0.062);
+    --light_container_color: rgba(163, 124, 183, 0.219);
 
     /*Couleur de fond input field*/
     --dark_input_field_color: rgba(255, 255, 255, 0.25);
-    --light_input_field_color: rgba(0, 0, 0, 0.057);
+    --light_input_field_color: rgba(242, 225, 249, 0.913);
 
     /*Couleur de bordure (Input field et Container*/
     --dark_border_color: rgb(255, 255, 255);
@@ -50,7 +50,7 @@
 
     /**/
     --dark_container_post_color: rgba(138, 138, 138, 0.16);
-    --light_container_post_color: rgba(0, 0, 0, 0.146);
+    --light_container_post_color: rgba(103, 18, 114, 0.256);
 
 
     /* ===================================== */

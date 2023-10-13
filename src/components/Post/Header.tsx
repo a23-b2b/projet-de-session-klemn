@@ -13,15 +13,14 @@ const PostHeader = (props: HeaderProps) => {
     console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
+           
 
-            <div className={styles.header_content}>
+                    <Link to={`/u/${props.nomUtilisateur}`}>
+                        <img className={styles.image_profil} src={props.urlImageProfil} />
+                    </Link>
 
-                <Link to={`/u/${props.nomUtilisateur}`}>
-                    <img className={styles.image_profil} src={props.urlImageProfil} />
-                </Link>
+        
 
-            </div>
-            <div id={styles["header_conteneur_droit"]}>
                 <div id={styles["inner_droit_nom_utilisateur"]}>
                     <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                         <p className={styles.display_name}>{props.nomAffichage}</p>
@@ -32,7 +31,7 @@ const PostHeader = (props: HeaderProps) => {
                     <p className={styles.date}>{props.date}</p>
                 </div>
 
-            </div>
+            
 
 
         </div>

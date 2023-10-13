@@ -201,7 +201,7 @@ function ModifierProfil() {
 
             <div >
                 <h3 className={'global_subtitle'}>Modifier le courriel</h3>
-                
+
 
                 <label className={'global_input_field_label'}>Nouveau courriel</label>
 
@@ -311,7 +311,7 @@ function ModifierProfil() {
                 </div>
 
             </div>
-            
+
             <br />
             <hr className={styles.hr}></hr>
             <br />
@@ -331,7 +331,7 @@ function ModifierProfil() {
                 </div>
 
             </div>
-
+            <br />
 
 
 

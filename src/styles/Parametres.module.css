@@ -4,7 +4,7 @@
 }
 
 .container {
-    height: 180vh;
+    
     display: flex;
     flex-direction: row;
     margin-bottom: 100px;
@@ -13,8 +13,9 @@
 
 .sidebar {
     width: 400px;
-    background-color: rgba(255, 255, 255, 0.081);
+    background-color: var(--auto_container_color);
     border-radius: 16px;
+    opacity: .8;
 }
 
 #first_link {
