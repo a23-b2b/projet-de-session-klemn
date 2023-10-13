@@ -2,9 +2,10 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
-import { Link } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
-import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useState } from "react";
+
 
 export interface CollabProp {
     idPost: string;
@@ -21,36 +22,43 @@ export interface CollabProp {
     urlImageProfil: string;
     userVote: number;
 
-    idCollaborateur?: string;
+    urlGit?: string;
+    estOuvert?: Boolean;
+    idCollab?: string;
 
     isPostFullScreen: Boolean;
 }
 
 function PosteCollab(props: CollabProp) {
-    var enabled = false;
     const auth = getAuth();
     const user = auth.currentUser;
+    
+    const actif = (user && props.idCompte !== user.uid) 
 
-    function demanderCollabortion(props: CollabProp){        
-        if (user !== null) {
+    async function demanderCollabortion(props: CollabProp){        
+        if (user) {
             const uid = user.uid;
-            fetch(`/p/${props.idPost}/${uid}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            })
+            user.getIdToken(true)
+                .then((idToken) => {
+                    console.log(props.idCollab)
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idCollab}/${uid}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firebase_id_token: idToken
+                        })             
+                    }).then(response => response.json())
+                        .then(response => {
+                            toast.success('Votre demande de collab a été envoyé');
+                        }).catch((error) => {
+                            toast.error('Une erreur est survenue');
+                    })
+                })
         } 
     }
 
-    function ActiverCollab(){
-        if (user !== null && props.idCompte !== user.uid) {
-            enabled = true;
-        } else {
-            enabled = false;
-        }
-        
-    }
-
     return (
+        
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
@@ -65,8 +73,14 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
+            <button disabled={!actif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>
             
+            {props.urlGit !== null && props.estOuvert === true && ( 
+                <a href={props.urlGit}>
+                    URL de projet GitHub
+                </a>
+            )}    
+
             <PostFooter
                 idPost={props.idPost}
                 nombreLike={props.nombreLike}
