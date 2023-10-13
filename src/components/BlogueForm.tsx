@@ -85,6 +85,14 @@ function BlogueForm() {
                         setContenu(e.target.value)
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
+                    {hidden && <div >
+                        <label className={'global_input_field_label'}>URL du projet GitHub</label>
+                        <input
+                            placeholder='https://github.com/'                                                      
+                            type="text"
+                            className={'global_input_field'}
+                            onChange={(e) => setUrlGit(e.target.value)}/>
+                    </div>}
             </div>
             <span>{nbCaracteres}/4000</span>
             <label className={'global_input_field_label'}>
