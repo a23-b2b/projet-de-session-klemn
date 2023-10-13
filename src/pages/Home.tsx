@@ -10,6 +10,9 @@ import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+import {TYPE_BLOGUE, TYPE_QUESTION , TYPE_COLLABORATION} from '../components/Post';
+
+
 function Home() {
     const navigate = useNavigate();
 
@@ -160,13 +163,19 @@ function Home() {
                         nom_affichage,
                         nom_utilisateur,
                         url_image_profil,
-                        vote
-                    }) => {
-                        return (
+                        vote,
 
-                            <div key={id_post}>
+                        // Question et Collab
+                        post_meilleure_reponse,
+                        est_resolu,
+
+                        url_git,
+                        est_ouvert,
+                        id_collab
+                    }) => {                        
+                        return (<>
+                            {id_type_post == TYPE_BLOGUE && (
                                 <Post
-                                    idPost={id_post}
                                     date={date_publication}
                                     nomAffichage={nom_affichage}
                                     nomUtilisateur={nom_utilisateur}
@@ -177,13 +186,58 @@ function Home() {
                                     nombreDislike={nombre_dislikes}
                                     nombrePartage={nombre_partages}
                                     nombreCommentaire={nombre_commentaires}
-                                    type={id_type_post}
                                     isPostFullScreen={false}
+                                    idPost={id_post}
+                                    urlImageProfil={url_image_profil} 
+                                    type={id_type_post}
+                                    userVote={vote}/>
+                            )}
+                            {id_type_post == TYPE_QUESTION && (
+                                <Post
+                                    date={date_publication}
+                                    nomAffichage={nom_affichage}
+                                    nomUtilisateur={nom_utilisateur}
+                                    titre={titre}
+                                    contenu={contenu}
+                                    idCompte={id_compte}
+                                    nombreLike={nombre_likes}
+                                    nombreDislike={nombre_dislikes}
+                                    nombrePartage={nombre_partages}
+                                    nombreCommentaire={nombre_commentaires}
+                                    isPostFullScreen={false}
+                                    idPost={id_post}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} />
-                            </div>
+                                    type={id_type_post}
+                                    userVote={vote}
 
-                        )
+                                    // Question Prop
+                                    idMeilleureReponse={post_meilleure_reponse}
+                                    resolu={est_resolu} />
+                            )}
+                            {id_type_post == TYPE_COLLABORATION && (
+                                <Post
+                                    date={date_publication}
+                                    nomAffichage={nom_affichage}
+                                    nomUtilisateur={nom_utilisateur}
+                                    titre={titre}
+                                    contenu={contenu}
+                                    idCompte={id_compte}
+                                    nombreLike={nombre_likes}
+                                    nombreDislike={nombre_dislikes}
+                                    nombrePartage={nombre_partages}
+                                    nombreCommentaire={nombre_commentaires}
+                                    isPostFullScreen={false}
+                                    idPost={id_post}
+                                    urlImageProfil={url_image_profil}
+                                    type={id_type_post}
+                                    userVote={vote}
+                                    
+                                    // Colllab Props
+                                    urlGit={url_git}
+                                    estOuvert={est_ouvert}
+                                    idCollab={id_collab} />
+                            )}
+                        </>)
                     })}
                 </div>
 

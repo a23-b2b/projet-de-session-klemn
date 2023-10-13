@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChakraProvider, Select } from '@chakra-ui/react'
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -10,6 +11,19 @@ function BlogueForm() {
     const [titre, setTitre] = useState('');
     const [contenu, setContenu] = useState('');
     const [nbCaracteres, setNbCaracteres] = useState(0)
+    // Hook pour le type de post
+    const [type, setType] = useState('blogue');
+    const [hidden, setHidden] = useState(true);
+
+    const changerType = (event: any) => {
+        setType(event.target.value);
+
+        if (event.target.value == 'collab') {
+            setHidden(true)
+        } else {
+            setHidden(false)
+        }
+    };
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -49,6 +63,8 @@ function BlogueForm() {
     }
 
     return (
+        <ChakraProvider>
+
         <div className={styles.conteneur}>
             <h2 className={styles.titre}>Publication</h2>
             <div className={styles.form}>
@@ -69,12 +85,29 @@ function BlogueForm() {
                         setContenu(e.target.value)
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
+                    {hidden && <div >
+                        <label className={'global_input_field_label'}>URL du projet GitHub</label>
+                        <input
+                            placeholder='https://github.com/'                                                      
+                            type="text"
+                            className={'global_input_field'}
+                            onChange={(e) => (e.target.value)}/>
+                    </div>}
             </div>
             <span>{nbCaracteres}/4000</span>
+            <label className={'global_input_field_label'}>
+                    <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
+                        <option value='blogue'>Blogue</option>
+                        <option value='question'>Question</option>
+                        <option value='collab'>Collaboration</option>
+                    </Select>
+                </label>
             <button className={'global_bouton'} onClick={() => publierBlogue()}>
                 Publier
             </button>
         </div>
+        </ChakraProvider>
+
     )
 }
 
