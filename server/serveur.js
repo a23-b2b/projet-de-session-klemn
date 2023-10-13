@@ -80,6 +80,9 @@ app.use('/changer_bio', changer_bio)
 const send_vote = require('./vote.js')
 app.use('/vote', send_vote);
 
+const get_demande_collab = require('./get_all_demandes_collab')
+app.use('/get-all-demande-collab', get_demande_collab)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });

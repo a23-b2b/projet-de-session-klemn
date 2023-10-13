@@ -2,9 +2,12 @@ import styles from '../styles/GestionCollab.module.css';
 
 export interface PropDemandeCollab {
     // ID de compte sera insert dans collaborateur comme FK
-    // id_compte: String,
+    id_compte: String,
     // A quel projet le collaborateur sera attaché
-    // id_projet: String
+    id_projet: String,
+    
+    titre: String,
+    description: String    
 }
 
 /*
