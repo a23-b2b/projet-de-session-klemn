@@ -5,6 +5,7 @@ import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, up
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, {Crop} from "react-image-crop";
+import 'react-image-crop/dist/ReactCrop.css'
 
 
 
@@ -274,13 +275,18 @@ function ModifierProfil() {
                 <br />
 
             <h3>Modifier l'image de profil</h3>
-            <input
-                type={'file'}
-                accept={'image/'}
-            />
-            <ReactCrop crop={cropProfil} onChange={c => setCropProfil(c)}>
-                <img src={'http://localhost:3000/default_profile_image.jpg'} />
-            </ReactCrop>
+            <div className={styles.import_image}>
+                <input
+                    type={'file'}
+                    accept={'image/'}
+                />
+                <ReactCrop crop={cropProfil}
+                           onChange={crop => setCropProfil(crop)}
+                           aspect={1}
+                           circularCrop={true}>
+                    <img src={'http://localhost:3000/default_profile_image.jpg'} />
+                </ReactCrop>
+            </div>
         </motion.div>
     );
 }
