@@ -30,7 +30,6 @@ const PostFooter = (props: FooterProps) => {
     function handleShareItemClick(item: string) {
         switch (item) {
             case "quote":
-                toast.success("Option Quote Post selectionnee")
                 setIsQuotePostModalOpen(true)
                 break;
 
