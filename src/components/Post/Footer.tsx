@@ -83,13 +83,12 @@ const PostFooter = (props: FooterProps) => {
                 </Menu>
             </div>
 
-            <QuotePostModal isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen}/>
+            <QuotePostModal quotedPostId={props.idPost} isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen}/>
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
                     {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses} /> : ''}
                 </AnimatePresence>)}
-
         </div>
     )
 }
