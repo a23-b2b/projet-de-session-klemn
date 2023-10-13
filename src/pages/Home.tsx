@@ -172,7 +172,7 @@ function Home() {
                         url_git,
                         est_ouvert,
                         id_collab
-                    }) => {
+                    }) => {                        
                         return (<>
                             {id_type_post == TYPE_BLOGUE && (
                                 <Post

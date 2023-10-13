@@ -45,7 +45,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, ?, ?, 0, 0, 0, 0, 0, NOW());`,
                     [id_compte, id_type_post,  titre, contenu],
                     function (err, results, fields) {
-                        gererErreur(err, res, results, "POSTER BLOGUE ERR");
+                        //gererErreur(err, res, results, "POSTER BLOGUE ERR");
                         
                         mysqlConnection.query(
                             `SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1;`,
@@ -60,7 +60,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                                         // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
                                         [urlGit, id_post],
                                         function (err, results) {
-                                            gererErreur(err, res, results, "POSTER COLLAB ERR");
+                                            //gererErreur(err, res, results, "POSTER COLLAB ERR");
                                         }
                                     );
                                 } else if (typePoste == 'question') {
@@ -69,7 +69,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, ?, null);`,
                                         [id_post],
                                         function (err, results) {
-                                            gererErreur(err, res, results, "POSTER QUESTION ERR");
+                                            //gererErreur(err, res, results, "POSTER QUESTION ERR");
                                         }
                                     );
                                 }
