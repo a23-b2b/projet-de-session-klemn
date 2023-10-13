@@ -10,6 +10,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css'
 import { FaQuoteRight, FaRetweet } from 'react-icons/fa6';
 import { LuCopy } from 'react-icons/lu'
 import toast from 'react-hot-toast';
+import QuotePostModal from './QuotePostModal';
 
 interface FooterProps {
     idPost: string;
@@ -21,16 +22,16 @@ interface FooterProps {
     userVote: number;
 }
 
-
-
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [nombreReponses, setNombreReponses] = useState(props.nombreCommentaire)
+    const [isQuotePostModalOpen, setIsQuotePostModalOpen] = useState(false);
 
     function handleShareItemClick(item: string) {
         switch (item) {
             case "quote":
                 toast.success("Option Quote Post selectionnee")
+                setIsQuotePostModalOpen(true)
                 break;
 
             case "repost":
@@ -80,10 +81,9 @@ const PostFooter = (props: FooterProps) => {
                     <MenuDivider />
                     <MenuItem value={'copy_url'} className={styles.share_menu_item}><LuCopy className={styles.share_menu_icon} /><span>Copier le lien</span></MenuItem>
                 </Menu>
-
-
-
             </div>
+
+            <QuotePostModal isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen}/>
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
