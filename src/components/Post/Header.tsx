@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
+import { getAuth } from "firebase/auth";
+import { useState } from 'react';
+
 
 interface HeaderProps {
     date: string;
@@ -9,6 +12,8 @@ interface HeaderProps {
 }
 
 const PostHeader = (props: HeaderProps) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     console.log(props.urlImageProfil)
     return (
@@ -24,7 +29,7 @@ const PostHeader = (props: HeaderProps) => {
                     <p className={styles.display_name}>{props.nomAffichage}</p>
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
-
+                
             </div>
 
             <p className={styles.date}>{props.date}</p>

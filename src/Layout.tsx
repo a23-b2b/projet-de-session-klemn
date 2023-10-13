@@ -13,6 +13,7 @@ import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
+import GestionCollab from "./pages/GestionCollab";
 
 function Layout() {
     return (
@@ -33,6 +34,8 @@ function Layout() {
                         <Route path="profil" element={<ModifierProfil />} />
                         <Route path="interface" element={<Interface />} />
                     </Route>
+                    <Route path="/gestion" element={<GestionCollab/>} />
+                        
                 </Routes>
                 <Footer />
             </BrowserRouter>

@@ -2,6 +2,7 @@ import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
 import user from '../images/user.png';
 import search from '../images/search.png';
+import gestion from '../images/icn_manage.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
@@ -19,8 +20,15 @@ function Header() {
                     <Link to={'/'}>
                         <img src={logo} width="80" height="80" alt="Logo" />
                     </Link>
-
                 </div>
+
+                
+                {user &&
+                <div>
+                    <Link to={`/gestion`}>
+                        <img className={styles.image_gestion} src={gestion} alt='Gestion'/>
+                    </Link>
+                </div>}
 
                 {/* <div>
                     Lien page Forum

@@ -1,4 +1,5 @@
 -- Active: 1693586986008@@localhost@32769@dev
+DROP TABLE IF EXISTS projet CASCADE;
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -64,21 +65,8 @@ CREATE TABLE post (
   CONSTRAINT post_post_id_post_fk FOREIGN KEY (id_parent) REFERENCES post (id_post), 
   CONSTRAINT post_type_post_id_type_post_fk FOREIGN KEY (id_type_post) REFERENCES type_post (id_type_post)
 );
-CREATE TABLE post_collab (
-  id_collab VARCHAR(255) PRIMARY KEY, 
-  est_ouvert BOOLEAN NOT NULL DEFAULT TRUE, 
-  url_git VARCHAR (255), 
-  post_id_post VARCHAR(255), 
-  CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
-);
-CREATE TABLE demande_collab (
-  id_demande_collab VARCHAR(255) PRIMARY KEY, 
-  est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
-  post_collab_id_collab VARCHAR(255), 
-  id_collaborateur VARCHAR (255), 
-  CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
-  CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
-);
+
+
 CREATE TABLE post_question (
   id_question VARCHAR(255) PRIMARY KEY, 
   est_resolu BOOLEAN NOT NULL DEFAULT FALSE, 
@@ -107,3 +95,36 @@ create table vote (
   constraint vote_compte_id_compte_fk foreign key (id_compte) references compte (id_compte), 
   constraint vote_post_id_post_fk foreign key (id_post) references post (id_post)
 ) comment 'Contient les votes (like, dislike) associés aux posts.';
+
+CREATE TABLE projet (
+  id_projet varchar(255) PRIMARY KEY,
+  url_repo_git varchar(255),
+  est_ouvert BOOLEAN DEFAULT FALSE,
+  compte_id_proprio varchar(255),
+  CONSTRAINT projet_compte_id_proprio_fk FOREIGN KEY (compte_id_proprio) REFERENCES compte (id_compte)
+) comment 'Contient les projets pour système de collaboration';
+
+CREATE TABLE post_collab (
+  id_collab VARCHAR(255) PRIMARY KEY, 
+  projet_id_projet VARCHAR(255),  
+  post_id_post VARCHAR(255), 
+  CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post),
+  CONSTRAINT post_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet)
+) comment 'Contient le lien entre les posts de demande de collab et les information de projet et de compte';
+
+CREATE TABLE collaborateur (
+  id_collaborateur varchar(255) PRIMARY KEY,
+  compte_id_collaborateur varchar(255),
+  projet_id_projet varchar(255),
+  CONSTRAINT collaborateur_projet_id_projet FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet),
+  CONSTRAINT collaborateur_compte_id_collaborateur FOREIGN KEY (compte_id_collaborateur) REFERENCES compte (id_compte)   
+) comment 'Contient le lien entre les comptes participants et les projets';
+
+CREATE TABLE demande_collab (
+  id_demande_collab VARCHAR(255) PRIMARY KEY, 
+  est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
+  post_collab_id_collab VARCHAR(255), 
+  id_collaborateur VARCHAR (255), 
+  CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
+  CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
+);
