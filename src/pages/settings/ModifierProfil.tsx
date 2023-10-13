@@ -1,4 +1,4 @@
-import {createElement, useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/ModifierProfil.module.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
