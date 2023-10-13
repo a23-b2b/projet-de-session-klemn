@@ -91,7 +91,7 @@ function BlogueForm() {
                             placeholder='https://github.com/'                                                      
                             type="text"
                             className={'global_input_field'}
-                            onChange={(e) => setUrlGit(e.target.value)}/>
+                            onChange={(e) => (e.target.value)}/>
                     </div>}
             </div>
             <span>{nbCaracteres}/4000</span>
