@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
+import ReactCrop, {Crop} from "react-image-crop";
 
 
 
@@ -19,6 +20,13 @@ function ModifierProfil() {
     const [newPrenomConfirmation, setNewPrenomConfirmation] = useState('');
     const [newBio, setNewBio] = useState('');
 
+    const [cropProfil, setCropProfil] = useState<Crop>({
+        unit: '%', // Can be 'px' or '%'
+        x: 25,
+        y: 25,
+        width: 50,
+        height: 50
+    })
 
     const changeEmail = () => {
 
@@ -264,8 +272,14 @@ function ModifierProfil() {
             </div>
             <br />
 
-
-
+            <h3>Modifier l'image de profil</h3>
+            <input
+                type={'file'}
+                accept={'image/'}
+            />
+            <ReactCrop crop={cropProfil} onChange={c => setCropProfil(c)}>
+                <img src={'http://localhost:3000/default_profile_image.jpg'} />
+            </ReactCrop>
         </motion.div>
     );
 }
