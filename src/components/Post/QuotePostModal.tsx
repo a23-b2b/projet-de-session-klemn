@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/QuotePostModal.module.css'
-import { AnimatePresence, motion, useAnimate } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
 
@@ -10,13 +10,7 @@ interface Props {
 }
 
 function QuotePostModal(props: Props) {
-    const [scopeModal, animateModal] = useAnimate()
-    const [scopeBackdrop, animateBackdrop] = useAnimate()
     const [shouldModalBeDisplayed, setShouldModalBeDisplayed] = useState(false)
-
-    if (props.isModalOpen) {
-
-    }
 
     useEffect(() => {
         if (props.isModalOpen) {
@@ -26,26 +20,7 @@ function QuotePostModal(props: Props) {
 
 
     function openModal() {
-        if (props.isModalOpen) {
-            toast.success("HELLO WORLD")
-            setShouldModalBeDisplayed(true)
-        }
-
-        // animateModal(scopeModal.current, {
-        //     scale: 0.7,
-        //     opacity: 0
-        // }, {
-        //     duration: 0.15,
-        //     ease: "anticipate"
-        // }).then(() => {
-        //     animateModal(scopeModal.current, {
-        //         scale: 1,
-        //         opacity: 1,
-        //     }, {
-        //         duration: 0.15,
-        //         ease: "anticipate"
-        //     })
-        // })
+        setShouldModalBeDisplayed(true)
     }
 
     function afterOpenModal() {
@@ -69,12 +44,12 @@ function QuotePostModal(props: Props) {
                 <motion.div
                     className={styles.modal}
                     initial={{ scale: 0.7, opacity: 0 }}
-                    animate={{ 
-                        scale: 1, 
+                    animate={{
+                        scale: 1,
                         opacity: 1,
                         transition: { duration: 0.4, ease: "circOut", opacity: { duration: 0.2 } }
-                     }}
-                    exit={{ 
+                    }}
+                    exit={{
                         opacity: 0,
                         transition: { duration: 0.15, ease: "linear" }
                     }}>
