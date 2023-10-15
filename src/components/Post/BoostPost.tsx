@@ -69,7 +69,7 @@ function BoostPost(props: Props) {
                     nombreDislike={boostedPostData.nombre_dislikes}
                     nombrePartage={boostedPostData.nombre_partages}
                     nombreCommentaire={boostedPostData.nombre_commentaires}
-                    isPostFullScreen={true}
+                    isPostFullScreen={false}
                     type={boostedPostData.id_type_post}
                     urlImageProfil={boostedPostData.url_image_profil}
                     userVote={boostedPostData.vote}
