@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import styles from '../../styles/Modal.module.css'
+import styles from '../styles/Modal.module.css'
 import { AnimatePresence, motion } from 'framer-motion';
+
 import { GrFormClose } from 'react-icons/gr'
 
 
@@ -8,7 +9,7 @@ interface Props {
     isModalOpen: boolean;
     setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 
-    content: React.ReactNode;
+    children: React.ReactNode;
 }
 
 function Modal(props: Props) {
@@ -54,7 +55,7 @@ function Modal(props: Props) {
 
                     <button className={styles.bouton_fermer} onClick={closeModal}><GrFormClose className={styles.bouton_fermer_icone}/></button>
 
-                    {props.content}
+                    {props.children}
 
                 </motion.div>
             </motion.div>
