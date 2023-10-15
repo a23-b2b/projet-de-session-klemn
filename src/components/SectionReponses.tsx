@@ -25,6 +25,7 @@ function SectionReponses(props: SectionReponsesProps) {
         setLoading(true)
 
         onAuthStateChanged(auth, (user) => {
+            console.log("chargement des commentaires de", props.idParent)
             fetch(`${process.env.REACT_APP_API_URL}/replies/${props.idParent}`, {
                 method: 'GET',
                 headers: {
@@ -44,7 +45,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     console.log(error)
                 })
         })
-    }, [])
+    }, [props.idParent])
 
     const RepliesContent = () => {
         if (replies.length > 0) {
