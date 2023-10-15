@@ -13,28 +13,31 @@ import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
+import { HelmetProvider } from 'react-helmet-async';
 
 function Layout() {
     return (
         <>
             <BrowserRouter>
-                <Header />
-                <Toaster />
-                <Routes>
-                    {/* Gestion des erreurs 404 */}
-                    <Route path="/404" element={<Erreur404 />} />
-                    <Route path="*" element={<Navigate to="/404" />} />
+                <HelmetProvider>
+                    <Header />
+                    <Toaster />
+                    <Routes>
+                        {/* Gestion des erreurs 404 */}
+                        <Route path="/404" element={<Erreur404 />} />
+                        <Route path="*" element={<Navigate to="/404" />} />
 
-                    <Route path="/" element={<Home />} />
-                    <Route path="/authenticate" element={<Landing />} />
-                    <Route path="/u/:username" element={<Profil />} />
-                    <Route path="/p/:postId" element={<PostFullScreen />} />
-                    <Route path="/parametres" element={<Parametres />}>
-                        <Route path="profil" element={<ModifierProfil />} />
-                        <Route path="interface" element={<Interface />} />
-                    </Route>
-                </Routes>
-                <Footer />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/authenticate" element={<Landing />} />
+                        <Route path="/u/:username" element={<Profil />} />
+                        <Route path="/p/:postId" element={<PostFullScreen />} />
+                        <Route path="/parametres" element={<Parametres />}>
+                            <Route path="profil" element={<ModifierProfil />} />
+                            <Route path="interface" element={<Interface />} />
+                        </Route>
+                    </Routes>
+                    <Footer />
+                </HelmetProvider>
             </BrowserRouter>
         </>
     );
