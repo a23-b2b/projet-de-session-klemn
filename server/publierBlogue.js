@@ -47,6 +47,10 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
             typePost = TypesDePost.Boost
         }
 
+        if (titre && contenu && !quotedPostId && !boostedPostId) {
+            typePost = TypesDePost.BlogLong
+        } 
+
         // faire comme ca pour les autres types de post
 
         admin.auth().verifyIdToken(idToken, true)
@@ -158,7 +162,9 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                         }
                     );
 
-                } else {
+                } 
+                
+                if (typePost === TypesDePost.BlogLong) {
                     mysqlConnection.query(
                         `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
                                            nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
