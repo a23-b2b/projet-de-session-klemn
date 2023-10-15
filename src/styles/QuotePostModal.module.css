@@ -16,7 +16,7 @@
 }
 
 .modal {
-    background-color: white;
+    background-color: var(--auto_background);
     border-radius: 10px;
     width: fit-content;
     height: fit-content;
@@ -27,4 +27,30 @@
         0px 10.9px 26.8px rgba(0, 0, 0, 0.042),
         0px 20.5px 50.1px rgba(0, 0, 0, 0.05),
         0px 49px 120px rgba(0, 0, 0, 0.07);
+
+    padding: 12px;
+    max-width: 90vw;
+}
+
+.bouton_fermer {
+    float: right;
+    height: 48px;
+    width: 48px;
+    background: none;
+    border: none;
+    border-radius: 100%;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.bouton_fermer:hover {
+    background-color: rgba(255, 0, 0, 0.151);
+    transition: 0.3s;
+}
+
+.bouton_fermer_icone {
+    margin: 0;
+    font-size: 1.5rem;
+    padding: 0;
+    margin-bottom: -2px;
 }

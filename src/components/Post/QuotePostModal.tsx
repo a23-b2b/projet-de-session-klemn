@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import BlogueForm from '../BlogueForm';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router';
+import { GrFormClose } from 'react-icons/gr'
 
 
 interface Props {
@@ -84,7 +85,7 @@ function QuotePostModal(props: Props) {
             <motion.div
                 className={styles.window}
                 initial={{ backdropFilter: 'blur(0)' }}
-                animate={{ backdropFilter: 'blur(4px)' }}
+                animate={{ backdropFilter: 'blur(4px) saturate(50%) brightness(50%)' }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15, ease: 'circOut' }}>
                 <motion.div
@@ -99,6 +100,9 @@ function QuotePostModal(props: Props) {
                         opacity: 0,
                         transition: { duration: 0.15, ease: "linear" }
                     }}>
+
+                    <button className={styles.bouton_fermer} onClick={closeModal}><GrFormClose className={styles.bouton_fermer_icone}/></button>
+
 
                     <div className={styles.conteneur}>
                         <h2 className={styles.titre}>Publication</h2>
@@ -121,8 +125,6 @@ function QuotePostModal(props: Props) {
                             Publier
                         </button>
                     </div>
-
-                    <button onClick={closeModal}>fermer</button>
                 </motion.div>
             </motion.div>
         } </AnimatePresence>
