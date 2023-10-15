@@ -3,12 +3,14 @@ import PosteQuestion from './Post/PosteQuestion';
 import PosteCollab from './Post/PosteCollab';
 import Reponse from "./Reponse";
 import QuotePost from './Post/QuotePost';
+import BoostPost from './Post/BoostPost';
 
 export const TYPE_BLOGUE = 1;
 export const TYPE_QUESTION = 2;
 export const TYPE_COLLABORATION = 3;
 export const TYPE_REPONSE = 4;
 export const TYPE_QUOTE_POST = 5;
+export const TYPE_BOOST = 6 // boost est quand qqun partage et donc "insere" le post dans le feed des autres
 
 interface Props {
     idPost: string;
@@ -133,6 +135,20 @@ function Post(props: Props) {
                     userVote={props.userVote} 
 
                     quotedPostId={props.sharedPostId}
+                />
+            )}
+
+            {props.type === TYPE_BOOST && props.sharedPostId && !props.isSharedPostQuote && (
+                <BoostPost
+                    date={props.date}
+                    nomAffichage={props.nomAffichage}
+                    nomUtilisateur={props.nomUtilisateur}
+                    idCompte={props.idCompte}
+                    isPostFullScreen={props.isPostFullScreen}
+                    idPost={props.idPost}
+                    urlImageProfil={props.urlImageProfil}
+
+                    boostedPostId={props.sharedPostId}
                 />
             )}
         </>
