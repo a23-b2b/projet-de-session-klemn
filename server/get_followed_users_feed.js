@@ -20,10 +20,11 @@ module.exports = app.post('/', (req, res) => {
 
     console.log(userId)
 
-    mysqlConnection.query(`
-        SELECT * , v.score as vote
+    mysqlConnection.query(`       
+        select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote, post_partage.id_shared_post, post_partage.is_quoted_post
         from post
-        left join vote v on post.id_post = v.id_post and v.id_compte = ? 
+        left join vote v on post.id_post = v.id_post and v.id_compte = ?
+        left join post_partage on post.id_post = post_partage.id_post_original
         inner join compte c on post.id_compte = c.id_compte
         inner join compte_suivi cs on post.id_compte = cs.suit 
         WHERE compte LIKE ? AND id_type_post != 4
