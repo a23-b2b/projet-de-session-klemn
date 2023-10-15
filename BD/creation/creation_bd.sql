@@ -1,10 +1,9 @@
+-- Active: 1693586986008@@localhost@32769@dev
 DROP TABLE IF EXISTS image_post;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS type_post;
 DROP TABLE IF EXISTS compte;
 DROP TABLE IF EXISTS autorisation;
-
-
 
 CREATE TABLE autorisation (
     id_autorisation     int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -95,14 +94,3 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
-
-create table post_partage
-(
-    id_post_original varchar(255) not null,
-    id_shared_post   varchar(255) not null,
-    is_quoted_post   tinyint(1)   null,
-    constraint post_partage_post_id_post_fk
-        foreign key (id_post_original) references post (id_post),
-    constraint post_partage_post_id_post_fk2
-        foreign key (id_shared_post) references post (id_post)
-);
