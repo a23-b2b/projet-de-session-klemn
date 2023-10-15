@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import styles from '../../styles/QuotePostModal.module.css'
+import styles from '../../styles/Modal.module.css'
 import { AnimatePresence, motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import BlogueForm from '../BlogueForm';
