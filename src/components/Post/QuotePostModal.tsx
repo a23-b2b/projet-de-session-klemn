@@ -37,7 +37,6 @@ function QuotePostModal(props: Props) {
     }
 
     function closeModal() {
-        toast.success("BYEBYE WORLD")
         setShouldModalBeDisplayed(false)
         props.setIsModalOpen(false)
     }
