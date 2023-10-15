@@ -6,6 +6,8 @@ import SectionReponses from '../components/SectionReponses';
 import styles from '../styles/PostFullScreen.module.css'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
+import { Helmet } from "react-helmet-async";
+import SEO from '../components/SEO';
 
 
 function PostFullScreen() {
@@ -27,11 +29,11 @@ function PostFullScreen() {
                 .then(response => response.json())
                 .then(response => {
                     let data = response[0]
-    
+
                     if (!data) {
                         navigate("/404")
                     }
-    
+
                     setPostData(data)
                 })
                 .catch((error) => {
@@ -39,13 +41,16 @@ function PostFullScreen() {
                 })
         });
 
-        
+
     }, [postId]);
 
     if (postData) {
         console.log(postData)
         return (
             <div className={styles.body}>
+            <SEO title={`${postData.nom_affichage} sur Klemn`} description={`${postData.nom_affichage}: ${postData.contenu}`} username={postData.nom_affichage} type='article'/>
+
+
                 <Post
                     idPost={postData.id_post}
                     date={postData.date_publication}
