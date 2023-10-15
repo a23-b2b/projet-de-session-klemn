@@ -1,12 +1,10 @@
-import styles from '../../styles/QuotedPost.module.css'
-import PostHeader from './Header';
-import PostFooter from './Footer';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PostContent from './Contenu';
 import Post from '../Post';
+import { FaRetweet } from 'react-icons/fa6';
+import styles from '../../styles/BoostedPost.module.css'
 
 interface Props {
     idPost: string;
@@ -55,8 +53,11 @@ function BoostPost(props: Props) {
 
     if (boostedPostData) {
         return (
-            <div className={styles.container}>
-                <h3>{props.nomAffichage} partage ceci: </h3>
+            <div>
+                <span>
+                    <FaRetweet className={styles.icone_boost}/>
+                    <Link to={`/p/${boostedPostData.nom_utilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
+                </span>
                 <Post
                     idPost={boostedPostData.id_post}
                     date={boostedPostData.date_publication}
