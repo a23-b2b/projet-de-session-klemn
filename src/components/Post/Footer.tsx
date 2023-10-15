@@ -11,6 +11,7 @@ import { FaQuoteRight, FaRetweet } from 'react-icons/fa6';
 import { LuCopy } from 'react-icons/lu'
 import toast from 'react-hot-toast';
 import QuotePostModal from './QuotePostModal';
+import { auth } from '../../firebase';
 
 interface FooterProps {
     idPost: string;
@@ -34,8 +35,7 @@ const PostFooter = (props: FooterProps) => {
                 break;
 
             case "repost":
-                toast.success("Option Repost selectionnee")
-
+                handleBoostPost()
                 break;
 
             case "copy_url":
@@ -45,6 +45,32 @@ const PostFooter = (props: FooterProps) => {
 
             default:
                 break;
+        }
+    }
+
+    async function handleBoostPost() {
+        // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
+        const utilisateur = auth.currentUser;
+        if (utilisateur) {
+            utilisateur.getIdToken(/* forceRefresh */ true)
+                .then((idToken) => {
+                    fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id_compte: utilisateur.uid,
+                            contenu: `boosted_id=${props.idPost}`,
+                            boosted_post_id: props.idPost,
+                            firebase_id_token: idToken
+                        }),
+                    }).then(response => response.json())
+                        .then(response => {
+                            toast.success('La publication à été partagée!');
+
+                        }).catch((error) => {
+                            toast.error('Une erreur est survenue');
+                        })
+                })
         }
     }
 
@@ -82,7 +108,7 @@ const PostFooter = (props: FooterProps) => {
                 </Menu>
             </div>
 
-            <QuotePostModal quotedPostId={props.idPost} isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen}/>
+            <QuotePostModal quotedPostId={props.idPost} isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen} />
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
