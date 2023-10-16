@@ -3,6 +3,8 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChakraProvider } from '@chakra-ui/react'
+import { Select } from '@chakra-ui/react'
 
 function BlogueForm() {
     const navigate = useNavigate();
