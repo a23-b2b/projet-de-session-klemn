@@ -39,11 +39,13 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {
+
                 mysqlConnection.query(
                     `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, ?, ?, 0, 0, 0, 0, 0, NOW());`,
-                    [id_compte, id_type_post,  titre, contenu],
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
+                    [id_compte, titre, contenu, id_compte],
                     function (err, results, fields) {
                         //gererErreur(err, res, results, "POSTER BLOGUE ERR");
                         
@@ -77,14 +79,14 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4
                             })
 
 
+                        
                     }
-
                 );
-
             })
             .catch((error) => {
                 res.status(500).send("ERREUR: " + error.code)
             });
+
     } else {
         // Erreur de validation des donnees (Express-validator)
         res.send(JSON.stringify(resultatValidation))
