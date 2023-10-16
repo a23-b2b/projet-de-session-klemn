@@ -14,13 +14,16 @@ const mysqlConnection = mysql.createConnection({
 
 module.exports = app.get('/:id_compte', (req, res) => {
     const id_compte = req.params.id_compte
-    // select ses projet
+    
     mysqlConnection.query(`
-        SELECT compte.id_compte, compte.url_image_profil p.id_projet, p.titre, p.description
+        SELECT compte.id_compte, compte.url_image_profil, p.id_projet, p.titre, d.id_demande_collab
         FROM compte 
-        LEFT JOIN demande_collab d ON compte.id_compte = d.id_collaborateur`, 
-        [],
+        LEFT JOIN projet p ON compte.id_compte = p.id_compte_id_proprio
+        LEFT JOIN demande_collab d ON compte.id_compte = d.id_collaborateur
+        WHERE p.id_compte_id_proprio = ?;`, 
+        [id_compte],
         function(err, results, fields) {
-
+            res.send(results)
+            console.log(results.toString())
         })
 })
