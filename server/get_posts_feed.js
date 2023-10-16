@@ -30,7 +30,7 @@ module.exports = app.post('/', (req, res) => {
         order by date_publication desc
         limit ? offset ?;
 `,
-        [userId, limit, offset],
+        [limit, offset],
         function (err, results, fields) {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
