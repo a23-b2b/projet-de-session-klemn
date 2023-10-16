@@ -37,3 +37,14 @@ VALUES  (4, 'Réponse'),
         (1, 'Blogue');
 
 COMMIT;
+
+select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse, v.score as vote
+            from post
+            left join vote v on post.id_post = v.id_post and v.id_compte = "yjoI2WF3w4WVr3kD9L01shSjjnL2"
+            left join post_collab p on post.id_post = p.post_id_post
+            left join post_question q on post.id_post = q.post_id_post
+            inner join compte c on post.id_compte = c.id_compte            
+            where id_type_post != 4
+            order by date_publication desc
+
+            

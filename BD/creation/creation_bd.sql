@@ -108,3 +108,28 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
+    
+CREATE TABLE post_collab (
+  id_collab VARCHAR(255) PRIMARY KEY, 
+  est_ouvert BOOLEAN NOT NULL DEFAULT TRUE, 
+  url_git VARCHAR (255), 
+  post_id_post VARCHAR(255), 
+  CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
+  );
+
+  CREATE TABLE demande_collab (
+  id_demande_collab VARCHAR(255) PRIMARY KEY, 
+  est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
+  post_collab_id_collab VARCHAR(255), 
+  id_collaborateur VARCHAR (255), 
+  CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
+  CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
+);
+CREATE TABLE post_question (
+  id_question VARCHAR(255) PRIMARY KEY, 
+  est_resolu BOOLEAN NOT NULL DEFAULT FALSE, 
+  post_id_post VARCHAR(255), 
+  post_meilleure_reponse VARCHAR(255) NULL, 
+  CONSTRAINT post_question_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post), 
+  CONSTRAINT post_question_post_meilleure_reponse_fk FOREIGN KEY (post_meilleure_reponse) REFERENCES post (id_post)
+);
