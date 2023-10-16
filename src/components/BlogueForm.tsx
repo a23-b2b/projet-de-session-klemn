@@ -84,6 +84,14 @@ function BlogueForm() {
                         setContenu(e.target.value)
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
+                    <ChakraProvider>
+                        <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
+                            <option value='blogue'>Blogue</option>
+                            <option value='question'>Question</option>
+                            <option value='collab'>Collaboration</option>
+                        </Select>
+                
+                    </ChakraProvider>
                     {hidden && <div >
                         <label className={'global_input_field_label'}>URL du projet GitHub</label>
                         <input
