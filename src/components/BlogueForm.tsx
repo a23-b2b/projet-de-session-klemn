@@ -14,6 +14,7 @@ function BlogueForm() {
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
     const [hidden, setHidden] = useState(true);
+    const [urlGit, setUrlGit] = useState("");
 
     const changerType = (event: any) => {
         setType(event.target.value);
@@ -32,13 +33,14 @@ function BlogueForm() {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
+                        fetch(`${process.env.REACT_APP_API_URL}/publier-blogue/${type}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 id_compte: utilisateur.uid,
                                 titre: titre,
                                 contenu: contenu,
+                                urlGit: urlGit,
                                 firebase_id_token: idToken
                             }),
                         }).then(response => response.json())
@@ -91,7 +93,7 @@ function BlogueForm() {
                             placeholder='https://github.com/'                                                      
                             type="text"
                             className={'global_input_field'}
-                            onChange={(e) => (e.target.value)}/>
+                            onChange={(e) => setUrlGit(e.target.value)}/>
                     </div>}
             </div>
             <span>{nbCaracteres}/4000</span>

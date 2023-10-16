@@ -1,4 +1,4 @@
--- Active: 1693586986008@@localhost@32769@dev
+-- Active: 1697459873316@@127.0.0.1@3306@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 

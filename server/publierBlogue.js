@@ -17,7 +17,7 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
+module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
@@ -25,8 +25,8 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
 
         const titre = req.body.titre;
         const contenu = req.body.contenu;
-        const idToken = req.body.firebase_id_token
-
+        const idToken = req.body.firebase_id_token;
+        const urlGit = req.body.urlGit;
         const typePoste = req.params.type;
         
         var id_type_post = 1;
@@ -52,6 +52,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                             [id_compte],
                             function (err, results, fields) {
                                 const id_post = JSON.parse(JSON.stringify(results[0])).id_post;
+                                //console.log(results.id_post)
 
                                 if (typePoste == 'collab') {
                                     mysqlConnection.query(
