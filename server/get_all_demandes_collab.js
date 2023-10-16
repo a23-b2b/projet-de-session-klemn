@@ -18,9 +18,9 @@ module.exports = app.get('/:id_compte', (req, res) => {
     mysqlConnection.query(`
         SELECT compte.id_compte, compte.url_image_profil, p.id_projet, p.titre, d.id_demande_collab
         FROM compte 
-        LEFT JOIN projet p ON compte.id_compte = p.id_compte_id_proprio
-        LEFT JOIN demande_collab d ON compte.id_compte = d.id_collaborateur
-        WHERE p.id_compte_id_proprio = ?;`, 
+        INNER JOIN projet p ON compte.id_compte = p.id_compte_id_proprio
+        LEFT JOIN demande_collab d ON p.id_projet = d.post_collab_id_collab
+        WHERE p.id_compte_id_proprio = ? ;`, 
         [id_compte],
         function(err, results, fields) {
             res.send(results)
