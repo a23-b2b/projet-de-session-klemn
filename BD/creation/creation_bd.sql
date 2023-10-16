@@ -20,7 +20,7 @@ DROP
 DROP 
   TABLE IF EXISTS type_post;
 CREATE TABLE autorisation (
-    id_autorisation     int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_autorisation     varchar(255) NOT NULL PRIMARY KEY,
     titre_autorisation  varchar(255)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE compte(
     biographie                      VARCHAR(1000),
     url_image_profil                VARCHAR(1000),
     url_image_banniere              VARCHAR(1000),
-    autorisation_id_autorisation    int NOT NULL,
+    autorisation_id_autorisation    varchar(255) NOT NULL,
     FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
     CONSTRAINT uc_compte_nom_utilisateur UNIQUE (nom_utilisateur),
     CONSTRAINT uc_compte_courriel UNIQUE (courriel)
