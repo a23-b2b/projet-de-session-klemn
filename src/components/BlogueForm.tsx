@@ -3,7 +3,6 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChakraProvider } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
 
 function BlogueForm() {
@@ -86,14 +85,14 @@ function BlogueForm() {
                         setContenu(e.target.value)
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
-                    <ChakraProvider>
+                    {/* <ChakraProvider> */}
                         <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
                             <option value='blogue'>Blogue</option>
                             <option value='question'>Question</option>
                             <option value='collab'>Collaboration</option>
                         </Select>
                 
-                    </ChakraProvider>
+                    {/* </ChakraProvider> */}
                     {hidden && <div >
                         <label className={'global_input_field_label'}>URL du projet GitHub</label>
                         <input
