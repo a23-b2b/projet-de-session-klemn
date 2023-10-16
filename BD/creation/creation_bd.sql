@@ -1,5 +1,4 @@
--- Active: 1693586986008@@localhost@32769@dev
-DROP TABLE IF EXISTS projet CASCADE;
+-- Active: 1694035110728@@localhost@3306@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -9,7 +8,13 @@ DROP
 DROP 
   TABLE IF EXISTS demande_collab;
 DROP 
-  TABLE IF EXISTS post_collab;
+  TABLE IF EXISTS post_collab CASCADE;
+
+DROP
+  TABLE IF EXISTS collaborateur CASCADE;
+DROP 
+  TABLE IF EXISTS projet CASCADE;
+
 DROP 
   TABLE IF EXISTS post_question;
 DROP 
@@ -98,6 +103,8 @@ create table vote (
 
 CREATE TABLE projet (
   id_projet varchar(255) PRIMARY KEY,
+  titre_projet VARCHAR(255),
+  description_projet VARCHAR(255),
   url_repo_git varchar(255),
   est_ouvert BOOLEAN DEFAULT FALSE,
   compte_id_proprio varchar(255),
@@ -114,17 +121,17 @@ CREATE TABLE post_collab (
 
 CREATE TABLE collaborateur (
   id_collaborateur varchar(255) PRIMARY KEY,
-  compte_id_collaborateur varchar(255),
+  compte_id_compte varchar(255),
   projet_id_projet varchar(255),
-  CONSTRAINT collaborateur_projet_id_projet FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet),
-  CONSTRAINT collaborateur_compte_id_collaborateur FOREIGN KEY (compte_id_collaborateur) REFERENCES compte (id_compte)   
+  CONSTRAINT collaborateur_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet),
+  CONSTRAINT collaborateur_compte_id_collaborateur_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)   
 ) comment 'Contient le lien entre les comptes participants et les projets';
 
 CREATE TABLE demande_collab (
   id_demande_collab VARCHAR(255) PRIMARY KEY, 
   est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
-  post_collab_id_collab VARCHAR(255), 
-  id_collaborateur VARCHAR (255), 
+  post_collab_id_collab VARCHAR(255) comment 'Le post collab source utilisé pour générer la demande', 
+  compte_id_compte VARCHAR(255) comment 'Collaborateur potentiel', 
   CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
-  CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
+  CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
 );
