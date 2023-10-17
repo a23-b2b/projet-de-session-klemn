@@ -12,8 +12,6 @@ interface ContentProps {
 }
 
 const PostContent = (props: ContentProps) => {
-    const navigate = useNavigate()
-
     const contentRef = useRef<HTMLInputElement>(null)
     const [contentHeight, setContentHeight] = useState(0)
 
@@ -29,10 +27,6 @@ const PostContent = (props: ContentProps) => {
             console.log('contentHeight', contentHeight)
         }
     }, [contentHeight]);
-
-    function handleExpandContent() {
-        navigate('/p/' + props.idPost)
-    }
 
     return (
         <div className={styles.contenu} ref={contentRef}>
@@ -64,9 +58,12 @@ const PostContent = (props: ContentProps) => {
 
 
             {displayShowMoreButton &&
-                <button onClick={() => handleExpandContent()}>
-                    <BsArrowBarDown /> Voir plus
-                </button>
+                <Link to={`/p/${props.idPost}`}>
+                    <button>
+                        <BsArrowBarDown /> Voir plus
+                    </button>
+                </Link>
+
             }
         </div>
     )
