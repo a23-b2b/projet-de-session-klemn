@@ -32,7 +32,7 @@ interface Props {
 
     // props collab optionnels
     idProjet?: string; 
-    estOuvert?: Boolean; // va dependre du ID de projet
+    estOuvert?: Boolean; // va dependre du projet
 }
 
 function Post(props: Props) {
