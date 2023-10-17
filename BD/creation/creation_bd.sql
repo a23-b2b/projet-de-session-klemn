@@ -1,4 +1,4 @@
--- Active: 1694035110728@@localhost@3306@dev
+-- Active: 1697551367961@@127.0.0.1@3306@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -130,8 +130,8 @@ CREATE TABLE collaborateur (
 CREATE TABLE demande_collab (
   id_demande_collab VARCHAR(255) PRIMARY KEY, 
   est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
-  post_collab_id_collab VARCHAR(255) comment 'Le post collab source utilisé pour générer la demande', 
+  projet_id_projet VARCHAR(255),
   compte_id_compte VARCHAR(255) comment 'Collaborateur potentiel', 
-  CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
+  CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet), 
   CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
 );
