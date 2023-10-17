@@ -171,7 +171,7 @@ function Home() {
                         
                         // Collab
                         projet_id_projet,
-                        est_ouvert // doit venir du projet et non de la table post_collab
+                        est_ouvert
                         
                     }) => {                        
                         return (<>
