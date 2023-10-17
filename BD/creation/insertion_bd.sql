@@ -85,8 +85,13 @@ VALUES
   ('id_collab_1', 'id_projet_1', 'post_collab_id_3');
 
 INSERT INTO demande_collab 
-  (id_demande_collab, est_accepte, post_collab_id_collab, compte_id_compte) 
+  (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte) 
 VALUES 
-  ('id_demande_collab_1', false, 'id_collab_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
+  ('id_demande_collab_1', false, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
 
 COMMIT;
+
+SELECT compte.id_compte, compte.url_image_profil, compte.nom_utilisateur, p.id_projet, p.titre_projet, d.id_demande_collab
+        FROM compte 
+        INNER JOIN projet p ON compte.id_compte = p.compte_id_proprio
+        INNER JOIN demande_collab d ON p.id_projet = d.projet_id_projet
