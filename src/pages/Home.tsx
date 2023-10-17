@@ -165,13 +165,14 @@ function Home() {
                         url_image_profil,
                         vote,
 
-                        // Question et Collab
+                        // Question 
                         post_meilleure_reponse,
                         est_resolu,
-
-                        url_git,
-                        est_ouvert,
-                        id_collab
+                        
+                        // Collab
+                        projet_id_projet,
+                        est_ouvert // doit venir du projet et non de la table post_collab
+                        
                     }) => {                        
                         return (<>
                             {id_type_post == TYPE_BLOGUE && (
@@ -233,9 +234,9 @@ function Home() {
                                     userVote={vote}
                                     
                                     // Colllab Props
-                                    urlGit={url_git}
-                                    estOuvert={est_ouvert}
-                                    idCollab={id_collab} />
+                                    idProjet={projet_id_projet}
+                                    estOuvert={est_ouvert} 
+                                    />
                             )}
                         </>)
                     })}

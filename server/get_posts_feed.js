@@ -21,11 +21,12 @@ module.exports = app.post('/', (req, res) => {
     console.log(userId)
 
     mysqlConnection.query(`
-        SELECT post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse 
+        SELECT post.*, u.nom_affichage, u.nom_utilisateur, u.url_image_profil, c.projet_id_projet, p.est_ouvert, q.est_resolu, q.post_meilleure_reponse 
         FROM post
-        INNER JOIN compte c on post.id_compte = c.id_compte
-        LEFT JOIN post_collab p ON post.id_post = p.post_id_post
+        INNER JOIN compte u on post.id_compte = u.id_compte
+        LEFT JOIN post_collab c ON post.id_post = c.post_id_post
         LEFT JOIN post_question q ON post.id_post = q.post_id_post
+        INNER JOIN projet p ON c.projet_id_projet = p.id_projet
         where id_type_post != 4
         order by date_publication desc
         limit ? offset ?;

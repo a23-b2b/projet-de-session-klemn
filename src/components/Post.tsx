@@ -31,9 +31,8 @@ interface Props {
     idMeilleureReponse?: string;
 
     // props collab optionnels
-    urlGit?: string; 
-    estOuvert?: Boolean;
-    idCollab?: string;
+    idProjet?: string; 
+    estOuvert?: Boolean; // va dependre du ID de projet
 }
 
 function Post(props: Props) {
