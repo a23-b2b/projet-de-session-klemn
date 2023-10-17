@@ -90,8 +90,3 @@ VALUES
   ('id_demande_collab_1', false, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
 
 COMMIT;
-
-SELECT compte.id_compte, compte.url_image_profil, compte.nom_utilisateur, p.id_projet, p.titre_projet, d.id_demande_collab
-        FROM compte 
-        INNER JOIN projet p ON compte.id_compte = p.compte_id_proprio
-        INNER JOIN demande_collab d ON p.id_projet = d.projet_id_projet
