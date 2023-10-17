@@ -1,4 +1,4 @@
--- Active: 1694035110728@@localhost@3306@dev
+-- Active: 1697551367961@@127.0.0.1@3306@dev
 INSERT INTO autorisation (
   id_autorisation, titre_autorisation
 ) 
