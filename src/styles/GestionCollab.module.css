@@ -1,3 +1,51 @@
 .ligne_gestion_demande_collab{
-    
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: baseline;
+    border: 1px solid red;
+    width: 40%;
+    height: 100px;
+}
+
+.titre_mes_demandes {
+    text-align: left;
+}
+
+.titre_mes_projets_rapide {
+    text-align: end;
+}
+
+.conteneur_info_compte {
+    border: 1px solid orange;
+    display:inline;
+    align-self: center;
+}
+
+.nom_utilisateur {
+    text-align: left;
+}
+
+.titre_projet {
+    text-align: left;
+}
+
+.image_profil {
+    width: 200px;
+    height: 200px;
+    align-self: center;
+}
+
+.icone {
+    width: 10%;
+    height: 10%;
+    display:block;
+    margin:auto;
+}
+
+.bouton {
+    position: relative;
+    border: 1px solid orange;
+    align-self: center;
 }
