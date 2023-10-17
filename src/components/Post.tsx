@@ -108,9 +108,8 @@ function Post(props: Props) {
                     userVote={props.userVote}
 
                     // Collab Prop
-                    urlGit={props.urlGit}
                     estOuvert={props.estOuvert}
-                    idCollab={props.idCollab}
+                    idProjet={props.idProjet}
                 />
             )}
         </>

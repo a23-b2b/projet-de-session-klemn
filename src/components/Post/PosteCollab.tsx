@@ -6,7 +6,6 @@ import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 
-
 export interface CollabProp {
     idPost: string;
     date: string;
@@ -22,9 +21,8 @@ export interface CollabProp {
     urlImageProfil: string;
     userVote: number;
 
-    urlGit?: string;
     estOuvert?: Boolean;
-    idCollab?: string;
+    idProjet?: string;
 
     isPostFullScreen: Boolean;
 }
@@ -40,8 +38,8 @@ function PosteCollab(props: CollabProp) {
             const uid = user.uid;
             user.getIdToken(true)
                 .then((idToken) => {
-                    console.log(props.idCollab)
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idCollab}/${uid}`, {
+                    console.log("Id Projet: (demanderCollaboration)"+ props.idProjet)
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}/${uid}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -73,13 +71,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!actif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>
-            
-            {props.urlGit !== null && props.estOuvert === true && ( 
-                <a href={props.urlGit}>
-                    URL de projet GitHub
-                </a>
-            )}    
+            <button disabled={!actif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
 
             <PostFooter
                 idPost={props.idPost}

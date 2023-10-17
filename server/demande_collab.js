@@ -13,12 +13,13 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
-module.exports = app.post('/p/:id_post_collab/:id_compte_collaborateur', (req, res) => {
+// /p/${props.idProjet}/${uid}`, {
+module.exports = app.post('/p/:id_projet/:id_compte_collaborateur', (req, res) => {
     const idToken = req.body.firebase_id_token;
 
-    const id_post_collab = req.params.id_post_collab;
+    const id_projet = req.params.id_projet;
     const id_collaborateur = req.params.id_compte_collaborateur;
-
+    
     admin.auth().verifyIdToken(idToken, true)
         .then((payload) => {
             mysqlConnection.query(
