@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from '../../styles/Post.module.css'
-import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { BsArrowBarDown } from 'react-icons/bs'
 
 
 interface ContentProps {
@@ -12,111 +12,62 @@ interface ContentProps {
 }
 
 const PostContent = (props: ContentProps) => {
-    const [postContent, setPostContent] = useState('')
-    const [isPostExpanded, setIsPostExpanded] = useState(false);
+    const navigate = useNavigate()
 
-    let truncatedPostContent = props.contenu.slice(0, 247)
+    const contentRef = useRef<HTMLInputElement>(null)
+    const [contentHeight, setContentHeight] = useState(0)
 
-    if (props.contenu.length > 247 && !isPostExpanded) truncatedPostContent += '...'
+    const maxHeight = 150;
 
-    let contentAfterTruncatedPostContent = props.contenu.slice(247)
-
-    const postTruncated = props.contenu.length > 247
+    const showFullContent = contentHeight <= maxHeight || props.isPostFullScreen;
+    const displayShowMoreButton = !showFullContent && !props.isPostFullScreen
 
 
     useEffect(() => {
-        if (props.isPostFullScreen) setIsPostExpanded(true)
-        setPostContent(truncatedPostContent)
-    }, [])
-
+        if (contentRef.current) {
+            setContentHeight(contentRef.current.clientHeight)
+            console.log('contentHeight', contentHeight)
+        }
+    }, [contentHeight]);
 
     function handleExpandContent() {
-        // if (!props.isPostFullScreen && postTruncated) {
-        //     setIsPostExpanded(!isPostExpanded)
-
-        //     if (isPostExpanded) {
-        //         setPostContent(props.contenu)
-        //     } else {
-        //         setPostContent(truncatedPostContent)
-        //     }
-        // }
-
-        if (!props.isPostFullScreen) {
-            if (postTruncated) {
-                setIsPostExpanded(!isPostExpanded);
-            }
-        }
+        navigate('/p/' + props.idPost)
     }
 
     return (
-        <div className={styles.contenu}>
+        <div className={styles.contenu} ref={contentRef}>
+            {props.isPostFullScreen ?
+                <h2 className={styles.titre}>
+                    {props.titre}
+                </h2>
 
-            {
-                props.isPostFullScreen ?
+                :
 
-                    <h2 className={styles.titre}>
+                <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                    <h2>
                         {props.titre}
                     </h2>
-                    :
-                    <Link to={`/p/${props.idPost}`} className={styles.titre}>
-                        <h2>
-                            {props.titre}
-                        </h2>
-                    </Link>
+                </Link>
+            }
+
+            {showFullContent && !displayShowMoreButton &&
+                <p>
+                    {props.contenu}
+                </p>
+            }
+
+            {!showFullContent &&
+                <div style={{ maxHeight: `${maxHeight}px`, overflow: "hidden" }}>
+                    {props.contenu}
+                </div>
             }
 
 
-
-
-            <motion.div>
-                {/* <p className={styles.contenu}>{props.contenu.length > 250 && !props.isContentExpanded ? <motion.div layout>{`${props.contenu.slice(0, 247)}...`} </motion.div>: <motion.div layout>{props.contenu}</motion.div>}</p> */}
-                {/* <p className={styles.contenu}>{props.contenu.length > 250 && !props.isContentExpanded ? `${props.contenu.slice(0, 247)}...` : props.contenu}</p> */}
-                {/* {props.isContentExpanded ? <p className={styles.contenu}>{props.contenu}</p> : <p className={styles.contenu}>{truncatedPostContent}</p>} */}
-
-                <div className={styles.contenu} onClick={() => handleExpandContent()}>
-
-
-                    {/* {postContent} */}
-
-                    {/* <div style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                        <p className={styles.contenu}>{props.contenu}</p>
-                    </div> */}
-
-                    {/* <AnimatePresence>
-                        {!isPostExpanded && (
-                            <motion.div>
-                                {truncatedPostContent}
-                            </motion.div>
-                        )}
-                    </AnimatePresence> */}
-
-                    {!isPostExpanded && (
-                        <p>{truncatedPostContent}</p>
-                    )}
-
-                    <AnimatePresence>
-                        {isPostExpanded && (
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                {props.contenu}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                </div>
-
-                {/* <AnimatePresence>
-                    {props.isContentExpanded && (
-                        // <div style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                        //     <p className={styles.contenu}>{props.contenu}</p>
-                        // </div>
-
-
-                        <motion.div initial={{ height: 'auto', opacity: 1 }} animate={{ maxHeight: '200px', opacity: 1 }} exit={{ height: 'auto', opacity: 1 }} style={{ overflow: "hidden" }}>
-                            <p className={styles.contenu}>{props.contenu}</p>
-                        </motion.div>
-                    )}
-                </AnimatePresence> */}
-            </motion.div>
+            {displayShowMoreButton &&
+                <button onClick={() => handleExpandContent()}>
+                    <BsArrowBarDown /> Voir plus
+                </button>
+            }
         </div>
     )
 
