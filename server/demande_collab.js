@@ -24,7 +24,7 @@ module.exports = app.post('/p/:id_projet/:id_compte_collaborateur', (req, res) =
         .then((payload) => {
             mysqlConnection.query(
                 `INSERT INTO demande_collab 
-                    (id_demande_collab, est_accepte, post_collab_id_collab, compte_id_compte)
+                    (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte)
                 VALUES
                     (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, ?, ?);`, 
                     [id_post_collab, id_collaborateur], 
