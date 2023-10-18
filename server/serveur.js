@@ -33,7 +33,7 @@ const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
 const get_profil = require('./get_profil')
-app.use('/profil', get_profil);
+app.use('/user', get_profil);
 
 const follow_user = require('./follow_user');
 app.use('/follow-user', follow_user);
