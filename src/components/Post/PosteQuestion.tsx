@@ -32,8 +32,10 @@ function PosteQuestion(props: QuestionProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} 
-                urlImageProfil={props.urlImageProfil} />
+                nomUtilisateur={props.nomUtilisateur}
+                urlImageProfil={props.urlImageProfil}
+                idPost={props.idPost} />
+
 
             <PostContent
                 titre={props.titre}
@@ -43,9 +45,9 @@ function PosteQuestion(props: QuestionProp) {
 
             {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
 
-            { props.idMeilleureReponse && (
+            {props.idMeilleureReponse && (
                 <Link to={`/p/${props.idMeilleureReponse}`}>
-                <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
+                    <p>Meilleure Réponse: {props.idMeilleureReponse}</p>
                 </Link>
             )}
 

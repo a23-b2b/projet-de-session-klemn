@@ -2,12 +2,16 @@ import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
 
+
 interface HeaderProps {
     date: string;
     nomAffichage: string;
     nomUtilisateur: string;
     urlImageProfil: string;
+    idPost: string;
+
 }
+
 
 
 const UNE_MINUTE_EN_SECONDES = 60
@@ -61,9 +65,31 @@ const PostHeader = (props: HeaderProps) => {
         timeStampText = `${datePost.getDate} ${datePost.getMonth} ${datePost.getFullYear}`
     }
 
+    const handleDeletePost = async () => {
+        try {
+            const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_post: props.idPost }),
+
+            });
+            console.log(props.idPost)
+
+            if (response.ok) {
+                console.log("Le post a été supprimé avec succès.");
+            } else {
+                // Gérer les erreurs ici
+                console.error("Erreur lors de la suppression du post.");
+            }
+        } catch (error) {
+            console.error("Erreur inattendue : ", error);
+        }
+    };
+
     console.log(props.urlImageProfil)
     return (
-        <div className={styles.header}>
+        <div className={styles.header} >
+            <button onClick={() => handleDeletePost()} >delete</button>
 
             <div className={styles.header_content}>
 

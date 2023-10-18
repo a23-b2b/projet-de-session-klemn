@@ -28,8 +28,9 @@ function PosteBlogue(props: BlogueProp) {
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} 
-                urlImageProfil={props.urlImageProfil} />
+                nomUtilisateur={props.nomUtilisateur}
+                urlImageProfil={props.urlImageProfil}
+                idPost={props.idPost} />
 
             <PostContent
                 titre={props.titre}
@@ -43,7 +44,7 @@ function PosteBlogue(props: BlogueProp) {
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
-                isPostFullScreen={props.isPostFullScreen} 
+                isPostFullScreen={props.isPostFullScreen}
                 userVote={props.userVote} />
         </div>
     );
