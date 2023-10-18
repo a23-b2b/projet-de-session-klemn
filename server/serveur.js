@@ -89,6 +89,9 @@ app.use('/get-all-demande-collab', get_all_demande_collab)
 const get_all_projets = require('./get_all_projet.js')
 app.use('/get-all-projets', get_all_projets)
 
+const delete_project = require('./delete_project')
+app.use('/projet/delete', delete_project)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });

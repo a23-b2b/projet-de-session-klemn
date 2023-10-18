@@ -4,8 +4,9 @@ import poubelle from '../images/icn-delete.png';
 import ouvert from '../images/icn-open.png';
 import collaboration from '../images/icn-collaboration.png';
 import fermer from '../images/icn-closed.png';
-
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export interface PropsProjet {
     id_projet: String,
@@ -16,7 +17,23 @@ export interface PropsProjet {
 }
 
 function GestionProjetRapide(props: PropsProjet) {
-    
+    const navigate = useNavigate();
+
+    async function supprimerProjet() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user?.uid == props.compte_id_proprio) {
+                // https://builtin.com/software-engineering-perspectives/react-api 
+                fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
+                    method: 'POST'
+                })
+                .catch(error => toast.error(JSON.stringify(error)));
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
+
     return (
         <>
             <div className={styles.ligne_gestion_projet}>
@@ -34,19 +51,12 @@ function GestionProjetRapide(props: PropsProjet) {
                         </div>
 
                         <div className={styles.poubelle}>
-                            <button onClick={() => { /* TODO: Delete project */ }}>
+                            <button onClick={supprimerProjet}>
                                 <img src={poubelle} className={styles.icone} />
                             </button>
                         </div>
-                    
 
-                    
-
-
-                        {/* Rang/e du bas */}
-
-
-                    
+                        {/* Rang/e du bas */}     
                         <div className={styles.conteneur_description_projet}>
                             <p>Description: {props.description}</p>
                         </div>
