@@ -13,7 +13,7 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.get('/replies/:post_id/replies', (req, res) => {
+module.exports = app.get('/:post_id/replies', (req, res) => {
     console.log(req.params)
     const userId = req.headers.authorization
 
