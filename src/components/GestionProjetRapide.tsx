@@ -34,6 +34,26 @@ function GestionProjetRapide(props: PropsProjet) {
         })
     }
 
+    async function rendreProjetOuvertAuCollab() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user?.uid == props.compte_id_proprio) {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
+                    method: 'POST',
+                })
+                .catch(error => {
+                    if (error) {
+                        toast.error(error) 
+                    } else {
+                        
+                    }
+                });
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
+
     return (
         <>
             <div className={styles.ligne_gestion_projet}>
@@ -68,11 +88,11 @@ function GestionProjetRapide(props: PropsProjet) {
                         </div>
 
                         <div className={styles.ouvert}>
-                            <button onClick={() => { /* TODO: Make project open to collaborations */ }}>
-                                {props.est_ouvert == true && 
+                            <button onClick={ rendreProjetOuvertAuCollab }>
+                                {props.est_ouvert && 
                                     <img src={ouvert} className={styles.icone} alt='Ce projet est ouvert au collab.' />
                                 }
-                                {props.est_ouvert == false && 
+                                {!props.est_ouvert && 
                                     <img src={fermer} className={styles.icone} alt='Ce projet est ferme au collab.' />
                                 }
                             </button>

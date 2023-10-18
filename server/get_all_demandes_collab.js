@@ -25,12 +25,11 @@ module.exports = app.get('/:id_compte', (req, res) => {
         [id_compte],
         function(err, results, fields) {
             if (err) {
-                res.status(500)
-                logger.info(JSON.stringify(errJSON))
+                res.status(500).send()
+                logger.info(JSON.stringify(err))
             }
-            if (results) {
-                console.log(results)
-                res.status(200).send(results)
+            else if (results) {
+                res.send(results)
             }
         })
 })

@@ -16,6 +16,9 @@ function GestionCollab() {
     // https://builtin.com/software-engineering-perspectives/react-api 
     useEffect(() => {
         getDemandeCollab()
+    }, []);
+
+    useEffect(() => {
         getProjets()
     }, []);
 
@@ -29,7 +32,7 @@ function GestionCollab() {
                         <h1>Mes demandes de collaboration</h1>
                     </div>
                     {/*Faire map sur retour de demande de collab*/}
-                    {demandesCollab.map(({
+                    {demandesCollab?.map(({
                         id_compte,
                         url_image_profil,
                         nom_utilisateur,
@@ -37,18 +40,19 @@ function GestionCollab() {
                         titre_projet,
                         description_projet,
                         id_demande_collab
-                    }) => { return <>
-                    <GestionDemandeCollab 
-                        id_compte={id_compte}
-                        url_image_profil={url_image_profil}
-                        nom_utilisateur={nom_utilisateur}
+                    }) => { return (<>
+                        <GestionDemandeCollab 
+                            id_compte={id_compte}
+                            url_image_profil={url_image_profil}
+                            nom_utilisateur={nom_utilisateur}
 
-                        id_projet={id_projet}
-                        titre_projet={titre_projet}
-                        description_projet={description_projet}
-                        id_demande_collab={id_demande_collab}
-                        />
-                    </>})}
+                            id_projet={id_projet}
+                            titre_projet={titre_projet}
+                            description_projet={description_projet}
+                            id_demande_collab={id_demande_collab}
+                            />
+                        </>)
+                })}
                 </div>
 
                 <div className={styles.conteneur_gestion_collab}>
@@ -56,13 +60,13 @@ function GestionCollab() {
                     <div className={styles.titre_mes_projets_rapide}>
                         <h1>Mes Projets - Edition Rapide</h1>
                     </div>
-                    {projets.map(({
+                    {projets?.map(({
                         compte_id_proprio,
                         id_projet,
                         titre_projet,
                         description_projet,
                         est_ouvert
-                    }) => { return <>
+                    }) => { return (<>
                     <GestionProjetRapide
                         id_projet={id_projet}
                         titre={titre_projet}
@@ -70,7 +74,8 @@ function GestionCollab() {
                         compte_id_proprio={compte_id_proprio}
                         est_ouvert={est_ouvert}
                         />
-                    </>})}
+                    </>)
+                })}
                 </div>
 
 

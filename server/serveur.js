@@ -92,6 +92,9 @@ app.use('/get-all-projets', get_all_projets)
 const delete_project = require('./delete_project')
 app.use('/projet/delete', delete_project)
 
+const update_open_project = require('./update_open_project')
+app.use('/projet/open', update_open_project)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });

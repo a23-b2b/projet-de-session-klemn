@@ -22,14 +22,12 @@ module.exports = app.get('/:compte_id_proprio', (req, res) => {
             FROM projet
             WHERE compte_id_proprio = ? ;`, 
         [id_proprio],
-        function(err, results, fields) {
+        function(err, results) {
             if (err) {
-                const errJSON = JSON.stringify(err)
-                res.status(500).send(errJSON)
-                logger.info(JSON.stringify(errJSON))
-            } else {
-                console.log(results)
-                res.status(200).send(results)
+                res.status(500).send()
+                logger.info(JSON.stringify(err))
+            } else if (results) {
+                res.send(results)
             } 
             
         })
