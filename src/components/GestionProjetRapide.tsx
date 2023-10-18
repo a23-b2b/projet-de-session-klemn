@@ -1,6 +1,12 @@
 import styles from '../styles/GestionCollab.module.css';
 
-function GestionProjetRapide() {
+export interface PropsProjet {
+    id_projet: String,
+    titre: String,
+    description: String
+}
+
+function GestionProjetRapide(props: PropsProjet) {
     
     return (
         <>

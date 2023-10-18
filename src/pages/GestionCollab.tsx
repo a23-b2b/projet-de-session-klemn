@@ -55,7 +55,11 @@ function GestionCollab() {
                         <h1>Mes Projets - Edition Rapide</h1>
                     </div>
 
-                    <GestionProjetRapide/>
+                    <GestionProjetRapide
+                        id_projet={'id_projet_1'}
+                        titre={"Un Court titre"}
+                        description={"Une longue desription qui ne rentre surement pas dans la boite de texte prevu a son effet parce que le web c'est cool et que le cours est fini."}
+                    />
                 </div>
 
             </div>
