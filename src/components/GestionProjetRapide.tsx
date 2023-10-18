@@ -1,12 +1,12 @@
-import styles from '../styles/.module.css';
-
-
+import styles from '../styles/GestionCollab.module.css';
 
 function GestionProjetRapide() {
     
     return (
         <>
-            
+            <div className={styles.ligne_gestion_projet}>
+    
+            </div>
         </>
     )
 } 

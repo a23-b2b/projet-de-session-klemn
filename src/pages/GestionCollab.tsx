@@ -20,7 +20,7 @@ function GestionCollab() {
 
     return (
         <> 
-        <div>  
+        <div className={styles.conteneur_gestion}>  
             <div className={styles.conteneur_gestion_collab}>
                     <div className={styles.titre_mes_demandes}>
                         <h1>Mes demandes de collaboration</h1>
@@ -49,7 +49,7 @@ function GestionCollab() {
                     </>})}
                 </div>
 
-                <div className={styles.conteneur_gestion_projet}>
+                <div className={styles.conteneur_gestion_collab}>
                     
                     <div className={styles.titre_mes_projets_rapide}>
                         <h1>Mes Projets - Edition Rapide</h1>
