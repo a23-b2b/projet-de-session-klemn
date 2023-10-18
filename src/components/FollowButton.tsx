@@ -24,7 +24,7 @@ function FollowButton(props: Props) {
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch(process.env.REACT_APP_API_URL + '/follow-user', {
+                fetch(process.env.REACT_APP_API_URL + '/user/follow', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -36,7 +36,7 @@ const get_profil = require('./get_profil')
 app.use('/user', get_profil);
 
 const follow_user = require('./follow_user');
-app.use('/follow-user', follow_user);
+app.use('/user/follow', follow_user);
 
 const unfollow_user = require('./unfollow_user');
 app.use('/unfollow-user', unfollow_user);
