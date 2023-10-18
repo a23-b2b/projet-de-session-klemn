@@ -17,17 +17,19 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
+module.exports = app.post('/:post_id/replies', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
-        const id_compte = req.body.id_compte;
         const id_parent = req.body.id_parent;
         const contenu = req.body.contenu;
-        const idToken = req.body.firebase_id_token
+        const idToken = req.headers.authorization
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {
+
+                const userId = payload.uid;
+
                 mysqlConnection.query(
                     `INSERT INTO post (id_post, id_compte, id_parent, id_type_post, contenu, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
@@ -42,7 +44,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
                      WHERE p.id_compte = ?
                      ORDER BY date_publication DESC LIMIT 1;
                      `,
-                    [id_compte, id_parent, contenu, id_parent, id_compte, id_compte],
+                    [userId, id_parent, contenu, id_parent, userId, userId],
                     function (err, results, fields) {
 
                         console.log(results[1])

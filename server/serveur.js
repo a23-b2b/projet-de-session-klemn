@@ -60,7 +60,7 @@ const publierBlogue = require('./publierBlogue')
 app.use('/post', publierBlogue);
 
 const publierCommentaire = require('./publierCommentaire')
-app.use('/publier-commentaire', publierCommentaire)
+app.use('/post', publierCommentaire)
 
 const changer_nom_affichage = require('./changer_nom_affichage')
 app.use('/changer_nom_affichage', changer_nom_affichage)
