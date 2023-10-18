@@ -31,23 +31,23 @@ function PosteCollab(props: CollabProp) {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    function demanderCollabortion(props: CollabProp){        
+    function demanderCollabortion(props: CollabProp) {
         if (user !== null) {
             const uid = user.uid;
             fetch(`/p/${props.idPost}/${uid}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             })
-        } 
+        }
     }
 
-    function ActiverCollab(){
+    function ActiverCollab() {
         if (user !== null && props.idCompte !== user.uid) {
             enabled = true;
         } else {
             enabled = false;
         }
-        
+
     }
 
     return (
@@ -65,9 +65,9 @@ function PosteCollab(props: CollabProp) {
                 contenu={props.contenu}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            
-            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
-            
+
+            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>
+
             <PostFooter
                 idPost={props.idPost}
                 nombreLike={props.nombreLike}

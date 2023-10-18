@@ -70,7 +70,9 @@ const PostHeader = (props: HeaderProps) => {
             const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id_post: props.idPost }),
+                body: JSON.stringify({
+                     id_post: props.idPost 
+                    }),
 
             });
             console.log(props.idPost)

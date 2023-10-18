@@ -79,7 +79,7 @@ function SectionReponses(props: SectionReponsesProps) {
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 isPostFullScreen={false}
-                                type={TYPE_REPONSE} 
+                                type={TYPE_REPONSE}
                                 urlImageProfil={url_image_profil}
                                 userVote={vote} />
                         )

@@ -3,6 +3,7 @@ const app = express()
 const mysql = require('mysql2')
 
 const { logger } = require('./serveur.js')
+console.log("vous etes ici")
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
