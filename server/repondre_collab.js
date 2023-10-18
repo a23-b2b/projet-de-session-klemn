@@ -22,7 +22,7 @@ module.exports = app.get('/p/:id_projet/:id_collaborateur/:reponse', (req, res) 
             compte_id_compte,
             projet_id_projet)
         VALUES (
-            NEW ID id_collaborateur,
+            SUBSTRING(MD5(UUID()),
             ?,
             ? );    
     `;
