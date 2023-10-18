@@ -22,45 +22,33 @@ function Home() {
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
-    const [userToken, setUserToken] = useState('')
 
-
-    if (!userToken) {
-        console.log("get token")
-        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            setUserToken(idToken)
-            console.log(idToken)
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
 
     async function getGlobalPosts() {
         onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                navigate('/authenticate')
-            }
-
-            if (user && userToken) {
-                fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': userToken
-                    },
-                }).then(response => response.json()).then(response => {
-                    let data = response
-
-                    setPostOffset(postOffset + OFFSET)
-
-                    if (data.length < OFFSET) {
-                        setIsEndOfFeed(true)
-                    }
-
-                    setPostData(postData.concat(data))
-
-                }).catch((error) => {
-                    toast.error(`Une erreur est survenue: ${error}`)
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    console.log('user id')
+                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
+                        let data = response
+        
+                        setPostOffset(postOffset + OFFSET)
+        
+                        if (data.length < OFFSET) {
+                            setIsEndOfFeed(true)
+                        }
+        
+                        setPostData(postData.concat(data))
+        
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
                 })
             }
         })
@@ -131,7 +119,8 @@ function Home() {
 
     useEffect(() => {
         getPosts()
-    }, [feedType, userToken]);
+        console.log('posts gotten')
+    }, [feedType]);
 
     return (
         <div className={styles.body}>

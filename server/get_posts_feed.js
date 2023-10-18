@@ -22,6 +22,8 @@ module.exports = app.get('/feed/:offset', (req, res) => {
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid
 
+        console.log(userId)
+
         mysqlConnection.query(`
             select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
             from post
