@@ -18,41 +18,45 @@ function GestionCollab() {
 
 
     return (
-        <>  <div className={styles.conteneur_gestion_collab}>
-                <div className={styles.titre_mes_demandes}>
-                    <h1>Mes demandes de collaboration</h1>
-                </div>
-                <br />
-                {/*Faire map sur retour de demande de collab*/}
-                {demandesCollab.map(({
-                    id_compte,
-                    url_image_profil,
-                    nom_utilisateur,
-                    id_projet,
-                    titre_projet,
-                    description_projet,
-                    id_demande_collab
-                }) => { return <>
-                 <GestionDemandeCollab 
-                    id_compte={id_compte}
-                    url_image_profil={url_image_profil}
-                    nom_utilisateur={nom_utilisateur}
+        <> 
+        <div>  
+            <div className={styles.conteneur_gestion_collab}>
+                    <div className={styles.titre_mes_demandes}>
+                        <h1>Mes demandes de collaboration</h1>
+                    </div>
+                    <br />
+                    {/*Faire map sur retour de demande de collab*/}
+                    {demandesCollab.map(({
+                        id_compte,
+                        url_image_profil,
+                        nom_utilisateur,
+                        id_projet,
+                        titre_projet,
+                        description_projet,
+                        id_demande_collab
+                    }) => { return <>
+                    <GestionDemandeCollab 
+                        id_compte={id_compte}
+                        url_image_profil={url_image_profil}
+                        nom_utilisateur={nom_utilisateur}
 
-                    id_projet={id_projet}
-                    titre_projet={titre_projet}
-                    description_projet={description_projet}
-                    id_demande_collab={id_demande_collab}
-                    />
-                </>})}
-            </div>
-
-            <div className={styles.titre_mes_projets_rapide}>
-                <div className={styles.titre_mes_projets_rapide}>
-                    <h1>Mes Projets - Edition Rapide</h1>
+                        id_projet={id_projet}
+                        titre_projet={titre_projet}
+                        description_projet={description_projet}
+                        id_demande_collab={id_demande_collab}
+                        />
+                    </>})}
                 </div>
-                <GestionProjetRapide
+
+                <div className={styles.conteneur_gestion_projet}>
                     
-                    />
+                    <div className={styles.titre_mes_projets_rapide}>
+                        <h1>Mes Projets - Edition Rapide</h1>
+                    </div>
+
+                    <GestionProjetRapide/>
+                </div>
+
             </div>
         </> 
     )
