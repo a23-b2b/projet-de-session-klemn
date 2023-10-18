@@ -16,28 +16,26 @@ function BlogueForm() {
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
-                utilisateur.getIdToken(/* forceRefresh */ true)
-                    .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id_compte: utilisateur.uid,
-                                titre: titre,
-                                contenu: contenu,
-                                firebase_id_token: idToken
-                            }),
-                        }).then(response => response.json())
-                        .then(response => {
-                            console.log(response)
-                            toast.success('Votre message a été publié!');
+                utilisateur.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(process.env.REACT_APP_API_URL + '/post', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            titre: titre,
+                            contenu: contenu,
+                        }),
+                    }).then(response => response.json()).then(response => {
+                        console.log(response)
+                        toast.success('Votre message a été publié!');
 
-                            navigate(`/p/${response[1][0]['id_post']}`)
-                        }).catch((error) => {
-                            toast.error('Une erreur est survenue');
-                        })
+                        navigate(`/p/${response[1][0]['id_post']}`)
+                    }).catch((error) => {
+                        toast.error('Une erreur est survenue');
                     })
-
+                })
             } else {
                 toast.error('Le contenu de la publication ne peut pas être vide.')
             }
@@ -45,7 +43,6 @@ function BlogueForm() {
             toast.error('Veuillez vous connecter avant de publier.');
             navigate('/');
         }
-
     }
 
     return (

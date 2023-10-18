@@ -57,7 +57,7 @@ const get_followed_users_feed = require('./get_followed_users_feed.js')
 app.use('/post', get_followed_users_feed)
 
 const publierBlogue = require('./publierBlogue')
-app.use('/publier-blogue', publierBlogue);
+app.use('/post', publierBlogue);
 
 const publierCommentaire = require('./publierCommentaire')
 app.use('/publier-commentaire', publierCommentaire)
