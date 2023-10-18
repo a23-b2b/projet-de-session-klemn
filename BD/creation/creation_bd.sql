@@ -129,7 +129,7 @@ CREATE TABLE collaborateur (
 
 CREATE TABLE demande_collab (
   id_demande_collab VARCHAR(255) PRIMARY KEY, 
-  est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
+  est_accepte BOOLEAN NULL, 
   projet_id_projet VARCHAR(255),
   compte_id_compte VARCHAR(255) comment 'Collaborateur potentiel', 
   CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet), 

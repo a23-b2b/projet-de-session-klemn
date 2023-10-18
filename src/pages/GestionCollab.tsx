@@ -4,8 +4,6 @@ import GestionProjetRapide from  '../components/GestionProjetRapide'
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-import { error } from 'console';
-
 
 function GestionCollab() {
     const navigate = useNavigate();
@@ -32,6 +30,7 @@ function GestionCollab() {
                     nom_utilisateur,
                     id_projet,
                     titre_projet,
+                    description_projet,
                     id_demande_collab
                 }) => { return <>
                  <GestionDemandeCollab 
@@ -41,7 +40,8 @@ function GestionCollab() {
 
                     id_projet={id_projet}
                     titre_projet={titre_projet}
-                    description_projet={id_demande_collab}
+                    description_projet={description_projet}
+                    id_demande_collab={id_demande_collab}
                     />
                 </>})}
             </div>

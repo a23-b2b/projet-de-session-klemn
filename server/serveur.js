@@ -47,6 +47,9 @@ app.use('/user-posts', get_user_posts);
 const demander_collab = require('./demande_collab')
 app.use('/collab', demander_collab);
 
+const repondre_demande_collab = require('./repondre_collab')
+app.use('/collab', repondre_demande_collab)
+
 const get_single_post = require('./get_single_post.js')
 app.use('/single-post', get_single_post);
 
