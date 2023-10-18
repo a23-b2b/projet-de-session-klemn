@@ -45,7 +45,7 @@ const get_user_posts = require('./get_user_posts.js')
 app.use('/user', get_user_posts);
 
 const get_single_post = require('./get_single_post.js')
-app.use('/single-post', get_single_post);
+app.use('/post', get_single_post);
 
 const get_replies = require('./get_replies')
 app.use('/replies', get_replies);
