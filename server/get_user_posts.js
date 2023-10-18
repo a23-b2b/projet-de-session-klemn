@@ -12,7 +12,7 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
-module.exports = app.get('/:user_id/:offset', (req, res) => {
+module.exports = app.get('/posts/:user_id/:offset', (req, res) => {
     console.log(req.params)
     const offset = parseInt(req.params.offset);
     const limit = 6

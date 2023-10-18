@@ -109,7 +109,7 @@ function Profil() {
 
     function getPosts() {
         onAuthStateChanged(auth, (user) => {
-            fetch(`${process.env.REACT_APP_API_URL}/user-posts/${userData.id_compte}/${postOffset}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/user/posts/${userData.id_compte}/${postOffset}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
