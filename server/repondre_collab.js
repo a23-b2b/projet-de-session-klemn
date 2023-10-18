@@ -31,14 +31,14 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
     `;
 
     const queryInsert = `
-        INSERT INTO collaborateur (
-            id_collaborateur,
-            compte_id_compte,
-            projet_id_projet)
-        VALUES (
-            (SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
-            ?,
-            ? );    
+    INSERT INTO collaborateur (
+        id_collaborateur,
+        compte_id_compte,
+        projet_id_projet)
+    VALUES (
+        SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
+        ?,
+        ? );     
     `;
 
     // Si accepted, faire update true + insert collaborateur
@@ -55,11 +55,10 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
                 if (est_accepte) {
                     mysqlConnection.query(
                         queryInsert,
-                        [id_demande_collab, id_collaborateur, id_projet],
+                        [id_collaborateur, id_projet],
                         function(err, results, fields) {
                             if (err) {
                                 logger.info(JSON.stringify(err))
-                                res.status(500).send(JSON.stringify(err))
                             }
                         })
                 }
