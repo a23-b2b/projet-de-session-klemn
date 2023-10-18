@@ -51,7 +51,7 @@ const get_replies = require('./get_replies')
 app.use('/post', get_replies);
 
 const get_posts_feed = require('./get_posts_feed.js')
-app.use('/feed-posts', get_posts_feed);
+app.use('/post', get_posts_feed);
 
 const get_followed_users_feed = require('./get_followed_users_feed.js')
 app.use('/feed-followed', get_followed_users_feed)
