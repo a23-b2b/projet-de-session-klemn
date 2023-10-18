@@ -1,16 +1,6 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
-
-const { logger } = require('./serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('./serveur.js')
 
 
 module.exports = app.post('/', (req, res) => {
@@ -20,7 +10,7 @@ module.exports = app.post('/', (req, res) => {
 
     console.log(userId)
 
-    mysqlConnection.query(`
+    pool.query(`
             select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
             from post
             left join vote v on post.id_post = v.id_post and v.id_compte = ?
