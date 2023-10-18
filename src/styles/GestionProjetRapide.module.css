@@ -6,7 +6,7 @@
     text-align: center;
 }
 
-.fonc1 {
+.filtre {
     border: 1px solid #3498db;
     grid-column-start: 2;
     grid-column-end: 3;
@@ -14,39 +14,37 @@
     grid-row-end: 3;
 }
 
-.fonc2 {
+.poubelle {
     border: 1px solid #3498db;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 2;
     grid-row-end: 3;
 }
-.fonc3 {
+.collaboration {
     border: 1px solid #3498db;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
 }
-.fonc4 {
+.ouvert {
     border: 1px solid #3498db;
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 1;
-    grid-row-end: 3;
+    grid-row-end: 2;
 }
 
-.fonc button {
+button {
     cursor: pointer;  
-    background-color: transparent; 
-    height: 50px; 
-    width: 200px; 
-    color: #3498db; 
-    font-size: 1.5em; 
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6); 
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    background: none     
 }
 
-.fonc img {
+button img {
     object-fit: contain;
     height: 100%;
     width: 100%;

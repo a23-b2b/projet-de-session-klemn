@@ -28,7 +28,6 @@ function GestionCollab() {
                     <div className={styles.titre_mes_demandes}>
                         <h1>Mes demandes de collaboration</h1>
                     </div>
-                    <br />
                     {/*Faire map sur retour de demande de collab*/}
                     {demandesCollab.map(({
                         id_compte,
@@ -57,7 +56,6 @@ function GestionCollab() {
                     <div className={styles.titre_mes_projets_rapide}>
                         <h1>Mes Projets - Edition Rapide</h1>
                     </div>
-                    <br />
                     {projets.map(({
                         compte_id_proprio,
                         id_projet,
