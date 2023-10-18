@@ -86,7 +86,7 @@ app.use('/vote', send_vote);
 const get_all_demande_collab = require('./get_all_demandes_collab')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
-const get_all_projets = require('./get_all_projet')
+const get_all_projets = require('./get_all_projet.js')
 app.use('/get-all-projets', get_all_projets)
 
 app.listen(process.env.SERVER_PORT, () => {

@@ -19,11 +19,11 @@ function GestionCollab() {
         getProjets()
     }, []);
 
-
-
     return (
         <> 
         <div className={styles.conteneur_gestion}>  
+
+
             <div className={styles.conteneur_gestion_collab}>
                     <div className={styles.titre_mes_demandes}>
                         <h1>Mes demandes de collaboration</h1>
@@ -57,28 +57,30 @@ function GestionCollab() {
                     <div className={styles.titre_mes_projets_rapide}>
                         <h1>Mes Projets - Edition Rapide</h1>
                     </div>
+                    <br />
                     {projets.map(({
                         compte_id_proprio,
                         id_projet,
                         titre_projet,
                         description_projet,
                         est_ouvert
-                    }) => {return <>
+                    }) => { return <>
                     <GestionProjetRapide
                         id_projet={id_projet}
                         titre={titre_projet}
                         description={description_projet}
                         compte_id_proprio={compte_id_proprio}
                         est_ouvert={est_ouvert}
-                    />
+                        />
                     </>})}
                 </div>
+
 
             </div>
         </> 
     )
     
-    function getProjets() {    
+    async function getProjets() {    
         
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
@@ -98,7 +100,7 @@ function GestionCollab() {
     }
 
      
-    function getDemandeCollab() {    
+    async function getDemandeCollab() {    
         
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {

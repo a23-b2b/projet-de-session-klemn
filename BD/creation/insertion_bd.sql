@@ -75,9 +75,9 @@ VALUES
 
 -- Insertion pour test du système de collab. Marie veut collaborer avec Louis sur le projet ID: id_projet_1
 INSERT INTO projet 
-  (id_projet, titre_projet, description_projet, url_repo_git, compte_id_proprio)
+  (id_projet, titre_projet, description_projet, url_repo_git, compte_id_proprio, est_ouvert)
 VALUES
-  ('id_projet_1', 'Titre de projet collaboratif', 'Marie veut collaborer avec Louis sur le projet ID: id_projet_1', 'https://github.com/a23-b2b/projet-de-session-klemn', 'yjoI2WF3w4WVr3kD9L01shSjjnL2');
+  ('id_projet_1', 'Titre de projet collaboratif', 'Marie veut collaborer avec Louis sur le projet ID: id_projet_1', 'https://github.com/a23-b2b/projet-de-session-klemn', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', true);
 
 INSERT INTO post_collab 
   (id_collab, projet_id_projet, post_id_post)
