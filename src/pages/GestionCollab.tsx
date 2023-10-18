@@ -11,11 +11,14 @@ function GestionCollab() {
 
     // get demande de collab
     const [demandesCollab, setDemandesCollab] = useState<any[]>([])
-   
+    const [projets, setProjets] = useState<any[]>([])
+
     // https://builtin.com/software-engineering-perspectives/react-api 
     useEffect(() => {
         getDemandeCollab()
+        getProjets()
     }, []);
+
 
 
     return (
@@ -54,18 +57,47 @@ function GestionCollab() {
                     <div className={styles.titre_mes_projets_rapide}>
                         <h1>Mes Projets - Edition Rapide</h1>
                     </div>
-
+                    {projets.map(({
+                        compte_id_proprio,
+                        id_projet,
+                        titre_projet,
+                        description_projet,
+                        est_ouvert
+                    }) => {return <>
                     <GestionProjetRapide
-                        id_projet={'id_projet_1'}
-                        titre={"Un Court titre"}
-                        description={"Une longue desription qui ne rentre surement pas dans la boite de texte prevu a son effet parce que le web c'est cool et que le cours est fini."}
+                        id_projet={id_projet}
+                        titre={titre_projet}
+                        description={description_projet}
+                        compte_id_proprio={compte_id_proprio}
+                        est_ouvert={est_ouvert}
                     />
+                    </>})}
                 </div>
 
             </div>
         </> 
     )
     
+    function getProjets() {    
+        
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },        
+                })
+                    .then(response => response.json())
+                    .then(json => setProjets(json))
+                    .catch(error => toast.error(error));
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
+
+     
     function getDemandeCollab() {    
         
         const auth = getAuth();
