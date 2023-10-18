@@ -3,19 +3,9 @@ const {body, validationResult} = require('express-validator');
 const mysql = require('mysql2')
 const {logger} = require('./serveur.js')
 const { admin } = require('./serveur.js')
+const { pool } = require('./serveur.js')
 
 const app = express()
-
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    multipleStatements: true
-})
-
 
 module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
     const resultatValidation = validationResult(req);
@@ -28,7 +18,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({max: 4000})
 
         admin.auth().verifyIdToken(idToken, true)
             .then((payload) => {
-                mysqlConnection.query(
+                pool.query(
                     `INSERT INTO post (id_post, id_compte, id_parent, id_type_post, contenu, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, ?, 4, ?, 0, 0, 0, 0, 0, NOW());
