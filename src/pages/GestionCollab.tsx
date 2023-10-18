@@ -1,9 +1,10 @@
 import styles from '../styles/GestionCollab.module.css';
 import GestionDemandeCollab from '../components/GestionDemandeCollab'
 import GestionProjetRapide from  '../components/GestionProjetRapide'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { error } from 'console';
 
 
 function GestionCollab() {
@@ -12,8 +13,11 @@ function GestionCollab() {
     // get demande de collab
     const [demandesCollab, setDemandesCollab] = useState<any[]>([])
    
-    getDemandeCollab()
-    
+    // https://builtin.com/software-engineering-perspectives/react-api 
+    useEffect(() => {
+        getDemandeCollab()
+    }, []);
+
 
     return (
         <>  <div className={styles.conteneur_gestion_collab}>
@@ -29,7 +33,7 @@ function GestionCollab() {
                     id_projet,
                     titre_projet,
                     id_demande_collab
-                }) => {return <>
+                }) => { return <>
                  <GestionDemandeCollab 
                     id_compte={id_compte}
                     url_image_profil={url_image_profil}
@@ -59,18 +63,14 @@ function GestionCollab() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
-
+                // https://builtin.com/software-engineering-perspectives/react-api 
                 fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab/${uid}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },                
                 })
                     .then(response => response.json())
-                    .then(response =>{
-                        setDemandesCollab(response)
-                        console.log("Rep: " + response)
-                }).catch(err => {
-                    // TODO: Gestion err 
-                })
+                    .then(json => setDemandesCollab(json))
+                    .catch(error => console.log(error));
             } else {
                 navigate("/authenticate")
             }

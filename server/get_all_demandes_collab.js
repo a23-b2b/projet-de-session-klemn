@@ -21,10 +21,10 @@ module.exports = app.get('/:id_compte', (req, res) => {
         INNER JOIN projet p ON compte.id_compte = p.compte_id_proprio
         INNER JOIN demande_collab d ON p.id_projet = d.projet_id_projet
         WHERE p.compte_id_proprio = ? 
-        AND WHERE d.est_accepte IS false;`, 
+        AND d.est_accepte IS false;`, 
         [id_compte],
         function(err, results, fields) {
             res.send(results)
-            console.log(results.toString())
+            console.log(JSON.stringify(results))
         })
 })
