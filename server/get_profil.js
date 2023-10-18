@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-
+const { admin } = require('./serveur.js')
 const { logger } = require('./serveur.js')
 
 const mysqlConnection = mysql.createConnection({
@@ -13,9 +13,9 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.post('/', (req, res) => {
-    const username = req.body.username;
-    const isFollowedBy = req.body.is_followed_by;
+module.exports = app.get('/:username', async (req, res) => {
+    const username = req.params.username;
+    const userId = req.headers.authorization;
 
     mysqlConnection.query(`
         SELECT 
@@ -40,7 +40,7 @@ module.exports = app.post('/', (req, res) => {
             FROM compte_suivi
             WHERE compte=?
             AND suit=?;`,
-            [isFollowedBy, profileResults[0]["id_compte"]],
+            [userId, profileResults[0]["id_compte"]],
 
             function (err, results, fields) {
                 if (err) {
