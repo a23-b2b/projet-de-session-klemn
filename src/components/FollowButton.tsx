@@ -24,14 +24,12 @@ function FollowButton(props: Props) {
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch(process.env.REACT_APP_API_URL + '/user/follow', {
+                fetch(process.env.REACT_APP_API_URL + `/user/${props.userId}/follow`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: auth.currentUser?.uid,
-                        wants_to_follow: props.userId,
-                        firebase_id_token: idToken
-                    }),
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                     },
                 }).then(response => response)
                     .then(response => {
                         if (response.status === 401) {
@@ -58,7 +56,7 @@ function FollowButton(props: Props) {
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true)
             .then((idToken) => {
-                fetch(process.env.REACT_APP_API_URL + '/unfollow-user', {
+                fetch(process.env.REACT_APP_API_URL + '/user/unfollow', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
