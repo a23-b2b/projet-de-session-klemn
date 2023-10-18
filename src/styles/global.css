@@ -48,6 +48,9 @@
     --dark_button_text_color: rgb(247, 232, 247);
     --light_button_text_color: rgb(98, 9, 145);
 
+    /*Couleur dropdown*/
+    --dark_dropdown_couleur: var(--accent_color_dark);
+    --light_dropdown_couleur: var(--accent_color_light);
 
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
@@ -71,6 +74,7 @@
     --auto_border_color: var(--dark_border_color);
     --auto_button_color: var(--dark_button_color);
     --auto_button_text_color: var(--dark_button_text_color);
+    --auto_dropdown_couleur: var(--dark_dropdown_couleur);
 
 
     /*Thème clair*/
@@ -87,6 +91,8 @@
         --auto_border_color: var(--light_border_color);
         --auto_button_color: var(--light_button_color);
         --auto_button_text_color: var(--light_button_text_color);
+
+        --auto_dropdown_couleur: var(--light_dropdown_couleur);
     }
 
 }

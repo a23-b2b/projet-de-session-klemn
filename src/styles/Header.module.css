@@ -4,38 +4,107 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 150px;
+    height: 200px;
     font-size: 20px;
 
 }
 
+#LogoSite {
+    margin-left: 15px;
+}
 
-/* #IconeUtilisateur {
-    text-align: right;
-    padding: 7px;
-} */
 
+#IconeUtilisateur {
+    margin: auto;
+}
 
 
 #HeaderHaut {
     display: flex;
     justify-content: space-between;
-    /* text-align: center; */
-    /* padding: 20px 10px; */
     height: 75%;
-    width: 90%;
+    width: 95%;
     margin-inline: auto;
 }
 
-#HeaderHaut > div {
+#HeaderHaut>div {
     margin-block: auto;
 }
 
-/* #HeaderHaut h1 {
-    padding: 5px;
-    width: 100%
-} */
 
+
+.icone_list {
+    margin-left: 25px;
+    color: #ffffffd7;
+
+}
+
+#SectionDroite {
+    display: flex;
+
+}
+
+
+/*Menu dropdown*/
+.dropbtn {
+    background: none;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: right;
+
+    
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+
+
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: var(--auto_dropdown_couleur);
+    min-width: 300px;
+    z-index: 1;
+    border-radius: 20px;
+    height: 350px;
+    margin: auto;
+
+  
+}
+
+/* Links inside the dropdown */
+.dropdown_content p {
+    color: var(--auto_text_color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin: 10px 7px 10px 7px;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown_content p:hover {
+    background-color: var(--auto_background_secondary);
+    margin: 10px 7px 10px 7px;
+    border-radius: 15px;
+
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown_content {
+    display: block;
+}
 
 
 
