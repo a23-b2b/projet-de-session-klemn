@@ -48,15 +48,18 @@ function setPostScore(postId, type, score) {
     }
 }
 
-module.exports = app.post('/', (req, res) => {
+module.exports = app.post('/:id_post/vote', (req, res) => {
     // TODO: express validator pour verifier que le score est valide (et pas 10000 points)
-    const userId = req.body.user_id;
-    const postId = req.body.post_id;
+    const postId = req.params.id_post;
     const score = req.body.score;
-    const idToken = req.body.firebase_id_token
+    const idToken = req.headers.authorization
 
     admin.auth().verifyIdToken(idToken, true)
         .then((payload) => {
+
+            const userId = payload.uid;
+
+            if (!userId) return res.status(401).send(JSON.stringify({ 'erreur': 'Token invalide' }))
 
             mysqlConnection.query(
                 `SELECT score 
@@ -120,14 +123,14 @@ module.exports = app.post('/', (req, res) => {
                                         if (score > 0) {
                                             setPostScore(postId, "like", -voteStrength)
                                         }
-    
+
                                         if (score < 0) {
                                             setPostScore(postId, "dislike", -voteStrength)
                                         }
 
                                         res.status(200).send(JSON.stringify({
                                             postScoreDifference: -score,
-                                            currentUserVote: 0                                            
+                                            currentUserVote: 0
                                         }))
                                     }
 
@@ -136,7 +139,7 @@ module.exports = app.post('/', (req, res) => {
                                         res.sendStatus(500)
                                     }
                                 })
-                        // Le score est different, alors on modifie le score
+                            // Le score est different, alors on modifie le score
                         } else {
                             mysqlConnection.query(
                                 `UPDATE vote 
@@ -150,7 +153,7 @@ module.exports = app.post('/', (req, res) => {
                                             setPostScore(postId, "dislike", -voteStrength)
                                             setPostScore(postId, "like", voteStrength)
                                         }
-    
+
                                         if (score < 0) {
                                             setPostScore(postId, "like", -voteStrength)
                                             setPostScore(postId, "dislike", voteStrength)

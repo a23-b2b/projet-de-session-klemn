@@ -75,7 +75,7 @@ const changer_bio = require('./changer_bio')
 app.use('/changer_bio', changer_bio)
 
 const send_vote = require('./vote.js')
-app.use('/vote', send_vote);
+app.use('/post', send_vote);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
