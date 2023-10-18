@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-const { logger } = require('./logger.js')
+const logger = require('./logger.js')
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
@@ -12,43 +12,33 @@ const mysqlConnection = mysql.createConnection({
 })
 
 module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res) => {
-    const queryInsert = `
-        UPDATE demande_collab 
-            SET est_accepte = TRUE
-            WHERE id_demande_collab = ?;
-        
-        INSERT INTO collaborateur (
-            id_collaborateur,
-            compte_id_compte,
-            projet_id_projet)
-        VALUES (
-            SUBSTRING(MD5(UUID()),
-            ?,
-            ? );    
-    `;
+    
 
 
     const accepterDemande = 'true';
-    const refuserDemande = 'false';
 
     const id_collaborateur = req.params.id_collaborateur
     const id_projet = req.params.id_projet
     const reponse = req.params.reponse
     const id_demande_collab = req.body.id_demande_collab
 
-    var est_accepte = false       
-   
-    if (reponse == accepterDemande) {
-        est_accepte = true
-    } else if (reponse == refuserDemande) {
-        est_accepte = false
-    }
+    const est_accepte = (reponse == accepterDemande)      
 
-    
     const queryUpdateEstAccepte = `
         UPDATE demande_collab 
             SET est_accepte = ?
-            WHERE id_demande_collab = ?;
+            WHERE id_demande_collab = ? ;
+    `;
+
+    const queryInsert = `
+        INSERT INTO collaborateur (
+            id_collaborateur,
+            compte_id_compte,
+            projet_id_projet)
+        VALUES (
+            (SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
+            ?,
+            ? );    
     `;
 
     // Si accepted, faire update true + insert collaborateur
@@ -73,9 +63,8 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
                             }
                         })
                 }
-                res.status(200)
-
-            }
+                res.status(200).send()
+            } 
             
         })
 })

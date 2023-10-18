@@ -4,6 +4,7 @@ import GestionProjetRapide from  '../components/GestionProjetRapide'
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function GestionCollab() {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ function GestionCollab() {
                 })
                     .then(response => response.json())
                     .then(json => setDemandesCollab(json))
-                    .catch(error => console.log(error));
+                    .catch(error => toast.error(error));
             } else {
                 navigate("/authenticate")
             }

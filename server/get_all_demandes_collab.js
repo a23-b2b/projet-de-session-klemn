@@ -24,7 +24,13 @@ module.exports = app.get('/:id_compte', (req, res) => {
         AND d.est_accepte IS null;`, 
         [id_compte],
         function(err, results, fields) {
-            res.send(results)
-            console.log(JSON.stringify(results))
+            if (err) {
+                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+                res.status(500)
+            }
+            if (results) {
+                console.log(results)
+                res.status(200).send(results)
+            }
         })
 })
