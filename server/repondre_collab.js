@@ -11,7 +11,7 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
-module.exports = app.get('/p/:id_projet/:id_collaborateur/:reponse', (req, res) => {
+module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res) => {
     const queryInsert = `
         UPDATE demande_collab 
             SET est_accepte = TRUE

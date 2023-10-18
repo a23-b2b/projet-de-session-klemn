@@ -87,6 +87,6 @@ VALUES
 INSERT INTO demande_collab 
   (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte) 
 VALUES 
-  ('id_demande_collab_1', false, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
+  ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
 
 COMMIT;
