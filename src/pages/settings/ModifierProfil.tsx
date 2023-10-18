@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { createElement, useEffect, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
-import ReactCrop, {centerCrop, Crop, makeAspectCrop} from "react-image-crop";
+import ReactCrop, {centerCrop, convertToPixelCrop, Crop, makeAspectCrop, PixelCrop} from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
 
 
@@ -22,7 +22,7 @@ function ModifierProfil() {
     const [newBio, setNewBio] = useState('');
 
     const [cropProfil, setCropProfil] = useState<Crop>()
-    const [urlImageProfil, seturlImageProfil] = useState('')
+    const [urlImageProfil, setUrlImageProfil] = useState('')
 
     const changeEmail = () => {
 
@@ -128,14 +128,14 @@ function ModifierProfil() {
     }
 
     function onImageProfilLoad(e: React.SyntheticEvent<HTMLImageElement, Event>) {
-        // https://www.npmjs.com/package/react-image-crop
-        const { naturalWidth: width, naturalHeight: height } = e.currentTarget
+        // Reference: https://www.npmjs.com/package/react-image-crop
+        const { naturalWidth, naturalHeight, width, height } = e.currentTarget;
 
         const crop = centerCrop(
             makeAspectCrop(
                 {
                     unit: '%',
-                    width: 50,
+                    width: 100,
                 },
                 1,
                 width,
@@ -145,10 +145,66 @@ function ModifierProfil() {
             height
         )
 
-        setCropProfil(crop)
+        setCropProfil(convertToPixelCrop(crop, width, height));
     }
 
+    const changerImageProfil = () => {
+        if (cropProfil != null) {
+            let image = new Image;
+            image.src = urlImageProfil;
 
+            let canvas = document.createElement('canvas')
+            const scaleX = image.naturalWidth / image.width;
+            const scaleY = image.naturalHeight / image.height;
+            canvas.width = cropProfil.width
+            canvas.height = cropProfil.height
+            const ctx = canvas.getContext('2d');
+
+            if (ctx != null) {
+                // const pixelRatio = window.devicePixelRatio;
+                // canvas.width = cropProfil.width * pixelRatio;
+                // canvas.height = cropProfil.height * pixelRatio;
+                // ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+                ctx.imageSmoothingQuality = 'high';
+
+                ctx.drawImage(
+                    image,
+                    cropProfil.x,
+                    cropProfil.y,
+                    image.width,
+                    image.width,
+                    0,
+                    0,
+                    image.width,
+                    image.height,
+                );
+            }
+            // const canvas = document.createElement('canvas');
+            // const scaleX = image.naturalWidth / image.width;
+            // const scaleY = image.naturalHeight / image.height;
+            // canvas.width = 96;
+            // canvas.height = 96;
+            // const ctx = canvas.getContext('2d');
+            //
+            // if (ctx != null) {
+            //     ctx.drawImage(
+            //         image,
+            //         cropProfil.x * scaleX,
+            //         cropProfil.y * scaleY,
+            //         cropProfil.width * scaleX,
+            //         cropProfil.height * scaleY,
+            //         0,
+            //         0,
+            //         96,
+            //         96
+            //     );
+            // }
+
+            console.log(cropProfil)
+            console.log(canvas.toDataURL())
+        }
+
+    }
 
     return (
         <div className={styles.container_parametres}>
@@ -297,7 +353,10 @@ function ModifierProfil() {
                     type={'file'}
                     accept={'image/'}
                     onChange={event => {
-                        seturlImageProfil(event.target.files ? (URL.createObjectURL(event.target.files[0])) : '')
+                        if (urlImageProfil) {
+                            URL.revokeObjectURL(urlImageProfil)
+                        }
+                        setUrlImageProfil(event.target.files ? (URL.createObjectURL(event.target.files[0])) : '')
                     }}
                 />
                 <br/>
@@ -310,9 +369,16 @@ function ModifierProfil() {
                     </ReactCrop>
                 )
                 }
+                {urlImageProfil && (
+                    <button className={'global_bouton'} onClick={() => changerImageProfil()}>
+                    Modifier
+                    </button>
+                )
+                }
 
             </div>
         </motion.div>
+        </div>
     );
 }
 
