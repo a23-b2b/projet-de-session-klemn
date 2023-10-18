@@ -42,7 +42,7 @@ const unfollow_user = require('./unfollow_user');
 app.use('/user', unfollow_user);
 
 const get_user_posts = require('./get_user_posts.js')
-app.use('/user', get_user_posts);
+app.use('/post', get_user_posts);
 
 const get_single_post = require('./get_single_post.js')
 app.use('/post', get_single_post);

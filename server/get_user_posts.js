@@ -12,9 +12,10 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
-module.exports = app.get('/posts/:user_id/:offset', (req, res) => {
+module.exports = app.get('/user/:user_id/:offset', (req, res) => {
     console.log(req.params)
     const offset = parseInt(req.params.offset);
+    const userToGet = req.params.user_id;
     const limit = 6
 
     const authUserId = req.headers.authorization
@@ -28,7 +29,7 @@ module.exports = app.get('/posts/:user_id/:offset', (req, res) => {
         order by post.date_publication desc
         limit ? offset ?;
     `,
-        [authUserId, req.params.user_id, limit, offset],
+        [authUserId, userToGet, limit, offset],
 
         function (err, results, fields) {
             if (err) {
@@ -37,6 +38,7 @@ module.exports = app.get('/posts/:user_id/:offset', (req, res) => {
                 res.status(500).send('Erreur de base de données', err)
             }
             if (results) {
+                console.log(results)
                 res.status(200).send(results)
             }
         })

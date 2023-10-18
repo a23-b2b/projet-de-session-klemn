@@ -77,7 +77,7 @@ function Profil() {
     }, [username])
 
     useEffect(() => {
-        getPosts()
+        if (userData) getPosts()
     }, [userData])
 
 
@@ -109,27 +109,27 @@ function Profil() {
 
     function getPosts() {
         onAuthStateChanged(auth, (user) => {
-            fetch(`${process.env.REACT_APP_API_URL}/user/posts/${userData.id_compte}/${postOffset}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${postOffset}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': user?.uid || ''
                 }
-            }).then(response => response.json())
-                .then(response => {
-                    let data = response;
+            }).then(response => response.json()).then(response => {
+                let data = response;
 
-                    setPostOffset(postOffset + OFFSET)
+                console.log(data)
 
-                    if (data.length < OFFSET) {
-                        setIsEndOfFeed(true)
-                    }
+                setPostOffset(postOffset + OFFSET)
 
-                    setUserPosts(userPosts.concat(data));
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                if (data.length < OFFSET) {
+                    setIsEndOfFeed(true)
+                }
+
+                setUserPosts(userPosts.concat(data));
+            }).catch((error) => {
+                console.log(error)
+            })
         }
         )
 
