@@ -16,13 +16,7 @@ module.exports = app.post('/:id_projet', (req, res) => {
     const id_projet = req.params.id_projet
     
     mysqlConnection.query(`
-        DELETE FROM projet
-            INNER JOIN demande_collab d ON projet.id_projet = d.projet_id_projet
-            INNER JOIN collaborateur c ON projet.id_projet = c.projet_id_projet
-            INNER JOIN post_collab b ON projet.id_projet = b.projet_id_projet
-            INNER JOIN post p ON b.post_id_post = p.id_post
-            WHERE projet.id_projet = ? ;`, 
-            // Vive les bases de donnees relationnelles
+        DELETE FROM projet WHERE projet.id_projet = ? ;`, 
         [id_projet],
         function(err) {
             if (err) {

@@ -116,14 +116,14 @@ CREATE TABLE post_collab (
   projet_id_projet VARCHAR(255),  
   post_id_post VARCHAR(255), 
   CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post),
-  CONSTRAINT post_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet)
+  CONSTRAINT post_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE
 ) comment 'Contient le lien entre les posts de demande de collab et les information de projet et de compte';
 
 CREATE TABLE collaborateur (
   id_collaborateur varchar(255) PRIMARY KEY,
   compte_id_compte varchar(255),
   projet_id_projet varchar(255),
-  CONSTRAINT collaborateur_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet),
+  CONSTRAINT collaborateur_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE,
   CONSTRAINT collaborateur_compte_id_collaborateur_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)   
 ) comment 'Contient le lien entre les comptes participants et les projets';
 
@@ -132,6 +132,6 @@ CREATE TABLE demande_collab (
   est_accepte BOOLEAN NULL, 
   projet_id_projet VARCHAR(255),
   compte_id_compte VARCHAR(255) comment 'Collaborateur potentiel', 
-  CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet), 
+  CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE, 
   CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
 );
