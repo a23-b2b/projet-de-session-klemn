@@ -6,6 +6,7 @@ const logger = require('./logger.js');
 const app = express()
 const admin = require('firebase-admin');
 const dotenv = require('dotenv');
+const mysql = require('mysql2')
 dotenv.config();
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");

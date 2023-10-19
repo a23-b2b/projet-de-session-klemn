@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const { pool } = require('./serveur.js')
+const { pool } = require('../../../serveur.js')
 
 
 module.exports = app.get('/user/:user_id/:offset', (req, res) => {

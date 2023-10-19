@@ -1,8 +1,7 @@
 const express = require('express')
 const { body, validationResult } = require('express-validator');
-const { logger } = require('../../serveur.js')
 const { admin } = require('../../serveur.js')
-const { pool } = require('./serveur.js')
+const { pool } = require('../../serveur.js')
 
 const app = express()
 

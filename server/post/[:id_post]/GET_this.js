@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
-const { pool } = require('./serveur.js')
+const { pool } = require('../../serveur.js')
 
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)

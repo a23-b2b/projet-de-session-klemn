@@ -1,16 +1,7 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
 const { admin } = require('../../serveur.js')
-const { logger } = require('../../serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('../../serveur.js')
 
 
 module.exports = app.get('/feed/:offset', (req, res) => {
@@ -24,14 +15,16 @@ module.exports = app.get('/feed/:offset', (req, res) => {
 
         console.log(userId)
 
-        mysqlConnection.query(`
-            select post.*, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, v.score as vote
-            from post
-            left join vote v on post.id_post = v.id_post and v.id_compte = ?
-            inner join compte c on post.id_compte = c.id_compte
-            where id_type_post != 4
-            order by date_publication desc
-            limit ? offset ?;`,
+        pool.query(`
+            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse, v.score as vote
+                from post
+                left join vote v on post.id_post = v.id_post and v.id_compte = ?
+                left join post_collab p on post.id_post = p.post_id_post
+                left join post_question q on post.id_post = q.post_id_post
+                inner join compte c on post.id_compte = c.id_compte            
+                where id_type_post != 4
+                limit ? offset ?;
+            `,
             [userId, limit, offset],
             function (err, results, fields) {
                 if (err) {

@@ -4,14 +4,7 @@ const { check, body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const { admin } = require('../../serveur.js')
 const { logger } = require('../../serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('../../serveur.js')
 
 
 module.exports = app.post('/display_name', [], (req, res) => {
@@ -23,7 +16,7 @@ module.exports = app.post('/display_name', [], (req, res) => {
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;
 
-        mysqlConnection.query(
+        pool.query(
             `UPDATE compte SET nom_affichage = ? WHERE id_compte = ?`,
             [newDisplayName, userId],
             function (err, results) {

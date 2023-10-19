@@ -1,16 +1,7 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
 const { admin } = require('../../serveur.js')
-const { logger } = require('../../serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('../../serveur.js')
 
 
 module.exports = app.get('/followed/:offset', (req, res) => {
@@ -21,9 +12,7 @@ module.exports = app.get('/followed/:offset', (req, res) => {
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid
 
-        console.log(userId)
-
-        mysqlConnection.query(`
+        pool.query(`
             SELECT * , v.score as vote
             from post
             left join vote v on post.id_post = v.id_post and v.id_compte = ? 
