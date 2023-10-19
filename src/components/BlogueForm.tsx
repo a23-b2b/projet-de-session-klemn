@@ -79,7 +79,6 @@ function BlogueForm() {
                     Publier
                 </button>
             </div>
-
         </div>
     )
 }
