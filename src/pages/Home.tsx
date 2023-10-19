@@ -135,7 +135,7 @@ function Home() {
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            >
+            > 
                 <div>
                     {postData?.map(({
                         contenu,

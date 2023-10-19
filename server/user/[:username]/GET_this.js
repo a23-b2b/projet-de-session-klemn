@@ -1,23 +1,13 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
-const { admin } = require('../../serveur.js')
-const { logger } = require('../../serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-})
+const { pool } = require('./serveur.js')
 
 
 module.exports = app.get('/:username', async (req, res) => {
     const username = req.params.username;
     const userId = req.headers.authorization;
 
-    mysqlConnection.query(`
+    pool.query(`
         SELECT 
             id_compte, 
             date_creation_compte,
@@ -35,7 +25,7 @@ module.exports = app.get('/:username', async (req, res) => {
         [username],
 
         function (err, profileResults, fields) {
-            mysqlConnection.query(`           
+            pool.query(`           
             SELECT count(*)
             FROM compte_suivi
             WHERE compte=?

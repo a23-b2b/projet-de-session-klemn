@@ -1,21 +1,14 @@
 const express = require('express')
 const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
-const crypto = require('crypto')
 const { logger } = require('../../serveur.js')
 const { admin } = require('../../serveur.js')
+const { pool } = require('./serveur.js')
 
 const app = express()
 
 
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    multipleStatements: true
-})
+
 
 
 module.exports = app.post('/:user_id/unfollow', (req, res) => {
@@ -35,7 +28,7 @@ module.exports = app.post('/:user_id/unfollow', (req, res) => {
                 return res.status(401).send("ERREUR: Vous ne pouvez pas vous suivre vous-même.");
             }
 
-            mysqlConnection.query(
+            pool.query(
                 `SELECT count(*) 
                 FROM compte_suivi 
                 WHERE compte=?
@@ -54,7 +47,7 @@ module.exports = app.post('/:user_id/unfollow', (req, res) => {
                     }
 
                     else {
-                        mysqlConnection.query(
+                        pool.query(
                             `DELETE FROM compte_suivi
                             WHERE compte = ? 
                             AND suit = ?;
