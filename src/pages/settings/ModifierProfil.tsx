@@ -9,24 +9,15 @@ import toast from 'react-hot-toast';
 
 
 function ModifierProfil() {
-    const [firebaseLoading, setFirebaseLoading] = useState(true);
-    const [loggedIn, setLoggedIn] = useState(false);
-
     const [newEmail, setNewEmail] = useState('');
     const [newEmailConfirmation, setNewEmailConfirmation] = useState('');
-
     const [newNameAffichage, setNewNameAffichage] = useState('');
     const [newNameAffichageConfirmation, setNewNameAffichageConfirmation] = useState('');
-
     const [newName, setNewName] = useState('');
     const [newNameConfirmation, setNewNameConfirmation] = useState('');
-
     const [newPrenom, setNewPrenom] = useState('');
     const [newPrenomConfirmation, setNewPrenomConfirmation] = useState('');
-
     const [newBio, setNewBio] = useState('');
-
-
 
 
     const changeEmail = () => {
@@ -57,140 +48,80 @@ function ModifierProfil() {
     }
 
     const changeNameAffichage = () => {
-
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
-
-        if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
-                user.email,
-                password
-            );
-
-            reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_nom_affichage', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        new_name_affichage: newNameAffichage,
-                        id_compte: user.user.uid
-                    }),
-                }).catch((error) => {
-                    console.log(error)
-                })
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(process.env.REACT_APP_API_URL + '/user/update/display_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+                body: JSON.stringify({
+                    new_name_affichage: newNameAffichage,
+                }),
+            }).then(response => response.json()).then(response => {
+                toast.success('Paramètre modifié.');
             }).catch((error) => {
-                toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
-            });
-
-        }
+                toast.error(`Une erreur est survenue: (${error.code})`)
+            })
+        })
     }
-
 
     const changeName = () => {
-
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
-
-        if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
-                user.email,
-                password
-            );
-
-            reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_nom', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        new_name: newName,
-                        id_compte: user.user.uid
-                    }),
-                }).catch((error) => {
-                    console.log(error)
-                })
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(process.env.REACT_APP_API_URL + '/user/update/nom', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+                body: JSON.stringify({
+                    new_name: newName,
+                }),
+            }).then(response => response.json()).then(response => {
+                toast.success('Paramètre modifié.');
             }).catch((error) => {
-                toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
-            });
-
-        }
+                toast.error(`Une erreur est survenue: (${error.code})`)
+            })
+        })
     }
-
-
 
     const changePrenom = () => {
-
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
-
-        if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
-                user.email,
-                password
-            );
-
-            reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_prenom', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        new_prenom: newPrenom,
-                        id_compte: user.user.uid
-                    }),
-                }).catch((error) => {
-                    console.log(error)
-                })
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(process.env.REACT_APP_API_URL + '/user/update/prenom', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+                body: JSON.stringify({
+                    new_prenom: newPrenom,
+                }),
+            }).then(response => response.json()).then(response => {
+                toast.success('Paramètre modifié.');
             }).catch((error) => {
-                toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
-            });
-
-        }
+                toast.error(`Une erreur est survenue: (${error.code})`)
+            })
+        })
     }
-
-
 
     const changeBio = () => {
-
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
-
-        if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
-                user.email,
-                password
-            );
-
-            reauthenticateWithCredential(user, credential).then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/changer_bio', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        new_bio: newBio,
-                        id_compte: user.user.uid
-                    }),
-                }).catch((error) => {
-                    console.log(error)
-                })
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(process.env.REACT_APP_API_URL + '/user/update/bio', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+                body: JSON.stringify({
+                    new_bio: newBio,
+                }),
+            }).then(response => response.json()).then(response => {
+                toast.success('Paramètre modifié.');
             }).catch((error) => {
-                toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
-            });
-
-        }
+                toast.error(`Une erreur est survenue: (${error.code})`)
+            })
+        })
     }
-
-
-
 
 
     return (

@@ -37,6 +37,18 @@ app.use('/user', follow_user);
 const unfollow_user = require('./user/[:user_id]/POST_unfollow.js');
 app.use('/user', unfollow_user);
 
+const changer_nom_affichage = require('./user/update/POST_display_name.js')
+app.use('/user', changer_nom_affichage)
+
+const changer_nom = require('./user/update/POST_nom.js')
+app.use('/user', changer_nom)
+
+const changer_prenom = require('./user/update/POST_prenom.js')
+app.use('/user', changer_prenom)
+
+const changer_bio = require('./user/update/POST_bio.js')
+app.use('/user', changer_bio)
+
 const get_user_posts = require('./post/user/[:user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 
@@ -58,23 +70,9 @@ app.use('/post', publierBlogue);
 const publierCommentaire = require('./post/[:id_post]/replies/POST_this.js')
 app.use('/post', publierCommentaire)
 
-const changer_nom_affichage = require('./changer_nom_affichage')
-app.use('/changer_nom_affichage', changer_nom_affichage)
-
-const changer_nom = require('./changer_nom')
-app.use('/changer_nom', changer_nom)
-
-const changer_prenom = require('./changer_prenom')
-app.use('/changer_prenom', changer_prenom)
-
-const changer_bio = require('./changer_bio')
-app.use('/changer_bio', changer_bio)
-
 const send_vote = require('./post/[:id_post]/POST_vote.js')
 app.use('/post', send_vote);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
-
-
