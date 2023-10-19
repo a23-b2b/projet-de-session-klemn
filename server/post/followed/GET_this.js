@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-const { admin } = require('./serveur.js')
-const { logger } = require('./serveur.js')
+const { admin } = require('../../serveur.js')
+const { logger } = require('../../serveur.js')
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,

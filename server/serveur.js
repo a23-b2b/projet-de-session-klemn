@@ -1,10 +1,6 @@
-const http = require("http");
 const express = require('express');
-const path = require("path");
 const fs = require("fs");
 const morgan = require("morgan");
-const winston = require("winston");
-const mysql = require('mysql2')
 const cors = require('cors')
 const logger = require('./logger.js');
 const app = express()
@@ -32,34 +28,34 @@ app.use(morgan('tiny', {
 const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
-const get_profil = require('./get_profil')
+const get_profil = require('./user/[:username]/GET_this.js')
 app.use('/user', get_profil);
 
-const follow_user = require('./follow_user');
+const follow_user = require('./user/[:user_id]/POST_follow.js');
 app.use('/user', follow_user);
 
-const unfollow_user = require('./unfollow_user');
+const unfollow_user = require('./user/[:user_id]/POST_unfollow.js');
 app.use('/user', unfollow_user);
 
-const get_user_posts = require('./get_user_posts.js')
+const get_user_posts = require('./post/user/[:user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 
-const get_single_post = require('./get_single_post.js')
+const get_single_post = require('./post/[:id_post]/GET_this.js')
 app.use('/post', get_single_post);
 
-const get_replies = require('./get_replies')
+const get_replies = require('./post/[:id_post]/replies/GET_this.js')
 app.use('/post', get_replies);
 
-const get_posts_feed = require('./get_posts_feed.js')
+const get_posts_feed = require('./post/feed/GET_this.js')
 app.use('/post', get_posts_feed);
 
-const get_followed_users_feed = require('./get_followed_users_feed.js')
+const get_followed_users_feed = require('./post/followed/GET_this.js')
 app.use('/post', get_followed_users_feed)
 
-const publierBlogue = require('./publierBlogue')
+const publierBlogue = require('./post/POST_this.js')
 app.use('/post', publierBlogue);
 
-const publierCommentaire = require('./publierCommentaire')
+const publierCommentaire = require('./post/[:id_post]/replies/POST_this.js')
 app.use('/post', publierCommentaire)
 
 const changer_nom_affichage = require('./changer_nom_affichage')
@@ -74,7 +70,7 @@ app.use('/changer_prenom', changer_prenom)
 const changer_bio = require('./changer_bio')
 app.use('/changer_bio', changer_bio)
 
-const send_vote = require('./vote.js')
+const send_vote = require('./post/[:id_post]/POST_vote.js')
 app.use('/post', send_vote);
 
 app.listen(process.env.SERVER_PORT, () => {

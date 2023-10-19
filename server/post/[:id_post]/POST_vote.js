@@ -2,8 +2,8 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const crypto = require('crypto')
-const { logger } = require('./serveur.js')
-const { admin } = require('./serveur.js')
+const { logger } = require('../../serveur.js')
+const { admin } = require('../../serveur.js')
 
 const app = express()
 

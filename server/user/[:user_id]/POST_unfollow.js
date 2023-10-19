@@ -2,8 +2,8 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const crypto = require('crypto')
-const { logger } = require('./serveur.js')
-const { admin } = require('./serveur.js')
+const { logger } = require('../../serveur.js')
+const { admin } = require('../../serveur.js')
 
 const app = express()
 
@@ -18,20 +18,20 @@ const mysqlConnection = mysql.createConnection({
 })
 
 
-module.exports = app.post('/:user_id/follow', (req, res) => {
+module.exports = app.post('/:user_id/unfollow', (req, res) => {
     const resultatValidation = validationResult(req);
 
     const userToken = req.headers.authorization;
-    const userToFollow = req.params.user_id
+    const userToUnollow = req.params.user_id
 
     admin.auth().verifyIdToken(userToken, true)
         .then((payload) => {
 
             const userId = payload.uid
 
-            console.log(userId, 'wants to follow', userToFollow)
+            console.log(userId, 'wants to unfollow', userToUnollow)
 
-            if (userId === userToFollow) {
+            if (userId === userToUnollow) {
                 return res.status(401).send("ERREUR: Vous ne pouvez pas vous suivre vous-même.");
             }
 
@@ -40,41 +40,33 @@ module.exports = app.post('/:user_id/follow', (req, res) => {
                 FROM compte_suivi 
                 WHERE compte=?
                 AND suit=?`,
-                [userId, userToFollow],
+                [userId, userToUnollow],
                 function (err, results, fields) {
                     console.log(results)
                     if (err) {
                         // logger.info("Erreur lors de lexecution de la query.", err)
                         console.log(err)
                         res.status(500).send("ERREUR: " + err.code)
-
                     }
 
-                    if (results[0]["count(*)"] > 0) {
-                        res.status(401).send("Vous suivez déjà cet utilisateur.")
+                    if (results[0]["count(*)"] === 0) {
+                        res.status(401).send("Vous ne suivez pas cet utilisateur.")
                     }
 
                     else {
                         mysqlConnection.query(
-                            `insert into compte_suivi 
-                            (
-                                compte, 
-                                suit, 
-                                suit_depuis
-                            ) VALUES (
-                                ?, 
-                                ?,
-                                NOW()
-                            );
+                            `DELETE FROM compte_suivi
+                            WHERE compte = ? 
+                            AND suit = ?;
             
                             UPDATE compte 
-                            SET nombre_abonnements = nombre_abonnements + 1 
+                            SET nombre_abonnements = nombre_abonnements - 1 
                             WHERE id_compte = ?;
             
                             UPDATE compte SET 
-                            nombre_abonnes = compte.nombre_abonnes + 1 
+                            nombre_abonnes = compte.nombre_abonnes - 1 
                             WHERE id_compte = ?;`,
-                            [userId, userToFollow, userId, userToFollow],
+                            [userId, userToUnollow, userId, userToUnollow],
                             function (err, results, fields) {
                                 if (err) {
                                     // logger.info("Erreur lors de lexecution de la query.", err)
@@ -82,7 +74,6 @@ module.exports = app.post('/:user_id/follow', (req, res) => {
                                     return res.status(500).send("ERREUR: " + err.code)
 
                                 } else {
-                                    console.log(results)
                                     return res.send(JSON.stringify(results))
                                 }
                             }
