@@ -13,18 +13,8 @@ function BlogueForm() {
     const [nbCaracteres, setNbCaracteres] = useState(0)
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
-    const [hidden, setHidden] = useState(true);
     const [urlGit, setUrlGit] = useState("");
-
-    const changerType = (event: any) => {
-        setType(event.target.value);
-
-        if (event.target.value == 'collab') {
-            setHidden(true)
-        } else {
-            setHidden(false)
-        }
-    };
+    
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -87,22 +77,23 @@ function BlogueForm() {
                         setContenu(e.target.value)
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
-                    {/* <ChakraProvider> */}
-                        <Select className={'global_input_field'} variant='filled' size='sm' value={type} onChange={changerType}>
-                            <option value='blogue'>Blogue</option>
-                            <option value='question'>Question</option>
-                            <option value='collab'>Collaboration</option>
-                        </Select>
-                
-                    {/* </ChakraProvider> */}
-                    {hidden && <div >
+
+                <select className={'global_input_field'} value={type} onChange={e => setType(e.target.value)}>
+                    <option value='blogue'>Blogue</option>
+                    <option value='question'>Question</option>
+                    <option value='collab'>Collaboration</option>
+                </select>
+
+                {type === "collab" && (
+                    <div >
                         <label className={'global_input_field_label'}>URL du projet GitHub</label>
                         <input
-                            placeholder='https://github.com/'                                                      
+                            placeholder='https://github.com/'
                             type="text"
                             className={'global_input_field'}
-                            onChange={(e) => setUrlGit(e.target.value)}/>
-                    </div>}
+                            onChange={(e) => setUrlGit(e.target.value)} />
+                    </div>
+                )}
             </div>
 
             <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
