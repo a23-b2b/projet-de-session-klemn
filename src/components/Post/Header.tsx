@@ -64,21 +64,19 @@ const PostHeader = (props: HeaderProps) => {
     console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
+            <Link to={`/u/${props.nomUtilisateur}`}>
+                <img className={styles.image_profil} src={props.urlImageProfil} />
+            </Link>
 
-            <div className={styles.header_content}>
-
-                <Link to={`/u/${props.nomUtilisateur}`}>
-                    <img className={styles.image_profil} src={props.urlImageProfil} />
-                </Link>
-
+            <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                     <p className={styles.display_name}>{props.nomAffichage}</p>
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
-
             </div>
-
-
+            <div>
+                <p className={styles.date}>{props.date}</p>
+            </div>
 
             <Tooltip className={styles.tooltip} label={formattedData} placement='top'>
                 <p className={styles.date}>{timeStampText}</p>

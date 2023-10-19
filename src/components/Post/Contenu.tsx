@@ -54,15 +54,23 @@ const PostContent = (props: ContentProps) => {
             {
                 props.isPostFullScreen ?
 
-                    <h2 className={styles.titre}>
-                        {props.titre}
-                    </h2>
-                    :
-                    <Link to={`/p/${props.idPost}`} className={styles.titre}>
-                        <h2>
+                    <div className={styles.conteneurDiv}>
+                        <h2 className={'global_title'}>
                             {props.titre}
                         </h2>
-                    </Link>
+                        
+                    </div>
+
+                    :
+
+                    <div className={styles.conteneurDiv}>
+                        <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                            <h2>
+                                {props.titre}
+                            </h2>
+                        </Link>
+                    </div>
+
             }
 
 

@@ -27,6 +27,7 @@ pour démarrer l'API.
 
 | Technologie       | Contribution      | 
 | :------------     | :---------------- |
+| Firebase          | Authentification  |
 | MySQL, Docker     | Base de données   |
 | Node, Express     | Backend           |
 | React, Typescript | Frontend          |
