@@ -30,6 +30,7 @@ module.exports = app.post('/', (req, res) => {
             left join post_partage on post.id_post = post_partage.id_post_original
             inner join compte c on post.id_compte = c.id_compte            
             where id_type_post != 4
+            order by date_publication desc
             limit ? offset ?;
         `,
         [userId, limit, offset],
