@@ -44,14 +44,14 @@ function BlogueForm() {
                                 firebase_id_token: idToken
                             }),
                         }).then(response => response.json())
-                        .then(response => {
-                            console.log(response)
-                            toast.success('Votre message a été publié!');
+                            .then(response => {
+                                console.log(response)
+                                toast.success('Votre message a été publié!');
 
-                            navigate(`/p/${response[1][0]['id_post']}`)
-                        }).catch((error) => {
-                            toast.error('Une erreur est survenue');
-                        })
+                                navigate(`/p/${response[1][0]['id_post']}`)
+                            }).catch((error) => {
+                                toast.error('Une erreur est survenue');
+                            })
                     })
 
             } else {
@@ -65,18 +65,20 @@ function BlogueForm() {
     }
 
     return (
-        <div className={styles.conteneur}>
-            <h2 className={styles.titre}>Publication</h2>
+        <div className={'global_conteneur'} id={styles["conteneur"]}>
+            <div className={styles.conteneurDiv}>
+                <h2 className={'global_title'}>Publication</h2>
+            </div>
+
             <div className={styles.form}>
-                <label className={'global_input_field_label'}>Titre</label>
                 <input
                     className={'global_input_field'}
+                    id={styles["input"]}
                     type="text"
                     placeholder="Titre"
                     onChange={(e) => setTitre(e.target.value)} />
-
-                <label className={'global_input_field_label'}>Contenu</label>
                 <textarea className={'global_input_field'}
+                    id={styles["textarea"]}
                     rows={10}
                     maxLength={4000}
                     placeholder="Exprimez-vous!"
@@ -102,10 +104,13 @@ function BlogueForm() {
                             onChange={(e) => setUrlGit(e.target.value)}/>
                     </div>}
             </div>
-            <span>{nbCaracteres}/4000</span>
-            <button className={'global_bouton'} onClick={() => publierBlogue()}>
-                Publier
-            </button>
+
+            <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
+                <span id={styles["span"]}>{nbCaracteres}/4000</span>
+                <button className={'global_bouton'} onClick={() => publierBlogue()}>
+                    Publier
+                </button>
+            </div>
         </div>
     )
 }
