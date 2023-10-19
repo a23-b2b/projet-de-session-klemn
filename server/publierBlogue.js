@@ -25,6 +25,7 @@ const TypesDePost = {
     Boost: "boost"
 }
 
+
 module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
@@ -115,7 +116,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 res.status(500).send("ERREUR: " + err.code)
 
                             } else {
-                                res.send(JSON.stringify(results))
+                                res.send(JSON.stringify(results[2][0]))
                             }
                         }
                     );
@@ -157,7 +158,12 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 order by date_publication desc
                                 limit 1)
                             , ?, false);
-                            `,
+                            
+                        SELECT id_post
+                        FROM post
+                        WHERE id_compte = ?
+                        order by date_publication desc
+                        limit 1;`,
                         [id_compte, contenu, id_compte, boostedPostId, id_compte],
                         function (err, results, fields) {
                             if (err) {
@@ -166,7 +172,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 res.status(500).send("ERREUR: " + err.code)
 
                             } else {
-                                res.send(JSON.stringify(results))
+                                res.send(JSON.stringify(results[2][0]))
                             }
                         }
                     );
@@ -187,7 +193,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 res.status(500).send("ERREUR: " + err.code)
 
                             } else {
-                                res.send(JSON.stringify(results))
+                                res.send(JSON.stringify(results[1][0]))
                             }
                         }
                     );
@@ -197,7 +203,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                     mysqlConnection.query(
                         `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
                                            nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
                          
                          INSERT INTO post_collab 
                             (id_collab, est_ouvert, url_git, post_id_post)
@@ -206,8 +212,14 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                             true, 
                             ?, 
                             (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1)
-                         );`,
-                        [id_compte, titre, contenu, id_compte, urlGit],
+                         );
+                         
+                        SELECT id_post
+                        FROM post
+                        WHERE id_compte = ?
+                        order by date_publication desc
+                        limit 1;`,
+                        [id_compte, titre, contenu, id_compte, urlGit, id_compte],
                         function (err, results, fields) {
                             if (err) {
                                 // logger.info("Erreur lors de lexecution de la query.", err)
@@ -215,7 +227,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 res.status(500).send("ERREUR: " + err.code)
 
                             } else {
-                                res.send(JSON.stringify(results))
+                                res.send(JSON.stringify(results[2][0]))
                             }
                         }
                     );
@@ -224,8 +236,8 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                 if (typePost === TypesDePost.Question) {
                     mysqlConnection.query(
                         `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
-                                           nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                            nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
+                         VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
                          
                          INSERT INTO post_question 
                             (id_question, est_resolu, post_id_post, post_meilleure_reponse)
@@ -234,8 +246,14 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                             false, 
                             (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1), 
                             null
-                         );`,
-                        [id_compte, titre, contenu, id_compte, urlGit],
+                         );
+                         
+                         SELECT id_post
+                         FROM post
+                         WHERE id_compte = ?
+                         order by date_publication desc
+                         limit 1;`,
+                        [id_compte, titre, contenu, id_compte, id_compte],
                         function (err, results, fields) {
                             if (err) {
                                 // logger.info("Erreur lors de lexecution de la query.", err)
@@ -243,7 +261,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
                                 res.status(500).send("ERREUR: " + err.code)
 
                             } else {
-                                res.send(JSON.stringify(results))
+                                res.send(JSON.stringify(results[2][0]))
                             }
                         }
                     );
