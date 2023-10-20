@@ -45,7 +45,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 'Je viens d\'arriver sur Klemn!',
                 'http://localhost:3000/default_profile_image.jpg',
                 'http://localhost:3000/default_banner_image.webp',
-                3
+                'pre_made_set_2'
             ],
             function (err, results, fields) {
                 if (err) {
