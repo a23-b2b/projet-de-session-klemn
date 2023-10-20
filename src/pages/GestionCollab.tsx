@@ -97,7 +97,9 @@ function GestionCollab() {
                     headers: { 'Content-Type': 'application/json' },        
                 })
                     .then(response => response.json())
-                    .then(json => setProjets(json))
+                    .then(json => {
+                        setProjets(json)
+                    })
                     .catch(error => toast.error(error));
             } else {
                 navigate("/authenticate")
@@ -118,13 +120,16 @@ function GestionCollab() {
                     headers: { 'Content-Type': 'application/json' },                
                 })
                     .then(response => response.json())
-                    .then(json => setDemandesCollab(json))
+                    .then(json => { 
+                        setDemandesCollab(json) 
+                    })
                     .catch(error => toast.error(error));
             } else {
                 navigate("/authenticate")
             }
         })
     }
+    
 } 
 
 export default GestionCollab

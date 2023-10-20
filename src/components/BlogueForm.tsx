@@ -1,8 +1,11 @@
 import styles from '../styles/PostsForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Divider } from '@chakra-ui/react';
+
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -14,6 +17,33 @@ function BlogueForm() {
     const [type, setType] = useState('blogue');
     const [urlGit, setUrlGit] = useState("");
 
+    const [projets, setProjets] = useState<any[]>([]);
+    const naviguate = useNavigate()
+
+
+    useEffect(() => {
+        getProjets()
+    }, []);
+
+    async function getProjets() {    
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },        
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setProjets(json)
+                    })
+                    .catch(error => toast.error(error));
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -84,12 +114,21 @@ function BlogueForm() {
 
                 {type === "collab" && (
                     <div >
-                        <label className={'global_input_field_label'}>URL du projet GitHub</label>
-                        <input
-                            placeholder='https://github.com/'
-                            type="text"
+                        <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
+                        <select                             
                             className={'global_input_field'}
-                            onChange={(e) => setUrlGit(e.target.value)} />
+                            onChange={(e) => setUrlGit(e.target.value)}>
+                                {projets && projets?.map(({
+                                    compte_id_proprio,
+                                    id_projet,
+                                    titre_projet,
+                                    description_projet,
+                                    est_ouvert
+                                }) => { return (<>                       
+                                    {est_ouvert && <option key={id_projet} value={id_projet}>{titre_projet}</option>}
+                                </>)
+                            })}
+                        </select>
                     </div>
                 )}
             </div>
