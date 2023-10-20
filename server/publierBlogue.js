@@ -41,12 +41,7 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
 
         let typePost
 
-        // post de quote
-        if (quotedPostId) {
-            typePost = TypesDePost.Quote
-        }
-
-        if (boostedPostId) {
+        if (typePoste === "boost" && boostedPostId) {
             typePost = TypesDePost.Boost
         }
 
@@ -60,6 +55,10 @@ module.exports = app.post('/:type', [body('contenu').notEmpty().isLength({ max: 
 
         if (typePoste == "collab") {
             typePost = TypesDePost.Collab
+        }
+
+        if (typePoste == "quote" && quotedPostId) {
+            typePost = TypesDePost.Quote
         }
 
 

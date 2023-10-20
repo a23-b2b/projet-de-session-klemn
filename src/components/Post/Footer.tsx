@@ -39,7 +39,7 @@ const PostFooter = (props: FooterProps) => {
                 break;
 
             case "copy_url":
-                navigator.clipboard.writeText(`http://localhost:3000/p/${props.idPost}`)
+                navigator.clipboard.writeText(`${window.location.origin}/p/${props.idPost}`)
                 toast.success("Contenu copié dans le presse-papier.")
                 break;
 
@@ -54,7 +54,7 @@ const PostFooter = (props: FooterProps) => {
         if (utilisateur) {
             utilisateur.getIdToken(/* forceRefresh */ true)
                 .then((idToken) => {
-                    fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
+                    fetch(process.env.REACT_APP_API_URL + '/publier-blogue/boost', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

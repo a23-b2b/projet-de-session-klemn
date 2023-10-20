@@ -27,7 +27,7 @@ function QuotePostModal(props: Props) {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue', {
+                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue/quote', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -41,7 +41,7 @@ function QuotePostModal(props: Props) {
                                 console.log(response)
                                 toast.success('Votre message a été publié!');
 
-                                navigate(`/p/${response[2][0]['id_post']}`)
+                                navigate(`/p/${response['id_post']}`)
                             }).catch((error) => {
                                 toast.error('Une erreur est survenue');
                             })
