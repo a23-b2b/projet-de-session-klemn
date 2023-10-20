@@ -12,16 +12,13 @@ module.exports = app.get('/user/:user_id/:offset', (req, res) => {
     const authUserId = req.headers.authorization
 
     pool.query(`
-        select 
-            post.*, v.score as vote, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse, post_partage.id_shared_post, post_partage.is_quoted_post
-        from post
-        left join vote v on post.id_post = v.id_post and v.id_compte = ?
-        left join post_collab p on post.id_post = p.post_id_post
-        left join post_question q on post.id_post = q.post_id_post
-        left join post_partage on post.id_post = post_partage.id_post_original
-        inner join compte c on post.id_compte = c.id_compte
-        where post.id_compte like ? AND post.id_type_post != 4
-        order by post.date_publication desc
+        SELECT post_view.*,
+            vote.id_compte AS vote_user_id,
+            vote.score
+        FROM post_view
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+        where post_view.id_compte like ? AND post_view.id_type_post != 4
+        order by post_view.date_publication desc
         limit ? offset ?;`,
         [authUserId, userToGet, limit, offset],
 

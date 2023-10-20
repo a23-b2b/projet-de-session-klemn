@@ -140,6 +140,7 @@ CREATE TABLE post_collab (
   CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
   CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
 );
+
 CREATE TABLE post_question (
   id_question VARCHAR(255) PRIMARY KEY, 
   est_resolu BOOLEAN NOT NULL DEFAULT FALSE, 
@@ -148,3 +149,23 @@ CREATE TABLE post_question (
   CONSTRAINT post_question_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post), 
   CONSTRAINT post_question_post_meilleure_reponse_fk FOREIGN KEY (post_meilleure_reponse) REFERENCES post (id_post)
 );
+
+CREATE OR REPLACE VIEW post_view AS
+SELECT post.*,
+       pc.url_git,
+       pc.est_ouvert,
+       pc.id_collab,
+       pq.est_resolu,
+       pq.post_meilleure_reponse,
+       pp.id_shared_post,
+       pp.is_quoted_post,
+       c.nom_affichage,
+       c.nom_utilisateur,
+       c.url_image_profil
+FROM post
+         LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
+         LEFT JOIN post_question pq on post.id_post = pq.post_id_post
+         LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
+         INNER JOIN compte c on post.id_compte = c.id_compte;
+
+COMMIT;
