@@ -74,9 +74,6 @@ const PostHeader = (props: HeaderProps) => {
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
             </div>
-            <div>
-                <p className={styles.date}>{props.date}</p>
-            </div>
 
             <Tooltip className={styles.tooltip} label={formattedData} placement='top'>
                 <p className={styles.date}>{timeStampText}</p>
