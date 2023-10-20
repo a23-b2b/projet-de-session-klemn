@@ -1,9 +1,8 @@
 .quoted_post_container {
     /* margin-left: 84px; */
     background-color: rgba(255, 255, 255, 0.146);
-    border: 1px solid grey;
     border-radius: 16px;
-    padding: 0px 16px;
+    padding: 10px 20px;
     text-decoration: none;
     color: var(--auto_text_color);
     transition: 0.2s;
@@ -29,7 +28,10 @@
     width: 24px;
 }
 
-.contenu {
-    /* line-height: 8px; */
-    margin-top: -8px;
+#conteneur {
+    margin: 30px 0px 5px 0px;
+}
+
+.nom_affichage {
+    margin-left: 3px;
 }

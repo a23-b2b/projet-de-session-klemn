@@ -59,7 +59,7 @@ function QuotePost(props: Props) {
 
 
     return (
-        <div className={styles.container}>
+        <div id={styles["conteneur"]} className={'global_conteneur_post'}>
             <PostHeader
                 date={props.date}
                 nomAffichage={props.nomAffichage}
