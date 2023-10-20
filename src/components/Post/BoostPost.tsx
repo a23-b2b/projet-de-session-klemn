@@ -56,7 +56,7 @@ function BoostPost(props: Props) {
             <div>
                 <span>
                     <FaRetweet className={styles.icone_boost}/>
-                    <Link to={`/p/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
+                    <Link to={`/u/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
                 </span>
                 <Post
                     idPost={boostedPostData.id_post}
