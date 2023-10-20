@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
-import ReactCrop, {Crop} from "react-image-crop";
+import ReactCrop, {centerCrop, Crop, makeAspectCrop} from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
 
 
@@ -21,13 +21,8 @@ function ModifierProfil() {
     const [newPrenomConfirmation, setNewPrenomConfirmation] = useState('');
     const [newBio, setNewBio] = useState('');
 
-    const [cropProfil, setCropProfil] = useState<Crop>({
-        unit: '%', // Can be 'px' or '%'
-        x: 25,
-        y: 25,
-        width: 50,
-        height: 50
-    })
+    const [cropProfil, setCropProfil] = useState<Crop>()
+    const [urlImageProfil, seturlImageProfil] = useState('')
 
     const changeEmail = () => {
 
@@ -131,6 +126,28 @@ function ModifierProfil() {
             })
         })
     }
+
+    function onImageProfilLoad(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+        // https://www.npmjs.com/package/react-image-crop
+        const { naturalWidth: width, naturalHeight: height } = e.currentTarget
+
+        const crop = centerCrop(
+            makeAspectCrop(
+                {
+                    unit: '%',
+                    width: 50,
+                },
+                1,
+                width,
+                height
+            ),
+            width,
+            height
+        )
+
+        setCropProfil(crop)
+    }
+
 
 
     return (
@@ -278,13 +295,21 @@ function ModifierProfil() {
                 <input
                     type={'file'}
                     accept={'image/'}
+                    onChange={event => {
+                        seturlImageProfil(event.target.files ? (URL.createObjectURL(event.target.files[0])) : '')
+                    }}
                 />
-                <ReactCrop crop={cropProfil}
-                           onChange={crop => setCropProfil(crop)}
-                           aspect={1}
-                           circularCrop={true}>
-                    <img src={'http://localhost:3000/default_profile_image.jpg'} />
-                </ReactCrop>
+                <br/>
+                {urlImageProfil && (
+                    <ReactCrop crop={cropProfil}
+                               onChange={crop => setCropProfil(crop)}
+                               aspect={1}
+                               circularCrop={true}>
+                        <img src={urlImageProfil} onLoad={onImageProfilLoad} />
+                    </ReactCrop>
+                )
+                }
+
             </div>
         </motion.div>
     );
