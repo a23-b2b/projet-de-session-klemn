@@ -11,12 +11,4 @@ INSERT INTO compte
 VALUES
     ('yjoI2WF3w4WVr3kD9L01shSjjnL2', '2023-08-30 10:00:00', 'nom de louis', 'prenom de louis', 'usernameLouis', 'Louis Nom Affichage', 'louis@louis.com', '777-555-1234', 0, 0, 'Je viens d''arriver sur Klemn!', 'pre_made_set_2');
 
-INSERT INTO type_post (id_type_post, nom_type)
-VALUES  (6, 'Boost'),
-        (5, 'Quote'),
-        (4, 'Réponse'),
-        (3, 'Collaboration'),
-        (2, 'Question'),
-        (1, 'Blogue');
-
 COMMIT;

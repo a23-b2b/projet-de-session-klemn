@@ -15,9 +15,6 @@ DROP
   TABLE IF EXISTS post CASCADE;
 DROP 
   TABLE IF EXISTS compte;
-DROP 
-  TABLE IF EXISTS type_post;
-
 DROP
   TABLE IF EXISTS post_partage;
 
@@ -35,17 +32,9 @@ CREATE TABLE compte(
     biographie                      VARCHAR(1000),
     url_image_profil                VARCHAR(1000),
     url_image_banniere              VARCHAR(1000),
-    autorisation_id_autorisation    varchar(255) NOT NULL,
-    FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
+    autorisation    int NOT NULL,
     CONSTRAINT uc_compte_nom_utilisateur UNIQUE (nom_utilisateur),
     CONSTRAINT uc_compte_courriel UNIQUE (courriel)
-);
-
-CREATE TABLE type_post
-(
-    id_type_post INT          NOT NULL
-        PRIMARY KEY,
-    nom_type     VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE post
@@ -67,9 +56,7 @@ CREATE TABLE post
     CONSTRAINT post_compte_id_compte_fk
         FOREIGN KEY (id_compte) REFERENCES compte (id_compte),
     CONSTRAINT post_post_id_post_fk
-        FOREIGN KEY (id_parent) REFERENCES post (id_post),
-    CONSTRAINT post_type_post_id_type_post_fk
-        FOREIGN KEY (id_type_post) REFERENCES type_post (id_type_post)
+        FOREIGN KEY (id_parent) REFERENCES post (id_post)
 );
 
 CREATE TABLE image_post
