@@ -153,14 +153,14 @@ const VoteWidget = (props: FooterProps) => {
                 })
             }
 
-            fetch(props.idPost === "0" ? '0' : process.env.REACT_APP_API_URL + '/vote', {
+            fetch(props.idPost === "0" ? '0' : `${process.env.REACT_APP_API_URL}/post/${props.idPost}/vote`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
                 body: JSON.stringify({
-                    user_id: auth.currentUser?.uid,
-                    post_id: props.idPost,
                     score: score,
-                    firebase_id_token: idToken
                 }),
             }).then(response => response.json())
                 .then(response => {

@@ -17,7 +17,7 @@ function PostFullScreen() {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             console.log(user?.uid)
-            fetch(`${process.env.REACT_APP_API_URL}/single-post/${postId}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

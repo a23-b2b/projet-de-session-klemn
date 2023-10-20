@@ -26,35 +26,29 @@ function Home() {
 
     async function getGlobalPosts() {
         onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                navigate('/authenticate')
-            }
-
             if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/feed-posts/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: user.uid,
-                        offset: postOffset
-                    })
-                })
-                    .then(response => response.json())
-                    .then(response => {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
                         let data = response
-
+        
                         setPostOffset(postOffset + OFFSET)
-
+        
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-
+        
                         setPostData(postData.concat(data))
-
-                    })
-                    .catch((error) => {
+        
+                    }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
+                })
             }
         })
     }
@@ -63,29 +57,28 @@ function Home() {
     function getSubscribedPosts() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/feed-followed`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: user.uid,
-                        offset: postOffset
-                    })
-                })
-                    .then(response => response.json())
-                    .then(response => {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
                         let data = response
-
+        
                         setPostOffset(postOffset + OFFSET)
-
+        
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-
+        
                         setPostData(postData.concat(data))
-                    })
-                    .catch((error) => {
+        
+                    }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
+                })
             }
         });
     }
@@ -124,6 +117,7 @@ function Home() {
 
     useEffect(() => {
         getPosts()
+        console.log('posts gotten')
     }, [feedType]);
 
     return (

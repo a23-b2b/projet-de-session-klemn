@@ -54,14 +54,14 @@ const PostFooter = (props: FooterProps) => {
         if (utilisateur) {
             utilisateur.getIdToken(/* forceRefresh */ true)
                 .then((idToken) => {
-                    fetch(process.env.REACT_APP_API_URL + '/publier-blogue/boost', {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/${props.idPost}/boost`, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
                         body: JSON.stringify({
-                            id_compte: utilisateur.uid,
-                            contenu: `boosted_id=${props.idPost}`,
-                            boosted_post_id: props.idPost,
-                            firebase_id_token: idToken
+                            contenu: `boosted_id=${props.idPost}`
                         }),
                     }).then(response => response.json())
                         .then(response => {

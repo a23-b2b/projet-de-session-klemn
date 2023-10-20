@@ -16,56 +16,51 @@ function CommentaireForm(props: CommentaireFormProps) {
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
     async function publierCommentaire() {
-        // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
-                utilisateur.getIdToken(/* forceRefresh */ true)
-                    .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-commentaire', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id_compte: utilisateur.uid,
-                                id_parent: props.idParent,
-                                contenu: contenu,
-                                firebase_id_token: idToken
-                            }),
-                        }).then(response => response.json())
-                            .then(response => {
-                                props.ajouterNouvCommentaire(response);
-                                setContenu('');
-                                setNbCaracteres(0);
-                                toast.success('Votre commentaire a été publié!');
-                            }).catch((error) => {
-                                console.log(error)
-                                toast.error('Une erreur est survenue');
-                            })
-
+                utilisateur.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/${props.idParent}/replies`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            id_parent: props.idParent,
+                            contenu: contenu,
+                        }),
+                    }).then(response => response.json()).then(response => {
+                        props.ajouterNouvCommentaire(response);
+                        setContenu('');
+                        setNbCaracteres(0);
+                        toast.success('Votre commentaire a été publié!');
+                    }).catch((error) => {
+                        console.log(error)
+                        toast.error('Une erreur est survenue');
                     })
-
+                })
             } else {
-                toast.error('Le contenu du commentaire ne peut pas être vide.')
+                toast.error('Le contenu de la publication ne peut pas être vide.')
             }
         } else {
             toast.error('Veuillez vous connecter avant de publier.');
             navigate('/');
         }
-
     }
 
     return (
         <div className={styles.conteneurCommentaire}>
             <div className={styles.form}>
                 <textarea className={'global_input_field'}
-                          rows={5}
-                          maxLength={4000}
-                          placeholder="Écrivez un commentaire"
-                          value={contenu}
-                          onChange={e => {
-                              setContenu(e.target.value)
-                              setNbCaracteres(e.target.textLength)
-                          }}></textarea>
+                    rows={5}
+                    maxLength={4000}
+                    placeholder="Écrivez un commentaire"
+                    value={contenu}
+                    onChange={e => {
+                        setContenu(e.target.value)
+                        setNbCaracteres(e.target.textLength)
+                    }}></textarea>
             </div>
             <span>{nbCaracteres}/4000</span>
             <button className={'global_bouton'} onClick={() => publierCommentaire()}>
