@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
+    "@chakra-ui/tooltip": "^2.3.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@szhsin/react-menu": "^4.0.3",
