@@ -16,17 +16,10 @@ DROP
 DROP 
   TABLE IF EXISTS compte;
 DROP 
-  TABLE IF EXISTS autorisation;
-DROP 
   TABLE IF EXISTS type_post;
 
 DROP
   TABLE IF EXISTS post_partage;
-  
-CREATE TABLE autorisation (
-    id_autorisation     varchar(255) NOT NULL PRIMARY KEY,
-    titre_autorisation  varchar(255)
-);
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
