@@ -21,30 +21,20 @@ function RegisterForm() {
             .then((userCredential) => {
                 const user = userCredential.user;
                 return user;
-            })
-            .then((user) => {
-                fetch(process.env.REACT_APP_API_URL + '/inscription', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        username: username,
-                        email: email,
-                        telephone: telephone,
-                        prenom: prenom,
-                        nom: nom,
-                        id_compte: user.uid
-                    }),
-                }).catch((error) => {
-                    console.log(error)
-                })
-            }).then(() => {
-                toast.success('Vous êtes connecté!')
-                navigate('/')
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 switch (error.code) {
                     case 'auth/invalid-email':
                         toast.error('Le courriel est invalide.')
+                        break;
+                    case 'auth/email-already-exists':
+                        toast.error('Le courriel est déjà inscrit.');
+                        break;
+
+                    case 'auth/weak-password':
+                        toast.error('Le mot de passe est trop faible.');
+                        break;
+                    case 'auth/wrong-password':
+                        toast.error('Le mot de passe est invalide. Il doit faire au moins 6 caractères.');
                         break;
                     default:
                         toast.error('Une erreur est survenue: ' + error.name)
@@ -96,7 +86,7 @@ function RegisterForm() {
                         className={'global_input_field'}
                         type="tel"
                         onChange={(e) => setTelephone(e.target.value)} />
-                        
+
                     <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                             Inscription
