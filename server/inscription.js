@@ -1,17 +1,7 @@
 const express = require('express')
 const app = express()
 const { check, body, validationResult } = require('express-validator');
-const mysql = require('mysql2')
-
-const { logger } = require('./serveur.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('./serveur.js')
 
 
 module.exports = app.post('/', [body('username').notEmpty(), body('email').optional().trim().isEmail()], (req, res) => {
@@ -25,7 +15,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
         const nom = req.body.nom;
         const telephone = req.body.telephone;
 
-        mysqlConnection.query(
+        pool.query(
             `INSERT INTO compte (
                 id_compte, 
                 date_creation_compte, 

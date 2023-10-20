@@ -1,13 +1,8 @@
 import { useParams } from 'react-router';
-import Bonjour from '../components/ComponentWithParameters';
-import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Profil.module.css'
-import { SetStateAction, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PosteBlogue from '../components/Post/PosteBlogue';
+import { useEffect, useState } from 'react';
 import Post from '../components/Post';
 import { auth } from '../firebase';
-import toast from 'react-hot-toast'
 import { onAuthStateChanged } from 'firebase/auth';
 import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
@@ -17,32 +12,21 @@ function Profil() {
     const OFFSET = 6;
 
     let { username } = useParams();
-    const navigate = useNavigate();
 
-    const [nom, setNom] = useState('');
-    const [prenom, setPrenom] = useState('');
+    const [userData, setUserData] = useState<any>('')
+
     const [displayName, setDisplayName] = useState('');
-    const [dateCreationCompte, setDateCreationCompte] = useState('');
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
     const [nombreAbonnesBefore, setNombreAbonnesBefore] = useState(nombreAbonnes);
-    const [nombreAbonnements, setNombreAbonnements] = useState(0);
-    const [bio, setBio] = useState('');
-    const [urlImageProfil, setUrlImageProfil] = useState('');
-    const [urlImageBanniere, setUrlImageBanniere] = useState('');
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
-
-    const [idCompte, setIdCompte] = useState('')
 
     const [userPosts, setUserPosts] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
+
     const [followerNumberScope, animateFollowerNumber] = useAnimate()
 
-    useEffect(() => {
-        // Lorsque l'id du compte est charge, on va chercher les posts du user dans la bd
-        getPosts()
-    }, [idCompte])
 
     useEffect(() => {
         // Unfollow
@@ -88,73 +72,75 @@ function Profil() {
         }
     }, [nombreAbonnes])
 
+    useEffect(() => {
+        getUserData()
+    }, [username])
 
     useEffect(() => {
+        if (userData) getPosts()
+    }, [userData])
 
-        fetch(`${process.env.REACT_APP_API_URL}/profil`, {
-            method: 'POST',
-            body: JSON.stringify({
-                username: username,
-                is_followed_by: auth.currentUser?.uid
-            }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then(response => response.json())
-            .then(response => {
+
+    function getUserData() {
+
+        onAuthStateChanged(auth, (user) => {
+            fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': user?.uid || ''
+                },
+            }).then(response => response.json()).then(response => {
                 let data = response
 
-                // if (!data) {
-                //     navigate("/404")
-                // }
+                console.log(response)
 
-                setIdCompte(data.id_compte)
-                setNom(data.nom)
-                setPrenom(data.prenom)
                 setDisplayName(data.nom_affichage ? data.nom_affichage : username)
-                setDateCreationCompte(data.date_creation_compte)
                 setNombreAbonnes(data.nombre_abonnes)
-                setNombreAbonnements(data.nombre_abonnements)
-                setBio(data.biographie)
-                setUrlImageProfil(data.url_image_profil)
-                setUrlImageBanniere(data.url_image_banniere)
                 setVisitorFollowsUser(data.visitor_follows_profile)
 
-                return data.id_compte;
-
+                setUserData(data)
             }).catch((error) => {
                 console.log(error)
             })
+        })
+    }
 
-
-    }, [username]);
 
     function getPosts() {
-        if (idCompte) {
-            onAuthStateChanged(auth, (user) => {
-                fetch(`${process.env.REACT_APP_API_URL}/user-posts/${idCompte}/${postOffset}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        authorization: user?.uid || ""
-                    }
-                }).then(response => response.json())
-                    .then(response => {
-                        let data = response;
+        onAuthStateChanged(auth, (user) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${postOffset}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': user?.uid || ''
+                }
+            }).then(response => response.json()).then(response => {
+                let data = response;
 
-                        setPostOffset(postOffset + OFFSET)
+                console.log(data)
 
-                        if (data.length < OFFSET) {
-                            setIsEndOfFeed(true)
-                        }
+                setPostOffset(postOffset + OFFSET)
 
-                        setUserPosts(userPosts.concat(data));
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            }
-            )
+                if (data.length < OFFSET) {
+                    setIsEndOfFeed(true)
+                }
+
+                setUserPosts(userPosts.concat(data));
+            }).catch((error) => {
+                console.log(error)
+            })
         }
+        )
+
+    }
+
+    if (!userData) {
+        return (
+            <div>
+                Chargement...
+            </div>
+        )
     }
 
 
@@ -162,17 +148,17 @@ function Profil() {
         <div className={styles.flex}>
 
             <div className={styles.header}>
-                <img className={styles.photo_banniere} src={urlImageBanniere} />
+                <img className={styles.photo_banniere} src={userData.url_image_banniere} />
 
                 <div className={styles.sous_banniere}>
-                    <img className={styles.photo_profil} src={urlImageProfil} />
+                    <img className={styles.photo_profil} src={userData.url_image_profil} />
 
                     <div className={styles.infos_profil}>
-                        <h2 className={styles.nom}>{displayName}</h2>
-                        <p className={styles.username}>@{username}</p>
+                        <h2 className={styles.nom}>{userData.nom_affichage}</h2>
+                        <p className={styles.username}>@{userData.nom_utilisateur}</p>
                         <FollowButton
-                            userId={idCompte}
-                            displayName={displayName}
+                            userId={userData.id_compte}
+                            displayName={userData.nom_affichage}
                             nombreAbonnes={nombreAbonnes}
                             setNombreAbonnes={setNombreAbonnes}
                             visitorFollowsUser={visitorFollowsUser}
@@ -183,10 +169,10 @@ function Profil() {
 
                 <div className={styles.follows}>
                     <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
-                    <div><p>{nombreAbonnements}</p> Abonnements</div>
+                    <div><p>{userData.nombre_abonnements}</p> Abonnements</div>
                 </div>
 
-                <p className={styles.bio}>{bio}</p>
+                <p className={styles.bio}>{userData.biographie}</p>
             </div>
 
             <InfiniteScroll
@@ -229,7 +215,7 @@ function Profil() {
                             nombreCommentaire={nombre_commentaires}
                             type={id_type_post}
                             isPostFullScreen={false}
-                            urlImageProfil={urlImageProfil}
+                            urlImageProfil={userData.url_image_profil}
                             userVote={vote} />
                     )
                 })}

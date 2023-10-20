@@ -1,46 +1,17 @@
--- Active: 1694035110728@@localhost@3306@dev
-INSERT INTO autorisation (
-  id_autorisation, titre_autorisation
-) 
-VALUES 
-  ('pre_made_set_2', 'admin');
-INSERT INTO compte (
-  id_compte, date_creation_compte, 
-  nom, prenom, nom_utilisateur, nom_affichage, 
-  courriel, telephone, nombre_abonnes, 
-  nombre_abonnements, biographie, 
-  autorisation_id_autorisation
-) 
-VALUES 
-  (
-    'id_1', NOW(), 'Dubois', 
-    'Jean', 'Admin_Jean', 'Jean Dubois', 
-    'jean.dubois@example.com', '777-555-1234', 
-    0, 0, 'Je viens d''arriver sur Klemn!', 
-    'pre_made_set_2'
-  ), 
-  (
-    'id_2', NOW(), 'Tremblay', 
-    'Marie', 'Client_Marie', 'Marie Tremblay', 
-    'marie.tremblay@example.com', '417-555-5678', 
-    0, 0, 'Je viens d''arriver sur Klemn!', 
-    'pre_made_set_2'
-  ), 
-  (
-    'id_3', NOW(), 'Lévesque', 
-    'Pierre', 'Client_Pierre', 'Pierre Lévesque', 
-    'pierre.levesque@example.com', 
-    '819-555-9012', 0, 0, 'Je viens d''arriver sur Klemn!', 
-    'pre_made_set_2'
-  );
-INSERT INTO type_post (id_type_post, nom_type) 
-VALUES 
-  (4, 'Réponse'), 
-  (3, 'Collaboration'), 
-  (2, 'Question'), 
-  (1, 'Blogue');
+-- Active: 1693586986008@@localhost@32769@dev
+INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_1', 'admin');     -- 1
+INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_2', 'client');    -- 2
+INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_3', 'inconnu');   -- 3
+INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_4', 'dieu');     -- 4
 
-
+INSERT INTO type_post (id_type_post, nom_type)
+VALUES  (6, 'Boost'),
+        (5, 'Quote'),
+        (4, 'Réponse'),
+        (3, 'Collaboration'),
+        (2, 'Question'),
+        (1, 'Blogue');
+        
 INSERT INTO compte 
     (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, courriel, telephone, nombre_abonnes, nombre_abonnements, biographie, autorisation_id_autorisation)
 VALUES
@@ -88,5 +59,7 @@ INSERT INTO demande_collab
   (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte) 
 VALUES 
   ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
+
+
 
 COMMIT;

@@ -2,6 +2,7 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
+import { Link } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { useState } from "react";
@@ -28,13 +29,12 @@ export interface CollabProp {
 }
 
 function PosteCollab(props: CollabProp) {
+    var enabled = false;
     const auth = getAuth();
     const user = auth.currentUser;
-    
-    const actif = (user && props.idCompte !== user.uid) 
 
-    async function demanderCollabortion(props: CollabProp){        
-        if (user) {
+    function demanderCollabortion(props: CollabProp){        
+        if (user !== null) {
             const uid = user.uid;
             user.getIdToken(true)
                 .then((idToken) => {
@@ -55,8 +55,16 @@ function PosteCollab(props: CollabProp) {
         } 
     }
 
-    return (
+    function ActiverCollab(){
+        if (user !== null && props.idCompte !== user.uid) {
+            enabled = true;
+        } else {
+            enabled = false;
+        }
         
+    }
+
+    return (
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
@@ -71,7 +79,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!actif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
+            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
 
             <PostFooter
                 idPost={props.idPost}

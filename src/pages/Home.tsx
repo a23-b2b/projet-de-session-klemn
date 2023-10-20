@@ -10,9 +10,6 @@ import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import {TYPE_BLOGUE, TYPE_QUESTION , TYPE_COLLABORATION} from '../components/Post';
-
-
 function Home() {
     const navigate = useNavigate();
 
@@ -29,35 +26,29 @@ function Home() {
 
     async function getGlobalPosts() {
         onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                navigate('/authenticate')
-            }
-
             if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/feed-posts/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: user.uid,
-                        offset: postOffset
-                    })
-                })
-                    .then(response => response.json())
-                    .then(response => {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
                         let data = response
-
+        
                         setPostOffset(postOffset + OFFSET)
-
+        
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-
+        
                         setPostData(postData.concat(data))
-
-                    })
-                    .catch((error) => {
+        
+                    }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
+                })
             }
         })
     }
@@ -66,29 +57,28 @@ function Home() {
     function getSubscribedPosts() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/feed-followed`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_id: user.uid,
-                        offset: postOffset
-                    })
-                })
-                    .then(response => response.json())
-                    .then(response => {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
                         let data = response
-
+        
                         setPostOffset(postOffset + OFFSET)
-
+        
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-
+        
                         setPostData(postData.concat(data))
-                    })
-                    .catch((error) => {
+        
+                    }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
+                })
             }
         });
     }
@@ -127,6 +117,7 @@ function Home() {
 
     useEffect(() => {
         getPosts()
+        console.log('posts gotten')
     }, [feedType]);
 
     return (
@@ -144,7 +135,7 @@ function Home() {
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            >
+            > 
                 <div>
                     {postData?.map(({
                         contenu,
@@ -164,59 +155,20 @@ function Home() {
                         nom_utilisateur,
                         url_image_profil,
                         vote,
-
-                        // Question 
-                        post_meilleure_reponse,
-                        est_resolu,
+                        id_shared_post,
+                        is_quoted_post,
                         
-                        // Collab
+                        est_resolu,
+                        post_meilleure_reponse,
+                        
                         projet_id_projet,
                         est_ouvert
-                        
-                    }) => {                        
-                        return (<>
-                            {id_type_post == TYPE_BLOGUE && (
-                                <Post
-                                    date={date_publication}
-                                    nomAffichage={nom_affichage}
-                                    nomUtilisateur={nom_utilisateur}
-                                    titre={titre}
-                                    contenu={contenu}
-                                    idCompte={id_compte}
-                                    nombreLike={nombre_likes}
-                                    nombreDislike={nombre_dislikes}
-                                    nombrePartage={nombre_partages}
-                                    nombreCommentaire={nombre_commentaires}
-                                    isPostFullScreen={false}
-                                    idPost={id_post}
-                                    urlImageProfil={url_image_profil} 
-                                    type={id_type_post}
-                                    userVote={vote}/>
-                            )}
-                            {id_type_post == TYPE_QUESTION && (
-                                <Post
-                                    date={date_publication}
-                                    nomAffichage={nom_affichage}
-                                    nomUtilisateur={nom_utilisateur}
-                                    titre={titre}
-                                    contenu={contenu}
-                                    idCompte={id_compte}
-                                    nombreLike={nombre_likes}
-                                    nombreDislike={nombre_dislikes}
-                                    nombrePartage={nombre_partages}
-                                    nombreCommentaire={nombre_commentaires}
-                                    isPostFullScreen={false}
-                                    idPost={id_post}
-                                    urlImageProfil={url_image_profil}
-                                    type={id_type_post}
-                                    userVote={vote}
+                    }) => {
+                        return (
 
-                                    // Question Prop
-                                    idMeilleureReponse={post_meilleure_reponse}
-                                    resolu={est_resolu} />
-                            )}
-                            {id_type_post == TYPE_COLLABORATION && (
+                            <div key={id_post}>
                                 <Post
+                                    idPost={id_post}
                                     date={date_publication}
                                     nomAffichage={nom_affichage}
                                     nomUtilisateur={nom_utilisateur}
@@ -227,18 +179,22 @@ function Home() {
                                     nombreDislike={nombre_dislikes}
                                     nombrePartage={nombre_partages}
                                     nombreCommentaire={nombre_commentaires}
-                                    isPostFullScreen={false}
-                                    idPost={id_post}
-                                    urlImageProfil={url_image_profil}
                                     type={id_type_post}
-                                    userVote={vote}
+                                    isPostFullScreen={false}
+                                    urlImageProfil={url_image_profil}
+                                    userVote={vote} 
+
+                                    sharedPostId={id_shared_post}
+                                    isSharedPostQuote={is_quoted_post}
                                     
-                                    // Colllab Props
                                     idProjet={projet_id_projet}
-                                    estOuvert={est_ouvert} 
-                                    />
-                            )}
-                        </>)
+                                    estOuvert={est_ouvert}
+                                    
+                                    statutReponse={est_resolu}
+                                    idMeilleureReponse={post_meilleure_reponse}/>
+                            </div>
+
+                        )
                     })}
                 </div>
 
