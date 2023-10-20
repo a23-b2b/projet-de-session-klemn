@@ -36,13 +36,13 @@ app.use(morgan('tiny', {
 const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
-const get_profil = require('./user/[:username]/GET_this.js')
+const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
 
-const follow_user = require('./user/[:user_id]/POST_follow.js');
+const follow_user = require('./user/[user_id]/POST_follow.js');
 app.use('/user', follow_user);
 
-const unfollow_user = require('./user/[:user_id]/POST_unfollow.js');
+const unfollow_user = require('./user/[user_id]/POST_unfollow.js');
 app.use('/user', unfollow_user);
 
 const changer_nom_affichage = require('./user/update/POST_display_name.js')
@@ -57,13 +57,13 @@ app.use('/user', changer_prenom)
 const changer_bio = require('./user/update/POST_bio.js')
 app.use('/user', changer_bio)
 
-const get_user_posts = require('./post/user/[:user_id]/GET_this.js')
+const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 
-const get_single_post = require('./post/[:id_post]/GET_this.js')
+const get_single_post = require('./post/[id_post]/GET_this.js')
 app.use('/post', get_single_post);
 
-const get_replies = require('./post/[:id_post]/replies/GET_this.js')
+const get_replies = require('./post/[id_post]/replies/GET_this.js')
 app.use('/post', get_replies);
 
 const get_posts_feed = require('./post/feed/GET_this.js')
@@ -75,16 +75,16 @@ app.use('/post', get_followed_users_feed)
 const publierBlogue = require('./post/POST_this.js')
 app.use('/post', publierBlogue);
 
-const publierCommentaire = require('./post/[:id_post]/replies/POST_this.js')
+const publierCommentaire = require('./post/[id_post]/replies/POST_this.js')
 app.use('/post', publierCommentaire)
 
-const send_vote = require('./post/[:id_post]/POST_vote.js')
+const send_vote = require('./post/[id_post]/POST_vote.js')
 app.use('/post', send_vote);
 
-const quote_post = require('./post/[:id_post]/POST_quote.js');
+const quote_post = require('./post/[id_post]/POST_quote.js');
 app.use('/post', quote_post);
 
-const boost_post = require('./post/[:id_post]/POST_boost.js');
+const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
 
 app.listen(process.env.SERVER_PORT, () => {
