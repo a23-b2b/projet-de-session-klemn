@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const mysql = require('mysql2')
 
-const { logger } = require('./serveur.js')
+const logger = require('./logger.js')
 console.log("vous etes ici")
 
 const mysqlConnection = mysql.createConnection({
@@ -16,13 +16,13 @@ const mysqlConnection = mysql.createConnection({
 console.log("vous etes ici")
 module.exports = app.post('/', (req, res) => {
     const username = req.body.username;
-    const id_titre = req.body.id_titre
-    console.log(id_titre)
+    const id_post = req.body.id_post
+    console.log(id_post)
 
     mysqlConnection.query(`
     Delete from post
     where id_post= ?`,
-        [id_titre],
+        [id_post],
 
 
 

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
+import { error } from 'console';
+import { useNavigate } from "react-router-dom";
+
 
 
 interface HeaderProps {
@@ -66,6 +69,7 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     const handleDeletePost = async () => {
+        
         try {
             const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
                 method: 'POST',
@@ -73,19 +77,23 @@ const PostHeader = (props: HeaderProps) => {
                 body: JSON.stringify({
                      id_post: props.idPost 
                     }),
+                    
 
             });
+            
             console.log(props.idPost)
 
             if (response.ok) {
                 console.log("Le post a été supprimé avec succès.");
             } else {
                 // Gérer les erreurs ici
+                console.log(response)
                 console.error("Erreur lors de la suppression du post.");
             }
         } catch (error) {
             console.error("Erreur inattendue : ", error);
         }
+        //Navigate('/')
     };
 
     console.log(props.urlImageProfil)
