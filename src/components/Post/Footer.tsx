@@ -4,7 +4,14 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence } from 'framer-motion';
 import SectionReponses from '../SectionReponses';
 import VoteWidget from './voteWidget';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
+import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/transitions/slide.css'
+import { FaQuoteRight, FaRetweet } from 'react-icons/fa6';
+import { LuCopy } from 'react-icons/lu'
+import toast from 'react-hot-toast';
+import QuotePostModal from './QuotePostModal';
+import { auth } from '../../firebase';
 
 interface FooterProps {
     idPost: string;
@@ -19,6 +26,53 @@ interface FooterProps {
 const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [nombreReponses, setNombreReponses] = useState(props.nombreCommentaire)
+    const [isQuotePostModalOpen, setIsQuotePostModalOpen] = useState(false);
+
+    function handleShareItemClick(item: string) {
+        switch (item) {
+            case "quote":
+                setIsQuotePostModalOpen(true)
+                break;
+
+            case "repost":
+                handleBoostPost()
+                break;
+
+            case "copy_url":
+                navigator.clipboard.writeText(`${window.location.origin}/p/${props.idPost}`)
+                toast.success("Contenu copié dans le presse-papier.")
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    async function handleBoostPost() {
+        // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
+        const utilisateur = auth.currentUser;
+        if (utilisateur) {
+            utilisateur.getIdToken(/* forceRefresh */ true)
+                .then((idToken) => {
+                    fetch(process.env.REACT_APP_API_URL + '/publier-blogue/boost', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id_compte: utilisateur.uid,
+                            contenu: `boosted_id=${props.idPost}`,
+                            boosted_post_id: props.idPost,
+                            firebase_id_token: idToken
+                        }),
+                    }).then(response => response.json())
+                        .then(response => {
+                            toast.success('La publication à été partagée!');
+
+                        }).catch((error) => {
+                            toast.error('Une erreur est survenue');
+                        })
+                })
+        }
+    }
 
     return (
         <div>
@@ -35,17 +89,31 @@ const PostFooter = (props: FooterProps) => {
                     nombreDislike={props.nombreDislike}
                     userVote={props.userVote} />
 
-                <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
-                    <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
-                    <span className={styles.interraction_count}>{props.nombrePartage}</span>
-                </div>
+
+                <Menu menuButton={
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
+                        <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
+                        <span className={styles.interraction_count}>{props.nombrePartage}</span>
+                    </div>
+                }
+
+                    transition={true}
+                    menuClassName={styles.share_menu}
+                    onItemClick={(e) => handleShareItemClick(e.value)}>
+
+                    <MenuItem value={'quote'} className={styles.share_menu_item}><FaQuoteRight className={styles.share_menu_icon} /><span>Citer</span></MenuItem>
+                    <MenuItem value={'repost'} className={styles.share_menu_item}><FaRetweet className={styles.share_menu_icon} /><span>Republier</span></MenuItem>
+                    <MenuDivider />
+                    <MenuItem value={'copy_url'} className={styles.share_menu_item}><LuCopy className={styles.share_menu_icon} /><span>Copier le lien</span></MenuItem>
+                </Menu>
             </div>
+
+            <QuotePostModal quotedPostId={props.idPost} isModalOpen={isQuotePostModalOpen} setIsModalOpen={setIsQuotePostModalOpen} />
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses}/> : ''}
+                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses} /> : ''}
                 </AnimatePresence>)}
-
         </div>
     )
 }
