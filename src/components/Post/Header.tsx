@@ -58,7 +58,7 @@ const PostHeader = (props: HeaderProps) => {
 
     // la date
     if (timeDifference >= DEUX_SEMAINES_EN_SECONDES) {
-        timeStampText = `${datePost.getDate} ${datePost.getMonth} ${datePost.getFullYear}`
+        timeStampText = datePost.toLocaleDateString()
     }
 
     console.log(props.urlImageProfil)
