@@ -1,3 +1,45 @@
+#conteneur {
+    margin-bottom: 30px;
+}
+
+.conteneurDiv {
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+#input {
+    border-radius: 17px 17px 10px 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+#textarea {
+    border-radius: 10px 10px 16px 16px;
+    padding: 15px;
+ 
+}
+
+#conteneurDivFooter {
+    text-align: right;
+    padding-top: 15px;
+}
+
+#span {
+    margin-right: 15px;
+}
+
+
+/*À ajuster ou effacer ↓*/
+
 .conteneur {
     display: flex;
     flex-direction: column;
@@ -17,15 +59,5 @@
     margin-bottom: 30px;
 }
 
-.titre {
-    text-align: center;
-    color: white;
-}
+/*À ajuster ou effacer ↑*/
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-    width: 100%;
-}

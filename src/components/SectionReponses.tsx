@@ -25,7 +25,7 @@ function SectionReponses(props: SectionReponsesProps) {
         setLoading(true)
 
         onAuthStateChanged(auth, (user) => {
-            fetch(`${process.env.REACT_APP_API_URL}/replies/${props.idParent}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/${props.idParent}/replies`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     console.log(error)
                 })
         })
-    }, [])
+    }, [props.idParent])
 
     const RepliesContent = () => {
         if (replies.length > 0) {
