@@ -33,6 +33,8 @@ function PosteCollab(props: CollabProp) {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    activerCollab()
+
     function demanderCollabortion(props: CollabProp){        
         if (user !== null) {
             const uid = user.uid;
@@ -55,8 +57,8 @@ function PosteCollab(props: CollabProp) {
         } 
     }
 
-    function ActiverCollab(){
-        if (user !== null && props.idCompte !== user.uid) {
+    function activerCollab(){
+        if (user && props.idCompte !== user.uid) {
             enabled = true;
         } else {
             enabled = false;

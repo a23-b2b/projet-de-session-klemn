@@ -27,12 +27,12 @@ module.exports = app.post('/p/:id_projet/:id_compte_collaborateur', (req, res) =
                     (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte)
                 VALUES
                     (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), null, ?, ?);`, 
-                    [id_post_collab, id_collaborateur], 
+                    [id_projet, id_collaborateur], 
                     function (err, results, fields) {
                         if (err) {
                             res.status(500).send();
                         } else {
-                            res.status(200);
+                            res.status(200).send();
                         }
                     });
         }).catch((error) => {

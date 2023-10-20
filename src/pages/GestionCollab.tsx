@@ -40,7 +40,8 @@ function GestionCollab() {
                         titre_projet,
                         description_projet,
                         id_demande_collab
-                    }) => { return (<>
+                    }) => { return (
+                    <div key={id_demande_collab}>
                         <GestionDemandeCollab 
                             id_compte={id_compte}
                             url_image_profil={url_image_profil}
@@ -51,7 +52,7 @@ function GestionCollab() {
                             description_projet={description_projet}
                             id_demande_collab={id_demande_collab}
                             />
-                        </>)
+                        </div>)
                 })}
                 </div>
 
@@ -67,13 +68,15 @@ function GestionCollab() {
                         description_projet,
                         est_ouvert
                     }) => { return (<>
-                    <GestionProjetRapide
-                        id_projet={id_projet}
-                        titre={titre_projet}
-                        description={description_projet}
-                        compte_id_proprio={compte_id_proprio}
-                        est_ouvert={est_ouvert}
-                        />
+                    <div key={id_projet}>
+                        <GestionProjetRapide
+                            id_projet={id_projet}
+                            titre={titre_projet}
+                            description={description_projet}
+                            compte_id_proprio={compte_id_proprio}
+                            est_ouvert={est_ouvert}
+                            />
+                    </div> 
                     </>)
                 })}
                 </div>
