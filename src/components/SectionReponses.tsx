@@ -44,7 +44,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     console.log(error)
                 })
         })
-    }, [])
+    }, [props.idParent])
 
     const RepliesContent = () => {
         if (replies.length > 0) {

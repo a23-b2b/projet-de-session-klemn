@@ -203,7 +203,7 @@ const VoteWidget = (props: FooterProps) => {
 
     return (
         <div>
-            <motion.div className={styles.like_dislike_container} layout>
+            <motion.div className={styles.like_dislike_container} /*layout*/>
                 
                 <motion.div className={styles.bouton_interraction} id={styles.bouton_interraction_like} onClick={() => handleVote(1)}>
                     <div ref={scopeLike}>

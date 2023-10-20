@@ -19,6 +19,10 @@ DROP
   TABLE IF EXISTS autorisation;
 DROP 
   TABLE IF EXISTS type_post;
+
+DROP
+  TABLE IF EXISTS post_partage;
+  
 CREATE TABLE autorisation (
     id_autorisation     varchar(255) NOT NULL PRIMARY KEY,
     titre_autorisation  varchar(255)
@@ -108,6 +112,17 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
+
+create table post_partage
+(
+    id_post_original varchar(255) not null,
+    id_shared_post   varchar(255) not null,
+    is_quoted_post   tinyint(1)   null,
+    constraint post_partage_post_id_post_fk
+        foreign key (id_post_original) references post (id_post),
+    constraint post_partage_post_id_post_fk2
+        foreign key (id_shared_post) references post (id_post)
+  );
     
 CREATE TABLE post_collab (
   id_collab VARCHAR(255) PRIMARY KEY, 

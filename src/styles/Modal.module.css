@@ -1,0 +1,56 @@
+.window {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+
+    z-index: 100;
+    transition: 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background-color: var(--auto_background);
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    box-shadow:
+        0px 1.4px 3.3px rgba(0, 0, 0, 0.02),
+        0px 3.3px 8px rgba(0, 0, 0, 0.028),
+        0px 6.1px 15px rgba(0, 0, 0, 0.035),
+        0px 10.9px 26.8px rgba(0, 0, 0, 0.042),
+        0px 20.5px 50.1px rgba(0, 0, 0, 0.05),
+        0px 49px 120px rgba(0, 0, 0, 0.07);
+
+    padding: 12px;
+    max-width: 90vw;
+}
+
+.bouton_fermer {
+    float: right;
+    height: 48px;
+    width: 48px;
+    background: none;
+    border: none;
+    border-radius: 100%;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.bouton_fermer:hover {
+    background-color: rgba(255, 0, 0, 0.151);
+    transition: 0.3s;
+}
+
+.bouton_fermer_icone {
+    margin: 0;
+    font-size: 1.5rem;
+    padding: 0;
+    margin-bottom: -2px;
+}
