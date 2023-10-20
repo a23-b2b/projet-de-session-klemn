@@ -30,7 +30,7 @@ function BoostPost(props: Props) {
     function getSharedboostedPostData() {
         onAuthStateChanged(auth, (user) => {
             console.log(user?.uid)
-            fetch(`${process.env.REACT_APP_API_URL}/single-post/${props.boostedPostId}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/${props.boostedPostId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -16,15 +16,16 @@ module.exports = app.get('/feed/:offset', (req, res) => {
         console.log(userId)
 
         pool.query(`
-            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse, v.score as vote
-                from post
-                left join vote v on post.id_post = v.id_post and v.id_compte = ?
-                left join post_collab p on post.id_post = p.post_id_post
-                left join post_question q on post.id_post = q.post_id_post
-                inner join compte c on post.id_compte = c.id_compte            
-                where id_type_post != 4
-                limit ? offset ?;
-            `,
+            select post.*, c.id_compte, c.nom_affichage, c.nom_utilisateur, c.url_image_profil, p.url_git, p.est_ouvert, p.id_collab, q.est_resolu, q.post_meilleure_reponse, v.score as vote, post_partage.id_shared_post, post_partage.is_quoted_post
+            from post
+            left join vote v on post.id_post = v.id_post and v.id_compte = ?
+            left join post_collab p on post.id_post = p.post_id_post
+            left join post_question q on post.id_post = q.post_id_post
+            left join post_partage on post.id_post = post_partage.id_post_original
+            inner join compte c on post.id_compte = c.id_compte            
+            where id_type_post != 4
+            order by date_publication desc
+            limit ? offset ?;`,
             [userId, limit, offset],
             function (err, results, fields) {
                 if (err) {

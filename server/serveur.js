@@ -81,6 +81,12 @@ app.use('/post', publierCommentaire)
 const send_vote = require('./post/[:id_post]/POST_vote.js')
 app.use('/post', send_vote);
 
+const quote_post = require('./post/[:id_post]/POST_quote.js');
+app.use('/post', quote_post);
+
+const boost_post = require('./post/[:id_post]/POST_boost.js');
+app.use('/post', boost_post);
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });

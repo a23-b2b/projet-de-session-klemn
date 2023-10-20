@@ -5,6 +5,15 @@ const { admin } = require('../serveur.js')
 
 const app = express()
 
+// "Enum" des types de post (pas de enum en JS)
+const TypesDePost = {
+    BlogLong: "bloglong",
+    BlogCourt: "blogcourt",
+    Question: "question",
+    Collab: "collab",
+    Quote: "quote",
+    Boost: "boost"
+}
 
 module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
     const resultatValidation = validationResult(req);
@@ -15,59 +24,117 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
         const idToken = req.headers.authorization;
 
         const urlGit = req.body.urlGit;
-        const typePoste = req.params.type;
-        
-        var id_type_post = 1;
+        const typePoste = req.body.type;
+
+        const quotedPostId = req.body.quoted_post_id;
+        const boostedPostId = req.body.boosted_post_id;
+
+
+        let typePost
+
+        if (titre && contenu && !quotedPostId && !boostedPostId) {
+            typePost = TypesDePost.BlogLong
+        }
 
         if (typePoste == "question") {
-            id_type_post = 2;
-        } else if (typePoste == "collab") {
-            id_type_post = 3;
-        }   
+            typePost = TypesDePost.Question
+        }
+
+        if (typePoste == "collab") {
+            typePost = TypesDePost.Collab
+        }       
 
         admin.auth().verifyIdToken(idToken, true).then((payload) => {
 
             const userId = payload.uid;
 
-            pool.query(
-                `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
-                                   nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                 VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
-                 SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
-                [userId, titre, contenu, userId],
-                function (err, results, fields) {
-                    //gererErreur(err, res, results, "POSTER BLOGUE ERR");
-                    
-                    pool.query(
-                        `SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1;`,
-                        [userId],
-                        function (err, results, fields) {
-                            const id_post = JSON.parse(JSON.stringify(results[0])).id_post;
-                            //console.log(results.id_post)
+            if (typePost === TypesDePost.BlogLong) {
+                pool.query(
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                                       nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
+                    [userId, titre, contenu, userId],
+                    function (err, results, fields) {
+                        if (err) {
+                            // logger.info("Erreur lors de lexecution de la query.", err)
+                            console.log(err)
+                            res.status(500).send("ERREUR: " + err.code)
 
-                            if (typePoste == 'collab') {
-                                pool.query(
-                                    `INSERT INTO post_collab (id_collab, est_ouvert, url_git, post_id_post)
-                                    VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), true, ?, ?);`,
-                                    // TODO: AJOUTER URL_GIT DANS FORM POUR COLLAB
-                                    [urlGit, id_post],
-                                    function (err, results) {
-                                        //gererErreur(err, res, results, "POSTER COLLAB ERR");
-                                    }
-                                );
-                            } else if (typePoste == 'question') {
-                                pool.query(
-                                    `INSERT INTO post_question (id_question, est_resolu, post_id_post, post_meilleure_reponse)
-                                    VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), false, ?, null);`,
-                                    [id_post],
-                                    function (err, results) {
-                                        //gererErreur(err, res, results, "POSTER QUESTION ERR");
-                                    }
-                                );
-                            }
-                        })
-                }
-            );
+                        } else {
+                            res.send(JSON.stringify(results[1][0]))
+                        }
+                    }
+                );
+            }
+
+            if (typePost === TypesDePost.Collab) {
+                pool.query(
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                                       nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     
+                     INSERT INTO post_collab 
+                        (id_collab, est_ouvert, url_git, post_id_post)
+                     VALUES (
+                        SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
+                        true, 
+                        ?, 
+                        (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1)
+                     );
+                     
+                    SELECT id_post
+                    FROM post
+                    WHERE id_compte = ?
+                    order by date_publication desc
+                    limit 1;`,
+                    [userId, titre, contenu, userId, urlGit, userId],
+                    function (err, results, fields) {
+                        if (err) {
+                            // logger.info("Erreur lors de lexecution de la query.", err)
+                            console.log(err)
+                            res.status(500).send("ERREUR: " + err.code)
+
+                        } else {
+                            res.send(JSON.stringify(results[2][0]))
+                        }
+                    }
+                );
+            }
+
+            if (typePost === TypesDePost.Question) {
+                pool.query(
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     
+                     INSERT INTO post_question 
+                        (id_question, est_resolu, post_id_post, post_meilleure_reponse)
+                     VALUES (
+                        SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
+                        false, 
+                        (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1), 
+                        null
+                     );
+                     
+                     SELECT id_post
+                     FROM post
+                     WHERE id_compte = ?
+                     order by date_publication desc
+                     limit 1;`,
+                    [userId, titre, contenu, userId, userId],
+                    function (err, results, fields) {
+                        if (err) {
+                            // logger.info("Erreur lors de lexecution de la query.", err)
+                            console.log(err)
+                            res.status(500).send("ERREUR: " + err.code)
+
+                        } else {
+                            res.send(JSON.stringify(results[2][0]))
+                        }
+                    }
+                );
+            }
         }).catch((error) => {
             res.status(500).send("ERREUR: " + error.code)
         });
