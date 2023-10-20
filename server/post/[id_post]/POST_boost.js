@@ -10,7 +10,7 @@ module.exports = app.post('/:id_post/boost', [body('contenu').notEmpty().isLengt
     if (resultatValidation.isEmpty()) {
 
         const contenu = req.body.contenu;
-        const boostedPostId = req.body.id_post;
+        const boostedPostId = req.params.id_post;
         const idToken = req.headers.authorization;
 
         admin.auth().verifyIdToken(idToken, true).then((payload) => {
