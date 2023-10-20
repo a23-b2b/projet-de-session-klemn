@@ -48,10 +48,13 @@
     --dark_button_text_color: rgb(247, 232, 247);
     --light_button_text_color: rgb(98, 9, 145);
 
-    /**/
+    /*Couleur de fond containeur post*/
     --dark_container_post_color: rgba(138, 138, 138, 0.16);
     --light_container_post_color: rgba(103, 18, 114, 0.256);
 
+    /*Couleur de fond containeur modal*/
+    --dark_container_modal_color: rgba(61, 56, 65, 0.957);
+    --light_container_modal_color: rgba(103, 18, 114, 0.256);
 
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
@@ -76,6 +79,7 @@
     --auto_button_color: var(--dark_button_color);
     --auto_button_text_color: var(--dark_button_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
+    --auto_container_modal_color: var(--dark_container_modal_color);
 
 
     /*Thème clair*/
@@ -93,6 +97,7 @@
         --auto_button_color: var(--light_button_color);
         --auto_button_text_color: var(--light_button_text_color);
         --auto_container_post_color: var(--light_container_post_color);
+        --auto_container_modal_color: var(--light_container_modal_color);
     }
 
 }
@@ -159,7 +164,7 @@ textarea {
     padding: 13px 30px 13px 30px;
     border: 0px;
     width: fit-content;
-    border-radius: 50px;
+    border-radius: 18px;
     color: var(--auto_text_color);
     background-color: var(--auto_button_color);
     font-weight: bold;
@@ -196,4 +201,12 @@ textarea {
     border: none;
     padding: 10px 20px;
     background-color: var(--auto_container_post_color);
+}
+
+
+.global_conteneur_modal {
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    background-color: var(--auto_container_modal_color);
 }
