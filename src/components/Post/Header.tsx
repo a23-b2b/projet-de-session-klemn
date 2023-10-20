@@ -3,6 +3,7 @@ import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
 import { error } from 'console';
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 
 
@@ -67,33 +68,34 @@ const PostHeader = (props: HeaderProps) => {
     if (timeDifference >= DEUX_SEMAINES_EN_SECONDES) {
         timeStampText = `${datePost.getDate} ${datePost.getMonth} ${datePost.getFullYear}`
     }
-
+  
+    const navigate = useNavigate()
     const handleDeletePost = async () => {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce post ?");
         
-        try {
-            const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                     id_post: props.idPost 
+        if (confirmDelete) {
+            try {
+                const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_post: props.idPost
                     }),
-                    
-
-            });
-            
-            console.log(props.idPost)
-
-            if (response.ok) {
-                console.log("Le post a été supprimé avec succès.");
-            } else {
-                // Gérer les erreurs ici
-                console.log(response)
-                console.error("Erreur lors de la suppression du post.");
+                });
+                
+                if (response.ok) {
+                    console.log("Le post a été supprimé avec succès.");
+                    navigate('/');
+                } else {
+                    // Gérer les erreurs ici
+                    console.log(response);
+                    console.error("Erreur lors de la suppression du post.");
+                    toast.error("Une erreur est survenue");
+                }
+            } catch (error) {
+                console.error("Erreur inattendue : ", error);
             }
-        } catch (error) {
-            console.error("Erreur inattendue : ", error);
         }
-        //Navigate('/')
     };
 
     console.log(props.urlImageProfil)

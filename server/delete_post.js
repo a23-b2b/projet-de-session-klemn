@@ -3,7 +3,6 @@ const app = express()
 const mysql = require('mysql2')
 
 const logger = require('./logger.js')
-console.log("vous etes ici")
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
@@ -13,7 +12,6 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE,
 })
 
-console.log("vous etes ici")
 module.exports = app.post('/', (req, res) => {
     const username = req.body.username;
     const id_post = req.body.id_post
