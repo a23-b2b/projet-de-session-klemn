@@ -1,5 +1,6 @@
 :root {
 
+
     /*Couleur du text*/
     --text_color_dark: rgb(255, 255, 255);
     --text_color_light: rgb(59, 30, 72);
@@ -56,6 +57,10 @@
     --dark_container_modal_color: rgba(61, 56, 65, 0.957);
     --light_container_modal_color: rgba(103, 18, 114, 0.256);
 
+    /*Couleur de fond header*/
+    --dark_background_color_header: rgba(68, 61, 74, 0.463);
+    --light_background_color_header: rgba(103, 18, 114, 0.256);
+
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
     /* ça utilise quand meme celles définies */
@@ -80,6 +85,7 @@
     --auto_button_text_color: var(--dark_button_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
     --auto_container_modal_color: var(--dark_container_modal_color);
+    --auto_background_color_header: var(--dark_background_color_header);
 
 
     /*Thème clair*/
@@ -98,6 +104,7 @@
         --auto_button_text_color: var(--light_button_text_color);
         --auto_container_post_color: var(--light_container_post_color);
         --auto_container_modal_color: var(--light_container_modal_color);
+        --auto_background_color_header: var(--light_background_color_header);
     }
 
 }
