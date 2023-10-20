@@ -15,7 +15,7 @@ function BlogueForm() {
     const [nbCaracteres, setNbCaracteres] = useState(0)
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
-    const [urlGit, setUrlGit] = useState("");
+    const [IdChoixDeProjet, setIdChoixDeProjet] = useState("");
 
     const [projets, setProjets] = useState<any[]>([]);
     const naviguate = useNavigate()
@@ -60,8 +60,8 @@ function BlogueForm() {
                         body: JSON.stringify({
                             titre: titre,
                             contenu: contenu,
-                            urlGit: urlGit,
-                            type: 1
+                            idProjet: IdChoixDeProjet,
+                            type: type
                         }),
                     }).then(response => response.json()).then(response => {
                         console.log(response)
@@ -117,7 +117,9 @@ function BlogueForm() {
                         <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
                         <select                             
                             className={'global_input_field'}
-                            onChange={(e) => setUrlGit(e.target.value)}>
+                            onChange={(e) => { 
+                                    setIdChoixDeProjet(e.target.value)
+                                }}>
                                 {projets && projets?.map(({
                                     compte_id_proprio,
                                     id_projet,
