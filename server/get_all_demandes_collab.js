@@ -15,6 +15,7 @@ const mysqlConnection = mysql.createConnection({
 module.exports = app.get('/:id_compte', (req, res) => {
     const id_compte = req.params.id_compte
     
+    // TODO: get le nom utilisateur du demandeur et non du proprio
     mysqlConnection.query(`
         SELECT compte.id_compte, compte.url_image_profil, compte.nom_utilisateur, p.id_projet, p.titre_projet, p.description_projet, d.id_demande_collab
             FROM compte 
