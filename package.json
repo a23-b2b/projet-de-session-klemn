@@ -2,7 +2,6 @@
   "name": "site",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
     "@chakra-ui/tooltip": "^2.3.0",
@@ -64,8 +63,6 @@
     ]
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "drizzle-kit": "^0.19.13"
   }
 }
