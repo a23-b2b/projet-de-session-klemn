@@ -1,4 +1,4 @@
-const winston = require("winston");
+import winston from "winston";
 
 // === Logger config ===
 // Formatage de winston
@@ -16,7 +16,7 @@ const transportsConfig = [
 ];
 
 // Creation de l'objet de log
-module.exports = winston.createLogger({
+export const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
     format: formatConfig,
     transports: transportsConfig

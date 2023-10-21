@@ -1,20 +1,40 @@
-const express = require('express');
-const fs = require("fs");
-const morgan = require("morgan");
-const cors = require('cors')
-const logger = require('./logger.js');
+import { drizzle } from 'drizzle-orm/mysql2';
+import express from 'express'
+import fs from 'fs'
+import morgan from 'morgan';
+import cors from 'cors'
+import { logger } from './logger.js';
+import dotenv from 'dotenv'
+import mysql from 'mysql2'
+import { cert, initializeApp } from 'firebase-admin/app';
+import firebaseServiceAccount from "./firebaseServiceAccountKey.json" assert { type: 'json' };
+
+import { inscription } from './inscription.js';
+import { GET_this as get_post } from './post/[id_post]/GET_this.js';
+import { GET_this as get_feed } from './post/feed/GET_this.js';
+import { GET_this as get_followed_feed } from './post/followed/GET_this.js';
+import { GET_this as get_user_posts } from './post/user/[user_id]/GET_this.js';
+import { GET_this as get_replies } from './post/[id_post]/replies/GET_this.js';
+import { GET_this as get_profile } from './user/[username]/GET_this.js'
+import { POST_this as post_create } from './post/POST_this.js';
+import { POST_boost } from './post/[id_post]/POST_boost.js';
+import { POST_this as post_reply } from './post/[id_post]/replies/POST_this.js';
+import { POST_vote } from './post/[id_post]/POST_vote.js';
+import { POST_follow } from './user/[user_id]/POST_follow.js';
+import { POST_unfollow } from './user/[user_id]/POST_unfollow.js';
+import { POST_bio } from './user/update/POST_bio.js';
+import { POST_display_name } from './user/update/POST_display_name.js';
+import { POST_nom } from './user/update/POST_nom.js';
+import { POST_prenom } from './user/update/POST_prenom.js';
+import { POST_quote } from './post/[id_post]/POST_quote.js';
+
 const app = express()
-const admin = require('firebase-admin');
-const dotenv = require('dotenv');
-const mysql = require('mysql2')
 dotenv.config();
 
-const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
-exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseServiceAccount)
-});
+const firebase = initializeApp();
+firebase.options.credential = cert(firebaseServiceAccount)
 
-const pool = mysql.createPool({
+export const pool = mysql.createPool({
     host: process.env.MYSQL_HOSTNAME,
     port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USERNAME,
@@ -22,7 +42,8 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE,
     multipleStatements: true
 });
-exports.pool = pool;
+
+export const db = drizzle(pool);
 
 app.use(express.json())
 app.use(express.urlencoded())
@@ -33,59 +54,41 @@ app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
-const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
-const get_profil = require('./user/[username]/GET_this.js')
-app.use('/user', get_profil);
+app.use('/user', get_profile);
 
-const follow_user = require('./user/[user_id]/POST_follow.js');
-app.use('/user', follow_user);
+app.use('/user', POST_follow);
 
-const unfollow_user = require('./user/[user_id]/POST_unfollow.js');
-app.use('/user', unfollow_user);
+app.use('/user', POST_unfollow);
 
-const changer_nom_affichage = require('./user/update/POST_display_name.js')
-app.use('/user', changer_nom_affichage)
+app.use('/user', POST_display_name)
 
-const changer_nom = require('./user/update/POST_nom.js')
-app.use('/user', changer_nom)
+app.use('/user', POST_nom)
 
-const changer_prenom = require('./user/update/POST_prenom.js')
-app.use('/user', changer_prenom)
+app.use('/user', POST_prenom)
 
-const changer_bio = require('./user/update/POST_bio.js')
-app.use('/user', changer_bio)
+app.use('/user', POST_bio)
 
-const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 
-const get_single_post = require('./post/[id_post]/GET_this.js')
-app.use('/post', get_single_post);
+app.use('/post', get_post);
 
-const get_replies = require('./post/[id_post]/replies/GET_this.js')
 app.use('/post', get_replies);
 
-const get_posts_feed = require('./post/feed/GET_this.js')
-app.use('/post', get_posts_feed);
+app.use('/post', get_feed);
 
-const get_followed_users_feed = require('./post/followed/GET_this.js')
-app.use('/post', get_followed_users_feed)
+app.use('/post', get_followed_feed)
 
-const publierBlogue = require('./post/POST_this.js')
-app.use('/post', publierBlogue);
+app.use('/post', post_create);
 
-const publierCommentaire = require('./post/[id_post]/replies/POST_this.js')
-app.use('/post', publierCommentaire)
+app.use('/post', post_reply)
 
-const send_vote = require('./post/[id_post]/POST_vote.js')
-app.use('/post', send_vote);
+app.use('/post', POST_vote);
 
-const quote_post = require('./post/[id_post]/POST_quote.js');
-app.use('/post', quote_post);
+app.use('/post', POST_quote);
 
-const boost_post = require('./post/[id_post]/POST_boost.js');
-app.use('/post', boost_post);
+app.use('/post', POST_boost);
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
