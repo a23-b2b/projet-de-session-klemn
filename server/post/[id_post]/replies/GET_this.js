@@ -1,4 +1,4 @@
-import { pool, db } from '../../../serveur.js'
+import { db } from '../../../serveur.js'
 import * as schema from '../../../../BD/schema.js'
 import express from 'express'
 import { and, eq, desc } from 'drizzle-orm'
@@ -10,7 +10,7 @@ export const GET_post_id_replies = app.get('/:post_id/replies', async (req, res)
     const userId = req.headers.authorization;
     const postId = req.params.post_id;
 
-    logger.log("info", `User '${userId}' (${req.ip}) is requesting /post/${postId}/replies`)
+    logger.log("info", `User '${userId}' (${req.ip}) is requesting 'GET /post/${postId}/replies'`)
 
     let result = await db
         .select()
