@@ -87,6 +87,9 @@ export const postView = mysqlView("post_view")
             comments: post.comments,
             reposts: post.reposts,
             shares: post.shares,
+            collabUrl: collaboration.id,
+            
+            
         })
         .from(post)
         .leftJoin(collaboration, eq(post.id, collaboration.postId))
