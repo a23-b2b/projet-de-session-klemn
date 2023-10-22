@@ -1,11 +1,10 @@
-const express = require('express')
-const {body, validationResult} = require('express-validator');
-const { admin } = require('../../../serveur.js')
-const { pool } = require('../../../serveur.js')
+import { pool, admin } from '../../../serveur'
+import express from 'express'
+import {body, validationResult} from 'express-validator'
+
 const app = express()
 
-
-module.exports = app.post('/:post_id/replies', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
+export const POST_post_id_reply = app.post('/:post_id/replies', [body('contenu').notEmpty().isLength({max: 4000})], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
