@@ -6,8 +6,7 @@ import cors from 'cors'
 import { logger } from './logger.js';
 import dotenv from 'dotenv'
 import mysql from 'mysql2'
-import { cert, initializeApp } from 'firebase-admin/app';
-import firebaseServiceAccount from "./firebaseServiceAccountKey.json" assert { type: 'json' };
+import { initializeApp, applicationDefault } from 'firebase-admin/app';
 
 // import { inscription } from './inscription.js';
 // import { GET_this as get_post } from './post/[id_post]/GET_this.js';
@@ -15,6 +14,7 @@ import firebaseServiceAccount from "./firebaseServiceAccountKey.json" assert { t
 // import { GET_this as get_followed_feed } from './post/followed/GET_this.js';
 // import { GET_this as get_user_posts } from './post/user/[user_id]/GET_this.js';
 import { GET_post_id_replies as get_replies} from './post/[id_post]/replies/GET_this.js';
+import { POST_post_id_reply as post_reply} from './post/[id_post]/replies/POST_this.js';
 // import { GET_this as get_profile } from './user/[username]/GET_this.js'
 // import { POST_this as post_create } from './post/POST_this.js';
 // import { POST_boost } from './post/[id_post]/POST_boost.js';
@@ -31,8 +31,9 @@ import { GET_post_id_replies as get_replies} from './post/[id_post]/replies/GET_
 const app = express()
 dotenv.config();
 
-const firebase = initializeApp();
-firebase.options.credential = cert(firebaseServiceAccount)
+export const admin = initializeApp({
+    credential: applicationDefault()
+});
 
 export const pool = mysql.createPool({
     host: process.env.MYSQL_HOSTNAME,
@@ -83,7 +84,7 @@ app.use('/post', get_replies);
 
 // app.use('/post', post_create);
 
-// app.use('/post', post_reply)
+app.use('/post', post_reply)
 
 // app.use('/post', POST_vote);
 
