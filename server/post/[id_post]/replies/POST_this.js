@@ -1,4 +1,4 @@
-import { pool, admin, db } from '../../../serveur.js'
+import { db } from '../../../serveur.js'
 import { getAuth } from 'firebase-admin/auth';
 
 import express from 'express'
@@ -11,7 +11,7 @@ const app = express()
 
 export const POST_post_id_reply = app.post('/:post_id/replies', [
     body('contenu').notEmpty().isLength({ max: 4000 }),
-    // header('authorization').notEmpty().withMessage("Le token d'authentification ne peut pas être vide")
+    header('authorization').notEmpty().withMessage("Le token d'authentification ne peut pas être vide")
 ], async (req, res) => {
 
     const postId = req.body.id_parent;
@@ -42,8 +42,6 @@ export const POST_post_id_reply = app.post('/:post_id/replies', [
                 shares: 0,
                 createdAt: sql`NOW()`
             });
-
-        console.log(result[0].affectedRows)
 
         if (result[0].affectedRows === 1) {
             logger.log("info", `User '${userId}' (${req.ip}) has commented '${contenu}' on '${postId}'`)
