@@ -45,6 +45,7 @@ export const pool = mysql.createPool({
 
 export const db = drizzle(pool);
 
+app.set('trust proxy', true)
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors());
