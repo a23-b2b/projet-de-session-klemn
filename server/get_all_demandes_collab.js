@@ -21,8 +21,8 @@ module.exports = app.get('/:id_compte', (req, res) => {
             FROM demande_collab
             INNER JOIN compte c ON demande_collab.compte_id_compte = c.id_compte
             INNER JOIN projet p ON demande_collab.projet_id_projet = p.id_projet
-            WHERE p.compte_id_proprio = "vOArxLHmRBO5ixknQ1LUbwcopCp2" 
-            AND d.est_accepte IS null;`, 
+            WHERE p.compte_id_proprio = ? 
+            AND demande_collab.est_accepte IS NULL;`, 
         [id_compte],
         function(err, results, fields) {
             if (err) {
