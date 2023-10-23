@@ -17,11 +17,11 @@ module.exports = app.get('/:id_compte', (req, res) => {
     
     // TODO: get le nom utilisateur du demandeur et non du proprio
     mysqlConnection.query(`
-        SELECT compte.id_compte, compte.url_image_profil, compte.nom_utilisateur, p.id_projet, p.titre_projet, p.description_projet, d.id_demande_collab
-            FROM compte 
-            INNER JOIN projet p ON compte.id_compte = p.compte_id_proprio
-            INNER JOIN demande_collab d ON p.id_projet = d.projet_id_projet
-            WHERE p.compte_id_proprio = ? 
+        SELECT c.id_compte, c.url_image_profil, c.nom_utilisateur, p.compte_id_proprio, p.id_projet, p.titre_projet, p.description_projet, id_demande_collab
+            FROM demande_collab
+            INNER JOIN compte c ON demande_collab.compte_id_compte = c.id_compte
+            INNER JOIN projet p ON demande_collab.projet_id_projet = p.id_projet
+            WHERE p.compte_id_proprio = "vOArxLHmRBO5ixknQ1LUbwcopCp2" 
             AND d.est_accepte IS null;`, 
         [id_compte],
         function(err, results, fields) {
