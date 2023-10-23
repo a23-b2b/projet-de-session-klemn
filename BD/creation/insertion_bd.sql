@@ -48,7 +48,11 @@ VALUES
 INSERT INTO projet 
   (id_projet, titre_projet, description_projet, url_repo_git, compte_id_proprio, est_ouvert)
 VALUES
-  ('id_projet_1', 'Titre de projet collaboratif', 'Marie veut collaborer avec Louis sur le projet ID: id_projet_1', 'https://github.com/a23-b2b/projet-de-session-klemn', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', true);
+  ('id_projet_1', 'Titre de projet collaboratif L1', 'Marie veut collaborer avec Louis sur le projet ID: id_projet_1', '', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', true),
+  ('id_projet_2', 'Titre de projet collaboratif M1', 'Louis veut collaborer avec Marie sur le projet ID: id_projet_2', '', 'vOArxLHmRBO5ixknQ1LUbwcopCp2', true),
+  ('id_projet_3', 'Titre de projet collaboratif L2', 'Le deuxieme projet de louis', '', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', true);
+
+
 
 INSERT INTO post_collab 
   (id_collab, projet_id_projet, post_id_post)
@@ -58,8 +62,8 @@ VALUES
 INSERT INTO demande_collab 
   (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte) 
 VALUES 
-  ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
-
+  ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2'),
+  ('id_demande_collab_2', null, 'id_projet_3', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
 
 
 COMMIT;
