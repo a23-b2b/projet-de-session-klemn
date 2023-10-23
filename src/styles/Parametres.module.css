@@ -1,10 +1,10 @@
 .body {
-    width: 80vw;
+    width: 65vw;
     margin: 0 auto;
 }
 
 .container {
-    
+    min-height: 80vh;
     display: flex;
     flex-direction: row;
     margin-bottom: 100px;
@@ -12,7 +12,7 @@
 }
 
 .sidebar {
-    width: 400px;
+    width: 30%;
     background-color: var(--auto_container_color);
     border-radius: 16px;
     opacity: .8;

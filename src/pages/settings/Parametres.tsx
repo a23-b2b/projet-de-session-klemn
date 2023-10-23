@@ -45,10 +45,6 @@ function Parametres() {
                     </Link>
                 </div>
 
-                <div className={styles.content}>
-
-                </div>
-
                 <Outlet />
 
             </div>

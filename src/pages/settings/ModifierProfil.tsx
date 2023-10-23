@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from '../../styles/ModifierProfil.module.css'
+import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
@@ -125,7 +125,7 @@ function ModifierProfil() {
 
 
     return (
-        <motion.div className={'global_conteneur_parametres'} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
+        <motion.div className={styles.container_parametres} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
             <h1 className={'global_title'} id={styles["titleParametres"]}>Modifier Profil</h1>
 
 
