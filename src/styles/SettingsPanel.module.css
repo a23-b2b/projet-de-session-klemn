@@ -3,8 +3,7 @@
 }
 
 .container_parametres {
-    width: 60%;
-    border-radius: 20px;
+    border-radius: 0 20px 20px 0;
     border: none;
     padding: 10px 20px;
     background-color: var(--auto_container_post_color);
@@ -14,7 +13,6 @@
     width: 100%;
     text-align: right;
     padding-top: 10px;
-
 }
 
 .selectInterface {
@@ -27,7 +25,6 @@
     color: var(--auto_text_color);
     background-color: var(--auto_button_color);
     font-weight: bold;
-
 }
 
 .exemple_animation {
@@ -52,4 +49,10 @@
 }
 .hr {
     width: 85%;
+}
+
+@media only screen and (max-width: 850px) {
+    /* .container_parametres {
+        width: 80%;
+    } */
 }
