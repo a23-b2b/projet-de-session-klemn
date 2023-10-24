@@ -77,7 +77,10 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
+            {user && 
+                <button disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
+                    Demander à collaborer
+                </button> }
 
             <PostFooter
                 idPost={props.idPost}
