@@ -6,25 +6,25 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+export interface PropsGestionCollab {
+
+}
+
 function GestionCollab() {
     const navigate = useNavigate();
 
-    // get demande de collab
     const [demandesCollab, setDemandesCollab] = useState<any[]>([])
     const [projets, setProjets] = useState<any[]>([])
     const [idProjetFiltre, setIdProjetFiltre] = useState("")
-    
+
     // https://builtin.com/software-engineering-perspectives/react-api 
     useEffect(() => {
         getDemandeCollab()
-    }, []);
-
-    useEffect(() => {
         getProjets()
     }, []);
 
     const filtrer = (idProjet: String) => { 
-        setDemandesCollab((demandesCollab: any[]) => demandesCollab.filter((demandeCollab: PropDemandeCollab) => demandeCollab.id_projet == idProjet))
+        setIdProjetFiltre(idProjet.toString())
     }
 
     return (
