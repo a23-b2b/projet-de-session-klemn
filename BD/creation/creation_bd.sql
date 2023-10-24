@@ -147,7 +147,8 @@ CREATE TABLE demande_collab (
 );
 
 CREATE OR REPLACE VIEW post_view AS
-SELECT post.*,       
+SELECT post.*,
+       pc.id_collab,
        pc.projet_id_projet,
        pq.est_resolu,
        pq.post_meilleure_reponse,
@@ -160,6 +161,7 @@ FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
+         LEFT JOIN projet p ON pc.projet_id_projet = p.id_projet
          INNER JOIN compte c on post.id_compte = c.id_compte;
 
 COMMIT;
