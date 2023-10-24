@@ -4,6 +4,7 @@ import refuser from '../images/icn-cross-mark.png'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import testProfilePic from '../images/test_pfp.png'
+import toast from 'react-hot-toast';
 
 export interface PropDemandeCollab {
     // ID de compte sera insert dans collaborateur comme FK
@@ -21,7 +22,7 @@ export interface PropDemandeCollab {
 /*
 Si la demande est accepter, on fait un insert dans la table collaborateur et update pour vrai
 Sinon on change le statut de la demande a refusé
-Dans tout les cas il faut supprimer la demande refusé apres un certain temps
+TODO: Dans tout les cas il faut supprimer la demande refusé apres un certain temps
 */
 
 function GestionDemandeCollab(props: PropDemandeCollab) {
@@ -41,8 +42,8 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                         id_demande_collab: props.id_demande_collab
                     })
                 })
-                    .then(response => response.json())
-                    .catch(error => console.log(error));
+                .then(response => response.json())
+                .catch(error => toast(error.toString()));
             } else {
                 navigate("/authenticate")
             }

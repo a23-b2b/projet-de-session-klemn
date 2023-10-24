@@ -11,18 +11,15 @@ const mysqlConnection = mysql.createConnection({
     database: process.env.MYSQL_DATABASE
 })
 
+const DEMANDE_ACCEPTEE = 'true';
+
 module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res) => {
-    
-
-
-    const accepterDemande = 'true';
-
     const id_collaborateur = req.params.id_collaborateur
     const id_projet = req.params.id_projet
     const reponse = req.params.reponse
     const id_demande_collab = req.body.id_demande_collab
 
-    const est_accepte = (reponse == accepterDemande)      
+    const est_accepte = (reponse == DEMANDE_ACCEPTEE)      
 
     const queryUpdateEstAccepte = `
         UPDATE demande_collab 
@@ -43,27 +40,35 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
 
     // Si accepted, faire update true + insert collaborateur
     // Sinon, faire update false
-    
-    mysqlConnection.query(
+    if (id_demande_collab) {
+        mysqlConnection.query(
         queryUpdateEstAccepte, 
         [est_accepte, id_demande_collab],
-        function(err, results, fields) {
+        function(err) {
             if (err) {
-                res.status(500).send(JSON.stringify(err))
                 logger.info(JSON.stringify(err))
+                res.status(500).send()
             } else {
-                if (est_accepte) {
-                    mysqlConnection.query(
-                        queryInsert,
-                        [id_collaborateur, id_projet],
-                        function(err, results, fields) {
-                            if (err) {
-                                logger.info(JSON.stringify(err))
-                            }
-                        })
-                }
-                res.status(200).send()
-            } 
-            
+                ajouterCollaborateur()
+            }
         })
+    } else {
+        ajouterCollaborateur()
+    }
+
+    async function ajouterCollaborateur() {
+        if (est_accepte) {
+            mysqlConnection.query(
+                queryInsert,
+                [id_collaborateur, id_projet],
+                function(err) {
+                    if (err) {
+                        res.status(500).send()
+                    }     
+                    res.status(200).send()
+                }
+            )
+        }
+    }
+
 })

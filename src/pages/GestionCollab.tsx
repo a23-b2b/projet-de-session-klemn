@@ -6,16 +6,31 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-export interface PropsGestionCollab {
+const METHODE = {
+    EMAIL: "1",
+    ID: "2",
+    USERNAME: "3"
+}
 
+const METHODE_AFFICHAGE = {
+    EMAIL:"Courriel",
+    ID:"ID",
+    USERNAME: "Nom d'Utilisateur",
+    NONE: "Définissez une méthode d'addition de collaborateur"
 }
 
 function GestionCollab() {
     const navigate = useNavigate();
-
     const [demandesCollab, setDemandesCollab] = useState<any[]>([])
     const [projets, setProjets] = useState<any[]>([])
     const [idProjetFiltre, setIdProjetFiltre] = useState("")
+    const [methode, setMethode] = useState("1")
+    const [affichageMethode, setaffichageMethode] = useState("")
+    const [afficherForm, setAfficherForm] = useState(false)
+    const [informationIdentifianteCollaborateur, setInformationIdentifianteCollaborateur] = useState(METHODE_AFFICHAGE.NONE)
+    const [idProjet, setIdProjet] = useState("")
+    const [idProprio, setIdProprio] = useState("")
+
 
     // https://builtin.com/software-engineering-perspectives/react-api 
     useEffect(() => {
@@ -27,8 +42,63 @@ function GestionCollab() {
         setIdProjetFiltre(idProjet.toString())
     }
 
+    function montrerFormulaireAjoutCollaborateur(idProjet: String, idProprio: String) {
+        setAfficherForm(!afficherForm)
+        setIdProjet(idProjet.toString())
+        setIdProprio(idProprio.toString())
+    }
+
+    async function ajouterCollab() { 
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user?.uid == idProprio) {
+                {/* Nous utilison le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/}
+                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_demande_collab: null
+                    })
+                })
+                .catch(error => {
+                    if (error) {
+                        toast.error(error) 
+                    } 
+                });
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
+
     return (
-        <> 
+        <>
+        {afficherForm && <div className={styles.overlay}>
+                <form className={styles.form}>
+                    <div>
+                
+                        <label className={'global_input_field_label'} > 
+                            {affichageMethode}
+                        </label>
+                        <input className={'global_input_field'}
+                            name='informationIdentifiante'
+                            id={styles["input"]}
+                            type="text"
+                            placeholder="affichageMethode"
+                            onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
+                    </div>
+                    <div>
+                        <select className={'global_input_field'} value={methode} onChange={e => {modifierMethodeAjoutCollaborateur(e.target.value)}}>
+                            <option value={METHODE.EMAIL}>Email</option>
+                            <option value={METHODE.ID}>ID</option>
+                            <option value={METHODE.USERNAME}>Nom Utilisateur</option>
+                        </select>
+                    </div>
+                    <button onClick={() => ajouterCollab()}>Ajouter le collaborateur au projet ID: {idProjet}</button>
+                    <button onClick={() => {setAfficherForm(!afficherForm)}}>Annuler</button>
+                </form>
+            </div>}
+
         <div className={styles.conteneur_gestion}>  
             <div>
                 <p>ID FILTRE: {idProjetFiltre}</p>
@@ -94,7 +164,10 @@ function GestionCollab() {
                     }) => { return (<>
                     
                     <div key={id_projet}>
-                        <GestionProjetRapide filtrerDemandeParIdProjet={filtrer}
+                        <GestionProjetRapide 
+                            filtrerDemandeParIdProjet={filtrer}
+                            montrerFormulaireAjoutCollaborateur={montrerFormulaireAjoutCollaborateur}
+
                             id_projet={id_projet}
                             titre={titre_projet}
                             description={description_projet}
@@ -105,11 +178,27 @@ function GestionCollab() {
                     </>)
                 })}
                 </div>
-
-
             </div>
         </> 
     )
+
+    function modifierMethodeAjoutCollaborateur(m: string) {
+        setMethode(m)
+
+        switch (m) {
+            case METHODE.EMAIL:
+                setaffichageMethode(METHODE_AFFICHAGE.EMAIL)
+              break;
+            case METHODE.ID:
+                setaffichageMethode(METHODE_AFFICHAGE.ID)
+              break;
+            case METHODE.USERNAME:
+                setaffichageMethode(METHODE_AFFICHAGE.USERNAME)
+                break;
+            default:
+              setaffichageMethode(METHODE_AFFICHAGE.NONE)
+          }
+    }
     
     async function getProjets() {    
         

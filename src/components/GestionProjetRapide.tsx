@@ -7,8 +7,9 @@ import fermer from '../images/icn-closed.png';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { EventHandler, useEffect, useState } from 'react';
+import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
 import { ExceptionHandler } from 'winston';
+
 
 export interface PropsProjet {
     id_projet: String,
@@ -19,12 +20,14 @@ export interface PropsProjet {
     
     /* https://upmostly.com/tutorials/how-to-pass-a-function-as-a-prop-in-react */
     filtrerDemandeParIdProjet: Function
+    montrerFormulaireAjoutCollaborateur: Function
 }
+
+
 
 function GestionProjetRapide(props: PropsProjet) {
     const navigate = useNavigate();
     const [estOuvert, setEstOuvert] = useState(props.est_ouvert)
-    const [idProjet, setIdProjet] = useState(props.id_projet)
 
     async function supprimerProjet() {
         const auth = getAuth();
@@ -41,7 +44,7 @@ function GestionProjetRapide(props: PropsProjet) {
         })
     }
 
-    function rendreProjetOuvertAuCollab() {
+    async function rendreProjetOuvertAuCollab() {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user?.uid == props.compte_id_proprio) {
@@ -66,10 +69,13 @@ function GestionProjetRapide(props: PropsProjet) {
         })
     }
 
+    
     return (
-        <>
-            <div className={styles.ligne_gestion_projet}>
+        <> 
+        
             
+            <div className={styles.ligne_gestion_projet}>
+
                     {/* Rang/e du haut */}
                     
                         <div className={styles.conteneur_titre_projet}>
@@ -77,7 +83,7 @@ function GestionProjetRapide(props: PropsProjet) {
                         </div>
 
                         <div className={styles.filtre}>
-                                <button onClick={() => props.filtrerDemandeParIdProjet(idProjet)}>
+                                <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
                                         <img src={filtre} className={styles.icone} />
                                 </button>           
                         </div>
@@ -94,7 +100,7 @@ function GestionProjetRapide(props: PropsProjet) {
                         </div>
 
                         <div className={styles.collaboration}>
-                            <button onClick={() => { /* TODO: Add user to project by username, UID or email */ }}>
+                            <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
                                     <img src={collaboration} className={styles.icone} />
                             </button>
                         </div>

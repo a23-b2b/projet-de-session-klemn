@@ -11,3 +11,7 @@ SELECT c.id_compte, c.url_image_profil, c.nom_utilisateur, p.compte_id_proprio, 
             INNER JOIN projet p ON demande_collab.projet_id_projet = p.id_projet
             WHERE p.compte_id_proprio = 'yjoI2WF3w4WVr3kD9L01shSjjnL2'
             AND demande_collab.est_accepte IS NULL;
+
+ UPDATE demande_collab 
+            SET est_accepte = TRUE
+            WHERE id_demande_collab = null;
