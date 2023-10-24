@@ -1,22 +1,9 @@
 -- Active: 1694035110728@@localhost@3306@dev
-INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_1', 'admin');     -- 1
-INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_2', 'client');    -- 2
-INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_3', 'inconnu');   -- 3
-INSERT INTO autorisation (id_autorisation, titre_autorisation) VALUES ('pre_made_set_4', 'dieu');     -- 4
-
-INSERT INTO type_post (id_type_post, nom_type)
-VALUES  (6, 'Boost'),
-        (5, 'Quote'),
-        (4, 'Réponse'),
-        (3, 'Collaboration'),
-        (2, 'Question'),
-        (1, 'Blogue');
-        
 INSERT INTO compte 
-    (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, courriel, telephone, nombre_abonnes, nombre_abonnements, biographie, autorisation_id_autorisation)
+    (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, courriel, telephone, nombre_abonnes, nombre_abonnements, biographie, autorisation)
 VALUES
-    ('yjoI2WF3w4WVr3kD9L01shSjjnL2', NOW(), 'nom de louis', 'prenom de louis', 'usernameLouis', 'Louis Nom Affichage', 'louis@louis.com', '777-555-1234', 0, 0, 'Je viens d''arriver sur Klemn!', "pre_made_set_2"),
-    ('vOArxLHmRBO5ixknQ1LUbwcopCp2', NOW(), 'nom de marie', 'prenom de marie', 'usernamemarie', 'marie Nom Affichage', 'marie@marie.com', '222-555-1234', 0, 0, 'Je suis Marie!', "pre_made_set_2");
+    ('yjoI2WF3w4WVr3kD9L01shSjjnL2', NOW(), 'nom de louis', 'prenom de louis', 'usernameLouis', 'Louis Nom Affichage', 'louis@louis.com', '777-555-1234', 0, 0, 'Je viens d''arriver sur Klemn!', 2),
+    ('vOArxLHmRBO5ixknQ1LUbwcopCp2', NOW(), 'nom de marie', 'prenom de marie', 'usernamemarie', 'marie Nom Affichage', 'marie@marie.com', '222-555-1234', 0, 0, 'Je suis Marie!', 2);
 INSERT INTO post (
   id_post, id_compte, id_type_post, 
   titre, contenu, nombre_likes, nombre_dislikes, 
