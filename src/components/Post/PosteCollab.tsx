@@ -5,7 +5,7 @@ import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface CollabProp {
     idPost: string;
@@ -29,18 +29,21 @@ export interface CollabProp {
 }
 
 function PosteCollab(props: CollabProp) {
-    var enabled = false;
     const auth = getAuth();
     const user = auth.currentUser;
 
-    activerCollab()
+    const [boutonActif, setBoutonActif] = useState(false)
+
+    useEffect(() => {
+        setBoutonActif(user?.uid != props.idCompte)
+    }, [])
 
     function demanderCollabortion(props: CollabProp){        
-        if (user !== null) {
+        if (user) {
             const uid = user.uid;
             user.getIdToken(true)
                 .then((idToken) => {
-                    console.log("Id Projet: (demanderCollaboration)"+ props.idProjet)
+                    console.log("Id Projet: (demanderCollaboration) "+ props.idProjet)
                     fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}/${uid}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -57,14 +60,7 @@ function PosteCollab(props: CollabProp) {
         } 
     }
 
-    function activerCollab(){
-        if (user && props.idCompte !== user.uid) {
-            enabled = true;
-        } else {
-            enabled = false;
-        }
-        
-    }
+    
 
     return (
         <div className={styles.container}>
@@ -81,7 +77,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
+            <button disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>   
 
             <PostFooter
                 idPost={props.idPost}
