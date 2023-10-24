@@ -1,7 +1,7 @@
 import styles from '../styles/PostsForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
-import { useEffect, useState } from "react";
+import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Divider } from '@chakra-ui/react';
@@ -15,11 +15,15 @@ function BlogueForm() {
     const [nbCaracteres, setNbCaracteres] = useState(0)
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
-    const [IdChoixDeProjet, setIdChoixDeProjet] = useState("");
+    const [IdChoixDeProjet, setIdChoixDeProjet] = useState<String>();;
 
     const [projets, setProjets] = useState<any[]>([]);
     const naviguate = useNavigate()
 
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value
+        setIdChoixDeProjet(value)
+    }
 
     useEffect(() => {
         getProjets()
@@ -112,22 +116,20 @@ function BlogueForm() {
                     <option value='collab'>Collaboration</option>
                 </select>
 
-                {type === "collab" && (
+                {type == "collab" && (
                     <div >
                         <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
                         <select                             
                             className={'global_input_field'}
-                            onChange={(e) => { 
-                                    setIdChoixDeProjet(e.target.value)
-                                }}>
+                            onChange={handleChange}
+                            >
                                 {projets && projets?.map(({
-                                    compte_id_proprio,
                                     id_projet,
                                     titre_projet,
-                                    description_projet,
                                     est_ouvert
                                 }) => { return (<>                       
-                                    {est_ouvert && <option key={id_projet} value={id_projet}>{titre_projet}</option>}
+                                    {est_ouvert && 
+                                        <option value={id_projet}>{titre_projet}</option>}
                                 </>)
                             })}
                         </select>
