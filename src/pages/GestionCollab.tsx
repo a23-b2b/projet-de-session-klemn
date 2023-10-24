@@ -6,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-const METHODE = {
+export const METHODE = {
     EMAIL: "1",
     ID: "2",
     USERNAME: "3"
@@ -57,7 +57,8 @@ function GestionCollab() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        id_demande_collab: null
+                        id_demande_collab: null,
+                        methode: methode,
                     })
                 })
                 .catch(error => {
@@ -81,7 +82,7 @@ function GestionCollab() {
                             {affichageMethode}
                         </label>
                         <input className={'global_input_field'}
-                            name='informationIdentifiante'
+                            name={`Entrez l'identification correspondant a votre methode d'ajout.`}
                             id={styles["input"]}
                             type="text"
                             placeholder="affichageMethode"
@@ -95,6 +96,7 @@ function GestionCollab() {
                         </select>
                     </div>
                     <button onClick={() => ajouterCollab()}>Ajouter le collaborateur au projet ID: {idProjet}</button>
+                    <br />
                     <button onClick={() => {setAfficherForm(!afficherForm)}}>Annuler</button>
                 </form>
             </div>}

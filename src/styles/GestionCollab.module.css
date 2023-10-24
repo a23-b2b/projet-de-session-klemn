@@ -77,6 +77,10 @@
     padding: auto;
 }
 
+button {
+    color: white
+}
+
 .conteneur_gestion {
  /*div du menu au complet*/
 }

@@ -5,6 +5,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import testProfilePic from '../images/test_pfp.png'
 import toast from 'react-hot-toast';
+import METHODE from '../pages/GestionCollab'
 
 export interface PropDemandeCollab {
     // ID de compte sera insert dans collaborateur comme FK
@@ -39,7 +40,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        id_demande_collab: props.id_demande_collab
+                        id_demande_collab: props.id_demande_collab,
                     })
                 })
                 .then(response => response.json())
