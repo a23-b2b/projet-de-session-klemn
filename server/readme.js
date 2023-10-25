@@ -3,7 +3,7 @@ const { admin } = require('./serveur')
 const fs = require('fs');
 const app = express()
 const README_PATH = './README.md'
-const {logger } = require('./logger')
+const logger = require('./logger')
 
 module.exports = app.get('/', (req, res) => {
     
