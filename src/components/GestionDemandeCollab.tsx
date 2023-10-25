@@ -39,16 +39,16 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.id_projet}/${props.id_compte}/${reponse}`, {
                         method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json' ,
+                        headers: {
+                            'Content-Type': 'application/json',
                             'authorization': idToken
                         },
                         body: JSON.stringify({
                             id_demande_collab: props.id_demande_collab,
                         })
-                })})
-                .then(response => response.json())
-                .catch(error => toast(error.toString()));
+                    }).then(response => response.json())
+                    .catch(error => toast(error.toString()));
+                })
             } else {
                 navigate("/authenticate")
             }
@@ -85,7 +85,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                         </div>
 
                     </div>
-                    
+
                 </div>
 
 
