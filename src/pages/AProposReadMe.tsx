@@ -7,17 +7,17 @@ import remarkGfm from 'remark-gfm'
 import ReactDom from 'react-dom'
 
 
-function AProposReadMe () {
+function AProposReadMe() {
     // https://raw.githubusercontent.com/a23-b2b/projet-de-session-klemn/main/README.md?token=GHSAT0AAAAAACG6FDOULTCHY2ZGNYHCYGM4ZJZCVQA
-    
-        const [md, setMd] = useState('')
-        
-        useEffect(() => {
-            getMd()
-          }, []);
-    
-        async function getMd() {
-            onAuthStateChanged(auth, (user) => {
+
+    const [md, setMd] = useState('')
+
+    useEffect(() => {
+        getMd()
+    }, []);
+
+    async function getMd() {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/readme`, {
@@ -28,24 +28,25 @@ function AProposReadMe () {
                         }
                     }).then(response => response.text()).then(response => {
                         console.log(response)
-                        
-                        setMd( response)
+
+                        setMd(response)
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
                 })
             }
-        })}
+        })
+    }
 
-        return (<>
-            
-                <Markdown remarkPlugins={[remarkGfm]} children={md}></Markdown>
-                
-            </>)
-    
+    return (<>
+        <div style={{ margin: "0 auto", maxWidth: "500px", padding: "15px"}}>
+            <Markdown remarkPlugins={[remarkGfm]} children={md}></Markdown>
+        </div>
+    </>)
 
-   
-    
+
+
+
 }
 
-export default  AProposReadMe
+export default AProposReadMe
