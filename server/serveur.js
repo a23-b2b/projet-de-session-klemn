@@ -105,6 +105,9 @@ app.use('/projet/open', update_open_project)
 const creer_project = require('./collaboration/POST_projet.js')
 app.use('/projet', creer_project)
 
+const read_me = require('./readme.js');
+app.use('/readme', read_me)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
