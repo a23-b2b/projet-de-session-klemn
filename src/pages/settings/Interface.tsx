@@ -5,6 +5,7 @@ import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, up
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import VoteWidget from '../../components/Post/voteWidget';
+import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
 
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
@@ -66,6 +67,8 @@ function Interface() {
         }
     }, [])
 
+
+
     return (
         <motion.div className={'global_conteneur_parametres'} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
             <h1 className={'global_title'} id={styles["titleParametres"]}>Interface</h1>
@@ -79,22 +82,43 @@ function Interface() {
 
                     </div>
 
-                    <div>
+                    <div className={styles.dropdownDiv}>
+
+                        {/*
                         <select className={styles.selectInterface} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
                             <option value="shake_slide">Shake + slide</option>
                             <option value="shake_fade">Shake + fade</option>
                             <option value="same_slide">Same + slide</option>
                             <option value="same_fade">Same + fade</option>
-                            {/* <option value="fade_fade">Fade only</option> */}
-                            {/* <option value="none">None</option> */}
                         </select>
+                        
+                        */}
+
+                        {/* <option value="fade_fade">Fade only</option> */}
+                        {/* <option value="none">None</option> */}
+
+                        
+                        <Menu menuButton={
+                            <div className={styles.dropdown_menu_bouton}> {voteAnimationType}</div>
+                        }
+
+                            transition={true}
+                            menuClassName={styles.dropdown_menu}
+                            onItemClick={e => changeLikeAnimationSetting(e.value)}>
+
+                            <MenuItem value={'shake_slide'} className={styles.dropdown_menu_item}><span>Shake + slide</span></MenuItem>
+                            <MenuItem value={'shake_fade'} className={styles.dropdown_menu_item}><span>Shake + fade</span></MenuItem>
+                            <MenuItem value={'same_slide'} className={styles.dropdown_menu_item}><span>Same + slide</span></MenuItem>
+                            <MenuItem value={'same_fade'} className={styles.dropdown_menu_item}><span>Same + fade</span></MenuItem>
+
+                        </Menu>
                     </div>
 
 
                 </div>
 
 
-                <div  className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
+                <div className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
                     <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
                 </div>
             </div>
