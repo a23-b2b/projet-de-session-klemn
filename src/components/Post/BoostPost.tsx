@@ -54,7 +54,7 @@ function BoostPost(props: Props) {
     if (boostedPostData) {
         return (
             <div>
-                <span>
+                <span id={styles["boutonCollab"]}>
                     <FaRetweet className={styles.icone_boost}/>
                     <Link to={`/u/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
                 </span>

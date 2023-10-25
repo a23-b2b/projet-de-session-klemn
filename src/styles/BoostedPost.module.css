@@ -6,9 +6,15 @@
 
 .lien_utilisateur {
     text-decoration: none;
-    color: var(--auto_text_color)
+    color: var(--auto_text_color);
 }
 
 .lien_utilisateur:hover {
     text-decoration:underline;
+}
+
+#boutonCollab {
+    background-color: rgba(154, 82, 216, 0.233);
+    padding: 8px;
+    border-radius: 12px;
 }
