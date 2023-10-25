@@ -49,6 +49,8 @@ pour démarrer l'API.
 | Commentaire | En tant qu'utilisateur vous pouvez rédiger des commentaires en dessous d'une publication |
 | Documentation Dynamique | Cette page est en fait générée en utilisant notre README.md qui est aussi affiché et utilisé officiellement pas GitHub. Cette page sera donc automatique mise-à-jour lorsque nous ajouterons de la documentation |
 
+et plus encore!!
+
 ## A Venir!
 
 | Nom | Description |
