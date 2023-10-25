@@ -1,7 +1,8 @@
 const express = require('express')
 const mysql = require('mysql2')
-const logger = require('./logger.js')
+const logger = require('../logger.js')
 const app = express()
+const { pool } = require('../../serveur.js')
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
@@ -12,25 +13,19 @@ const mysqlConnection = mysql.createConnection({
     multipleStatements: true
 })
 
-const STATUT_OUVERT = 'true';
-
-module.exports = app.post('/:id_projet/:statut', (req, res) => { 
+module.exports = app.post('/add', (req, res) => { 
     const id_projet = req.params.id_projet
-    const statut = req.params.statut
-    const est_ouvert = (statut === STATUT_OUVERT)
-
-    mysqlConnection.query(`
-        UPDATE projet 
-            SET projet.est_ouvert = ? 
-            WHERE projet.id_projet = ? ;`, 
-        [est_ouvert, id_projet],
+    
+    pool.query(`
+        DELETE FROM projet WHERE projet.id_projet = ? ;`, 
+        [id_projet],
         function(err) {
             if (err) {
                 const errJSON = JSON.stringify(err)
                 res.status(500).send()
                 logger.info(JSON.stringify(errJSON))
             } else {
-                res.status(200).send()
+                res.status(200)
             } 
             
         })

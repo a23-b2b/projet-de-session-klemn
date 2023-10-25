@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-const { admin } = require('./serveur.js')
-const { logger } = require('./logger.js');
+const { admin } = require('../serveur.js')
+const { logger } = require('../logger.js');
+const { pool } = require('../../serveur.js')
 
 
 const mysqlConnection = mysql.createConnection({
@@ -22,7 +23,7 @@ module.exports = app.post('/p/:id_projet/:id_compte_collaborateur', (req, res) =
     
     admin.auth().verifyIdToken(idToken, true)
         .then((payload) => {
-            mysqlConnection.query(
+            pool.query(
                 `INSERT INTO demande_collab 
                     (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte)
                 VALUES

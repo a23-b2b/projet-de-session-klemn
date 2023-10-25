@@ -93,17 +93,20 @@ app.use('/post', quote_post);
 const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
 
-const get_all_demande_collab = require('./get_all_demandes_collab')
+const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
-const get_all_projets = require('./get_all_projet.js')
+const get_all_projet = require('./collaboration/GET_all_projet.js')
 app.use('/get-all-projets', get_all_projets)
 
 const delete_project = require('./delete_project')
 app.use('/projet/delete', delete_project)
 
-const update_open_project = require('./update_open_project')
+const update_open_project = require('./collaboration/POST_update_open_project.js')
 app.use('/projet/open', update_open_project)
+
+const creer_projet = require('./collaboration/POST_projet.js')
+app.use('projet/add', creer_projet)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

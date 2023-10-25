@@ -14,7 +14,7 @@ import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
 import GestionCollab from "./pages/GestionCollab";
-
+import ProjetForm from './pages/ProjetForm';
 function Layout() {
     return (
         <>
@@ -35,7 +35,7 @@ function Layout() {
                         <Route path="interface" element={<Interface />} />
                     </Route>
                     <Route path="/gestion" element={<GestionCollab/>} />
-                        
+                    <Route path="/projet" element={<ProjetForm />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

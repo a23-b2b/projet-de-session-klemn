@@ -3,7 +3,7 @@ import GestionDemandeCollab, { PropDemandeCollab } from '../components/GestionDe
 import GestionProjetRapide from  '../components/GestionProjetRapide'
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 export const METHODE = {
@@ -97,7 +97,10 @@ function GestionCollab() {
                     </div>
                     <button onClick={() => ajouterCollab()}>Ajouter le collaborateur au projet ID: {idProjet}</button>
                     <br />
-                    <button onClick={() => {setAfficherForm(!afficherForm)}}>Annuler</button>
+                    <button onClick={() => {setAfficherForm(!afficherForm)}}>--- Annuler ---</button>
+                    <Link to={`/projet`}>
+                        <button>+++ Ajouter un projet +++</button>
+                    </Link>
                 </form>
             </div>}
 

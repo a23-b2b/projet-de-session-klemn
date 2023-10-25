@@ -1,16 +1,16 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
+const { logger } = require('./logger.js')
+const { pool } = require('../../serveur.js')
 
-const { logger } = require('./serveur.js')
-
-const mysqlConnection = mysql.createConnection({
+{/*const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
     port: process.env.MYSQL_PORT,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
-})
+})*/}
 
 
 module.exports = app.post('/', (req, res) => {
@@ -20,7 +20,7 @@ module.exports = app.post('/', (req, res) => {
 
     console.log(userId)
 
-    mysqlConnection.query(`
+    pool.query(`
         SELECT post.*, u.nom_affichage, u.nom_utilisateur, u.url_image_profil, c.projet_id_projet, p.est_ouvert, q.est_resolu, q.post_meilleure_reponse 
         FROM post
         INNER JOIN compte u on post.id_compte = u.id_compte

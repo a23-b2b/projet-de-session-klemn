@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-const logger = require('./logger.js')
+const logger = require('../logger.js')
+const { pool } = require('../../serveur.js')
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
@@ -17,7 +18,7 @@ module.exports = app.get('/:compte_id_proprio', (req, res) => {
     // Si accepted, faire update true + insert collaborateur
     // Sinon, faire update false
     
-    mysqlConnection.query(`
+    pool.query(`
         SELECT compte_id_proprio, id_projet, titre_projet, description_projet, est_ouvert
             FROM projet
             WHERE compte_id_proprio = ? ;`, 

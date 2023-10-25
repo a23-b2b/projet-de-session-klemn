@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-
-const logger = require('./logger.js')
+const { pool } = require('../../serveur.js')
+const logger = require('../logger.js')
 
 const mysqlConnection = mysql.createConnection({
     host: process.env.MYSQL_HOSTNAME,
@@ -16,7 +16,7 @@ module.exports = app.get('/:id_compte', (req, res) => {
     const id_compte = req.params.id_compte
     
     // TODO: get le nom utilisateur du demandeur et non du proprio
-    mysqlConnection.query(`
+    pool.query(`
         SELECT c.id_compte, c.url_image_profil, c.nom_utilisateur, p.compte_id_proprio, p.id_projet, p.titre_projet, p.description_projet, id_demande_collab
             FROM demande_collab
             INNER JOIN compte c ON demande_collab.compte_id_compte = c.id_compte
