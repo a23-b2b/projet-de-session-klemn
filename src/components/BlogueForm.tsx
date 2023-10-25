@@ -52,6 +52,28 @@ function BlogueForm() {
         }
     }
 
+    const [isBlogueSelected, setBlogueIsSelected] = useState(true);
+    const [isQuestionSelected, setQuestionIsSelected] = useState(false);
+    const [isCollabSelected, setCollabIsSelected] = useState(false);
+
+    function handleClickBlogue() {
+        setBlogueIsSelected(true)
+        setQuestionIsSelected(false)
+        setCollabIsSelected(false)
+    }
+
+    function handleClickQuestion() {
+        setBlogueIsSelected(false)
+        setQuestionIsSelected(true)
+        setCollabIsSelected(false)
+    }
+
+    function handleClickCollab() {
+        setBlogueIsSelected(false)
+        setQuestionIsSelected(false)
+        setCollabIsSelected(true)
+    }
+
     return (
         <div className={'global_conteneur'} id={styles["conteneur"]}>
             <div className={styles.conteneurDiv}>
@@ -76,19 +98,41 @@ function BlogueForm() {
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
 
+
+
+                {/*
                 <select className={'global_input_field'} value={type} onChange={e => setType(e.target.value)}>
                     <option value='blogue'>Blogue</option>
                     <option value='question'>Question</option>
                     <option value='collab'>Collaboration</option>
                 </select>
 
+*/}
+
+                <div className={styles.conteneurBoutons}>
+                    <button className={isBlogueSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                        setType("blogue");
+                        handleClickBlogue();
+                    }}>Blogue</button>
+                    <button id={styles["boutonQuestion"]} className={isQuestionSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                        setType("question");
+                        handleClickQuestion();
+                    }}>Question</button>
+
+                    <button id={styles["boutonCollab"]} className={isCollabSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                        setType("collab");
+                        handleClickCollab();
+                    }}>Collaboration</button>
+                </div>
+
                 {type === "collab" && (
-                    <div >
+                    <div id={styles["divCollab"]} >
                         <label className={'global_input_field_label'}>URL du projet GitHub</label>
                         <input
                             placeholder='https://github.com/'
                             type="text"
                             className={'global_input_field'}
+                            id={styles["inputCollab"]}
                             onChange={(e) => setUrlGit(e.target.value)} />
                     </div>
                 )}
