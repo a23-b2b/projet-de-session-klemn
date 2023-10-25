@@ -35,10 +35,15 @@ function GestionProjetRapide(props: PropsProjet) {
         onAuthStateChanged(auth, (user) => {
             if (user?.uid == props.compte_id_proprio) {
                 // https://builtin.com/software-engineering-perspectives/react-api 
-                fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
-                    method: 'POST'
-                })
-                .catch(error => toast.error(JSON.stringify(error)));
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json' ,
+                            'authorization': idToken
+                        }
+                    })
+                }).catch(error => toast.error(JSON.stringify(error)));
             } else {
                 navigate("/authenticate")
             }

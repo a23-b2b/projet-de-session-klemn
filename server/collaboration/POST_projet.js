@@ -32,7 +32,6 @@ const query =
         false)
     ;`
 
-// TODO: admin.auth().verifyIdToken(idToken, true).then((payload) => {
 // TODO: chaine de validation avec const { body, validationResult } = require('express-validator');
 module.exports = app.post('/add/', 
     [body('titre_projet').notEmpty().isLength({ max: 4000 })], (req, res) => { 
@@ -43,19 +42,23 @@ module.exports = app.post('/add/',
         const compte_id_proprio = req.body.compte_id_proprio
 
         logger.info(`Creation d'un nouveau projet: ${titre_projet}`)
-
-        pool.query(
-            query,
-            [titre_projet,
-            description_projet,
-            url_repo_git,
-            compte_id_proprio],
-            function(err) {
-                if (err) {
-                    res.status(500).send()
-                    logger.info(JSON.stringify(err.toString()))
-                } else {
-                    res.status(200).send()
-                } 
+        admin.auth().verifyIdToken(idToken, true).then((payload) => {
+            pool.query(
+                query,
+                [titre_projet,
+                description_projet,
+                url_repo_git,
+                compte_id_proprio],
+                function(err) {
+                    if (err) {
+                        res.status(500).send()
+                        logger.info(JSON.stringify(err.toString()))
+                    } else {
+                        res.status(200).send()
+                    } 
+                }
+            )
+        }).catch((error) => {
+            res.status(500).send("ERREUR: " + error.code)
         })
 })

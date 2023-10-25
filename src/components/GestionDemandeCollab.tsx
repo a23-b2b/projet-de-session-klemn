@@ -36,13 +36,17 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // https://builtin.com/software-engineering-perspectives/react-api 
-                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.id_projet}/${props.id_compte}/${reponse}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        id_demande_collab: props.id_demande_collab,
-                    })
-                })
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.id_projet}/${props.id_compte}/${reponse}`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json' ,
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            id_demande_collab: props.id_demande_collab,
+                        })
+                })})
                 .then(response => response.json())
                 .catch(error => toast(error.toString()));
             } else {

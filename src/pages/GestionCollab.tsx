@@ -53,15 +53,19 @@ function GestionCollab() {
         onAuthStateChanged(auth, (user) => {
             if (user?.uid == idProprio) {
                 {/* Nous utilison le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/}
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => { 
                 fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'authorization': idToken 
+                    },
                     body: JSON.stringify({
                         id_demande_collab: null,
-                        methode: methode,
+                        methode: methode
                     })
                 })
-                .catch(error => {
+                }).catch(error => {
                     if (error) {
                         toast.error(error) 
                     } 

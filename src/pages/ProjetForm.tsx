@@ -23,10 +23,12 @@ function ProjetForm() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid
-                fetch(`${process.env.REACT_APP_API_URL}/projet/add`, {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) =>{
+                    fetch(`${process.env.REACT_APP_API_URL}/projet/add`, {
                     method: 'POST',
                     headers: { 
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
                     },
                     body: JSON.stringify({
                         titre_projet: titre_projet,
@@ -34,7 +36,7 @@ function ProjetForm() {
                         url_repo_git: url_repo_git,
                         compte_id_proprio: uid
                     })        
-                }).then(() => {
+                })}).then(() => {
                     toast("Projet publier")
                 }).catch((error) => {
                     toast(error.toString())

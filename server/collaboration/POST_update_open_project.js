@@ -10,7 +10,8 @@ module.exports = app.post('/:id_projet/:statut', (req, res) => {
     const id_projet = req.params.id_projet
     const statut = req.params.statut
     const est_ouvert = (statut === STATUT_OUVERT)
-
+    
+    admin.auth().verifyIdToken(idToken, true).then((payload) => {
     pool.query(`
         UPDATE projet 
             SET projet.est_ouvert = ? 
@@ -26,4 +27,7 @@ module.exports = app.post('/:id_projet/:statut', (req, res) => {
             } 
             
         })
+    }).catch((error) => {
+        res.status(500).send("ERREUR: " + error.code)
+    })
 })
