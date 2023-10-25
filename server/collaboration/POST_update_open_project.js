@@ -1,17 +1,8 @@
 const express = require('express')
-const mysql = require('mysql2')
 const logger = require('../logger.js')
 const app = express()
-const { pool } = require('../../serveur.js')
+const { pool } = require('../serveur.js')
 
-{/*const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    multipleStatements: true
-})*/}
 
 const STATUT_OUVERT = 'true';
 

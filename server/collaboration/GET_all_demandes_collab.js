@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const mysql = require('mysql2')
-const { pool } = require('../../serveur.js')
+const { pool } = require('../serveur.js')
 const logger = require('../logger.js')
 
 const mysqlConnection = mysql.createConnection({

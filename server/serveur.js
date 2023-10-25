@@ -54,9 +54,6 @@ app.use('/user', changer_nom)
 const repondre_demande_collab = require('./repondre_collab')
 app.use('/collab', repondre_demande_collab)
 
-const demande_collab = require('./demande_collab')
-app.use('/collab', demande_collab)
-
 const changer_prenom = require('./user/update/POST_prenom.js')
 app.use('/user', changer_prenom)
 
@@ -97,16 +94,16 @@ const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
 const get_all_projet = require('./collaboration/GET_all_projet.js')
-app.use('/get-all-projets', get_all_projets)
+app.use('/get-all-projets', get_all_projet)
 
-const delete_project = require('./delete_project')
+const delete_project = require('./collaboration/POST_delete_project.js')
 app.use('/projet/delete', delete_project)
 
 const update_open_project = require('./collaboration/POST_update_open_project.js')
 app.use('/projet/open', update_open_project)
 
-const creer_projet = require('./collaboration/POST_projet.js')
-app.use('projet/add', creer_projet)
+const creer_project = require('./collaboration/POST_projet.js')
+app.use('/projet', creer_project)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
