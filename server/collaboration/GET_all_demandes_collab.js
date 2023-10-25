@@ -3,7 +3,7 @@ const app = express()
 const { pool, admin } = require('../serveur.js')
 const logger = require('../logger.js')
 
-module.exports = app.get('/:id_compte', (req, res) => {
+module.exports = app.get('/', (req, res) => {
     const idToken = req.headers.authorization;
 
     admin.auth().verifyIdToken(idToken, true).then((payload) => {

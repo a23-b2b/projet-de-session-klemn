@@ -1,18 +1,8 @@
 const express = require('express')
-const mysql = require('mysql2')
 const logger = require('../logger.js')
 const app = express()
-const { pool } = require('../serveur.js')
+const { pool, admin } = require('../serveur.js')
 const { body, validationResult } = require('express-validator');
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    multipleStatements: true
-})
 
 const query = 
      `
@@ -39,16 +29,19 @@ module.exports = app.post('/add/',
         const titre_projet = req.body.titre_projet
         const description_projet = req.body.description_projet
         const url_repo_git = req.body.url_repo_git
-        const compte_id_proprio = req.body.compte_id_proprio
+
+        const idToken = req.headers.authorization;
 
         logger.info(`Creation d'un nouveau projet: ${titre_projet}`)
         admin.auth().verifyIdToken(idToken, true).then((payload) => {
+            const userId = payload.uid;
+
             pool.query(
                 query,
                 [titre_projet,
                 description_projet,
                 url_repo_git,
-                compte_id_proprio],
+                userId],
                 function(err) {
                     if (err) {
                         res.status(500).send()
