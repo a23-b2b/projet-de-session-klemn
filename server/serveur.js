@@ -33,8 +33,8 @@ app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
-const inscription = require('./inscription')
-app.use('/inscription', inscription);
+const inscription = require('./user/POST_create.js')
+app.use('/user', inscription);
 
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
