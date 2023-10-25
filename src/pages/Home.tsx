@@ -11,6 +11,8 @@ import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 function Home() {
+
+    
     const navigate = useNavigate();
 
     const OFFSET = 6;
@@ -22,6 +24,7 @@ function Home() {
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
+
 
 
     async function getGlobalPosts() {
@@ -36,15 +39,15 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response
-        
+
                         setPostOffset(postOffset + OFFSET)
-        
+
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -66,15 +69,15 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response
-        
+
                         setPostOffset(postOffset + OFFSET)
-        
+
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -120,14 +123,47 @@ function Home() {
         console.log('posts gotten')
     }, [feedType]);
 
+
+    const [isGlobalSelected, setGlobalIsSelected] = useState(true);
+    const [isAbonnementSelected, setAbonnementIsSelected] = useState(false);
+
+    function handleClickGlobal() {
+        setGlobalIsSelected(true)
+        setAbonnementIsSelected(false)
+    }
+
+    function handleClickAbonnement() {
+        setGlobalIsSelected(false)
+        setAbonnementIsSelected(true)
+    }
+    
+
+
     return (
+        
         <div className={styles.body}>
             <BlogueForm />
 
+            {/*
             <select value={feedType} onChange={e => changeFeedType(e.target.value)}>
                 <option value="global">Global</option>
                 <option value="followed">Abonnements</option>
             </select>
+            */}
+
+            <div className={styles.conteneurBoutons}>
+                <button className={isGlobalSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                  changeFeedType("global");
+                  handleClickGlobal();
+                }}>Global</button>
+                <button id={styles["boutonAbonnement"]} className={isAbonnementSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                  changeFeedType("followed");
+                  handleClickAbonnement();
+                }}>Abonnements</button>
+            </div>
+
+           
+            
 
             <InfiniteScroll
                 dataLength={postData.length}
@@ -135,7 +171,7 @@ function Home() {
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            > 
+            >
                 <div>
                     {postData?.map(({
                         contenu,
@@ -176,10 +212,10 @@ function Home() {
                                     type={id_type_post}
                                     isPostFullScreen={false}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} 
+                                    userVote={vote}
 
                                     sharedPostId={id_shared_post}
-                                    isSharedPostQuote={is_quoted_post}/>
+                                    isSharedPostQuote={is_quoted_post} />
                             </div>
 
                         )
