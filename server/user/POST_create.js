@@ -3,6 +3,7 @@ const app = express()
 const { check, body, validationResult } = require('express-validator');
 const { pool } = require('../serveur.js')
 const { admin } = require('../serveur.js')
+const logger = require('../logger.js')
 
 
 module.exports = app.post('/create',
@@ -71,7 +72,7 @@ module.exports = app.post('/create',
                     ],
                     function (err, results, fields) {
                         if (err) {
-                            // logger.info("Erreur lors de lexecution de la query.", err)
+                            logger.log("info", `IP ${req.ip}: Erreur lors de la création du compte sur MySQL: ${err}`)
                             console.log(err)
 
                             // supprimer le compte de firebase
@@ -81,8 +82,9 @@ module.exports = app.post('/create',
                         }
 
                         else {
+                            logger.log("info", `IP ${req.ip}: compte créé avec succès: ${user.uid}`)
                             res.status(201).send({
-                                "succes" : "Compte créé avec succès.",
+                                "succes": "Compte créé avec succès.",
                                 "username": username,
                                 "userId": user.uid
                             })
@@ -90,12 +92,12 @@ module.exports = app.post('/create',
                     }
                 );
             }).catch((error) => {
+                logger.log("info", `IP ${req.ip}: Erreur lors de la création du compte Firebase: ${error}`)
                 res.status(500).send(error)
             });
 
         } else {
-            // Erreur de validation des donnees (Express-validator)
-            // res.send({ errors: results.array() });
+            logger.log("info", `IP ${req.ip} à tenté de créer un compte mais à entré des données invalides: ${resultatValidation}`)
             res.send(resultatValidation)
         }
     });

@@ -28,6 +28,8 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors());
 
+app.set('trust proxy', true)
+
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
