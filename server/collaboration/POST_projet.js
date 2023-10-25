@@ -13,11 +13,33 @@ const mysqlConnection = mysql.createConnection({
     multipleStatements: true
 })
 
+const sql = {
+    query: `
+    INSERT INTO projet 
+        (id_projet, 
+        titre_projet, 
+        description_projet, 
+        url_repo_git, 
+        compte_id_proprio, 
+        est_ouvert)
+    VALUES
+        (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
+        ?, 
+        ?,
+        ?, 
+        ?, 
+        ?,)
+    ;`
+}
+TODO: // admin.auth().verifyIdToken(idToken, true).then((payload) => {
+
 module.exports = app.post('/add', (req, res) => { 
-    const id_projet = req.params.id_projet
+    const projet = req.body.description_projet
+    const titre_projet = req.body.titre_projet
+    logger.info(`Creation d'un nouveau projet: ${titre_projet}`)
     
-    pool.query(`
-        DELETE FROM projet WHERE projet.id_projet = ? ;`, 
+    pool.query(
+        sql.query
         [id_projet],
         function(err) {
             if (err) {

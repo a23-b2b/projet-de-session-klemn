@@ -7,30 +7,7 @@ import toast from 'react-hot-toast';
 import { authPlugins } from 'mysql2';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-export const METHODE = {
-    EMAIL: "1",
-    ID: "2",
-    USERNAME: "3"
-}
 
-const METHODE_AFFICHAGE = {
-    query: `
-    INSERT INTO projet 
-        (id_projet, 
-        titre_projet, 
-        description_projet, 
-        url_repo_git, 
-        compte_id_proprio, 
-        est_ouvert)
-    VALUES
-        (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
-        ?, 
-        ?,
-        ?, 
-        ?, 
-        ?,)
-    ;`
-}
 
 function ProjetForm() {
     const navigate = useNavigate();
@@ -57,12 +34,16 @@ function ProjetForm() {
                     url_repo_git: url_repo_git,
                     compte_id_proprio: uid
                 }
-                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                fetch(`${process.env.REACT_APP_API_URL}/add`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(nouveauProjet)        
+                }).then(response => response.json()).then(() => {
+                    toast.success('Votre projet a été publié!');
+                }).catch((error) => {
+                    toast(error.toString())
+                    toast.error('Une erreur est survenue');
                 })
-                .catch(error => toast.error(error.toString()));
             } else {
                 navigate("/authenticate")
             }
