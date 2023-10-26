@@ -21,7 +21,7 @@ function Profil() {
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
 
     const [userPosts, setUserPosts] = useState<any[]>([])
-    const [postOffset, setPostOffset] = useState(0)
+    const [cursor, setCursor] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
 
@@ -109,24 +109,24 @@ function Profil() {
 
     function getPosts() {
         onAuthStateChanged(auth, (user) => {
-            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${postOffset}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${cursor}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': user?.uid || ''
                 }
             }).then(response => response.json()).then(response => {
-                let data = response;
+                let data = response["posts"]
 
-                console.log(data)
+                let newCursor = parseInt(response.newCursor)
 
-                setPostOffset(postOffset + OFFSET)
+                setCursor(newCursor)
 
-                if (data.length < OFFSET) {
+                if (!newCursor) {
                     setIsEndOfFeed(true)
                 }
 
-                setUserPosts(userPosts.concat(data));
+                setUserPosts(userPosts.concat(data))
             }).catch((error) => {
                 console.log(error)
             })
