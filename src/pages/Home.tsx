@@ -13,13 +13,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 function Home() {
     const navigate = useNavigate();
 
-    const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
     const [postData, setPostData] = useState<any[]>([])
-    const [postOffset, setPostOffset] = useState(0)
+    const [cursor, setCursor] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
@@ -28,23 +23,27 @@ function Home() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                             'authorization': idToken
                         },
                     }).then(response => response.json()).then(response => {
-                        let data = response
-        
-                        setPostOffset(postOffset + OFFSET)
-        
-                        if (data.length < OFFSET) {
+                        let data = response["posts"]
+
+                        console.log(response)
+
+                        let newCursor = parseInt(response.newCursor)
+
+                        setCursor(newCursor)
+
+                        if (!newCursor) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -72,9 +71,9 @@ function Home() {
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -107,7 +106,7 @@ function Home() {
         // console.log('BEFORE CLEAR: ', postData)
         setPostData([])
         setIsEndOfFeed(false)
-        setPostOffset(0)
+        setCursor(0)
         // console.log('AFTER CLEAR: ', postData)
 
 
@@ -135,7 +134,7 @@ function Home() {
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            > 
+            >
                 <div>
                     {postData?.map(({
                         contenu,
@@ -176,10 +175,10 @@ function Home() {
                                     type={id_type_post}
                                     isPostFullScreen={false}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} 
+                                    userVote={vote}
 
                                     sharedPostId={id_shared_post}
-                                    isSharedPostQuote={is_quoted_post}/>
+                                    isSharedPostQuote={is_quoted_post} />
                             </div>
 
                         )
