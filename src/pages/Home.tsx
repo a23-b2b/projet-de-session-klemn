@@ -1,18 +1,13 @@
-import { useNavigate } from 'react-router-dom';
-import Bonjour from '../components/ComponentWithParameters';
-import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Home.module.css'
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 function Home() {
-    const navigate = useNavigate();
-
     const [postData, setPostData] = useState<any[]>([])
     const [cursor, setCursor] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -31,8 +26,6 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response["posts"]
-
-                        console.log(response)
 
                         let newCursor = parseInt(response.newCursor)
 
@@ -65,8 +58,6 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response["posts"]
-
-                        console.log(response)
 
                         let newCursor = parseInt(response.newCursor)
 
@@ -103,24 +94,17 @@ function Home() {
     }
 
     function changeFeedType(type: any) {
-        console.log("Changing feed to", type)
+        console.info("Changing feed to", type)
         localStorage.setItem("feedType", type.toString())
         setFeedType(type)
 
-        // console.log('BEFORE CLEAR: ', postData)
         setPostData([])
         setIsEndOfFeed(false)
         setCursor(0)
-        // console.log('AFTER CLEAR: ', postData)
-
-
-        // getPosts()
-        // console.log('AFTER POPULATING: ', postData)
     }
 
     useEffect(() => {
         getPosts()
-        console.log('posts gotten')
     }, [feedType]);
 
     return (
@@ -135,7 +119,7 @@ function Home() {
             <InfiniteScroll
                 dataLength={postData.length}
                 next={() => getPosts()}
-                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                hasMore={!isEndOfFeed}
                 loader={<p>Chargement...</p>}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >

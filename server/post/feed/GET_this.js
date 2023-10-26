@@ -9,8 +9,6 @@ module.exports = app.get('/feed/:cursor', (req, res) => {
     const userToken = req.headers.authorization;
     const limit = 10
 
-    // let nextCursor = lastCursor + limit
-
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid
 
@@ -26,7 +24,6 @@ module.exports = app.get('/feed/:cursor', (req, res) => {
             [userId, userCursor, limit],
             function (err, results, fields) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                     res.status(500)
                 }
                 if (results) {

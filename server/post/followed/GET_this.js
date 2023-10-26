@@ -25,7 +25,6 @@ module.exports = app.get('/followed/:cursor', (req, res) => {
             [userId, userCursor, userId, limit],
             function (err, results, fields) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                     res.status(500)
                 }
 
