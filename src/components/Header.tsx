@@ -17,7 +17,7 @@ function Header() {
                 <div id={styles["LogoSite"]}>
                     {/* IMG LOGO Site */}
                     <Link to={'/'}>
-                        <img src={logo} width="80" height="80" alt="Logo" />
+                        <img src={logo} width="48" height="48" alt="Logo" />
                     </Link>
 
                 </div>
