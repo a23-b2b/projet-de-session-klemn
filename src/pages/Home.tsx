@@ -57,18 +57,22 @@ function Home() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${cursor}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                             'authorization': idToken
                         },
                     }).then(response => response.json()).then(response => {
-                        let data = response
-        
-                        setPostOffset(postOffset + OFFSET)
-        
-                        if (data.length < OFFSET) {
+                        let data = response["posts"]
+
+                        console.log(response)
+
+                        let newCursor = parseInt(response.newCursor)
+
+                        setCursor(newCursor)
+
+                        if (!newCursor) {
                             setIsEndOfFeed(true)
                         }
 
