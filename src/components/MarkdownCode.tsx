@@ -33,7 +33,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
                 https://github.com/remarkjs/remark 
                 https://github.com/react-syntax-highlighter/react-syntax-highlighter
                 https://www.npmjs.com/package/react-markdown#appendix-b-components*/
-                
+                // https://blog.logrocket.com/guide-syntax-highlighting-react/ 
                 // Je me suis perdu sur le site de NPM oopsie!!! 
                 code(props){
                     const {node, ...rest} = props
