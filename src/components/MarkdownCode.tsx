@@ -2,8 +2,8 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import style from '../styles/Markdown.module.css'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+// import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+// import { dracula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 interface MarkdownCodeProps {
     c: string // Code a render

@@ -26,8 +26,6 @@ function AProposReadMe() {
                             'authorization': idToken
                         }
                     }).then(response => response.text()).then(response => {
-                        console.log(response)
-
                         setMd(response)
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)

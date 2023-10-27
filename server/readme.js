@@ -12,8 +12,6 @@ module.exports = app.get('/', (req, res) => {
         admin.auth().verifyIdToken(idToken, true).then(() => {
             fs.readFile(README_PATH, 'utf8', (err, data) => {
                 if (err) {
-                  // logger.info(err.toString());
-                  console.log(err)
                   res.status(500).send();
                 } else {
                     res.status(200).send(data)
