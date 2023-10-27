@@ -79,6 +79,9 @@ function GestionCollab() {
 
     return (
         <>
+            <div>
+
+            </div>
             {afficherForm && <div className={styles.overlay}>
                 <form className={styles.form}>
                     <div>
@@ -118,6 +121,7 @@ function GestionCollab() {
                     <div className={styles.titre_mes_demandes}>
                         <h1>Mes demandes de collaboration</h1>
                     </div>
+                    
                     {/*Faire map sur retour de demande de collab*/}
                     {demandesCollab && demandesCollab?.map(({
                         id_compte,
@@ -239,8 +243,8 @@ function GestionCollab() {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
                         method: 'GET',
-                        headers: { 
-                            'Content-Type': 'application/json' ,
+                        headers: {
+                            'Content-Type': 'application/json',
                             'authorization': idToken
                         },
 

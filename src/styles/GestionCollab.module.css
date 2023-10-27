@@ -1,4 +1,6 @@
-
+.conteneur {
+    background-color: var(--auto_container_post_color);
+}
 
 .ligne_gestion_demande_collab{
     display:flex;
@@ -50,7 +52,7 @@
     float: left;
     width: 50%;
     height: 100%;
-    /*couleur conteneur*/background-color: var(--auto_container_color);
+    
 }
 
 
