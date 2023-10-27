@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
 import { ExceptionHandler } from 'winston';
 import METHODE from '../pages/GestionCollab'
+import { ImCross } from 'react-icons/im';
 
 
 export interface PropsProjet {

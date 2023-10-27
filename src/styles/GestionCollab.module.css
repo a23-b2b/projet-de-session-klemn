@@ -1,61 +1,77 @@
+
+
 .ligne_gestion_demande_collab{
     display:flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: flex-start;
-    align-items:center;
-    width: 100%;
-    height: 10%;
-    padding: auto;
+    /*align-items:center;*/
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+    background-color: var(--auto_container_color);
+    margin: 5px 5px 20px 5px;
+
 }
 
 .titre_mes_demandes {
     text-align: center;
+    background-color: var(--auto_container_post_color);
+    margin: 25px;
+    padding: 10px;
+    border-radius: 20px 20px 5px 10px;
+    
+
 }
 
 .conteneur_info_compte {
-    display:inline;
-    align-self: center;
+    margin: auto;
 }
 
-.nom_utilisateur {
-    text-align: left;
+.icone {
+    margin: auto;
+    height: 100%;
 }
 
 .titre_projet {
     text-align: left;
+    font-weight: bold;
+    color: var(--auto_text_color);
+   
+
 }
+
+.nom_utilisateur {
+    text-align: left;
+    color: var(--auto_text_color);
+    opacity: .85;
+}
+
+
 
 .conteneur_gestion_collab {
     float: left;
     width: 50%;
     height: 100%;
+    /*couleur conteneur*/background-color: var(--auto_container_color);
 }
 
-.image_profil {
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
-}
 
 .conteneur_bouton {
-    width: 30%;
+    /*width: 30%;*/
     margin: 0 auto;
-    display: inline-block;
+    display: flex;
 }
 
 .bouton {
-    width: 100%;
+    height: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    color: var(--auto_text_color);
 }
 
-.bouton img {
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
+#IconeX {
+    margin-left: 10px;
 }
+
 
 .conteneur_gestion_projet {
     float: left;
@@ -77,10 +93,3 @@
     padding: auto;
 }
 
-button {
-    color: white
-}
-
-.conteneur_gestion {
- /*div du menu au complet*/
-}

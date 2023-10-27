@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import testProfilePic from '../images/test_pfp.png'
 import toast from 'react-hot-toast';
 import METHODE from '../pages/GestionCollab'
+import { AiOutlineUser } from 'react-icons/ai';
+import { ImCheckmark2 } from 'react-icons/im';
+import { ImCross } from 'react-icons/im';
+
+                            
 
 export interface PropDemandeCollab {
     // ID de compte sera insert dans collaborateur comme FK
@@ -56,41 +61,39 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
     }
 
     return (
-        <>
+    
             <div className={styles.ligne_gestion_demande_collab}>
                 {/*Info de compte*/}
                 <div className={styles.conteneur_image_profil}>
-                    <img className={styles.image_profil} src={testProfilePic} alt="Image de profil du collaborateur potentiel" />
+                <AiOutlineUser size={60} className={styles.icone}/>
                 </div>
 
 
                 <div className={styles.conteneur_info_compte}>
+                <p className={styles.titre_projet}>{props.titre_projet}</p>
                     <p className={styles.nom_utilisateur}>@{props.nom_utilisateur}</p>
-                    <p className={styles.titre_projet}>{props.titre_projet}</p>
+                    
                 </div>
 
                 <div className={styles.conteneur_bouton}>
                     {/*Boutons pour accepter et refuser une demande de collab respectivement*/}
-                    <div className={styles.bouton}>
+
                         <div>
-                            <button onClick={() => { repondreDemandeCollab(accepterDemande) }}>
-                                <img src={accepter} className={styles.icone} />
+                            <button onClick={() => { repondreDemandeCollab(accepterDemande) }} className={styles.bouton}>
+                            <ImCheckmark2 size={30} className={styles.icone} />
                             </button>
                         </div>
 
                         <div>
-                            <button onClick={() => { repondreDemandeCollab(refuserDemande) }}>
-                                <img src={refuser} className={styles.icone} />
+                            <button onClick={() => { repondreDemandeCollab(refuserDemande) }} className={styles.bouton}>
+                                <ImCross size={20} id={styles["IconeX"]} className={styles.icone} />
                             </button>
                         </div>
-
-                    </div>
-
                 </div>
 
 
             </div>
-        </>
+        
     )
 }
 
