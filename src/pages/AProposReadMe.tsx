@@ -58,6 +58,9 @@ function AProposReadMe() {
                 td(props){
                     const {node, ...rest} = props
                     return <td style={{border: '1px solid' }} {...rest} />
+                },
+                ul(props) {
+                    return <ul style={{listStyleType: 'circle'}}/>
                 }
             }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={md}></Markdown>
         </div>

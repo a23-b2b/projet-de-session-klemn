@@ -61,12 +61,12 @@ et plus encore!!
 
 ## Contributeurs (A-Z)
 
-Alfrieh, Elie
+- Alfrieh, Elie
 
-Cournoyer, Nathan
+- Cournoyer, Nathan
 
-Miranda Carrillo
+- Miranda Carrillo
 
-Terehov, Lada
+- Terehov, Lada
 
-Vincent-Charland, Maxime 
+- Vincent-Charland, Maxime 
