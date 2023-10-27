@@ -150,6 +150,25 @@ function ModifierProfil() {
         setCropProfil(convertToPixelCrop(crop, width, height));
     }
 
+    function onInputProfilLoad(event: React.SyntheticEvent<HTMLInputElement, Event>) {
+        if (urlImageProfil) {
+            URL.revokeObjectURL(urlImageProfil)
+        }
+
+        if (event.currentTarget.files) {
+            const fichierCharge = event.currentTarget.files[0]
+            if (fichierCharge.type.includes('image/')) {
+                setUrlImageProfil(URL.createObjectURL(fichierCharge))
+            } else {
+                setUrlImageProfil('')
+                toast.error('Le fichier chargé n\'est pas une image')
+            }
+        } else {
+            setUrlImageProfil('')
+        }
+
+    }
+
     const changerImageProfil = () => {
         if (cropProfil && imgProfilRef.current) {
             let image = imgProfilRef.current
@@ -180,7 +199,29 @@ function ModifierProfil() {
             }
 
             console.log(cropProfil)
-            console.log(canvas.toDataURL())
+            let nouvelleImage: Blob
+            canvas.toBlob(blob => {
+                if (blob) {
+                    auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                        console.log(blob)
+                        fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            },
+                            body: JSON.stringify({
+                                new_image: blob,
+                            }),
+                        }).then(response => response.json()).then(response => {
+                            toast.success('Paramètre modifié.');
+                        }).catch((error) => {
+                            toast.error(`Une erreur est survenue: (${error.code})`)
+                        })
+                    })
+                }
+
+            }, 'image/webp', 1)
         }
 
     }
@@ -334,12 +375,7 @@ function ModifierProfil() {
                     <input
                         type={'file'}
                         accept={'image/'}
-                        onChange={event => {
-                            if (urlImageProfil) {
-                                URL.revokeObjectURL(urlImageProfil)
-                            }
-                            setUrlImageProfil(event.target.files ? URL.createObjectURL(event.target.files[0]) : '')
-                        }}
+                        onChange={onInputProfilLoad}
                     />
                     <br/>
                     {urlImageProfil && (
