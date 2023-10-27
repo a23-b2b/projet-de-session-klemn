@@ -4,38 +4,45 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 150px;
+    height: 200px;
     font-size: 20px;
 
 }
 
+#LogoSite {
+    margin-left: 15px;
+}
 
-/* #IconeUtilisateur {
-    text-align: right;
-    padding: 7px;
-} */
 
+#IconeUtilisateur {
+    margin: auto;
+}
 
 
 #HeaderHaut {
     display: flex;
     justify-content: space-between;
-    /* text-align: center; */
-    /* padding: 20px 10px; */
     height: 75%;
-    width: 90%;
+    width: 95%;
     margin-inline: auto;
 }
 
-#HeaderHaut > div {
+#HeaderHaut>div {
     margin-block: auto;
 }
 
-/* #HeaderHaut h1 {
-    padding: 5px;
-    width: 100%
-} */
 
+
+.icone_list {
+    margin-left: 25px;
+    color: #ffffffd7;
+
+}
+
+#SectionDroite {
+    display: flex;
+
+}
 
 
 
@@ -44,4 +51,64 @@
     #HeaderConnecte {
         background: var(--gradient_light);
     }
+}
+
+
+
+
+/* Menu dropdown */
+
+.dropdown_menu {
+    backdrop-filter: blur(12px) saturate(150%);
+    list-style-type: none;
+    padding: 6px;
+    margin: 0;
+    width: max-content;
+    border-radius: 12px;
+    background-color: #ffffff18;
+    box-shadow:
+        0px 1.2px 2.2px rgba(0, 0, 0, 0.02),
+        0px 2.9px 5.3px rgba(0, 0, 0, 0.028),
+        0px 5.4px 10px rgba(0, 0, 0, 0.035),
+        0px 9.6px 17.9px rgba(0, 0, 0, 0.042),
+        0px 18px 33.4px rgba(0, 0, 0, 0.05),
+        0px 43px 80px rgba(0, 0, 0, 0.07);
+}
+
+
+.dropdown_menu_item {
+    transition: 0.3s;
+    padding: 8px 12px;
+    outline: none;
+    border-radius: 4px;
+}
+
+.dropdown_menu_item:nth-child(2) {
+    border-radius: 8px 8px 4px 4px;
+}
+
+.dropdown_menu_item:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.dropdown_menu_item:last-child {
+    border-radius: 4px 4px 8px 8px;
+}
+
+.dropdown_menu_item:hover {
+    transition: 0.3s;
+    background-color: var(--accent_color_light);
+    color: var(--text_color_dark);
+    outline: none;
+    cursor: pointer;
+}
+
+#link {
+    margin: auto auto auto 10px;
+    font-size: 22px;
+
+}
+
+.dropdown_menu_item>.dropdown_menu_icon {
+    margin-bottom: -2px;
 }
