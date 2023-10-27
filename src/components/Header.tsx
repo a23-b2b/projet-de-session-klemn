@@ -1,14 +1,13 @@
 import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
 import user from '../images/user.png';
-import search from '../images/search.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { CiCircleList } from 'react-icons/ci';
 import { LuFileQuestion } from 'react-icons/lu';
 import { RxFileText } from 'react-icons/rx';
 import { RiTeamLine } from 'react-icons/ri';
 import { LuSettings } from 'react-icons/lu';
-import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 
 
 function Header() {
@@ -19,22 +18,12 @@ function Header() {
 
             <div id={styles["HeaderHaut"]}>
 
-
-
                 <div id={styles["LogoSite"]}>
                     {/* IMG LOGO Site */}
                     <Link to={'/'}>
                         <img src={logo} width="80" height="80" alt="Logo" />
                     </Link>
-
                 </div>
-
-                {/* <div>
-                    Lien page Forum
-                    <Link to={'/'} className='link'>
-                        <h3>Accueil</h3>
-                    </Link>
-                </div> */}
 
                 <div id={styles["SectionDroite"]}>
                     <div id={styles["IconeUtilisateur"]}>
@@ -44,44 +33,42 @@ function Header() {
 
                     <div className={styles.dropdown}>
 
-                        <Menu menuButton={
-                            <div className={styles.dropdown}>
-                                <CiCircleList size="40px" className={styles.icone_list} />
-                            </div>
-                        }
-
+                        <Menu
                             transition={true}
                             menuClassName={styles.dropdown_menu}
-                        >
+                            menuButton={
+                                <div className={styles.dropdown}>
+                                    <CiCircleList size="40px" className={styles.icone_list} />
+                                </div>}>
 
                             <MenuItem className={styles.dropdown_menu_item}>
-                            <RxFileText className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]}  className={'link'}>
+                                <RxFileText className={styles.dropdown_menu_icon} />
+                                <Link to={'/'} id={styles["link"]} className={'link'}>
                                     Blogues
                                 </Link>
                             </MenuItem>
+
                             <MenuItem className={styles.dropdown_menu_item}>
-                            <LuFileQuestion className={styles.dropdown_menu_icon} />
+                                <LuFileQuestion className={styles.dropdown_menu_icon} />
                                 <Link to={'/'} id={styles["link"]} className={'link'}>
                                     Question
                                 </Link>
                             </MenuItem>
+
                             <MenuItem className={styles.dropdown_menu_item}>
-                            <RiTeamLine className={styles.dropdown_menu_icon} />
+                                <RiTeamLine className={styles.dropdown_menu_icon} />
                                 <Link to={'/'} id={styles["link"]} className={'link'}>
                                     Collaboration
                                 </Link>
                             </MenuItem>
+
                             <MenuItem className={styles.dropdown_menu_item}>
-                            <LuSettings className={styles.dropdown_menu_icon} />
+                                <LuSettings className={styles.dropdown_menu_icon} />
                                 <Link to={'/parametres/profil'} id={styles["link"]} className={'link'}>
                                     Paramètres
                                 </Link>
                             </MenuItem>
                         </Menu>
-
-                        
-
                     </div>
                 </div>
             </div>
