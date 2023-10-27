@@ -1,11 +1,10 @@
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import ReactDom from 'react-dom'
-
+import style from '../styles/Markdown.module.css'
 
 function AProposReadMe() {
     // https://raw.githubusercontent.com/a23-b2b/projet-de-session-klemn/main/README.md?token=GHSAT0AAAAAACG6FDOULTCHY2ZGNYHCYGM4ZJZCVQA
@@ -39,8 +38,8 @@ function AProposReadMe() {
     }
 
     return (<>
-        <div style={{ margin: "0 auto", maxWidth: "500px", padding: "15px"}}>
-            <Markdown remarkPlugins={[remarkGfm]} children={md}></Markdown>
+        <div className={style.conteneur}>
+            <Markdown className={style.reactMarkDown} remarkPlugins={[remarkGfm]} children={md}></Markdown>
         </div>
     </>)
 
