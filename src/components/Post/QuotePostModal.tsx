@@ -27,14 +27,14 @@ function QuotePostModal(props: Props) {
             if (contenu) {
                 utilisateur.getIdToken(/* forceRefresh */ true)
                     .then((idToken) => {
-                        fetch(process.env.REACT_APP_API_URL + '/publier-blogue/quote', {
+                        fetch(`${process.env.REACT_APP_API_URL}/post/${props.quotedPostId}/quote`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            },
                             body: JSON.stringify({
-                                id_compte: utilisateur.uid,
-                                contenu: contenu,
-                                quoted_post_id: props.quotedPostId,
-                                firebase_id_token: idToken
+                                contenu: contenu
                             }),
                         }).then(response => response.json())
                             .then(response => {

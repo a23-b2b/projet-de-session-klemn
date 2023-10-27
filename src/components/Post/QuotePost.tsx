@@ -38,7 +38,7 @@ function QuotePost(props: Props) {
     function getQuotedPostData() {
         onAuthStateChanged(auth, (user) => {
             console.log(user?.uid)
-            fetch(`${process.env.REACT_APP_API_URL}/single-post/${props.quotedPostId}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/${props.quotedPostId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
