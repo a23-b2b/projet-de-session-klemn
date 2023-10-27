@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
+import { BsFillPersonLinesFill } from 'react-icons/bs';
+import { PiLayoutFill } from 'react-icons/pi';
 
 function Parametres() {
     const navigate = useNavigate()
@@ -37,16 +39,22 @@ function Parametres() {
                 <div className={styles.sidebar}>
 
                     <Link className={styles.link} to={'profil'} onClick={() => setSelectedSettingsItem(1)} >
-                        <div className={`${styles.settings_link} ${selectedSettingsItem === 1 ? styles.selected : ''}`} id={styles.first_link}>Profil</div>
+                        <div className={`${styles.settings_link} ${selectedSettingsItem === 1 ? styles.selected : ''}`} id={styles.first_link}>
+                            <span>
+                                <BsFillPersonLinesFill className={styles.setting_icon} />
+                                <span className={styles.setting_link_title}>Profil</span>
+                            </span>
+                        </div>
                     </Link>
 
                     <Link className={styles.link} to={'interface'} onClick={() => setSelectedSettingsItem(2)} >
-                        <div className={`${styles.settings_link} ${selectedSettingsItem === 2 ? styles.selected : ''}`}>Interface</div>
+                        <div className={`${styles.settings_link} ${selectedSettingsItem === 2 ? styles.selected : ''}`}>
+                        <span>
+                                <PiLayoutFill className={styles.setting_icon} />
+                                <span className={styles.setting_link_title}>Interface</span>
+                            </span>
+                        </div>
                     </Link>
-                </div>
-
-                <div className={styles.content}>
-
                 </div>
 
                 <Outlet />
