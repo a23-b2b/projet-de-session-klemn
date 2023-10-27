@@ -17,15 +17,15 @@ Inspiré entre autre par GitHub, Reddit, Twitter (maintenant X) et LinkedIn.
 
 Dans ce répertoire de projet, vous pouvez exécuter ces commandes:
 
-    npm start
+`npm start`
 
 pour démarrer l'application React.
 
-    npm install
+`npm install`
 
 pour installer les dépendances du serveur.
 
-    node ./server/serveur.js
+`node ./server/serveur.js`
 
 pour démarrer l'API.
 
@@ -62,11 +62,7 @@ et plus encore!!
 ## Contributeurs (A-Z)
 
 - Alfrieh, Elie
-
 - Cournoyer, Nathan
-
 - Miranda Carrillo
-
 - Terehov, Lada
-
 - Vincent-Charland, Maxime 

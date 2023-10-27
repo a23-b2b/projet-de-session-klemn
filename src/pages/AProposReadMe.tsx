@@ -45,7 +45,7 @@ function AProposReadMe() {
             <Markdown components={{
                 code(props) {
                     const {node, ...rest} = props
-                    return <code style={{color: 'yellow'}} {...rest} />
+                    return <code style={{color: 'yellow', backgroundColor: 'darkGrey'}} {...rest} />
                 },
                 table(props){
                     const {node, ...rest} = props
@@ -59,8 +59,9 @@ function AProposReadMe() {
                     const {node, ...rest} = props
                     return <td style={{border: '1px solid' }} {...rest} />
                 },
-                ul(props) {
-                    return <ul style={{listStyleType: 'circle'}}/>
+                ol(props) {
+                    const {node, ...rest} = props
+                    return <ol style={{listStyleType: 'circle'}} {...rest}/>
                 }
             }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={md}></Markdown>
         </div>
