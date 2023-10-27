@@ -22,9 +22,7 @@ function AProposReadMe() {
                     fetch(`${process.env.REACT_APP_API_URL}/readme`, {
                         method: 'GET',
                         headers: {
-                            'Content-Type': 'text/plain',
-                            'authorization': idToken
-                        }
+                            'Content-Type': 'text/plain'                        }
                     }).then(response => response.text()).then(response => {
                         setMd(response)
                     }).catch((error) => {

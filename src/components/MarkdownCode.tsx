@@ -59,9 +59,6 @@ function MarkdownCode(props: MarkdownCodeProps) {
         </div>
     </>)
 
-
-
-
 }
 
 export default MarkdownCode

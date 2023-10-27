@@ -34,7 +34,7 @@ function Layout() {
                         <Route path="profil" element={<ModifierProfil />} />
                         <Route path="interface" element={<Interface />} />
                     </Route>
-                    <Route path="/README" element={<README/>}/>
+                    <Route path="/apropos" element={<README/>}/>
                 </Routes>
                 <Footer />
             </BrowserRouter>
