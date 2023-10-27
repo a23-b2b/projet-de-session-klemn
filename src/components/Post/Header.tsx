@@ -61,7 +61,7 @@ const PostHeader = (props: HeaderProps) => {
         timeStampText = datePost.toLocaleDateString()
     }
 
-    console.log(props.urlImageProfil)
+    // console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
             <Link to={`/u/${props.nomUtilisateur}`}>

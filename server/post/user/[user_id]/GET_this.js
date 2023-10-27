@@ -11,15 +11,18 @@ module.exports = app.get('/user/:user_id/:cursor', (req, res) => {
     const authUserId = req.headers.authorization
 
     pool.query(`
-            SELECT 
-                post_view.*,
-                vote.id_compte AS vote_user_id,
-                vote.score
-            FROM post_view
-                LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
-            WHERE post_view.numero_post > ? AND post_view.id_type_post != 4 AND post_view.id_compte like ?
-            LIMIT ?;`,
-        [authUserId, userCursor, userToGet, limit],
+        SELECT 
+            post_view.*,
+            vote.id_compte AS vote_user_id,
+            vote.score
+        FROM post_view
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+        WHERE post_view.numero_post <
+            IF(? = -1, (SELECT COUNT(*) FROM post_view), ?)
+            AND post_view.id_type_post != 4
+            AND post_view.id_compte like ?
+        LIMIT ?;`,
+        [authUserId, userCursor, userCursor, userToGet, limit],
         function (err, results, fields) {
             if (err) {
                 res.status(500)

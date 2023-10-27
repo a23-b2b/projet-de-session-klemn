@@ -21,7 +21,7 @@ function Profil() {
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
 
     const [userPosts, setUserPosts] = useState<any[]>([])
-    const [cursor, setCursor] = useState(0)
+    const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
 
@@ -92,8 +92,6 @@ function Profil() {
                 },
             }).then(response => response.json()).then(response => {
                 let data = response
-
-                console.log(response)
 
                 setDisplayName(data.nom_affichage ? data.nom_affichage : username)
                 setNombreAbonnes(data.nombre_abonnes)

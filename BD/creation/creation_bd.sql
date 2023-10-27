@@ -131,7 +131,7 @@ CREATE TABLE post_question (
 );
 
 CREATE OR REPLACE VIEW post_view AS
-SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication DESC) AS numero_post,
+SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,
        post.*,
        pc.url_git,
        pc.est_ouvert,
@@ -147,6 +147,7 @@ FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
-         INNER JOIN compte c on post.id_compte = c.id_compte;
+         INNER JOIN compte c on post.id_compte = c.id_compte
+ORDER BY post.date_publication DESC;
 
 COMMIT;

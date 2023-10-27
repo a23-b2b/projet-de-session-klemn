@@ -9,7 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 function Home() {
     const [postData, setPostData] = useState<any[]>([])
-    const [cursor, setCursor] = useState(0)
+    const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
@@ -59,6 +59,9 @@ function Home() {
                     }).then(response => response.json()).then(response => {
                         let data = response["posts"]
 
+                        console.log(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`)
+                        console.log(response)
+
                         let newCursor = parseInt(response.newCursor)
 
                         setCursor(newCursor)
@@ -98,9 +101,9 @@ function Home() {
         localStorage.setItem("feedType", type.toString())
         setFeedType(type)
 
+        setCursor(-1)
         setPostData([])
         setIsEndOfFeed(false)
-        setCursor(0)
     }
 
     useEffect(() => {

@@ -29,7 +29,7 @@ function BoostPost(props: Props) {
 
     function getSharedboostedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
+            // console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.boostedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -43,7 +43,7 @@ function BoostPost(props: Props) {
 
                     setBoostedPostData(data)
 
-                    console.log(data)
+                    // console.log(data)
                 })
                 .catch((error) => {
                     console.log(error)
