@@ -57,7 +57,8 @@ function PosteCollab(props: CollabProp) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                idPost={props.idPost} />
+                idPost={props.idPost} 
+                idCompte={props.idCompte}/>
 
             <PostContent
                 titre={props.titre}

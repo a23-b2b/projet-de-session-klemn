@@ -13,6 +13,7 @@ interface HeaderProps {
     nomUtilisateur: string;
     urlImageProfil: string;
     idPost: string;
+    idCompte:string
 
 }
 
@@ -79,7 +80,8 @@ const PostHeader = (props: HeaderProps) => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        id_post: props.idPost
+                        id_post: props.idPost,
+                        id_compte: props.idCompte
                     }),
                 });
                 
