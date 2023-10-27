@@ -26,7 +26,7 @@ CREATE TABLE compte(
     nom_utilisateur                 varchar(255) NOT NULL,
     nom_affichage                   varchar(255),
     courriel                        varchar(255) NOT NULL,
-    telephone                       varchar(20),
+    /*telephone                       varchar(20),*/
     nombre_abonnes                  int,
     nombre_abonnements              int,
     biographie                      VARCHAR(1000),

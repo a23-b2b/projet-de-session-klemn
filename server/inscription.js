@@ -13,7 +13,7 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
         const email = req.body.email;
         const prenom = req.body.prenom;
         const nom = req.body.nom;
-        const telephone = req.body.telephone;
+        //const telephone = req.body.telephone;
 
         pool.query(
             `INSERT INTO compte (
@@ -23,7 +23,6 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 prenom, 
                 nom_utilisateur, 
                 courriel, 
-                telephone,
                 nombre_abonnes,
                 nombre_abonnements,
                 nom_affichage,
@@ -33,14 +32,13 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
                 autorisation) 
 
             VALUES (
-                ?, NOW(), ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?);`,
+                ?, NOW(), ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?);`,
             [
                 id_compte,
                 nom,
                 prenom,
                 username,
                 email,
-                telephone,
                 `${prenom} ${nom}`,
                 'Je viens d\'arriver sur Klemn!',
                 'http://localhost:3000/default_profile_image.jpg',
@@ -49,15 +47,23 @@ module.exports = app.post('/', [body('username').notEmpty(), body('email').optio
             ],
             function (err, results, fields) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query.", err)
-                    console.log(err)
-                    res.send(JSON.stringify(err))
+                    //  logger.info("Erreur lors de lexecution de la query.", err)
+                    if (err.code === 'ER_DUP_ENTRY') {
+                        res.status(401).send(JSON.stringify({
+                            message: "Le compte existe déjà.",
+                            username: username,
+                            code: "ERR_USERNAME_TAKEN"
+                        }))
+                    } else {
+                        res.status(500).send("Erreur de base de données")
+                    }
                 }
 
+                if (!err && results) {
+                    res.status(200)
+                }
             }
         );
-
-        res.status(200).send('ABOUT From about.js file')
     } else {
         // Erreur de validation des donnees (Express-validator)
         // res.send({ errors: results.array() });

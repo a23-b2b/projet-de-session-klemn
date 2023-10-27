@@ -71,8 +71,9 @@ function Post(props: Props) {
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
                     nombreCommentaire={props.nombreCommentaire}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} />
+                    urlImageProfil={props.urlImageProfil} 
+                    userVote={props.userVote} 
+                    idCompte={props.idCompte}/>
             )}
             {props.type === TYPE_QUESTION && (
                 <PosteQuestion

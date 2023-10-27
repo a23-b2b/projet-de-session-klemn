@@ -1,13 +1,22 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
+import { error } from 'console';
+import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
+
+
 
 interface HeaderProps {
     date: string;
     nomAffichage: string;
     nomUtilisateur: string;
     urlImageProfil: string;
+    idPost: string;
+    idCompte:string
+
 }
+
 
 
 const UNE_MINUTE_EN_SECONDES = 60
@@ -60,6 +69,36 @@ const PostHeader = (props: HeaderProps) => {
     if (timeDifference >= DEUX_SEMAINES_EN_SECONDES) {
         timeStampText = datePost.toLocaleDateString()
     }
+  
+    const navigate = useNavigate()
+    const handleDeletePost = async () => {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce post ?");
+        
+        if (confirmDelete) {
+            try {
+                const response = await fetch(process.env.REACT_APP_API_URL + '/delete_post', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_post: props.idPost,
+                        id_compte: props.idCompte
+                    }),
+                });
+                
+                if (response.ok) {
+                    console.log("Le post a été supprimé avec succès.");
+                    navigate('/');
+                } else {
+                    // Gérer les erreurs ici
+                    console.log(response);
+                    console.error("Erreur lors de la suppression du post.");
+                    toast.error("Une erreur est survenue");
+                }
+            } catch (error) {
+                console.error("Erreur inattendue : ", error);
+            }
+        }
+    };
 
     console.log(props.urlImageProfil)
     return (
@@ -67,6 +106,7 @@ const PostHeader = (props: HeaderProps) => {
             <Link to={`/u/${props.nomUtilisateur}`}>
                 <img className={styles.image_profil} src={props.urlImageProfil} />
             </Link>
+            <button onClick={() => handleDeletePost()} >delete</button>
 
             <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>

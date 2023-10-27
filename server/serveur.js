@@ -90,6 +90,9 @@ app.use('/post', boost_post);
 const read_me = require('./readme.js');
 app.use('/readme', read_me)
 
+const delete_post = require('./delete_post.js')
+app.use('/delete_post', delete_post);
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
