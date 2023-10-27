@@ -159,21 +159,17 @@ function Profil() {
                 <div className={styles.sous_banniere}>
                     <img className={styles.photo_profil} src={userData.url_image_profil} />
 
+                    <FollowButton
+                        userId={userData.id_compte}
+                        displayName={userData.nom_affichage}
+                        nombreAbonnes={nombreAbonnes}
+                        setNombreAbonnes={setNombreAbonnes}
+                        visitorFollowsUser={visitorFollowsUser}
+                        setVisitorFollowsUser={setVisitorFollowsUser} />
+
                     <div className={styles.infos_profil}>
                         <h2 className={styles.nom}>{userData.nom_affichage}</h2>
                         <p className={styles.username}>@{userData.nom_utilisateur}</p>
-                        <FollowButton
-                            userId={userData.id_compte}
-                            displayName={userData.nom_affichage}
-                            nombreAbonnes={nombreAbonnes}
-                            setNombreAbonnes={setNombreAbonnes}
-                            visitorFollowsUser={visitorFollowsUser}
-                            setVisitorFollowsUser={setVisitorFollowsUser} />
-                    </div>
-
-                    <div className={styles.infos_profil}>
-                        <h2 className={styles.nom}>{displayName}</h2>
-                        <p className={styles.username}>@{username}</p>
                     </div>
 
                     <div className={styles.follows}>
