@@ -45,11 +45,19 @@ function AProposReadMe() {
             <Markdown components={{
                 code(props) {
                     const {node, ...rest} = props
-                    return <i style={{color: 'red'}} {...rest} />
+                    return <code style={{color: 'yellow'}} {...rest} />
                 },
                 table(props){
                     const {node, ...rest} = props
-                    return <i style={{color: 'red'}} {...rest} />
+                    return <table style={{border: '1px solid' }} {...rest} />
+                },
+                th(props){
+                    const {node, ...rest} = props
+                    return <th style={{border: '1px solid' }} {...rest} />
+                },
+                td(props){
+                    const {node, ...rest} = props
+                    return <td style={{border: '1px solid' }} {...rest} />
                 }
             }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={md}></Markdown>
         </div>
