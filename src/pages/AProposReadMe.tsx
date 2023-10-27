@@ -4,7 +4,9 @@ import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
 import style from '../styles/Markdown.module.css'
+
 
 function AProposReadMe() {
     // https://raw.githubusercontent.com/a23-b2b/projet-de-session-klemn/main/README.md?token=GHSAT0AAAAAACG6FDOULTCHY2ZGNYHCYGM4ZJZCVQA
@@ -37,9 +39,19 @@ function AProposReadMe() {
         })
     }
 
+    // https://stackoverflow.com/questions/66356329/how-to-add-styling-for-elements-in-react-markdown
     return (<>
         <div className={style.conteneur}>
-            <Markdown className={style.reactMarkDown} remarkPlugins={[remarkGfm]} children={md}></Markdown>
+            <Markdown components={{
+                code(props) {
+                    const {node, ...rest} = props
+                    return <i style={{color: 'red'}} {...rest} />
+                },
+                table(props){
+                    const {node, ...rest} = props
+                    return <i style={{color: 'red'}} {...rest} />
+                }
+            }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={md}></Markdown>
         </div>
     </>)
 
