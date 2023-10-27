@@ -7,7 +7,9 @@ import { CiCircleList } from 'react-icons/ci';
 import { LuFileQuestion } from 'react-icons/lu';
 import { RxFileText } from 'react-icons/rx';
 import { RiTeamLine } from 'react-icons/ri';
+import { LuSettings } from 'react-icons/lu';
 import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
+
 
 function Header() {
     const navigate = useNavigate()
@@ -70,7 +72,15 @@ function Header() {
                                     Collaboration
                                 </Link>
                             </MenuItem>
+                            <MenuItem className={styles.dropdown_menu_item}>
+                            <LuSettings className={styles.dropdown_menu_icon} />
+                                <Link to={'/parametres/profil'} id={styles["link"]} className={'link'}>
+                                    Paramètres
+                                </Link>
+                            </MenuItem>
                         </Menu>
+
+                        
 
                     </div>
                 </div>
