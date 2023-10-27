@@ -1,28 +1,32 @@
-const http = require("http");
 const express = require('express');
-const path = require("path");
 const fs = require("fs");
 const morgan = require("morgan");
-const winston = require("winston");
-const mysql = require('mysql2')
 const cors = require('cors')
 const logger = require('./logger.js');
 const app = express()
 const admin = require('firebase-admin');
 const dotenv = require('dotenv');
-
+const mysql = require('mysql2')
+dotenv.config();
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
 exports.admin = admin.initializeApp({
     credential: admin.credential.cert(firebaseServiceAccount)
 });
 
+const pool = mysql.createPool({
+    host: process.env.MYSQL_HOSTNAME,
+    port: process.env.MYSQL_PORT,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    multipleStatements: true
+});
+exports.pool = pool;
+
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors());
-
-// Paramètre env
-dotenv.config();
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
@@ -32,53 +36,60 @@ app.use(morgan('tiny', {
 const inscription = require('./inscription')
 app.use('/inscription', inscription);
 
-const get_profil = require('./get_profil')
-app.use('/profil', get_profil);
+const get_profil = require('./user/[username]/GET_this.js')
+app.use('/user', get_profil);
 
-const follow_user = require('./follow_user');
-app.use('/follow-user', follow_user);
+const follow_user = require('./user/[user_id]/POST_follow.js');
+app.use('/user', follow_user);
 
-const unfollow_user = require('./unfollow_user');
-app.use('/unfollow-user', unfollow_user);
+const unfollow_user = require('./user/[user_id]/POST_unfollow.js');
+app.use('/user', unfollow_user);
 
-const get_user_posts = require('./get_user_posts.js')
-app.use('/user-posts', get_user_posts);
+const changer_nom_affichage = require('./user/update/POST_display_name.js')
+app.use('/user', changer_nom_affichage)
 
-const get_single_post = require('./get_single_post.js')
-app.use('/single-post', get_single_post);
+const changer_nom = require('./user/update/POST_nom.js')
+app.use('/user', changer_nom)
 
-const get_replies = require('./get_replies')
-app.use('/replies', get_replies);
+const changer_prenom = require('./user/update/POST_prenom.js')
+app.use('/user', changer_prenom)
 
-const get_posts_feed = require('./get_posts_feed.js')
-app.use('/feed-posts', get_posts_feed);
+const changer_bio = require('./user/update/POST_bio.js')
+app.use('/user', changer_bio)
 
-const get_followed_users_feed = require('./get_followed_users_feed.js')
-app.use('/feed-followed', get_followed_users_feed)
+const get_user_posts = require('./post/user/[user_id]/GET_this.js')
+app.use('/post', get_user_posts);
 
-const publierBlogue = require('./publierBlogue')
-app.use('/publier-blogue', publierBlogue);
+const get_single_post = require('./post/[id_post]/GET_this.js')
+app.use('/post', get_single_post);
 
-const publierCommentaire = require('./publierCommentaire')
-app.use('/publier-commentaire', publierCommentaire)
+const get_replies = require('./post/[id_post]/replies/GET_this.js')
+app.use('/post', get_replies);
 
-const changer_nom_affichage = require('./changer_nom_affichage')
-app.use('/changer_nom_affichage', changer_nom_affichage)
+const get_posts_feed = require('./post/feed/GET_this.js')
+app.use('/post', get_posts_feed);
 
-const changer_nom = require('./changer_nom')
-app.use('/changer_nom', changer_nom)
+const get_followed_users_feed = require('./post/followed/GET_this.js')
+app.use('/post', get_followed_users_feed)
 
-const changer_prenom = require('./changer_prenom')
-app.use('/changer_prenom', changer_prenom)
+const publierBlogue = require('./post/POST_this.js')
+app.use('/post', publierBlogue);
 
-const changer_bio = require('./changer_bio')
-app.use('/changer_bio', changer_bio)
+const publierCommentaire = require('./post/[id_post]/replies/POST_this.js')
+app.use('/post', publierCommentaire)
 
-const send_vote = require('./vote.js')
-app.use('/vote', send_vote);
+const send_vote = require('./post/[id_post]/POST_vote.js')
+app.use('/post', send_vote);
+
+const quote_post = require('./post/[id_post]/POST_quote.js');
+app.use('/post', quote_post);
+
+const boost_post = require('./post/[id_post]/POST_boost.js');
+app.use('/post', boost_post);
+
+const read_me = require('./readme.js');
+app.use('/readme', read_me)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
-
-

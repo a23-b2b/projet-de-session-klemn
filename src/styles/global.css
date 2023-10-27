@@ -29,12 +29,12 @@
     --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
 
     /*Couleur de fond container*/
-    --dark_container_color: rgba(255, 255, 255, 0.15);
-    --light_container_color: rgba(0, 0, 0, 0.062);
+    --dark_container_color: rgba(255, 255, 255, 0.199);
+    --light_container_color: rgba(163, 124, 183, 0.219);
 
     /*Couleur de fond input field*/
     --dark_input_field_color: rgba(255, 255, 255, 0.25);
-    --light_input_field_color: rgba(0, 0, 0, 0.057);
+    --light_input_field_color: rgba(242, 225, 249, 0.913);
 
     /*Couleur de bordure (Input field et Container*/
     --dark_border_color: rgb(255, 255, 255);
@@ -47,6 +47,10 @@
     /*Couleur du text bouton*/
     --dark_button_text_color: rgb(247, 232, 247);
     --light_button_text_color: rgb(98, 9, 145);
+
+    /**/
+    --dark_container_post_color: rgba(138, 138, 138, 0.16);
+    --light_container_post_color: rgba(103, 18, 114, 0.256);
 
 
     /* ===================================== */
@@ -71,6 +75,7 @@
     --auto_border_color: var(--dark_border_color);
     --auto_button_color: var(--dark_button_color);
     --auto_button_text_color: var(--dark_button_text_color);
+    --auto_container_post_color: var(--dark_container_post_color);
 
 
     /*Thème clair*/
@@ -87,6 +92,7 @@
         --auto_border_color: var(--light_border_color);
         --auto_button_color: var(--light_button_color);
         --auto_button_text_color: var(--light_button_text_color);
+        --auto_container_post_color: var(--light_container_post_color);
     }
 
 }
@@ -114,9 +120,15 @@ body {
     color: var(--auto_text_color);
 }
 
+.global_subtitle {
+    text-align: center;
+    color: var(--auto_text_color);
+    margin-left: 5px;
+    opacity: .85;
+}
+
 .global_input_field_label {
-    margin-left: 8px;
-    margin-bottom: -6px;
+    margin-bottom: 3px;
     font-size: 17px;
     font-weight: bold;
     opacity: 70%;
@@ -131,7 +143,7 @@ body {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    border: 1.5px solid var(--auto_border_color);
+    border: none;
     background-color: var(--auto_input_field_color);
     color: var(--auto_text_color);
 }
@@ -156,7 +168,7 @@ textarea {
 
 .global_conteneur {
     border-radius: 20px;
-    border: 1.5px solid var(--auto_border_color);
+    border: none;
     padding: 20px;
     background-color: var(--auto_container_color);
 }
@@ -169,4 +181,12 @@ textarea {
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+
+.global_conteneur_post {
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    background-color: var(--auto_container_post_color);
 }

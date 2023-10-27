@@ -1,0 +1,58 @@
+.container {
+    margin-left: 5%;
+}
+
+.container_parametres {
+    border-radius: 0 20px 20px 0;
+    border: none;
+    padding: 10px 20px;
+    background-color: var(--auto_container_post_color);
+}
+
+#containerDiv {
+    width: 100%;
+    text-align: right;
+    padding-top: 10px;
+}
+
+.selectInterface {
+    text-decoration: none;
+    margin: 10px;
+    padding: 13px 20px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 50px;
+    color: var(--auto_text_color);
+    background-color: var(--auto_button_color);
+    font-weight: bold;
+}
+
+.exemple_animation {
+    padding-top: 10px;
+    margin: auto;
+}
+
+#titleParametres {
+    background-color: var(--auto_container_post_color);
+    border-radius: 15px 15px 8px 8px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#input {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.containerDiv {
+    display: flex;
+}
+.hr {
+    width: 85%;
+}
+
+@media only screen and (max-width: 850px) {
+    /* .container_parametres {
+        width: 80%;
+    } */
+}
