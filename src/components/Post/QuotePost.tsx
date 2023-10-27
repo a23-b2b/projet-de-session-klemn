@@ -64,7 +64,9 @@ function QuotePost(props: Props) {
                 date={props.date}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil} 
+                idCompte={props.idCompte}
+                idPost={props.idPost}/>
 
             <PostContent
                 contenu={props.contenu}
