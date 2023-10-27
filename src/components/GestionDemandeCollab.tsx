@@ -8,7 +8,9 @@ import toast from 'react-hot-toast';
 import METHODE from '../pages/GestionCollab'
 import { AiOutlineUser } from 'react-icons/ai';
 import { ImCheckmark2 } from 'react-icons/im';
-import { ImCross } from 'react-icons/im';
+import { ImBlocked } from 'react-icons/im';
+
+
 
                             
 
@@ -86,7 +88,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
 
                         <div>
                             <button onClick={() => { repondreDemandeCollab(refuserDemande) }} className={styles.bouton}>
-                                <ImCross size={20} id={styles["IconeX"]} className={styles.icone} />
+                                <ImBlocked size={25} id={styles["IconeX"]} className={styles.icone} />
                             </button>
                         </div>
                 </div>

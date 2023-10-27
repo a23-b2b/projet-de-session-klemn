@@ -10,16 +10,22 @@ import toast from 'react-hot-toast';
 import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
 import { ExceptionHandler } from 'winston';
 import METHODE from '../pages/GestionCollab'
-import { ImCross } from 'react-icons/im';
+import { RiTeamLine } from 'react-icons/ri';
+import { HiLockOpen } from 'react-icons/hi';
+import { HiLockClosed } from 'react-icons/hi';
+import { HiFunnel } from 'react-icons/hi2';
+import { GoTrash } from 'react-icons/go';
+
+
 
 
 export interface PropsProjet {
     id_projet: String,
     titre: String,
     description: String,
-    compte_id_proprio: String, 
+    compte_id_proprio: String,
     est_ouvert: Boolean
-    
+
     /* https://upmostly.com/tutorials/how-to-pass-a-function-as-a-prop-in-react */
     filtrerDemandeParIdProjet: Function
     montrerFormulaireAjoutCollaborateur: Function
@@ -39,8 +45,8 @@ function GestionProjetRapide(props: PropsProjet) {
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
                         method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json' ,
+                        headers: {
+                            'Content-Type': 'application/json',
                             'authorization': idToken
                         }
                     })
@@ -58,77 +64,90 @@ function GestionProjetRapide(props: PropsProjet) {
                 fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
                     method: 'POST',
                 })
-                .then(() => {
-                    setEstOuvert(!estOuvert)            
-                    if (!estOuvert) {
-                        toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
-                    }
+                    .then(() => {
+                        setEstOuvert(!estOuvert)
+                        if (!estOuvert) {
+                            toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
+                        }
 
-                })
-                .catch(error => {
-                    if (error) {
-                        toast.error(error) 
-                    } 
-                });
+                    })
+                    .catch(error => {
+                        if (error) {
+                            toast.error(error)
+                        }
+                    });
             } else {
                 navigate("/authenticate")
             }
         })
     }
 
-    
+
     return (
-        <> 
-        
-            
-            <div className={styles.ligne_gestion_projet}>
+        <>
 
-                    {/* Rang/e du haut */}
-                    
-                        <div className={styles.conteneur_titre_projet}>
-                            <p>Titre: {props.titre}</p>
-                        </div>
 
-                        <div className={styles.filtre}>
-                                <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
-                                        <img src={filtre} className={styles.icone} />
-                                </button>           
-                        </div>
+            <div className={styles.conteneur_gestion_rapide}>
 
-                        <div className={styles.poubelle}>
-                            <button onClick={supprimerProjet}>
-                                <img src={poubelle} className={styles.icone} />
-                            </button>
-                        </div>
 
-                        {/* Rang/e du bas */}     
-                        <div className={styles.conteneur_description_projet}>
-                            <p>Description: {props.description}</p>
-                        </div>
 
-                        <div className={styles.collaboration}>
+                {/* Rang/e du haut */}
+
+                <div className={styles.conteneur_info_projet}>
+                    <div>
+                        <p className={styles.titre_projet}>Titre: {props.titre}</p>
+                    </div>
+
+                    <div>
+                        <p className={styles.description_projet}>Description: {props.description}</p>
+                    </div>
+
+                </div>
+
+                <div className={styles.conteneur_action_projet}>
+
+
+                    <div className={styles.ligne1}>
+                        <div>
                             <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
-                                    <img src={collaboration} className={styles.icone} />
+                                <RiTeamLine size={50} className={styles.icone} />
+                            </button>
+                        </div>
+                        <div>
+                            <button onClick={rendreProjetOuvertAuCollab}>
+                                {estOuvert &&
+                                    <HiLockOpen size={55} className={styles.icone} />
+                                }
+                                {!estOuvert &&
+                                    <HiLockClosed size={55} className={styles.icone} />
+                                }
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div className={styles.ligne2}>
+                    <div>
+                            <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
+                                <HiFunnel size={50} className={styles.icone} />
+                            </button>
+                        </div>
+                        <div>
+                            <button onClick={supprimerProjet}>
+                                <GoTrash size={55} className={styles.icone} />
                             </button>
                         </div>
 
-                        <div className={styles.ouvert}>
-                            <button onClick={ rendreProjetOuvertAuCollab }>
-                                {estOuvert && 
-                                    <img src={ouvert} className={styles.icone} alt='Ce projet est ouvert au collab.' />
-                                }
-                                {!estOuvert && 
-                                    <img src={fermer} className={styles.icone} alt='Ce projet est ferme au collab.' />
-                                }
-                            </button>
-                        </div>
-                    
-                
+                        
+                    </div>
 
-                
+                </div>
+
             </div>
         </>
     )
-} 
+}
 
 export default GestionProjetRapide
