@@ -78,6 +78,9 @@ et plus encore!!
 | Système de collaboration | En tant qu'utilisateur connecté, vous pourrez créer, éditer, et collaborer sur des projets directement lié à un repo git |
 | Système de forum et d'aide | En tant qu'utilisateur connecté, vous pourrez rédiger et publier des publications de type Question et déterminer une meilleure réponse identifiée en commentaire |
 | Modification de profil | En tant qu'utilisateur connecté, vous pourrez modifier votre profil et modifier votre image de profil ou de bannière |
+| Système de badges | Les utilisateurs pourront posséder et afficher des badges sur leur profil. |
+| Publications rédigées en Markdown | Les utilisateurs pourront rédiger leurs publications en utilisant le formattage Markdown. |
+| Gestion d'une publication | Les utilisateurs pourront modifier et supprimer les publications qui leur appartiennent. |
 
 ## Contributeurs (A-Z)
 
