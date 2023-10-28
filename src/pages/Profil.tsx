@@ -7,8 +7,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate } from 'react-router-dom';
 
 function Profil() {
+    const navigate = useNavigate();
     const OFFSET = 6;
 
     let { username } = useParams();
@@ -90,7 +92,10 @@ function Profil() {
                     'Content-Type': 'application/json',
                     'authorization': user?.uid || ''
                 },
-            }).then(response => response.json()).then(response => {
+            }).then(response => {
+                if (response.ok) return response.json()
+                else throw response.json()
+            }).then(response => {
                 let data = response
 
                 setDisplayName(data.nom_affichage ? data.nom_affichage : username)
@@ -100,6 +105,7 @@ function Profil() {
                 setUserData(data)
             }).catch((error) => {
                 console.log(error)
+                navigate('/404')
             })
         })
     }

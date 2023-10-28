@@ -25,10 +25,15 @@ module.exports = app.get('/:username', async (req, res) => {
         [username],
 
         function (err, profileResults, fields) {
+
+            if (err) return res.status(500).send(err)
+
+            if (!profileResults[0]) return res.status(404).send({"erreur": "Le profil recherché n'existe pas."})
+
             pool.query(`           
             SELECT count(*)
             FROM compte_suivi
-            WHERE compte=?
+            WHERE id_compte=?
             AND suit=?;`,
             [userId, profileResults[0]["id_compte"]],
 

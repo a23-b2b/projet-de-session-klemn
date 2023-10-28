@@ -190,10 +190,3 @@ textarea {
     padding: 20px;
     background-color: var(--auto_container_post_color);
 }
-
-.global_conteneur_parametres {
-    border-radius: 20px;
-    border: none;
-    padding: 10px 20px;
-    background-color: var(--auto_container_post_color);
-}
