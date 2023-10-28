@@ -73,7 +73,7 @@ export const question = mysqlTable("post_question", {
 });
 
 export const badge = mysqlTable("badge", {
-    userId: varchar("id_compte", { length: 255 }).primaryKey().references(() => user.id),
+    userId: varchar("id_compte", { length: 255 }).notNull().references(() => user.id),
     badges: int("badges")
 });
 
