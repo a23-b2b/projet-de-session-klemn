@@ -174,7 +174,7 @@ function Profil() {
 
                 </div>
 
-                <BadgesContainer badgesInt={15}/>
+                <BadgesContainer badgesInt={userData.badges}/>
 
                 <div className={styles.follows}>
                     <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
