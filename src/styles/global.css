@@ -48,6 +48,14 @@
     --dark_button_text_color: rgb(247, 232, 247);
     --light_button_text_color: rgb(98, 9, 145);
 
+    /*Couleur de fond bouton2*/
+    --dark_button2_color: rgb(69, 22, 95);
+    --light_button2_color: rgb(247, 232, 247);
+
+    /*Couleur du text bouton2*/
+    --dark_button2_text_color: rgb(243, 234, 243);
+    --light_button2_text_color: rgb(98, 9, 145);
+
     /**/
     --dark_container_post_color: rgba(138, 138, 138, 0.16);
     --light_container_post_color: rgba(103, 18, 114, 0.256);
@@ -75,6 +83,8 @@
     --auto_border_color: var(--dark_border_color);
     --auto_button_color: var(--dark_button_color);
     --auto_button_text_color: var(--dark_button_text_color);
+    --auto_button2_color: var(--dark_button2_color);
+    --auto_button2_text_color: var(--dark_button2_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
 
 
@@ -92,6 +102,8 @@
         --auto_border_color: var(--light_border_color);
         --auto_button_color: var(--light_button_color);
         --auto_button_text_color: var(--light_button_text_color);
+        --auto_button2_color: var(--light_button2_color);
+        --auto_button2_text_color: var(--light_button2_text_color);
         --auto_container_post_color: var(--light_container_post_color);
     }
 
@@ -160,8 +172,19 @@ textarea {
     border: 0px;
     width: fit-content;
     border-radius: 50px;
-    color: var(--auto_text_color);
+    color: var(--auto_button_text_color);
     background-color: var(--auto_button_color);
+    font-weight: bold;
+
+}
+
+.global_bouton2 {
+    padding: 13px 30px 13px 30px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 50px;
+    color: var(--auto_button2_text_color);
+    background-color: var(--auto_button2_color);
     font-weight: bold;
 
 }

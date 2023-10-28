@@ -6,6 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { auth } from '../firebase';
+import { RxCross2 } from 'react-icons/rx';
 
 export const METHODE = {
     EMAIL: "1",
@@ -82,20 +83,24 @@ function GestionCollab() {
             <div>
 
             </div>
-            {afficherForm && <div className={styles.overlay}>
-                <form className={styles.form}>
-                    <div>
 
-                        <label className={'global_input_field_label'} >
-                            {affichageMethode}
-                        </label>
-                        <input className={'global_input_field'}
-                            name={`Entrez l'identification correspondant a votre methode d'ajout.`}
-                            id={styles["input"]}
-                            type="text"
-                            placeholder="affichageMethode"
-                            onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
+            {afficherForm && <div id={styles["coteneurAjoutCollaborateur"]} className={'global_conteneur'}>
+                <form className={styles.form}>
+
+                    <div className={styles.conteneurBoutonX}>
+                        <button onClick={() => { setAfficherForm(!afficherForm) }}>
+                            <RxCross2 size={20} className={styles.icone} />
+                        </button>
                     </div>
+
+                    <div>
+                        <p id={styles["titre"]} className={'global_title'}>
+                        Projet ID: {idProjet}
+                        </p>
+                    </div>
+
+
+                    {/*dropdown*/}
                     <div>
                         <select className={'global_input_field'} value={methode} onChange={e => { modifierMethodeAjoutCollaborateur(e.target.value) }}>
                             <option value={METHODE.EMAIL}>Email</option>
@@ -103,14 +108,42 @@ function GestionCollab() {
                             <option value={METHODE.USERNAME}>Nom Utilisateur</option>
                         </select>
                     </div>
-                    <button onClick={() => ajouterCollab()}>Ajouter le collaborateur au projet ID: {idProjet}</button>
-                    <br />
-                    <button onClick={() => { setAfficherForm(!afficherForm) }}>--- Annuler ---</button>
-                    <Link to={`/projet`}>
-                        <button>+++ Ajouter un projet +++</button>
-                    </Link>
+
+                    <div>
+                        {/*<label className={'global_input_field_label'} >
+                            {affichageMethode}
+                        </label>*/}
+
+                        <input className={'global_input_field'}
+                            name={`Entrez l'identification correspondant a votre methode d'ajout.`}
+                            id={styles["input"]}
+                            type="text"
+                            placeholder="affichageMethode"
+                            onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
+                    </div>
+                    
+
+                    <div className={styles.conteneurBoutons}>
+                        <div>
+                            <button className={'global_bouton'} onClick={() => ajouterCollab()}>Ajouter le collaborateur</button>
+                        </div>
+
+                        <div>
+                            <p>
+                                OU
+                            </p>
+                        </div>
+                        <div>
+                            <Link to={`/projet`}>
+                                <button className={'global_bouton2'} >Créer un projet</button>
+                            </Link>
+                        </div>
+                    </div>
+
                 </form>
+
             </div>}
+
 
             <div className={styles.conteneur_gestion}>
                 <div>
@@ -121,7 +154,7 @@ function GestionCollab() {
                     <div className={styles.titre_mes_demandes}>
                         <h1>Mes demandes de collaboration</h1>
                     </div>
-                    
+
                     {/*Faire map sur retour de demande de collab*/}
                     {demandesCollab && demandesCollab?.map(({
                         id_compte,

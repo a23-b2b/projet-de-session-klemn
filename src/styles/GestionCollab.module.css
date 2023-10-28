@@ -95,3 +95,38 @@
     padding: auto;
 }
 
+
+/*Popup Ajout Collaborateur*/
+
+#coteneurAjoutCollaborateur {
+    margin: 0 10%;
+    padding: 25px;
+}
+
+.conteneurBoutonX {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+#titre {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.icone {
+    color: var(--auto_text_color);
+    opacity: .6;
+}
+
+#input {
+
+    border-radius: 12px;
+    margin-bottom: 20px;
+
+}
+
+.conteneurBoutons {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
