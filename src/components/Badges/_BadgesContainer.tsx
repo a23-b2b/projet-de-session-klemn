@@ -1,15 +1,17 @@
+import Badge from "./Badge";
+
 interface Props {
     badgesInt: number
 }
 
 enum Badges {
-    Developpeur = 1 << 0,
+    DevTeam = 1 << 0,
     Verifie = 1 << 1,
     BugFinder = 1 << 2,
     EarlyUser = 1 << 3,
 }
 
-function Badge(props: Props) {
+function BadgesContainer(props: Props) {
 
     const badges: Badges[] = [];
 
@@ -24,10 +26,10 @@ function Badge(props: Props) {
     return (
         <div>
             {badges?.map((badge) => {
-                if (badge === Badges.Developpeur) {
+                if (badge === Badges.DevTeam) {
                     return (
                         <>
-                            developpeur, {' '}
+                            <Badge icon={"icon"} title={"Developpeur"} />
                         </>
                     )
                 }
@@ -35,7 +37,7 @@ function Badge(props: Props) {
                 if (badge === Badges.Verifie) {
                     return (
                         <>
-                            verife, {' '}
+                            <Badge icon={"icon"} title={"Verifie"} />
                         </>
                     )
                 }
@@ -43,7 +45,7 @@ function Badge(props: Props) {
                 if (badge === Badges.BugFinder) {
                     return (
                         <>
-                            bug finder, {' '}
+                            <Badge icon={"icon"} title={"Bug Finder"} />
                         </>
                     )
                 }
@@ -52,7 +54,7 @@ function Badge(props: Props) {
                 if (badge === Badges.EarlyUser) {
                     return (
                         <>
-                            early user, {' '}
+                            <Badge icon={"icon"} title={"Early user"} />
                         </>
                     )
                 }
@@ -66,4 +68,4 @@ function Badge(props: Props) {
 
 }
 
-export default Badge;
+export default BadgesContainer;
