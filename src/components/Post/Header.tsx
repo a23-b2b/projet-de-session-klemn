@@ -72,7 +72,7 @@ const PostHeader = (props: HeaderProps) => {
             <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                     <p className={styles.display_name}>{props.nomAffichage}</p>
-                    <BadgesContainer badgesInt={15}/>
+                    {/* <BadgesContainer badgesInt={15}/> */}
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
             </div>
