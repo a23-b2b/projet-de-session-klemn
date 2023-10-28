@@ -155,6 +155,13 @@ function Profil() {
         <div className={styles.flex}>
 
             <div className={styles.header}>
+
+                {userData.badges >= 1 && (
+                    <div className={styles.badge_container}>
+                        <BadgesContainer badgesInt={userData.badges} />
+                    </div>
+                )}
+
                 <img className={styles.photo_banniere} src={userData.url_image_banniere} />
 
                 <div className={styles.sous_banniere}>
@@ -163,6 +170,7 @@ function Profil() {
                     <div className={styles.infos_profil}>
                         <h2 className={styles.nom}>{userData.nom_affichage}</h2>
                         <p className={styles.username}>@{userData.nom_utilisateur}</p>
+
                         <FollowButton
                             userId={userData.id_compte}
                             displayName={userData.nom_affichage}
@@ -173,8 +181,6 @@ function Profil() {
                     </div>
 
                 </div>
-
-                <BadgesContainer badgesInt={userData.badges}/>
 
                 <div className={styles.follows}>
                     <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>

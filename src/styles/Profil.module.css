@@ -10,6 +10,22 @@
     flex-direction: column;
 }
 
+.badge_container {
+    display: block;
+
+    z-index: 10;
+    transform: translateY(48px);
+    background-color: var(--auto_background);
+    border-radius: 8px;
+    width: fit-content;
+    
+    padding: 6px 6px;
+    padding-top: 8px;
+
+    margin-left: auto;
+    margin-right: 12px;
+}
+
 .photo_banniere {
     object-fit: cover;
     flex-grow: 1;
