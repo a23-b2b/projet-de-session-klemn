@@ -1,10 +1,9 @@
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
-import React, { useState, useEffect } from 'react';
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import ReactDom from 'react-dom'
+import { useState, useEffect } from 'react';
+import MarkdownCode from '../components/MarkdownCode';
+import style from '../styles/Markdown.module.css'
 
 
 function AProposReadMe() {
@@ -23,12 +22,8 @@ function AProposReadMe() {
                     fetch(`${process.env.REACT_APP_API_URL}/readme`, {
                         method: 'GET',
                         headers: {
-                            'Content-Type': 'text/plain',
-                            'authorization': idToken
-                        }
+                            'Content-Type': 'text/plain'                        }
                     }).then(response => response.text()).then(response => {
-                        console.log(response)
-
                         setMd(response)
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
@@ -38,15 +33,12 @@ function AProposReadMe() {
         })
     }
 
+    // https://stackoverflow.com/questions/66356329/how-to-add-styling-for-elements-in-react-markdown
     return (<>
-        <div style={{ margin: "0 auto", maxWidth: "500px", padding: "15px"}}>
-            <Markdown remarkPlugins={[remarkGfm]} children={md}></Markdown>
+        <div className={style.conteneur}>
+            <MarkdownCode c={md}/>
         </div>
     </>)
-
-
-
-
 }
 
 export default AProposReadMe

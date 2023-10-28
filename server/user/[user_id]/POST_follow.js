@@ -2,10 +2,11 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const { admin } = require('../../serveur.js')
 const { pool } = require('../../serveur.js')
+
 const app = express()
 
 
-module.exports = app.post('/', (req, res) => {
+module.exports = app.post('/:user_id/follow', (req, res) => {
     const resultatValidation = validationResult(req);
 
     const userToken = req.headers.authorization;
