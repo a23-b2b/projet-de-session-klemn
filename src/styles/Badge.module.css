@@ -4,14 +4,16 @@
 }
 
 .tooltip {
-    backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(75%);
     list-style-type: none;
     padding: 6px;
     margin: 0;
     width: max-content;
     border-radius: 12px;
-    background-color: #ffffff18;
+    background-color: #ffffff34;
     padding: 12px 16px;
+    margin-bottom: 8px;
+    z-index: 20;
 
     box-shadow:
         0px 1.2px 2.2px rgba(0, 0, 0, 0.02),

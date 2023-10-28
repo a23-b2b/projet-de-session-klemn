@@ -77,7 +77,6 @@
     --auto_button_text_color: var(--dark_button_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
 
-
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
         --auto_text_color: var(--text_color_light);
