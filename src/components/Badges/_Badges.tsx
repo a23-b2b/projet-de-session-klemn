@@ -3,10 +3,10 @@ interface Props {
 }
 
 enum Badges {
-    Developpeur = 1 << 0, 
-    Verifie = 1 << 1, 
-    BugFinder = 1 << 2, 
-    EarlyUser = 1 << 3, 
+    Developpeur = 1 << 0,
+    Verifie = 1 << 1,
+    BugFinder = 1 << 2,
+    EarlyUser = 1 << 3,
 }
 
 function Badge(props: Props) {
@@ -15,7 +15,7 @@ function Badge(props: Props) {
 
     for (const badge in Badges) {
         const badgeValue = Badges[badge] as unknown as number;
-        
+
         if (props.badgesInt & badgeValue) {
             badges.push(badgeValue as Badges);
         }
@@ -24,43 +24,43 @@ function Badge(props: Props) {
     return (
         <div>
             {badges?.map((badge) => {
-                    if (badge === Badges.Developpeur) {
-                        return (
-                            <>
-                            developpeur, {' '}
-                            </>
-                        )
-                    }
-
-                    if (badge === Badges.Verifie) {
-                        return (
-                            <>
-                            verife, {' '}
-                            </>
-                        )
-                    }
-
-                    if (badge === Badges.BugFinder) {
-                        return (
-                            <>
-                            bug finder, {' '}
-                            </>
-                        )
-                    }
-
-
-                    if (badge === Badges.EarlyUser) {
-                        return (
-                            <>
-                            early user, {' '}
-                            </>
-                        )
-                    }
-
+                if (badge === Badges.Developpeur) {
                     return (
-                        <>rien</>
+                        <>
+                            developpeur, {' '}
+                        </>
                     )
-                })}
+                }
+
+                if (badge === Badges.Verifie) {
+                    return (
+                        <>
+                            verife, {' '}
+                        </>
+                    )
+                }
+
+                if (badge === Badges.BugFinder) {
+                    return (
+                        <>
+                            bug finder, {' '}
+                        </>
+                    )
+                }
+
+
+                if (badge === Badges.EarlyUser) {
+                    return (
+                        <>
+                            early user, {' '}
+                        </>
+                    )
+                }
+
+                return (
+                    <>rien</>
+                )
+            })}
         </div>
     )
 
