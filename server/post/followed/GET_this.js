@@ -14,8 +14,7 @@ module.exports = app.get('/followed/:offset', (req, res) => {
 
         pool.query(`       
             SELECT post_view.*,
-                vote.id_compte AS vote_user_id,
-                vote.score
+                vote.score as vote
             FROM post_view
                 LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
             inner join compte_suivi cs on post_view.id_compte = cs.suit 
