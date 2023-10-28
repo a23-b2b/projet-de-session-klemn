@@ -18,16 +18,16 @@ Inspiré entre autre par GitHub, Reddit, Twitter (maintenant 𝕏), LinkedIn, St
 Dans ce répertoire de projet, vous pouvez exécuter ces commandes:
 
 Pour installer toutes les dépendances du projet:
-`npm install`
+```npm install```
 
 Pour démarrer le serveur d'API:
-`node ./server/serveur.js`
+```node ./server/serveur.js```
 
 Pour démarrer l'application React en mode développement:
-`npm start`
+```npm start```
 
 Il est important de noter que vous devrez aussi créer une base de données MySQL avec l'outil DrizzleKit qui va se charger de créer les tables ainsi que les relations SQL:
-`npx drizzle-kit push:mysql`
+```npx drizzle-kit push:mysql```
 
 ### .env
 Pour exécuter ce projet, vous aurez besoin d'un fichier .env localisé à la racine du projet qui contiendra les informations de votre base de données MySQL. Voici la structure que vous devez utiliser:
