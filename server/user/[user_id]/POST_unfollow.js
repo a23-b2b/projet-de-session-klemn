@@ -6,9 +6,6 @@ const { pool } = require('../../serveur.js')
 const app = express()
 
 
-
-
-
 module.exports = app.post('/:user_id/unfollow', (req, res) => {
     const resultatValidation = validationResult(req);
 

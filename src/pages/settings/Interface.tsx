@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import styles from '../../styles/ModifierProfil.module.css'
-import { motion, AnimatePresence } from "framer-motion";
-import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
-import { auth } from '../../firebase';
-import toast from 'react-hot-toast';
+import styles from '../../styles/SettingsPanel.module.css'
+import { motion } from "framer-motion";
 import VoteWidget from '../../components/Post/voteWidget';
-import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
@@ -63,23 +60,24 @@ function Interface() {
     useEffect(() => {
         if (localStorage.getItem("voteAnimationType")) {
             setVoteAnimationType(localStorage.getItem("voteAnimationType") || "shake_slide")
-
         }
     }, [])
 
 
 
     return (
-        <motion.div className={'global_conteneur_parametres'} initial={{ x: "-15%", opacity: 0 }} animate={{ x: "5%", opacity: 1 }}>
-            <h1 className={'global_title'} id={styles["titleParametres"]}>Interface</h1>
+        <div className={styles.container_parametres}>
+            <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+                <h1 className={'global_title'} id={styles["titleParametres"]}>Interface</h1>
 
-            <h3 className={'global_subtitle'}>Animations</h3>
+                <h3 className={'global_subtitle'}>Animations</h3>
 
-            <div className={styles.form}>
-                <div className={styles.containerDiv}>
-                    <div>
-                        <label className={'global_input_field_label'} >Animation d'interraction avec une publication (like, dislike)</label>
+                <div className={styles.form}>
+                    <div className={styles.containerDiv}>
+                        <div>
+                            <label className={'global_input_field_label'} >Animation d'interraction avec une publication (like, dislike)</label>
 
+                        </div>
                     </div>
 
                     <div className={styles.dropdownDiv}>
@@ -97,7 +95,7 @@ function Interface() {
                         {/* <option value="fade_fade">Fade only</option> */}
                         {/* <option value="none">None</option> */}
 
-                        
+
                         <Menu menuButton={
                             <div className={styles.dropdown_menu_bouton}> {voteAnimationType}</div>
                         }
@@ -112,18 +110,15 @@ function Interface() {
                             <MenuItem value={'same_fade'} className={styles.dropdown_menu_item}><span>Same + fade</span></MenuItem>
 
                         </Menu>
+
+                        <div className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
+                            <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
+                        </div>
                     </div>
-
-
                 </div>
-
-
-                <div className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
-                    <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
-                </div>
-            </div>
-            <br />
-        </motion.div>
+                <br />
+            </motion.div>
+        </div>
     );
 }
 
