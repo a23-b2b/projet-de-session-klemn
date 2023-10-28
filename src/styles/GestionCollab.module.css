@@ -118,6 +118,21 @@
     opacity: .6;
 }
 
+.conteneurInputDropdown {
+    display: inline-flex;
+    width: 100%;
+}
+
+.conteneurDropdown {
+    width: 180px;
+}
+
+.conteneurInput {
+    margin-left: 10px;
+    width: 100%;
+   
+}
+
 #input {
 
     border-radius: 12px;

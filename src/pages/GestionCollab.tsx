@@ -95,33 +95,39 @@ function GestionCollab() {
 
                     <div>
                         <p id={styles["titre"]} className={'global_title'}>
-                        Projet ID: {idProjet}
+                            Projet ID: {idProjet}
                         </p>
                     </div>
 
 
                     {/*dropdown*/}
-                    <div>
-                        <select className={'global_input_field'} value={methode} onChange={e => { modifierMethodeAjoutCollaborateur(e.target.value) }}>
-                            <option value={METHODE.EMAIL}>Email</option>
-                            <option value={METHODE.ID}>ID</option>
-                            <option value={METHODE.USERNAME}>Nom Utilisateur</option>
-                        </select>
-                    </div>
 
-                    <div>
-                        {/*<label className={'global_input_field_label'} >
+                    <div className={styles.conteneurInputDropdown}>
+
+                        <div className={styles.conteneurDropdown}>
+                            <select className={'global_input_field'} value={methode} onChange={e => { modifierMethodeAjoutCollaborateur(e.target.value) }}>
+                                <option value={METHODE.EMAIL}>Email</option>
+                                <option value={METHODE.ID}>ID</option>
+                                <option value={METHODE.USERNAME}>Nom Utilisateur</option>
+                            </select>
+                        </div>
+
+
+                        <div className={styles.conteneurInput}>
+                            {/*<label className={'global_input_field_label'} >
                             {affichageMethode}
                         </label>*/}
 
-                        <input className={'global_input_field'}
-                            name={`Entrez l'identification correspondant a votre methode d'ajout.`}
-                            id={styles["input"]}
-                            type="text"
-                            placeholder="affichageMethode"
-                            onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
+                            <input className={'global_input_field'}
+                                name={`Entrez l'identification correspondant a votre methode d'ajout.`}
+                                id={styles["input"]}
+                                type="text"
+                                placeholder="affichageMethode"
+                                onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
+                        </div>
                     </div>
-                    
+
+
 
                     <div className={styles.conteneurBoutons}>
                         <div>
