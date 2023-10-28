@@ -1,4 +1,8 @@
 import Badge from "./Badge";
+import styles from '../../styles/Badge.module.css'
+import { FaComputer, FaBugs } from 'react-icons/fa6'
+import { RiVerifiedBadgeFill } from 'react-icons/ri'
+import { TbBeta } from 'react-icons/tb'
 
 interface Props {
     badgesInt: number
@@ -27,20 +31,20 @@ function BadgesContainer(props: Props) {
         <div>
             {badges?.map((badge) => {
                 if (badge === Badges.DevTeam) {
-                    return <Badge icon={"icon"} title={"Developpeur"} />
+                    return <Badge icon={<FaComputer />} title={"Developpeur"} />
                 }
 
                 if (badge === Badges.Verifie) {
-                    return <Badge icon={"icon"} title={"Verifie"} />
+                    return <Badge icon={<RiVerifiedBadgeFill />} title={"Verifie"} />
                 }
 
                 if (badge === Badges.BugFinder) {
-                    return <Badge icon={"icon"} title={"Bug Finder"} />
+                    return <Badge icon={<FaBugs />} title={"Bug Finder"} />
                 }
 
 
                 if (badge === Badges.EarlyUser) {
-                    return <Badge icon={"icon"} title={"Early user"} />
+                    return <Badge icon={<TbBeta />} title={"Early user"} />
                 }
 
                 return (
