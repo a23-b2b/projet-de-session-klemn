@@ -8,6 +8,7 @@ import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
+import Badge from '../components/Badges/_Badges';
 
 function Profil() {
     const navigate = useNavigate();
@@ -172,6 +173,8 @@ function Profil() {
                     </div>
 
                 </div>
+
+                <Badge badgesInt={15}/>
 
                 <div className={styles.follows}>
                     <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
