@@ -57,6 +57,9 @@ app.use('/user', changer_prenom)
 const changer_bio = require('./user/update/POST_bio.js')
 app.use('/user', changer_bio)
 
+const get_user_badges = require('./user/[user_id]/GET_badges.js')
+app.use('/user', get_user_badges);
+
 const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 
