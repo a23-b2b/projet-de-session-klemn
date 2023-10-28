@@ -26,7 +26,7 @@ module.exports = app.post('/:user_id/unfollow', (req, res) => {
             pool.query(
                 `SELECT count(*) 
                 FROM compte_suivi 
-                WHERE compte=?
+                WHERE id_compte=?
                 AND suit=?`,
                 [userId, userToUnollow],
                 function (err, results, fields) {
@@ -44,7 +44,7 @@ module.exports = app.post('/:user_id/unfollow', (req, res) => {
                     else {
                         pool.query(
                             `DELETE FROM compte_suivi
-                            WHERE compte = ? 
+                            WHERE id_compte = ? 
                             AND suit = ?;
             
                             UPDATE compte 

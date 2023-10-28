@@ -26,7 +26,7 @@ module.exports = app.post('/:user_id/follow', (req, res) => {
             pool.query(
                 `SELECT count(*) 
                 FROM compte_suivi 
-                WHERE compte=?
+                WHERE id_compte=?
                 AND suit=?`,
                 [userId, userToFollow],
                 function (err, results, fields) {
@@ -46,7 +46,7 @@ module.exports = app.post('/:user_id/follow', (req, res) => {
                         pool.query(
                             `insert into compte_suivi 
                             (
-                                compte, 
+                                id_compte, 
                                 suit, 
                                 suit_depuis
                             ) VALUES (
