@@ -72,6 +72,11 @@ export const question = mysqlTable("post_question", {
     answerPostId: varchar("post_meilleure_reponse", { length: 255 }).references(() => post.id),
 });
 
+export const badge = mysqlTable("badge", {
+    userId: varchar("id_compte", { length: 255 }).primaryKey().references(() => user.id),
+    badges: int("badges")
+});
+
 export const postView = mysqlView("post_view")
     .as((qb) => qb
         .select({
