@@ -12,7 +12,7 @@ module.exports = app.get('/:post_id', (req, res) => {
         SELECT post_view.*,
             vote.score as vote
         FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
         WHERE post_view.id_post LIKE ?;`,
         [userId, req.params.post_id],
         function (err, results, fields) {

@@ -15,7 +15,7 @@ module.exports = app.get('/user/:user_id/:offset', (req, res) => {
         SELECT post_view.*,
             vote.score as vote
         FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
         where post_view.id_compte like ? AND post_view.id_type_post != 4
         order by post_view.date_publication desc
         limit ? offset ?;`,
