@@ -17,19 +17,19 @@ enum Badges {
 
 function BadgesContainer(props: Props) {
 
-    const badges: Badges[] = [];
+    const userBadges: Badges[] = [];
 
     for (const badge in Badges) {
         const badgeValue = Badges[badge] as unknown as number;
 
         if (props.badgesInt & badgeValue) {
-            badges.push(badgeValue as Badges);
+            userBadges.push(badgeValue as Badges);
         }
     }
 
     return (
         <div>
-            {badges?.map((badge) => {
+            {userBadges?.map((badge) => {
                 if (badge === Badges.DevTeam) {
                     return <Badge icon={<FaComputer />} title={"Developpeur"} />
                 }

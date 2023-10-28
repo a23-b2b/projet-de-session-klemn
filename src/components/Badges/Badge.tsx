@@ -6,7 +6,7 @@ interface Props {
     title: string
 }
 
-function Badge(props: Props) { 
+function Badge(props: Props) {
     return (
         <span className={styles.badge}>
             <Tooltip className={styles.tooltip} label={props.title} placement='top'>
