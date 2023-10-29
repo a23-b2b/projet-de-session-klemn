@@ -105,11 +105,12 @@ function GestionCollab() {
                     <div className={styles.conteneurInputDropdown}>
 
                         <div className={styles.conteneurDropdown}>
-                            <select className={'global_input_field'} value={methode} onChange={e => { modifierMethodeAjoutCollaborateur(e.target.value) }}>
-                                <option value={METHODE.EMAIL}>Email</option>
+                            <select id={styles["selectDropdown"]} className={'global_input_field'} value={methode} onChange={e => { modifierMethodeAjoutCollaborateur(e.target.value) }}>
+                                <option value={METHODE.EMAIL} >Email</option>
                                 <option value={METHODE.ID}>ID</option>
                                 <option value={METHODE.USERNAME}>Nom Utilisateur</option>
                             </select>
+
                         </div>
 
 
@@ -122,7 +123,7 @@ function GestionCollab() {
                                 name={`Entrez l'identification correspondant a votre methode d'ajout.`}
                                 id={styles["input"]}
                                 type="text"
-                                placeholder="affichageMethode"
+                                placeholder="Email / Id / Nom d'utilisateur"
                                 onChange={(e) => setInformationIdentifianteCollaborateur(e.target.value)} />
                         </div>
                     </div>
@@ -141,7 +142,7 @@ function GestionCollab() {
                         </div>
                         <div>
                             <Link to={`/projet`}>
-                                <button className={'global_bouton2'} >Créer un projet</button>
+                                <button className={'global_bouton2'} >Créer un nouveau  projet</button>
                             </Link>
                         </div>
                     </div>
@@ -152,8 +153,8 @@ function GestionCollab() {
 
 
             <div className={styles.conteneur_gestion}>
-                <div>
-                    <p>ID FILTRE: {idProjetFiltre}</p>
+                <div className={styles.conteneurFiltreId}>
+                    <p className={styles.filtre}>ID FILTRE: {idProjetFiltre}</p>
                 </div>
 
                 <div className={styles.conteneur_gestion_collab}>

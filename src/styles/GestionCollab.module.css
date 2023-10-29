@@ -2,8 +2,8 @@
     background-color: var(--auto_container_post_color);
 }
 
-.ligne_gestion_demande_collab{
-    display:flex;
+.ligne_gestion_demande_collab {
+    display: flex;
     /*align-items:center;*/
     border-radius: 20px;
     border: none;
@@ -19,7 +19,7 @@
     margin: 25px;
     padding: 10px;
     border-radius: 20px 20px 5px 10px;
-    
+
 
 }
 
@@ -36,7 +36,7 @@
     text-align: left;
     font-weight: bold;
     color: var(--auto_text_color);
-   
+
 
 }
 
@@ -52,7 +52,7 @@
     float: left;
     width: 50%;
     height: 100%;
-    
+
 }
 
 
@@ -78,18 +78,18 @@
 .conteneur_gestion_projet {
     float: left;
     width: 50%;
-} 
+}
 
 .titre_mes_projets_rapide {
     text-align: center;
 }
 
 .ligne_gestion_projet {
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: flex-start;
-    align-items:center;
+    align-items: center;
     width: 100%;
     height: 10%;
     padding: auto;
@@ -99,8 +99,10 @@
 /*Popup Ajout Collaborateur*/
 
 #coteneurAjoutCollaborateur {
-    margin: 0 10%;
+    margin: auto;
     padding: 25px;
+    margin-bottom: 30px;
+    max-width: 600px;
 }
 
 .conteneurBoutonX {
@@ -111,6 +113,7 @@
 #titre {
     font-size: 20px;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 .icone {
@@ -118,25 +121,76 @@
     opacity: .6;
 }
 
+/*Select*/
+
 .conteneurInputDropdown {
     display: inline-flex;
     width: 100%;
 }
 
 .conteneurDropdown {
-    width: 180px;
+    width: 240px;
 }
+
+#selectDropdown:invalid {
+    color: green;
+}
+
+
+#selectDropdown {
+    font: inherit;
+    appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        radial-gradient(#ddd 70%, transparent 72%);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - .5em) .5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1.5em 1.5em;
+    background-repeat: no-repeat;
+}
+
+#selectDropdown:focus {
+    background-image:
+        linear-gradient(45deg, white 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, white 50%),
+        radial-gradient(gray 70%, transparent 72%);
+    background-position:
+        calc(100% - 15px) 1em,
+        calc(100% - 20px) 1em,
+        calc(100% - .5em) .5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1.5em 1.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+}
+
+
+#selectDropdown option {
+    color: #000000;
+}
+
+
+/*Select Fin*/
 
 .conteneurInput {
     margin-left: 10px;
     width: 100%;
-   
+
 }
 
 #input {
 
     border-radius: 12px;
     margin-bottom: 20px;
+    padding: 11px;
 
 }
 
@@ -144,4 +198,57 @@
     display: inline-block;
     width: 100%;
     text-align: center;
+}
+
+
+/*Création projet form*/
+
+.conteneurCreerProjet {
+    margin: auto;
+    padding: 25px;
+    background-color: var(--auto_container_color);
+    border-radius: 20px;
+    max-width: 500px;
+}
+
+.conteneurRadioBouton {
+    display: inline-flex;
+    background-color: var(--auto_container_color);
+    padding: 20px;
+    opacity: .7;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.labelRadioBouton {}
+
+.radioBouton {
+    margin-right: 15px;
+
+}
+
+#radioBouton {
+    margin: auto;
+    height: 100%;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+/*Filtre*/
+
+.conteneurFiltreId {
+
+    margin-left: 20px;
+    background-color: var(--auto_accent_color);
+    min-width: 200px;
+    width: fit-content;
+    border-radius: 15px;
+}
+
+.filtre {
+    padding: 10px;
+    opacity: .8;
 }
