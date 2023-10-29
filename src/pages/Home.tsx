@@ -112,10 +112,9 @@ function Home() {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (!user) navigate('/authenticate')
+
+            else getPosts()
         });
-
-        getPosts()
-
     }, [feedType]);
 
     return (
