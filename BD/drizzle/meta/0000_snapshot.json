@@ -1,0 +1,635 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "7ab9610a-dfb8-46dc-b3e3-cbcc3d97d794",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "post_collab": {
+      "name": "post_collab",
+      "columns": {
+        "id_collab": {
+          "name": "id_collab",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "est_ouvert": {
+          "name": "est_ouvert",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "url_git": {
+          "name": "url_git",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "post_id_post": {
+          "name": "post_id_post",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_collab_post_id_post_post_id_post_fk": {
+          "name": "post_collab_post_id_post_post_id_post_fk",
+          "tableFrom": "post_collab",
+          "tableTo": "post",
+          "columnsFrom": [
+            "post_id_post"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "post_collab_id_collab": {
+          "name": "post_collab_id_collab",
+          "columns": [
+            "id_collab"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "demande_collab": {
+      "name": "demande_collab",
+      "columns": {
+        "id_demande_collab": {
+          "name": "id_demande_collab",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "est_accepte": {
+          "name": "est_accepte",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "post_collab_id_collab": {
+          "name": "post_collab_id_collab",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_collaborateur": {
+          "name": "id_collaborateur",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "demande_collab_post_collab_id_collab_post_collab_id_collab_fk": {
+          "name": "demande_collab_post_collab_id_collab_post_collab_id_collab_fk",
+          "tableFrom": "demande_collab",
+          "tableTo": "post_collab",
+          "columnsFrom": [
+            "post_collab_id_collab"
+          ],
+          "columnsTo": [
+            "id_collab"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "demande_collab_id_collaborateur_compte_id_compte_fk": {
+          "name": "demande_collab_id_collaborateur_compte_id_compte_fk",
+          "tableFrom": "demande_collab",
+          "tableTo": "compte",
+          "columnsFrom": [
+            "id_collaborateur"
+          ],
+          "columnsTo": [
+            "id_compte"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "demande_collab_id_demande_collab": {
+          "name": "demande_collab_id_demande_collab",
+          "columns": [
+            "id_demande_collab"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "compte_suivi": {
+      "name": "compte_suivi",
+      "columns": {
+        "id_compte": {
+          "name": "id_compte",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "suit": {
+          "name": "suit",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "suit_depuis": {
+          "name": "suit_depuis",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "compte_suivi_id_compte_compte_id_compte_fk": {
+          "name": "compte_suivi_id_compte_compte_id_compte_fk",
+          "tableFrom": "compte_suivi",
+          "tableTo": "compte",
+          "columnsFrom": [
+            "id_compte"
+          ],
+          "columnsTo": [
+            "id_compte"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "compte_suivi_suit_compte_id_compte_fk": {
+          "name": "compte_suivi_suit_compte_id_compte_fk",
+          "tableFrom": "compte_suivi",
+          "tableTo": "compte",
+          "columnsFrom": [
+            "suit"
+          ],
+          "columnsTo": [
+            "id_compte"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "post": {
+      "name": "post",
+      "columns": {
+        "id_post": {
+          "name": "id_post",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_compte": {
+          "name": "id_compte",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_parent": {
+          "name": "id_parent",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_type_post": {
+          "name": "id_type_post",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "titre": {
+          "name": "titre",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "contenu": {
+          "name": "contenu",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nombre_likes": {
+          "name": "nombre_likes",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre_dislikes": {
+          "name": "nombre_dislikes",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre_reposts": {
+          "name": "nombre_reposts",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre_commentaires": {
+          "name": "nombre_commentaires",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre_partages": {
+          "name": "nombre_partages",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date_publication": {
+          "name": "date_publication",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_id_compte_compte_id_compte_fk": {
+          "name": "post_id_compte_compte_id_compte_fk",
+          "tableFrom": "post",
+          "tableTo": "compte",
+          "columnsFrom": [
+            "id_compte"
+          ],
+          "columnsTo": [
+            "id_compte"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "post_id_parent_post_id_post_fk": {
+          "name": "post_id_parent_post_id_post_fk",
+          "tableFrom": "post",
+          "tableTo": "post",
+          "columnsFrom": [
+            "id_parent"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "post_id_post": {
+          "name": "post_id_post",
+          "columns": [
+            "id_post"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "post_question": {
+      "name": "post_question",
+      "columns": {
+        "id_question": {
+          "name": "id_question",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "post_id_post": {
+          "name": "post_id_post",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "est_resolu": {
+          "name": "est_resolu",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "post_meilleure_reponse": {
+          "name": "post_meilleure_reponse",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_question_post_id_post_post_id_post_fk": {
+          "name": "post_question_post_id_post_post_id_post_fk",
+          "tableFrom": "post_question",
+          "tableTo": "post",
+          "columnsFrom": [
+            "post_id_post"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "post_question_post_meilleure_reponse_post_id_post_fk": {
+          "name": "post_question_post_meilleure_reponse_post_id_post_fk",
+          "tableFrom": "post_question",
+          "tableTo": "post",
+          "columnsFrom": [
+            "post_meilleure_reponse"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "post_question_id_question": {
+          "name": "post_question_id_question",
+          "columns": [
+            "id_question"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "post_partage": {
+      "name": "post_partage",
+      "columns": {
+        "id_post_original": {
+          "name": "id_post_original",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_shared_post": {
+          "name": "id_shared_post",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_quoted_post": {
+          "name": "is_quoted_post",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "post_partage_id_post_original_post_id_post_fk": {
+          "name": "post_partage_id_post_original_post_id_post_fk",
+          "tableFrom": "post_partage",
+          "tableTo": "post",
+          "columnsFrom": [
+            "id_post_original"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "post_partage_id_shared_post_post_id_post_fk": {
+          "name": "post_partage_id_shared_post_post_id_post_fk",
+          "tableFrom": "post_partage",
+          "tableTo": "post",
+          "columnsFrom": [
+            "id_shared_post"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "compte": {
+      "name": "compte",
+      "columns": {
+        "id_compte": {
+          "name": "id_compte",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "courriel": {
+          "name": "courriel",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date_creation_compte": {
+          "name": "date_creation_compte",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prenom": {
+          "name": "prenom",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nom": {
+          "name": "nom",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nom_utilisateur": {
+          "name": "nom_utilisateur",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nom_affichage": {
+          "name": "nom_affichage",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "biographie": {
+          "name": "biographie",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "url_image_profil": {
+          "name": "url_image_profil",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "url_image_banniere": {
+          "name": "url_image_banniere",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "autorisation": {
+          "name": "autorisation",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre_abonnes": {
+          "name": "nombre_abonnes",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "nombre_abonnements": {
+          "name": "nombre_abonnements",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "compte_id_compte": {
+          "name": "compte_id_compte",
+          "columns": [
+            "id_compte"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "compte_courriel_unique": {
+          "name": "compte_courriel_unique",
+          "columns": [
+            "courriel"
+          ]
+        },
+        "compte_nom_utilisateur_unique": {
+          "name": "compte_nom_utilisateur_unique",
+          "columns": [
+            "nom_utilisateur"
+          ]
+        }
+      }
+    },
+    "vote": {
+      "name": "vote",
+      "columns": {
+        "id_compte": {
+          "name": "id_compte",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_post": {
+          "name": "id_post",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "score": {
+          "name": "score",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "vote_id_compte_compte_id_compte_fk": {
+          "name": "vote_id_compte_compte_id_compte_fk",
+          "tableFrom": "vote",
+          "tableTo": "compte",
+          "columnsFrom": [
+            "id_compte"
+          ],
+          "columnsTo": [
+            "id_compte"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "vote_id_post_post_id_post_fk": {
+          "name": "vote_id_post_post_id_post_fk",
+          "tableFrom": "vote",
+          "tableTo": "post",
+          "columnsFrom": [
+            "id_post"
+          ],
+          "columnsTo": [
+            "id_post"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

@@ -15,14 +15,8 @@ DROP
   TABLE IF EXISTS post CASCADE;
 DROP 
   TABLE IF EXISTS compte;
-DROP 
-  TABLE IF EXISTS autorisation;
-DROP 
-  TABLE IF EXISTS type_post;
-CREATE TABLE autorisation (
-    id_autorisation     varchar(255) NOT NULL PRIMARY KEY,
-    titre_autorisation  varchar(255)
-);
+DROP
+  TABLE IF EXISTS post_partage;
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
@@ -38,17 +32,9 @@ CREATE TABLE compte(
     biographie                      VARCHAR(1000),
     url_image_profil                VARCHAR(1000),
     url_image_banniere              VARCHAR(1000),
-    autorisation_id_autorisation    varchar(255) NOT NULL,
-    FOREIGN KEY (autorisation_id_autorisation) REFERENCES autorisation(id_autorisation),
+    autorisation    int NOT NULL,
     CONSTRAINT uc_compte_nom_utilisateur UNIQUE (nom_utilisateur),
     CONSTRAINT uc_compte_courriel UNIQUE (courriel)
-);
-
-CREATE TABLE type_post
-(
-    id_type_post INT          NOT NULL
-        PRIMARY KEY,
-    nom_type     VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE post
@@ -70,9 +56,7 @@ CREATE TABLE post
     CONSTRAINT post_compte_id_compte_fk
         FOREIGN KEY (id_compte) REFERENCES compte (id_compte),
     CONSTRAINT post_post_id_post_fk
-        FOREIGN KEY (id_parent) REFERENCES post (id_post),
-    CONSTRAINT post_type_post_id_type_post_fk
-        FOREIGN KEY (id_type_post) REFERENCES type_post (id_type_post)
+        FOREIGN KEY (id_parent) REFERENCES post (id_post)
 );
 
 CREATE TABLE image_post
@@ -108,6 +92,17 @@ create table vote
         foreign key (id_post) references post (id_post)
 )
     comment 'Contient les votes (like, dislike) associés aux posts.';
+
+create table post_partage
+(
+    id_post_original varchar(255) not null,
+    id_shared_post   varchar(255) not null,
+    is_quoted_post   tinyint(1)   null,
+    constraint post_partage_post_id_post_fk
+        foreign key (id_post_original) references post (id_post),
+    constraint post_partage_post_id_post_fk2
+        foreign key (id_shared_post) references post (id_post)
+  );
     
 CREATE TABLE post_collab (
   id_collab VARCHAR(255) PRIMARY KEY, 
@@ -125,6 +120,7 @@ CREATE TABLE post_collab (
   CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
   CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
 );
+
 CREATE TABLE post_question (
   id_question VARCHAR(255) PRIMARY KEY, 
   est_resolu BOOLEAN NOT NULL DEFAULT FALSE, 
@@ -133,3 +129,23 @@ CREATE TABLE post_question (
   CONSTRAINT post_question_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post), 
   CONSTRAINT post_question_post_meilleure_reponse_fk FOREIGN KEY (post_meilleure_reponse) REFERENCES post (id_post)
 );
+
+CREATE OR REPLACE VIEW post_view AS
+SELECT post.*,
+       pc.url_git,
+       pc.est_ouvert,
+       pc.id_collab,
+       pq.est_resolu,
+       pq.post_meilleure_reponse,
+       pp.id_shared_post,
+       pp.is_quoted_post,
+       c.nom_affichage,
+       c.nom_utilisateur,
+       c.url_image_profil
+FROM post
+         LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
+         LEFT JOIN post_question pq on post.id_post = pq.post_id_post
+         LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
+         INNER JOIN compte c on post.id_compte = c.id_compte;
+
+COMMIT;

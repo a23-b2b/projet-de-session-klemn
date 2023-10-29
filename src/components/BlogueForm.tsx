@@ -3,7 +3,6 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Select } from '@chakra-ui/react'
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -14,36 +13,36 @@ function BlogueForm() {
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
     const [urlGit, setUrlGit] = useState("");
-    
+
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
-                utilisateur.getIdToken(/* forceRefresh */ true)
-                    .then((idToken) => {
-                        fetch(`${process.env.REACT_APP_API_URL}/publier-blogue/${type}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id_compte: utilisateur.uid,
-                                titre: titre,
-                                contenu: contenu,
-                                urlGit: urlGit,
-                                firebase_id_token: idToken
-                            }),
-                        }).then(response => response.json())
-                            .then(response => {
-                                console.log(response)
-                                toast.success('Votre message a été publié!');
+                utilisateur.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/post`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            titre: titre,
+                            contenu: contenu,
+                            urlGit: urlGit,
+                            type: 1
+                        }),
+                    }).then(response => response.json()).then(response => {
+                        console.log(response)
+                        toast.success('Votre message a été publié!');
 
-                                navigate(`/p/${response[1][0]['id_post']}`)
-                            }).catch((error) => {
-                                toast.error('Une erreur est survenue');
-                            })
+                        navigate(`/p/${response['id_post']}`)
+                    }).catch((error) => {
+                        console.log(error)
+                        toast.error('Une erreur est survenue');
                     })
-
+                })
             } else {
                 toast.error('Le contenu de la publication ne peut pas être vide.')
             }
@@ -51,7 +50,6 @@ function BlogueForm() {
             toast.error('Veuillez vous connecter avant de publier.');
             navigate('/');
         }
-
     }
 
     return (
