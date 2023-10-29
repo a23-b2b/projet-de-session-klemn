@@ -40,7 +40,7 @@ function Layout() {
                     </Route>
                     <Route path="/gestion" element={<GestionCollab/>} />
                     <Route path="/projet" element={<ProjetForm />} />
-                    <Route path="/README" element={<README/>}/>
+                    <Route path="/apropos" element={<README/>}/>
                 </Routes>
                 <Footer />
             </BrowserRouter>

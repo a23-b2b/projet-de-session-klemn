@@ -54,7 +54,7 @@ function Footer() {
                             <div>
                                 {/* Éléments col 1 */}
                                 <div>
-                                    <Link to={'/README'} className='link'>
+                                    <Link to={'/apropos'} className='link'>
                                         <h3>À propos</h3>
                                     </Link>
 

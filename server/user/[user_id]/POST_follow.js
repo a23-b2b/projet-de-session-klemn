@@ -2,10 +2,11 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const { admin } = require('../../serveur.js')
 const { pool } = require('../../serveur.js')
+
 const app = express()
 
 
-module.exports = app.post('/', (req, res) => {
+module.exports = app.post('/:user_id/follow', (req, res) => {
     const resultatValidation = validationResult(req);
 
     const userToken = req.headers.authorization;
@@ -25,7 +26,7 @@ module.exports = app.post('/', (req, res) => {
             pool.query(
                 `SELECT count(*) 
                 FROM compte_suivi 
-                WHERE compte=?
+                WHERE id_compte=?
                 AND suit=?`,
                 [userId, userToFollow],
                 function (err, results, fields) {
@@ -45,7 +46,7 @@ module.exports = app.post('/', (req, res) => {
                         pool.query(
                             `insert into compte_suivi 
                             (
-                                compte, 
+                                id_compte, 
                                 suit, 
                                 suit_depuis
                             ) VALUES (
