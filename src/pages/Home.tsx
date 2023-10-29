@@ -123,55 +123,26 @@ function Home() {
         console.log('posts gotten')
     }, [feedType]);
 
-
-    const [isGlobalSelected, setGlobalIsSelected] = useState(true);
-    const [isAbonnementSelected, setAbonnementIsSelected] = useState(false);
-
-    function handleClickGlobal() {
-        setGlobalIsSelected(true)
-        setAbonnementIsSelected(false)
-    }
-
-    function handleClickAbonnement() {
-        setGlobalIsSelected(false)
-        setAbonnementIsSelected(true)
-    }
-    
-
-
     return (
         
         <div className={styles.body}>
             <BlogueForm />
 
-            {/*
-            <select value={feedType} onChange={e => changeFeedType(e.target.value)}>
-                <option value="global">Global</option>
-                <option value="followed">Abonnements</option>
-            </select>
-            */}
-
             <div className={styles.conteneurBoutons}>
-                <button className={isGlobalSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                <button className={feedType === "global" ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
                   changeFeedType("global");
-                  handleClickGlobal();
                 }}>Global</button>
-                <button id={styles["boutonAbonnement"]} className={isAbonnementSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
                   changeFeedType("followed");
-                  handleClickAbonnement();
                 }}>Abonnements</button>
             </div>
-
-           
-            
 
             <InfiniteScroll
                 dataLength={postData.length}
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
                 loader={<p>Chargement...</p>}
-                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            >
+                endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}>
                 <div>
                     {postData?.map(({
                         contenu,
