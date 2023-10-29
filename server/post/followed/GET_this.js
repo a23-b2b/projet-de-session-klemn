@@ -20,10 +20,10 @@ module.exports = app.get('/followed/:cursor', (req, res) => {
             FROM post_view
                 LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
                 INNER JOIN compte_suivi cs ON post_view.id_compte = cs.suit
-            WHERE post_view.numero_post <
-                IF(? = -1, (SELECT COUNT(*) FROM post_view), ?)
+            WHERE 
+                post_view.numero_post < IF(? = -1, (SELECT COUNT(*) FROM post_view), ?)
                 AND post_view.id_type_post != 4
-                AND compte LIKE ?
+                AND cs.id_compte = ?
             LIMIT ?;`,
             [userId, userCursor, userCursor, userId, limit],
             function (err, results, fields) {
