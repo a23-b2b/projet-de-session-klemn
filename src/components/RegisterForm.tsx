@@ -45,7 +45,6 @@ function RegisterForm() {
                 toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
                 navigate(0)
             }).catch((error) => {
-                console.log(error)
 
                 switch (error.code) {
                     case 'auth/invalid-email':
@@ -65,18 +64,18 @@ function RegisterForm() {
                         break;
 
                     case 'ER_DUP_ENTRY':
-                        if (error.sqlMessage.endsWith("'compte.uc_compte_courriel'")) {
+                        if (error.sqlMessage.includes("courriel")) {
                             toast.error('Le courriel est déjà inscrit.');
                         }
 
-                        if (error.sqlMessage.endsWith("'compte.uc_compte_nom_utilisateur'")) {
+                        if (error.sqlMessage.includes("nom_utilisateur")) {
                             toast.error('Le nom d\'utilisateur est déjà pris.');
                         }
-
+                        
                         break;
 
                     default:
-                        toast.error('Une erreur est survenue: ' + error.name)
+                        toast.error('Une erreur est survenue: ' + error.code)
                         break;
                 }
             })
