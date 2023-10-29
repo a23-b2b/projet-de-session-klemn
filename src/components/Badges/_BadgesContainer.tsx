@@ -31,20 +31,20 @@ function BadgesContainer(props: Props) {
         <div>
             {userBadges?.map((badge) => {
                 if (badge === Badges.DevTeam) {
-                    return <Badge icon={<FaComputer />} title={"Developpeur"} />
+                    return <Badge icon={<FaComputer />} title={"Developpeur"} key={badge}/>
                 }
 
                 if (badge === Badges.Verifie) {
-                    return <Badge icon={<RiVerifiedBadgeFill />} title={"Verifie"} />
+                    return <Badge icon={<RiVerifiedBadgeFill />} title={"Verifie"} key={badge}/>
                 }
 
                 if (badge === Badges.BugFinder) {
-                    return <Badge icon={<FaBugs />} title={"Bug Finder"} />
+                    return <Badge icon={<FaBugs />} title={"Bug Finder"} key={badge}/>
                 }
 
 
                 if (badge === Badges.EarlyUser) {
-                    return <Badge icon={<TbBeta />} title={"Early user"} />
+                    return <Badge icon={<TbBeta />} title={"Early user"} key={badge}/>
                 }
 
                 return (
