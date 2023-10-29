@@ -24,7 +24,6 @@ const PostContent = (props: ContentProps) => {
     useEffect(() => {
         if (contentRef.current) {
             setContentHeight(contentRef.current.clientHeight)
-            console.log('contentHeight', contentHeight)
         }
     }, [contentHeight]);
 
