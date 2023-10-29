@@ -366,9 +366,11 @@ function ModifierProfil() {
 
             </div>
 
+
             <br />
             <hr className={styles.hr}></hr>
             <br />
+
 
             <div>
                 <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
