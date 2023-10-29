@@ -2,6 +2,8 @@
     background-color: var(--auto_container_post_color);
 }
 
+
+
 .ligne_gestion_demande_collab {
     display: flex;
     /*align-items:center;*/
@@ -46,12 +48,31 @@
     opacity: .85;
 }
 
+.conteneur_gestion {
+    display: inline-flex;
+    width: 100%;
 
+}
+
+.conteneur_gestion div {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .conteneur_gestion_collab {
-    float: left;
-    width: 50%;
-    height: 100%;
+    width: 35%;
+    padding: 0px 20px 20px 20px;
+    border-radius: 20px;
+    background-color: #453d4c;
+
+
+}
+
+.conteneur_gestion_projet {
+    background-color: var(--auto_container_post_color);
+    padding: 0px 20px 20px 20px;
+    border-radius: 20px;
+
 
 }
 
