@@ -5,6 +5,7 @@ import CommentaireForm from './CommentaireForm';
 import { AnimatePresence, motion } from 'framer-motion';
 import Post, { TYPE_REPONSE } from "./Post";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Chargement from './EcranChargement';
 
 export interface SectionReponsesProps {
     idParent: string;
@@ -79,7 +80,7 @@ function SectionReponses(props: SectionReponsesProps) {
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 isPostFullScreen={false}
-                                type={TYPE_REPONSE} 
+                                type={TYPE_REPONSE}
                                 urlImageProfil={url_image_profil}
                                 userVote={vote} />
                         )
@@ -122,7 +123,7 @@ function SectionReponses(props: SectionReponsesProps) {
             <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire} />
 
             <AnimatePresence>
-                {loading ? '' : <RepliesContent />}
+                {loading ? <Chargement /> : <RepliesContent />}
             </AnimatePresence>
 
         </motion.div>
