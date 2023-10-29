@@ -152,87 +152,93 @@ function GestionCollab() {
             </div>}
 
 
-            <div className={styles.conteneur_gestion}>
+            <div >
                 <div className={styles.conteneurFiltreId}>
                     <p className={styles.filtre}>ID FILTRE: {idProjetFiltre}</p>
                 </div>
 
-                <div className={styles.conteneur_gestion_collab}>
-                    <div className={styles.titre_mes_demandes}>
-                        <h1>Mes demandes de collaboration</h1>
+                <div className={styles.conteneur_gestion}>
+
+
+
+
+                    <div className={styles.conteneur_gestion_collab}>
+                        <div className={styles.titre_mes_demandes}>
+                            <h1>Mes demandes de collaboration</h1>
+                        </div>
+
+                        {/*Faire map sur retour de demande de collab*/}
+                        {demandesCollab && demandesCollab?.map(({
+                            id_compte,
+                            url_image_profil,
+                            nom_utilisateur,
+                            id_projet,
+                            titre_projet,
+                            description_projet,
+                            id_demande_collab
+                        }) => {
+                            return (<>
+                                <div key={id_demande_collab}>
+                                    {(idProjetFiltre == "") &&
+
+                                        <GestionDemandeCollab
+                                            id_compte={id_compte}
+                                            url_image_profil={url_image_profil}
+                                            nom_utilisateur={nom_utilisateur}
+
+                                            id_projet={id_projet}
+                                            titre_projet={titre_projet}
+                                            description_projet={description_projet}
+                                            id_demande_collab={id_demande_collab}
+                                        />
+                                    }
+                                    {(id_projet == idProjetFiltre) &&
+
+                                        <GestionDemandeCollab
+                                            id_compte={id_compte}
+                                            url_image_profil={url_image_profil}
+                                            nom_utilisateur={nom_utilisateur}
+
+                                            id_projet={id_projet}
+                                            titre_projet={titre_projet}
+                                            description_projet={description_projet}
+                                            id_demande_collab={id_demande_collab}
+                                        />
+                                    }
+                                </div>
+                            </>)
+                        })}
                     </div>
 
-                    {/*Faire map sur retour de demande de collab*/}
-                    {demandesCollab && demandesCollab?.map(({
-                        id_compte,
-                        url_image_profil,
-                        nom_utilisateur,
-                        id_projet,
-                        titre_projet,
-                        description_projet,
-                        id_demande_collab
-                    }) => {
-                        return (<>
-                            <div key={id_demande_collab}>
-                                {(idProjetFiltre == "") &&
+                    <div className={styles.conteneur_gestion_projet}>
 
-                                    <GestionDemandeCollab
-                                        id_compte={id_compte}
-                                        url_image_profil={url_image_profil}
-                                        nom_utilisateur={nom_utilisateur}
+                        <div className={styles.titre_mes_demandes}>
+                            <h1>Mes Projets - Edition Rapide</h1>
+                        </div>
+                        {projets && projets?.map(({
+                            compte_id_proprio,
+                            id_projet,
+                            titre_projet,
+                            description_projet,
+                            est_ouvert
+                        }) => {
+                            return (<>
 
-                                        id_projet={id_projet}
-                                        titre_projet={titre_projet}
-                                        description_projet={description_projet}
-                                        id_demande_collab={id_demande_collab}
-                                    />
-                                }
-                                {(id_projet == idProjetFiltre) &&
-
-                                    <GestionDemandeCollab
-                                        id_compte={id_compte}
-                                        url_image_profil={url_image_profil}
-                                        nom_utilisateur={nom_utilisateur}
+                                <div key={id_projet}>
+                                    <GestionProjetRapide
+                                        filtrerDemandeParIdProjet={filtrer}
+                                        montrerFormulaireAjoutCollaborateur={montrerFormulaireAjoutCollaborateur}
 
                                         id_projet={id_projet}
-                                        titre_projet={titre_projet}
-                                        description_projet={description_projet}
-                                        id_demande_collab={id_demande_collab}
+                                        titre={titre_projet}
+                                        description={description_projet}
+                                        compte_id_proprio={compte_id_proprio}
+                                        est_ouvert={est_ouvert}
                                     />
-                                }
-                            </div>
-                        </>)
-                    })}
-                </div>
-
-                <div className={styles.conteneur_gestion_collab}>
-
-                    <div className={styles.titre_mes_projets_rapide}>
-                        <h1>Mes Projets - Edition Rapide</h1>
+                                </div>
+                            </>)
+                        })}
                     </div>
-                    {projets && projets?.map(({
-                        compte_id_proprio,
-                        id_projet,
-                        titre_projet,
-                        description_projet,
-                        est_ouvert
-                    }) => {
-                        return (<>
-
-                            <div key={id_projet}>
-                                <GestionProjetRapide
-                                    filtrerDemandeParIdProjet={filtrer}
-                                    montrerFormulaireAjoutCollaborateur={montrerFormulaireAjoutCollaborateur}
-
-                                    id_projet={id_projet}
-                                    titre={titre_projet}
-                                    description={description_projet}
-                                    compte_id_proprio={compte_id_proprio}
-                                    est_ouvert={est_ouvert}
-                                />
-                            </div>
-                        </>)
-                    })}
                 </div>
             </div>
         </>
