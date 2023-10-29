@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
+import {Menu, MenuDivider, MenuItem} from "@szhsin/react-menu";
+import {SlOptionsVertical} from "react-icons/sl";
+import {MdDeleteForever} from "react-icons/md";
 
 interface HeaderProps {
     date: string;
@@ -62,6 +65,11 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     console.log(props.urlImageProfil)
+
+    function handleOptionsItemClick(item: string) {
+
+    }
+
     return (
         <div className={styles.header}>
             <Link to={`/u/${props.nomUtilisateur}`}>
@@ -79,6 +87,17 @@ const PostHeader = (props: HeaderProps) => {
                 <p className={styles.date}>{timeStampText}</p>
             </Tooltip>
 
+            <Menu menuButton={
+                <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
+                    <SlOptionsVertical className={styles.icone}  />
+                </div>
+            }
+                  transition={true}
+                  menuClassName={styles.share_menu}
+                  onItemClick={(e) => handleOptionsItemClick(e.value)}>
+
+                <MenuItem value={'delete'} className={styles.share_menu_item}><MdDeleteForever className={styles.share_menu_icon} id={styles.icone_supprimer} /><span>Supprimer</span></MenuItem>
+            </Menu>
         </div>
     )
 }

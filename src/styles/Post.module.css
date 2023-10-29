@@ -132,6 +132,13 @@ margin-top: 30px;
     transition: 0.2s;
 }
 
+#bouton_interraction_options {
+    padding: 8px 8px;
+    margin: 0px 4px;
+    border-radius: 100px;
+    transition: 0.2s;
+}
+
 .disliked_post {
     transition: 0.5s;
     color: rgb(170, 0, 0);
@@ -187,6 +194,11 @@ margin-top: 30px;
 
     #icone_partage:hover {
         color: rgb(111, 0, 255);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_options:hover{
+        background-color: var(--auto_container_post_color);
         transition: 0.1s;
     }
 }
@@ -258,4 +270,8 @@ margin-top: 30px;
 
 .share_menu_item>.share_menu_icon {
     margin-bottom: -2px;
+}
+
+#icone_supprimer {
+    scale: 1.2;
 }
