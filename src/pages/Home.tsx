@@ -59,9 +59,6 @@ function Home() {
                     }).then(response => response.json()).then(response => {
                         let data = response["posts"]
 
-                        console.log(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`)
-                        console.log(response)
-
                         let newCursor = parseInt(response.newCursor)
 
                         setCursor(newCursor)
