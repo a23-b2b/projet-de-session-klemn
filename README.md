@@ -4,6 +4,8 @@ Cette application a été générée avec  [Create React App](https://github.com
 
 # Projet de Session Automne 2023 - Klemn
 
+***
+
 ## Projet
 
 Cette application web est un réseau social pour développeurs qui a été développée dans le cadre du cours PROJET DE DÉVELOPPEMENT DE LOGICIEL (420-5GD-BB). 
@@ -12,6 +14,7 @@ Inspiré entre autre par GitHub, Reddit, Twitter (maintenant 𝕏), LinkedIn, St
 
 ## Fonctionnalitées
 
+***
 
 ## Scripts Disponibles
 
@@ -37,10 +40,15 @@ Il est important de noter que vous devrez aussi créer une base de données MySQ
 npx drizzle-kit push:mysql
 ```
 
+***
+
 ### .env
+
 Pour exécuter ce projet, vous aurez besoin d'un fichier .env localisé à la racine du projet qui contiendra les informations de votre base de données MySQL. Voici la structure que vous devez utiliser:
 
 ### configuration basique. Devrait suffir pour la majorité des configurations
+
+***
 
 # Configuration de la connexion à la base de données MySQL
 
@@ -65,6 +73,8 @@ SERVER_PORT=1111
 REACT_APP_API_URL="http://localhost:1111"
 ```
 
+*** 
+
 ## Stack
 
 | Technologie | Contribution |
@@ -84,8 +94,31 @@ REACT_APP_API_URL="http://localhost:1111"
 | Partage | En tant qu'utilisateur, vous pouvez partager les publications aux personnes qui vous suivent ou via un lien qui mène vers celle-ci |
 | Commentaire | En tant qu'utilisateur vous pouvez rédiger des commentaires en dessous d'une publication |
 | Documentation Dynamique | Cette page est en fait générée en utilisant notre README.md qui est aussi affiché et utilisé officiellement par GitHub. Cette page sera donc automatiquement mise à jour lorsque nous ajouterons de la documentation |
+| Markdown | Markdown est maintenant supporté lors de la rédaction de publication. |
 
 et plus encore!!
+
+## Tutoriel: Éditeur de publication 3000 Klemn
+
+Utilisez 
+```
+
+~~~[language] 
+
+{code ici} 
+
+~~~
+``` 
+
+pour déclencher le surlignement de syntaxe. Mais n'oubliez pas d'activer le mode Markdown avant l'envoi de votre publication! Si le symbole d'identification du language n'est pas reconnu, nous utiliserons notre propre formatage de bloc de code.
+
+[Documentation CommonMark](https://commonmark.org/help/)
+
+[Languages Supportés](https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_PRISM.MD)
+
+Notre super éditeur supporte aussi 3 différent type de publications décrites dans les tableaus sur cette page.
+
+***
 
 ## À Venir!
 

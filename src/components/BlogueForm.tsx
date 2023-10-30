@@ -86,8 +86,8 @@ function BlogueForm() {
                     <div>
                         <label className={styles.switch}>
                             <input onChange={()=> { 
-                                setEstMarkdown(!estMarkdown)
                                 toast(`Mode markdown actif?: ${estMarkdown}`)
+                                setEstMarkdown(!estMarkdown)
                             }} type="checkbox"/>
                             <span className={styles.slider}/> 
                         </label>
