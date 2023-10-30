@@ -58,10 +58,8 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                     [userId, titre, contenu, estMarkdown, userId],
                     function (err, results, fields) {
                         if (err) {
-                            // logger.info("Erreur lors de lexecution de la query.", err)
                             console.log(err)
                             res.status(500).send("ERREUR: " + err.code)
-
                         } else {
                             res.send(JSON.stringify(results[1][0]))
                         }

@@ -13,7 +13,7 @@ function BlogueForm() {
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
     const [urlGit, setUrlGit] = useState("");
-    const [estMarkdown, setEstMarkdown] = useState(true);
+    const [estMarkdown, setEstMarkdown] = useState(false);
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
