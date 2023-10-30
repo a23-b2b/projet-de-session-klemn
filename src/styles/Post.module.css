@@ -134,7 +134,10 @@ margin-top: 30px;
 
 #bouton_interraction_options {
     padding: 8px 8px;
-    margin: 0px 4px;
+    height: fit-content;
+    margin-right: 0;
+    margin-top: 14px;
+    margin-left: 8px;
     border-radius: 100px;
     transition: 0.2s;
 }
@@ -156,13 +159,22 @@ margin-top: 30px;
     transition: 0.5s;
 }
 
+#icone_supprimer {
+    scale: 1.2;
+}
+
+#icone_options {
+    margin: 0;
+}
+
 @media (hover: hover) and (pointer: fine) {
     #icone_like:hover {
         color: rgb(0, 187, 62);
         transition: 0.1s;
     }
 
-    #icone_dislike:hover {
+    #icone_dislike:hover,
+    #icone_supprimer:hover{
         color: rgb(170, 0, 0);
         transition: 0.1s;
     }
@@ -270,8 +282,4 @@ margin-top: 30px;
 
 .share_menu_item>.share_menu_icon {
     margin-bottom: -2px;
-}
-
-#icone_supprimer {
-    scale: 1.2;
 }

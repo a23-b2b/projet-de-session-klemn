@@ -67,6 +67,7 @@ function Post(props: Props) {
                     nomAffichage={props.nomAffichage}
                     nomUtilisateur={props.nomUtilisateur}
                     contenu={props.contenu}
+                    idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}

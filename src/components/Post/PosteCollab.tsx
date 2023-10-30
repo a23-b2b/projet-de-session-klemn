@@ -54,6 +54,8 @@ function PosteCollab(props: CollabProp) {
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil} />

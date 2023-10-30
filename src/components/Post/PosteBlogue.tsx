@@ -27,8 +27,10 @@ function PosteBlogue(props: BlogueProp) {
         <div className={'global_conteneur_post'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} 
+                nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil} />
 
             <PostContent
