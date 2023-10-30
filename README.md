@@ -39,21 +39,29 @@ npx drizzle-kit push:mysql
 
 ### .env
 Pour exécuter ce projet, vous aurez besoin d'un fichier .env localisé à la racine du projet qui contiendra les informations de votre base de données MySQL. Voici la structure que vous devez utiliser:
-```
-### configuration basique. Devrait suffir pour la majorité des configurations ###
+
+### configuration basique. Devrait suffir pour la majorité des configurations
 
 # Configuration de la connexion à la base de données MySQL
+
+```
 MYSQL_HOSTNAME=localhost
 MYSQL_PORT=3306
 MYSQL_USERNAME=mysql-username
 MYSQL_PASSWORD=mysql-password
 MYSQL_DATABASE=mysql-database
+```
 
 # Configuration du serveur d'API
+
+```
 SERVER_HOSTNAME=localhost
 SERVER_PORT=1111
+```
 
 # URL de l'API que le client front-end va utiliser pour faire les requêtes.
+
+```
 REACT_APP_API_URL="http://localhost:1111"
 ```
 
