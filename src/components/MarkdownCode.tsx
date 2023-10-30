@@ -6,17 +6,15 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface MarkdownCodeProps {
-    c: string // Code a render
+    c: string // Code markdown a render
 }
 
 function MarkdownCode(props: MarkdownCodeProps) {
-    // https://raw.githubusercontent.com/a23-b2b/projet-de-session-klemn/main/README.md?token=GHSAT0AAAAAACG6FDOULTCHY2ZGNYHCYGM4ZJZCVQA
-
     return (<>
         <div className={style.conteneur}>
             <Markdown components={{                
-                code(props) {
-                    const {children, className, node, ...rest} = props
+                code(props) { // Block de code 
+                    const {children, className,} = props
                     const match = /language-(\w+)/.exec(className || '')
                     return match ? (
                       <SyntaxHighlighter
@@ -26,7 +24,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
                         PreTag="div"
                         showLineNumbers={true}
                       />
-                    ) : (<div style={{
+                    ) : (<p style={{
                             padding: '2%', 
                             background: 'rgba(255,255,255,0.5)', 
                             width: 'max-content',
@@ -36,7 +34,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
                         <code>
                             {children}
                         </code>
-                      </div>
+                      </p>
                     )
                 },
                 /*
@@ -46,7 +44,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
                     https://blog.logrocket.com/guide-syntax-highlighting-react/  
                 */
                 
-                table(props){
+                table(props){ // Table
                     const {node, ...rest} = props
                     return <table style={{
                         borderSpacing: '0',
@@ -54,18 +52,17 @@ function MarkdownCode(props: MarkdownCodeProps) {
                         display: 'block',
                         width: 'max-content',
                         maxWidth: '100%',
-                        overflow: 'auto',
-                        /*border: '1px solid' */}} {...rest} />
+                        overflow: 'auto'}} {...rest} />
                 },
-                th(props){
+                th(props){ // Header de table
                     const {node, ...rest} = props
                     return <th style={{border: '1px solid' }} {...rest} />
                 },
-                td(props){
+                td(props){ // Delta de table
                     const {node, ...rest} = props
                     return <td style={{border: '1px solid' }} {...rest} />
                 },
-                ol(props) {
+                ol(props) { // Liste non-ordonnee
                     const {node, ...rest} = props
                     return <ol style={{listStyleType: 'circle'}} {...rest}/>
                 }

@@ -13,12 +13,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
     const navigate = useNavigate();
-
     const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
