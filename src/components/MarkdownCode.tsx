@@ -26,27 +26,26 @@ function MarkdownCode(props: MarkdownCodeProps) {
                         PreTag="div"
                         showLineNumbers={true}
                       />
-                    ) : (
-                      <code {...rest} className={className}>
-                        {children}
-                      </code>
+                    ) : (<div style={{
+                            padding: '2%', 
+                            background: 'rgba(255,255,255,0.5)', 
+                            width: 'max-content',
+                            maxWidth: '100%',
+                            overflow: 'auto',
+                            borderRadius: '10px'}}>
+                        <code>
+                            {children}
+                        </code>
+                      </div>
                     )
                 },
                 /*
-                https://github.com/remarkjs/remark 
-                https://github.com/react-syntax-highlighter/react-syntax-highlighter
-                https://www.npmjs.com/package/react-markdown#appendix-b-components*/
-                // https://blog.logrocket.com/guide-syntax-highlighting-react/ 
-                /*code(props){
-                    const {node, ...rest} = props
-                    return <code style={{
-                        padding: '2%', 
-                        background: 'rgba(255,255,255,0.5)', 
-                        width: 'max-content',
-                        maxWidth: '100%',
-                        overflow: 'auto'}} {...rest} 
-                    />
-                },*/
+                    https://github.com/remarkjs/remark 
+                    https://github.com/react-syntax-highlighter/react-syntax-highlighter
+                    https://www.npmjs.com/package/react-markdown#appendix-b-components
+                    https://blog.logrocket.com/guide-syntax-highlighting-react/  
+                */
+                
                 table(props){
                     const {node, ...rest} = props
                     return <table style={{
