@@ -35,7 +35,7 @@ function RegisterForm() {
                         id_compte: user.uid
                     }),
                 }).catch((error) => {
-                    console.log(error)
+                    toast.error(error)
                 })
             }).then(() => {
                 toast.success('Vous êtes connecté!')

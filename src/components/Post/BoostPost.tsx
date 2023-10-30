@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Post from '../Post';
 import { FaRetweet } from 'react-icons/fa6';
 import styles from '../../styles/BoostedPost.module.css'
+import toast from 'react-hot-toast';
 
 interface Props {
     idPost: string;
@@ -29,7 +30,6 @@ function BoostPost(props: Props) {
 
     function getSharedboostedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.boostedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -43,10 +43,9 @@ function BoostPost(props: Props) {
 
                     setBoostedPostData(data)
 
-                    console.log(data)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error('Une erreur est survenue');
                 })
         });
     }
