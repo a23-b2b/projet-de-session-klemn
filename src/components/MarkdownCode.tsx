@@ -12,29 +12,30 @@ interface MarkdownCodeProps {
 function MarkdownCode(props: MarkdownCodeProps) {
     return (<>
         <div className={style.conteneur}>
-            <Markdown components={{                
+            <Markdown components={{
                 code(props) { // Block de code 
-                    const {children, className,} = props
+                    const { children, className, } = props
                     const match = /language-(\w+)/.exec(className || '')
                     return match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, '')}
-                        style={atomDark}
-                        language={match[1]}
-                        PreTag="div"
-                        showLineNumbers={true}
-                      />
+                        <SyntaxHighlighter
+                            children={String(children).replace(/\n$/, '')}
+                            style={atomDark}
+                            language={match[1]}
+                            PreTag="div"
+                            showLineNumbers={true}
+                        />
                     ) : (<p style={{
-                            padding: '2%', 
-                            background: 'rgba(255,255,255,0.5)', 
-                            width: 'max-content',
-                            maxWidth: '100%',
-                            overflow: 'auto',
-                            borderRadius: '10px'}}>
+                        padding: '2%',
+                        background: 'rgba(255,255,255,0.5)',
+                        width: 'max-content',
+                        maxWidth: '100%',
+                        overflow: 'auto',
+                        borderRadius: '10px'
+                    }}>
                         <code>
                             {children}
                         </code>
-                      </p>
+                    </p>
                     )
                 },
                 /*
@@ -43,28 +44,29 @@ function MarkdownCode(props: MarkdownCodeProps) {
                     https://www.npmjs.com/package/react-markdown#appendix-b-components
                     https://blog.logrocket.com/guide-syntax-highlighting-react/  
                 */
-                
-                table(props){ // Table
-                    const {node, ...rest} = props
+
+                table(props) { // Table
+                    const { node, ...rest } = props
                     return <table style={{
                         borderSpacing: '0',
                         borderCollapse: 'collapse',
                         display: 'block',
                         width: 'max-content',
                         maxWidth: '100%',
-                        overflow: 'auto'}} {...rest} />
+                        overflow: 'auto'
+                    }} {...rest} />
                 },
-                th(props){ // Header de table
-                    const {node, ...rest} = props
-                    return <th style={{border: '1px solid' }} {...rest} />
+                th(props) { // Header de table
+                    const { node, ...rest } = props
+                    return <th style={{ border: '1px solid' }} {...rest} />
                 },
-                td(props){ // Delta de table
-                    const {node, ...rest} = props
-                    return <td style={{border: '1px solid' }} {...rest} />
+                td(props) { // Delta de table
+                    const { node, ...rest } = props
+                    return <td style={{ border: '1px solid' }} {...rest} />
                 },
                 ol(props) { // Liste non-ordonnee
-                    const {node, ...rest} = props
-                    return <ol style={{listStyleType: 'circle'}} {...rest}/>
+                    const { node, ...rest } = props
+                    return <ol style={{ listStyleType: 'circle' }} {...rest} />
                 }
             }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={props.c}></Markdown>
         </div>
