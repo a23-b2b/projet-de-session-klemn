@@ -7,7 +7,13 @@ import { LuFileQuestion } from 'react-icons/lu';
 import { RxFileText } from 'react-icons/rx';
 import { RiTeamLine } from 'react-icons/ri';
 import { LuSettings } from 'react-icons/lu';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
+import { CgProfile } from 'react-icons/cg';
 import { Menu, MenuItem } from '@szhsin/react-menu';
+
+interface HeaderProps {
+    nomUtilisateur: string;
+}
 
 
 function Header() {
@@ -26,10 +32,13 @@ function Header() {
                 </div>
 
                 <div id={styles["SectionDroite"]}>
+                    {/*
                     <div id={styles["IconeUtilisateur"]}>
-                        {/* IMG Icône Utilisateur */}
+                        
                         <img src={user} width="40" height="40" alt="User" onClick={() => navigate('/authenticate')} />
                     </div>
+                    */}
+
 
                     <div className={styles.dropdown}>
 
@@ -41,32 +50,36 @@ function Header() {
                                     <CiCircleList size="40px" className={styles.icone_list} />
                                 </div>}>
 
-                            <MenuItem className={styles.dropdown_menu_item}>
-                                <RxFileText className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]} className={'link'}>
-                                    Blogues
+                            <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/u/${props.nomUtilisateur}')}>
+                                <CgProfile className={styles.dropdown_menu_icon} />
+                                <Link to={'/u/${props.nomUtilisateur}'} id={styles["link"]} className={'link'}>
+                                    Profil
                                 </Link>
                             </MenuItem>
 
-                            <MenuItem className={styles.dropdown_menu_item}>
-                                <LuFileQuestion className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]} className={'link'}>
-                                    Question
-                                </Link>
-                            </MenuItem>
+                            
 
-                            <MenuItem className={styles.dropdown_menu_item}>
-                                <RiTeamLine className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]} className={'link'}>
-                                    Collaboration
-                                </Link>
-                            </MenuItem>
-
-                            <MenuItem className={styles.dropdown_menu_item}>
+                            <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/parametres/profil')}>
                                 <LuSettings className={styles.dropdown_menu_icon} />
-                                <Link to={'/parametres/profil'} id={styles["link"]} className={'link'}>
+                                <span id={styles["link"]} className={'link'}>
                                     Paramètres
-                                </Link>
+                                </span>
+                            </MenuItem>
+
+
+                            <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/gestion')}>
+                                <RiTeamLine className={styles.dropdown_menu_icon} />
+                                <span id={styles["link"]} className={'link'}>
+                                    Collaboration
+                                </span>
+                            </MenuItem>
+
+                            
+                            <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/authenticate')}>
+                                <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
+                                <span id={styles["link"]} className={'link'}>
+                                    Déconnexion
+                                </span>
                             </MenuItem>
                         </Menu>
                     </div>
