@@ -69,7 +69,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
 
             if (typePost === TypesDePost.Collab) {
                 pool.query(
-                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
@@ -87,7 +87,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                     WHERE id_compte = ?
                     order by date_publication desc
                     limit 1;`,
-                    [userId, titre, contenu, userId, urlGit, userId],
+                    [userId, titre, contenu, estMarkdown, userId, urlGit, userId],
                     function (err, results, fields) {
                         if (err) {
                             // logger.info("Erreur lors de lexecution de la query.", err)
@@ -103,7 +103,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
 
             if (typePost === TypesDePost.Question) {
                 pool.query(
-                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                         nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
@@ -121,7 +121,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                      WHERE id_compte = ?
                      order by date_publication desc
                      limit 1;`,
-                    [userId, titre, contenu, userId, userId],
+                    [userId, titre, contenu, estMarkdown, userId, userId],
                     function (err, results, fields) {
                         if (err) {
                             // logger.info("Erreur lors de lexecution de la query.", err)
