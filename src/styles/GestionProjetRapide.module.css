@@ -1,23 +1,32 @@
 .conteneur_gestion_rapide {
     display: flex;
-
-    
+    background-color: var(--auto_container_gestion_projet_rapide);
+   margin-bottom: 20px; 
+   padding: 20px;
+   border-radius: 10px;
 }
 
 .conteneur_info_projet {
     width: 100%;
-    margin-top: auto;
-    margin-bottom: auto;
-    text-align: center;
+    margin-right: 20px;
+    text-align: left;
 }
 
 
 .conteneur_action_projet {
 display: inline-block;
+
 }
 
 .ligne1, .ligne2 {
 display: inline-flex;
+width: 100%;
+margin-bottom: 5px;
+
+}
+
+.conteneurIcone {
+    margin: auto;
 }
 
 .titre_projet {

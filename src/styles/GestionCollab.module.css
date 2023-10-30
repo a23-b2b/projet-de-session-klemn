@@ -35,7 +35,7 @@
 }
 
 .titre_projet {
-    text-align: left;
+    text-align: center;
     font-weight: bold;
     color: var(--auto_text_color);
 
@@ -51,7 +51,7 @@
 .conteneur_gestion {
     display: inline-flex;
     width: 100%;
-
+    background-color: var(--auto_container_post_color);
 }
 
 .conteneur_gestion div {
@@ -60,16 +60,16 @@
 }
 
 .conteneur_gestion_collab {
-    width: 35%;
-    padding: 0px 20px 20px 20px;
+    margin: 60px 20px 80px 0px;
+    padding: 0px 10px 10px 10px;
     border-radius: 20px;
-    background-color: #453d4c;
+    background-color: var(--auto_container_gestion);
 
 
 }
 
 .conteneur_gestion_projet {
-    background-color: var(--auto_container_post_color);
+    margin: 40px 0px;
     padding: 0px 20px 20px 20px;
     border-radius: 20px;
 
@@ -261,8 +261,8 @@
 /*Filtre*/
 
 .conteneurFiltreId {
-
-    margin-left: 20px;
+    width: 100%;
+    margin: 10px 10px;
     background-color: var(--auto_accent_color);
     min-width: 200px;
     width: fit-content;
@@ -270,6 +270,7 @@
 }
 
 .filtre {
+
     padding: 10px;
     opacity: .8;
 }

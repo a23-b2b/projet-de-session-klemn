@@ -153,17 +153,55 @@ function GestionCollab() {
 
 
             <div >
-                <div className={styles.conteneurFiltreId}>
-                    <p className={styles.filtre}>ID FILTRE: {idProjetFiltre}</p>
-                </div>
+
 
                 <div className={styles.conteneur_gestion}>
 
 
 
 
+
+
+                    <div className={styles.conteneur_gestion_projet}>
+
+
+
+                        <div className={styles.titre_projet}>
+                            <h1>Mes Projets - Edition Rapide</h1>
+                        </div>
+
+                        <div className={styles.conteneurFiltreId}>
+                            <p className={styles.filtre}>ID Filtre: {idProjetFiltre}</p>
+                        </div>
+                        
+                        {projets && projets?.map(({
+                            compte_id_proprio,
+                            id_projet,
+                            titre_projet,
+                            description_projet,
+                            est_ouvert
+                        }) => {
+                            return (<>
+
+                                <div key={id_projet}>
+                                    <GestionProjetRapide
+                                        filtrerDemandeParIdProjet={filtrer}
+                                        montrerFormulaireAjoutCollaborateur={montrerFormulaireAjoutCollaborateur}
+
+                                        id_projet={id_projet}
+                                        titre={titre_projet}
+                                        description={description_projet}
+                                        compte_id_proprio={compte_id_proprio}
+                                        est_ouvert={est_ouvert}
+                                    />
+                                </div>
+                            </>)
+                        })}
+                    </div>
+
+
                     <div className={styles.conteneur_gestion_collab}>
-                        <div className={styles.titre_mes_demandes}>
+                        <div className={styles.titre_projet}>
                             <h1>Mes demandes de collaboration</h1>
                         </div>
 
@@ -210,35 +248,7 @@ function GestionCollab() {
                         })}
                     </div>
 
-                    <div className={styles.conteneur_gestion_projet}>
 
-                        <div className={styles.titre_mes_demandes}>
-                            <h1>Mes Projets - Edition Rapide</h1>
-                        </div>
-                        {projets && projets?.map(({
-                            compte_id_proprio,
-                            id_projet,
-                            titre_projet,
-                            description_projet,
-                            est_ouvert
-                        }) => {
-                            return (<>
-
-                                <div key={id_projet}>
-                                    <GestionProjetRapide
-                                        filtrerDemandeParIdProjet={filtrer}
-                                        montrerFormulaireAjoutCollaborateur={montrerFormulaireAjoutCollaborateur}
-
-                                        id_projet={id_projet}
-                                        titre={titre_projet}
-                                        description={description_projet}
-                                        compte_id_proprio={compte_id_proprio}
-                                        est_ouvert={est_ouvert}
-                                    />
-                                </div>
-                            </>)
-                        })}
-                    </div>
                 </div>
             </div>
         </>

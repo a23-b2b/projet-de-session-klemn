@@ -84,69 +84,69 @@ function GestionProjetRapide(props: PropsProjet) {
 
 
     return (
-        <>
-
-
-            <div className={styles.conteneur_gestion_rapide}>
 
 
 
-                {/* Rang/e du haut */}
+        <div className={styles.conteneur_gestion_rapide}>
 
-                <div className={styles.conteneur_info_projet}>
-                    <div>
-                        <p className={styles.titre_projet}>Titre: {props.titre}</p>
+
+
+            {/* Rang/e du haut */}
+
+            <div className={styles.conteneur_info_projet}>
+                <div>
+                    <p className={styles.titre_projet}>Titre: {props.titre}</p>
+                </div>
+
+                <div>
+                    <p className={styles.description_projet}>Description: {props.description}</p>
+                </div>
+
+            </div>
+
+            <div className={styles.conteneur_action_projet}>
+
+
+                <div className={styles.ligne1}>
+                    <div className={styles.conteneurIcone}>
+                        <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
+                            <RiTeamLine size={50} className={styles.icone} />
+                        </button>
                     </div>
+                    <div className={styles.conteneurIcone}>
 
-                    <div>
-                        <p className={styles.description_projet}>Description: {props.description}</p>
+                        <button onClick={rendreProjetOuvertAuCollab}>
+
+                            {Boolean(estOuvert) && <HiLockOpen size={55} className={styles.icone} />}
+
+                            {Boolean(!estOuvert) && <HiLockClosed size={55} className={styles.icone} />}
+                            
+                        </button>
+
                     </div>
 
                 </div>
 
-                <div className={styles.conteneur_action_projet}>
 
-
-                    <div className={styles.ligne1}>
-                        <div>
-                            <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
-                                <RiTeamLine size={50} className={styles.icone} />
-                            </button>
-                        </div>
-                        <div>
-                            <button onClick={rendreProjetOuvertAuCollab}>
-                                {estOuvert &&
-                                    <HiLockOpen size={55} className={styles.icone} />
-                                }
-                                {!estOuvert &&
-                                    <HiLockClosed size={55} className={styles.icone} />
-                                }
-                            </button>
-
-                        </div>
-
+                <div className={styles.ligne2}>
+                    <div className={styles.conteneurIcone}>
+                        <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
+                            <HiFunnel size={50} className={styles.icone} />
+                        </button>
+                    </div>
+                    <div className={styles.conteneurIcone}>
+                        <button onClick={supprimerProjet}>
+                            <GoTrash size={55} className={styles.icone} />
+                        </button>
                     </div>
 
-
-                    <div className={styles.ligne2}>
-                    <div>
-                            <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
-                                <HiFunnel size={50} className={styles.icone} />
-                            </button>
-                        </div>
-                        <div>
-                            <button onClick={supprimerProjet}>
-                                <GoTrash size={55} className={styles.icone} />
-                            </button>
-                        </div>
-
-                        
-                    </div>
 
                 </div>
 
             </div>
-        </>
+
+        </div>
+
     )
 }
 

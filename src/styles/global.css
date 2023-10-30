@@ -26,7 +26,7 @@
 
     /*Couleur du gradient secondaire*/
     --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
     --dark_container_color: rgba(255, 255, 255, 0.199);
@@ -60,6 +60,21 @@
     --dark_container_post_color: rgba(138, 138, 138, 0.16);
     --light_container_post_color: rgba(103, 18, 114, 0.256);
 
+    /*Couleur conteneur getsion */
+    --dark_container_gestion: rgb(69, 61, 76);
+    --light_container_gestion: rgb(98, 9, 145);
+
+
+    /*Couleur du background du container gestsion projet rapide*/
+    --dark_container_gestion_projet_rapide: rgba(69, 64, 75, 0.425);
+    --light_container_gestion_projet_rapide: rgb(98, 9, 145);
+
+    /*Couleur du background du container gestsion collaboration*/
+    --dark_container_gestion_collaboration: rgba(69, 64, 75, 0.425);
+    --light_container_gestion_projet_collaboration: rgb(98, 9, 145);
+
+
+
 
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
@@ -86,7 +101,8 @@
     --auto_button2_color: var(--dark_button2_color);
     --auto_button2_text_color: var(--dark_button2_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
-
+    --auto_container_gestion_projet_rapide: var(--dark_container_gestion_projet_rapide);
+    --auto_container_gestion: var(--dark_container_gestion);
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
@@ -105,6 +121,8 @@
         --auto_button2_color: var(--light_button2_color);
         --auto_button2_text_color: var(--light_button2_text_color);
         --auto_container_post_color: var(--light_container_post_color);
+        --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
+        --auto_container_gestion: var(--light_container_gestion);
     }
 
 }
