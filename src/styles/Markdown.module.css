@@ -19,14 +19,11 @@
     overflow: auto;
 }
 
-/* Table header */
-.th {
-    border: 1px solid;
-}
-
 /* Table delta */
-.td {
-    border: 1px solid;
+/* Table header */
+.td, .th {
+    border: 1px solid var(--auto_border_color);
+    padding: 6px
 }
 
 /* Ordered list */
