@@ -107,7 +107,7 @@ const PostContent = (props: ContentProps) => {
                     </AnimatePresence> */}
 
                     {!isPostExpanded && (
-                        <p>{truncatedPostContent}</p>
+                        <MarkdownCode c= {truncatedPostContent}/>
                     )}
 
                     <AnimatePresence>
