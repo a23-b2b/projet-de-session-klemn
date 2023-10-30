@@ -9,6 +9,7 @@ interface ContentProps {
     contenu: string;
     idPost: string;
     isPostFullScreen: Boolean;
+    estMarkdown: Boolean;
 }
 
 const PostContent = (props: ContentProps) => {

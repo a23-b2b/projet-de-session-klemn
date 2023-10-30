@@ -140,6 +140,7 @@ function Home() {
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -169,6 +170,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}

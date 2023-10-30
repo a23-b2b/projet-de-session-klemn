@@ -43,7 +43,6 @@ function PostFullScreen() {
     }, [postId]);
 
     if (postData) {
-        console.log(postData)
         return (
             <div className={styles.body}>
                 <Post
@@ -54,6 +53,7 @@ function PostFullScreen() {
                     idCompte={postData.id_compte}
                     titre={postData.titre}
                     contenu={postData.contenu}
+                    estMarkdown={postData.est_markdown}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}

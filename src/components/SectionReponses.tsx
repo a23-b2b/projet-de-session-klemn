@@ -60,6 +60,7 @@ function SectionReponses(props: SectionReponsesProps) {
                         nom_utilisateur,
                         titre,
                         contenu,
+                        est_markdown,
                         nombre_likes,
                         nombre_dislikes,
                         nombre_partages,
@@ -75,6 +76,7 @@ function SectionReponses(props: SectionReponsesProps) {
                                 nomUtilisateur={nom_utilisateur}
                                 titre={titre}
                                 contenu={contenu}
+                                estMarkdown={est_markdown}
                                 nombreLike={nombre_likes}
                                 nombreDislike={nombre_dislikes}
                                 nombrePartage={nombre_partages}

@@ -65,6 +65,7 @@ function BoostPost(props: Props) {
                     idCompte={boostedPostData.id_compte}
                     titre={boostedPostData.titre}
                     contenu={boostedPostData.contenu}
+                    estMarkdown={boostedPostData.est_markdown}
                     nombreLike={boostedPostData.nombre_likes}
                     nombreDislike={boostedPostData.nombre_dislikes}
                     nombrePartage={boostedPostData.nombre_partages}
