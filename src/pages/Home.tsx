@@ -161,7 +161,7 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-                            <Link to={`/p/${id_post}`} >
+                            <Link to={`/p/${id_post}`} className={styles.lien_vers_post}>
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}

@@ -1,8 +1,7 @@
-.reactMarkDown {
-    
+.reactMarkDown a {
 }
   
-  .reactMarkDown ul {
+ /* .reactMarkDown ul {
     margin-top: 1em;
     margin-bottom: 1em;
     list-style: disc outside none;
@@ -13,8 +12,9 @@
     display: list-item;
     text-align: -webkit-match-parent;
   }
-
+*/
 .conteneur {
+    color: inherit;    
     margin: 0 auto; 
     max-width: 500px; 
     padding: 15px;
