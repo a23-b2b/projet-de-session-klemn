@@ -1,4 +1,4 @@
--- Active: 1697459873316@@127.0.0.1@3306@dev
+-- Active: 1694035110728@@localhost@3306@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -11,12 +11,20 @@ DROP
   TABLE IF EXISTS post_collab;
 DROP 
   TABLE IF EXISTS post_question;
-DROP 
-  TABLE IF EXISTS post CASCADE;
-DROP 
-  TABLE IF EXISTS compte;
+
 DROP
   TABLE IF EXISTS post_partage;
+
+DROP 
+  TABLE IF EXISTS post CASCADE;
+
+DROP 
+  TABLE IF EXISTS collaborateur;
+DROP 
+  TABLE IF EXISTS projet;
+
+DROP 
+  TABLE IF EXISTS compte;
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
@@ -47,6 +55,7 @@ CREATE TABLE post
     id_infos            VARCHAR(255)  NULL,
     titre               VARCHAR(255)  NULL,
     contenu             VARCHAR(4000) NOT NULL,
+    est_markdown        BOOLEAN       NOT NULL DEFAULT FALSE,  
     nombre_likes        INT           NOT NULL,
     nombre_dislikes     INT           NOT NULL,
     nombre_reposts      INT           NOT NULL,
