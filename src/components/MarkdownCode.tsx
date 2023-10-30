@@ -24,15 +24,8 @@ function MarkdownCode(props: MarkdownCodeProps) {
                             PreTag="div"
                             showLineNumbers={true}
                         />
-                    ) : (<p style={{
-                        padding: '2%',
-                        background: 'rgba(255,255,255,0.5)',
-                        width: 'max-content',
-                        maxWidth: '100%',
-                        overflow: 'auto',
-                        borderRadius: '10px'
-                    }}>
-                        <code>
+                    ) : (<p>
+                        <code className={style.inline_code}>
                             {children}
                         </code>
                     </p>
@@ -47,26 +40,19 @@ function MarkdownCode(props: MarkdownCodeProps) {
 
                 table(props) { // Table
                     const { node, ...rest } = props
-                    return <table style={{
-                        borderSpacing: '0',
-                        borderCollapse: 'collapse',
-                        display: 'block',
-                        width: 'max-content',
-                        maxWidth: '100%',
-                        overflow: 'auto'
-                    }} {...rest} />
+                    return <table className={style.table} {...rest} />
                 },
                 th(props) { // Header de table
                     const { node, ...rest } = props
-                    return <th style={{ border: '1px solid' }} {...rest} />
+                    return <th className={style.th} {...rest} />
                 },
                 td(props) { // Delta de table
                     const { node, ...rest } = props
-                    return <td style={{ border: '1px solid' }} {...rest} />
+                    return <td className={style.td} {...rest} />
                 },
-                ol(props) { // Liste non-ordonnee
+                ol(props) { // Liste ordonnee
                     const { node, ...rest } = props
-                    return <ol style={{ listStyleType: 'circle' }} {...rest} />
+                    return <ol className={style.ol} {...rest} />
                 }
             }} className={style.reactMarkDown} remarkPlugins={[remarkGfm, remarkRehype]} children={props.c}></Markdown>
         </div>
