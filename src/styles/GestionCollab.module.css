@@ -11,7 +11,7 @@
     border: none;
     padding: 5px;
     background-color: var(--auto_container_color);
-    margin: 5px 5px 20px 5px;
+    margin: 5px 10px 20px 10px;
 
 }
 
@@ -42,6 +42,11 @@
 
 }
 
+.nom_projet {
+    font-weight: bold;
+    color: var(--auto_text_color);
+}
+
 .nom_utilisateur {
     text-align: left;
     color: var(--auto_text_color);
@@ -49,9 +54,11 @@
 }
 
 .conteneur_gestion {
+    
     display: inline-flex;
     width: 100%;
     background-color: var(--auto_container_post_color);
+    margin-bottom: 30px;
 }
 
 .conteneur_gestion div {
@@ -61,9 +68,9 @@
 
 .conteneur_gestion_collab {
     margin: 60px 20px 80px 0px;
-    padding: 0px 10px 10px 10px;
-    border-radius: 20px;
-    background-color: var(--auto_container_gestion);
+    padding: 0px 20px 10px 20px;
+    border-radius: 20px 0px 00px 20px;
+    background-color: var(--auto_container_gestion_collaboration);
 
 
 }
@@ -72,8 +79,6 @@
     margin: 40px 0px;
     padding: 0px 20px 20px 20px;
     border-radius: 20px;
-
-
 }
 
 
@@ -98,7 +103,7 @@
 
 .conteneur_gestion_projet {
     float: left;
-    width: 50%;
+    
 }
 
 .titre_mes_projets_rapide {
@@ -260,10 +265,21 @@
 
 /*Filtre*/
 
+.conteneurFiltreAjouterProjet {
+    display: inline-flex;
+    margin: auto;
+}
+
+.conteneurBoutonAjouter{
+    margin: auto auto 10px auto;
+    text-align: right;
+
+}
+
 .conteneurFiltreId {
     width: 100%;
     margin: 10px 10px;
-    background-color: var(--auto_accent_color);
+    background-color: var(--auto_button2_color);
     min-width: 200px;
     width: fit-content;
     border-radius: 15px;
@@ -272,5 +288,31 @@
 .filtre {
 
     padding: 10px;
-    opacity: .8;
+    opacity: .9;
 }
+
+
+.conteneurBoutonAjouterProjet {
+    display: inline-flex;
+
+
+}
+
+#boutonNouveauProjet {
+    padding: 5px 8px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 13px;
+    color: var(--auto_button_text_color);
+    background-color: var(--auto_button_color);
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+#iconeAjout {
+    margin: auto;
+    opacity: .9;
+}
+
+
+

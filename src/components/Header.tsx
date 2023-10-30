@@ -27,13 +27,8 @@ function Header() {
                     </Link>
                 </div>
 
+
                 
-                {user &&
-                <div>
-                    <Link to={`/gestion`}>
-                        <img className={styles.image_gestion} src={gestion} alt='Gestion'/>
-                    </Link>
-                </div>}
 
                 {/* <div>
                     Lien page Forum
@@ -71,12 +66,14 @@ function Header() {
                                 </Link>
                             </MenuItem>
 
-                            <MenuItem className={styles.dropdown_menu_item}>
-                                <RiTeamLine className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]} className={'link'}>
-                                    Collaboration
-                                </Link>
-                            </MenuItem>
+                            {user &&
+                                <MenuItem className={styles.dropdown_menu_item}>
+                                    <RiTeamLine className={styles.dropdown_menu_icon} />
+                                    <Link to={'/gestion'} id={styles["link"]} className={'link'}>
+                                        Collaboration
+                                    </Link>
+                                </MenuItem>
+                            }
 
                             <MenuItem className={styles.dropdown_menu_item}>
                                 <LuSettings className={styles.dropdown_menu_icon} />

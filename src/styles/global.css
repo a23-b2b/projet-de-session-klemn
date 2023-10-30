@@ -49,7 +49,7 @@
     --light_button_text_color: rgb(98, 9, 145);
 
     /*Couleur de fond bouton2*/
-    --dark_button2_color: rgb(69, 22, 95);
+    --dark_button2_color: rgb(86, 29, 117);
     --light_button2_color: rgb(247, 232, 247);
 
     /*Couleur du text bouton2*/
@@ -70,8 +70,8 @@
     --light_container_gestion_projet_rapide: rgb(98, 9, 145);
 
     /*Couleur du background du container gestsion collaboration*/
-    --dark_container_gestion_collaboration: rgba(69, 64, 75, 0.425);
-    --light_container_gestion_projet_collaboration: rgb(98, 9, 145);
+    --dark_container_gestion_collaboration: rgba(138, 138, 138, 0.283);
+    --light_container_gestion_collaboration: rgb(98, 9, 145);
 
 
 
@@ -103,6 +103,7 @@
     --auto_container_post_color: var(--dark_container_post_color);
     --auto_container_gestion_projet_rapide: var(--dark_container_gestion_projet_rapide);
     --auto_container_gestion: var(--dark_container_gestion);
+    --auto_container_gestion_collaboration: var(--dark_container_gestion_collaboration);
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
@@ -123,6 +124,8 @@
         --auto_container_post_color: var(--light_container_post_color);
         --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
         --auto_container_gestion: var(--light_container_gestion);
+        --auto_container_gestion_collaboration: var(--light_container_gestion_collaboration);
+
     }
 
 }

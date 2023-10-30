@@ -72,7 +72,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
 
 
                 <div className={styles.conteneur_info_compte}>
-                <p className={styles.titre_projet}>{props.titre_projet}</p>
+                <p className={styles.nom_projet}>{props.titre_projet}</p>
                     <p className={styles.nom_utilisateur}>@{props.nom_utilisateur}</p>
                     
                 </div>

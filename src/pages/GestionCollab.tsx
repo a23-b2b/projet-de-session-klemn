@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { auth } from '../firebase';
 import { RxCross2 } from 'react-icons/rx';
+import { RiAddCircleLine } from 'react-icons/ri';
 
 export const METHODE = {
     EMAIL: "1",
@@ -135,16 +136,6 @@ function GestionCollab() {
                             <button className={'global_bouton'} onClick={() => ajouterCollab()}>Ajouter le collaborateur</button>
                         </div>
 
-                        <div>
-                            <p>
-                                OU
-                            </p>
-                        </div>
-                        <div>
-                            <Link to={`/projet`}>
-                                <button className={'global_bouton2'} >Créer un nouveau  projet</button>
-                            </Link>
-                        </div>
                     </div>
 
                 </form>
@@ -158,10 +149,6 @@ function GestionCollab() {
                 <div className={styles.conteneur_gestion}>
 
 
-
-
-
-
                     <div className={styles.conteneur_gestion_projet}>
 
 
@@ -170,10 +157,29 @@ function GestionCollab() {
                             <h1>Mes Projets - Edition Rapide</h1>
                         </div>
 
-                        <div className={styles.conteneurFiltreId}>
-                            <p className={styles.filtre}>ID Filtre: {idProjetFiltre}</p>
+                        <div  className={styles.conteneurFiltreAjout}>
+
+                            <div className={styles.conteneurFiltreId}>
+                                <div className={styles.conteneurFiltreId}>
+                                    <p className={styles.filtre}>ID Filtre: {idProjetFiltre}</p>
+                                </div>
+                            </div>
+                            <div className={styles.conteneurBoutonAjouter}>
+                                <Link to={`/projet`}>
+                                    <button id={styles["boutonNouveauProjet"]}  >
+
+                                        <RiAddCircleLine size={25} id={styles["iconeAjout"]} />
+
+                                    </button>
+                                </Link>
+                            </div>
+
                         </div>
-                        
+
+
+
+
+
                         {projets && projets?.map(({
                             compte_id_proprio,
                             id_projet,
