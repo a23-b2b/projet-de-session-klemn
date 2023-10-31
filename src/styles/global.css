@@ -1,8 +1,8 @@
 :root {
     /* Couleur a lorigine du theme */
-    --base_theme_color: hsl(279, 43%, 42%); /* cette variable ne sert qu'a permettre de choisir rapidement une couleur HSL pour recup les values*/
-    --base_h: 71;
-    --base_s: 70%;
+    --accent_color: rgb(121, 61, 153);
+    --base_h: 279;
+    --base_s: 30%;
 
     /* Noir */
     --dark_0: hsl(var(--base_h), var(--base_s), 0%); 
@@ -78,8 +78,8 @@
 
 
     /*Couleur d'accent*/
-    --accent_color_dark: var(--dark_40);
-    --accent_color_light: var(--light_60);
+    --accent_color_dark: var(--accent_color);
+    --accent_color_light: var(--accent_color);
 
     /*Couleur d'accent*/
     --background_dark: var(--dark_5);
