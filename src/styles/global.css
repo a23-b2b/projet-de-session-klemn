@@ -1,6 +1,5 @@
 :root {
     /* Couleur a lorigine du theme */
-    --accent_color: rgb(121, 61, 153);
     --base_h: 279;
     --base_s: 30%;
 
@@ -78,8 +77,8 @@
 
 
     /*Couleur d'accent*/
-    --accent_color_dark: var(--dark_40);
-    --accent_color_light: var(--light_60);
+    --accent_color_dark: var(--accent_color, var(--dark_40));
+    --accent_color_light: var(--accent_color, var(--light_60));
 
     /*Couleur d'accent*/
     --background_dark: var(--dark_5);
