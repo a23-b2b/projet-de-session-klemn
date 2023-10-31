@@ -114,16 +114,16 @@
     --light_input_field_color: var(--on_container_light_container);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgb(255, 255, 255);
-    --light_border_color: rgba(172, 143, 184, 0.518);
+    --dark_border_color: var(--dark_60);
+    --light_border_color: var(--light_60);
 
     /*Couleur de fond bouton*/
     --dark_button_color: var(--accent_color_dark);
     --light_button_color: var(--accent_color_light);
 
     /*Couleur du text bouton*/
-    --dark_button_text_color: rgb(247, 232, 247);
-    --light_button_text_color: rgb(98, 9, 145);
+    --dark_button_text_color: var(--dark_90);
+    --light_button_text_color: var(--light_90);
 
     /**/
     --dark_container_post_color: var(--container_dark);
