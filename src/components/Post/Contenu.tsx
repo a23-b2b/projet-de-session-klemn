@@ -49,6 +49,8 @@ const PostContent = (props: ContentProps) => {
     }
 
     return (
+        <Link to={!props.isPostFullScreen ? `/p/${props.idPost}` : '#'} className={styles.titre} >
+
         <div className={styles.contenu}>
 
             {
@@ -64,11 +66,9 @@ const PostContent = (props: ContentProps) => {
                     :
 
                     <div className={styles.conteneurDiv}>
-                        <Link to={`/p/${props.idPost}`} className={styles.titre}>
                             <h2>
                                 {props.titre}
                             </h2>
-                        </Link>
                     </div>
 
             }
@@ -97,10 +97,9 @@ const PostContent = (props: ContentProps) => {
                             </motion.div>
                         )}
                     </AnimatePresence> */}
-
-                    {!isPostExpanded && (
-                        <p>{truncatedPostContent}</p>
-                    )}
+                        {!isPostExpanded && (
+                            <p>{truncatedPostContent}</p>
+                        )}
 
                     <AnimatePresence>
                         {isPostExpanded && (
@@ -126,6 +125,8 @@ const PostContent = (props: ContentProps) => {
                 </AnimatePresence> */}
             </motion.div>
         </div>
+        </Link>
+
     )
 
 }
