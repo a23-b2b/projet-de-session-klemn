@@ -1,8 +1,9 @@
 .reactMarkDown a {}
 
 .inline_code {
-    padding: 8px 16px;
-    background: rgba(255,255,255,0.5);
+    padding: 4px 8px;
+    background: rgb(46, 46, 46);
+    border: 1px solid var(--auto_border_color);
     width: max-content;
     overflow: auto;
     border-radius: 6px;
@@ -21,7 +22,8 @@
 
 /* Table delta */
 /* Table header */
-.td, .th {
+.td,
+.th {
     border: 1px solid var(--auto_border_color);
     padding: 6px
 }
@@ -29,4 +31,12 @@
 /* Ordered list */
 .ol {
     list-style-type: circle;
+}
+
+/*Thème clair*/
+@media (prefers-color-scheme: light) {
+    .inline_code {
+        background: rgb(240, 240, 240);
+        border: 1px solid var(--auto_border_color);
+    }
 }
