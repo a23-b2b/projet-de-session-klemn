@@ -1,40 +1,39 @@
 :root {
-
-    /*Couleur du text*/
-    --text_color_dark: rgb(255, 255, 255);
-    --text_color_light: rgb(59, 30, 72);
-
     /*Couleur d'accent*/
     --accent_color_dark: rgb(121, 61, 154);
     --accent_color_light: rgb(157, 102, 197);
 
     /*Couleur de fond*/
-    --background_dark: rgb(20, 14, 23);
-    --background_light: rgb(247, 228, 252);
+    --background_dark: rgb(15, 15, 15);
+    --background_light: rgb(240, 240, 240);
+
+    /*Couleur du texte*/
+    --on_background_dark: rgb(225, 225, 225);
+    --on_background_light: rgb(30, 30, 30);
 
     /*Couleur de fond secondaire*/
-    --background_dark_secondary: rgb(79, 39, 108);
-    --background_light_secondary: rgb(206, 141, 224);
+    --on_background_container_dark: rgb(35,35, 35);
+    --on_background_container_light: rgb(220, 220, 220);
 
     /*Couleur de fond tertiaire*/
     --background_dark_tertiary: rgb(121, 73, 155);
     --background_light_tertiary: rgb(88, 21, 119);
 
     /*Couleur du gradient*/
-    --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--background_dark_secondary), transparent);
-    --gradient_light: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary), transparent);
+    /* --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--on_background_container_dark), transparent); */
+    /* --gradient_light: linear-gradient(var(--background_light_tertiary), var(--on_background_container_light), transparent); */
 
     /*Couleur du gradient secondaire*/
     --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
-    --dark_container_color: rgba(255, 255, 255, 0.199);
-    --light_container_color: rgba(163, 124, 183, 0.219);
+    /* --dark_container_color: rgba(255, 255, 255, 0.199);
+    --light_container_color: rgba(163, 124, 183, 0.219); */
 
     /*Couleur de fond input field*/
-    --dark_input_field_color: rgba(255, 255, 255, 0.25);
-    --light_input_field_color: rgba(242, 225, 249, 0.913);
+    --dark_input_field_color: var(--on_background_container_dark);
+    --light_input_field_color: var(--on_background_container_light);
 
     /*Couleur de bordure (Input field et Container*/
     --dark_border_color: rgb(255, 255, 255);
@@ -63,10 +62,10 @@
     /*                  v v                  */
 
     /*Thème sombre*/
-    --auto_text_color: var(--text_color_dark);
+    --auto_text_color: var(--on_background_dark);
     --auto_accent_color: var(--accent_color_dark);
     --auto_background: var(--background_dark);
-    --auto_background_secondary: var(--background_dark_secondary);
+    --auto_background_secondary: var(--on_background_container_dark);
     --auto_background_tertiary: var(--background_dark_tertiary);
     --auto_gradient: var(--gradient_dark);
     --auto_gradient_secondary: var(--gradient_dark_secondary);
@@ -80,10 +79,10 @@
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
-        --auto_text_color: var(--text_color_light);
+        --auto_text_color: var(--on_background_light);
         --auto_accent_color: var(--accent_color_light);
         --auto_background: var(--background_light);
-        --auto_background_secondary: var(--background_light_secondary);
+        --auto_background_secondary: var(--on_background_container_light);
         --auto_background_tertiary: var(--background_light_tertiary);
         --auto_gradient: var(--gradient_light);
         --auto_gradient_secondary: var(--gradient_light_secondary);
