@@ -17,7 +17,8 @@ module.exports = app.delete('/:id_post', [body('contenu').notEmpty().isLength({ 
             const userId = payload.uid;
 
             pool.query(
-                ``,
+                `DELETE FROM vote
+                 WHERE id_post = ?;`,
                 [userId],
                 function (err, results, fields) {
                     if (err) {

@@ -137,6 +137,8 @@ const PostHeader = (props: HeaderProps) => {
                 {estProprietaire && (
                     <MenuItem value={'delete'} className={styles.share_menu_item}><MdDeleteForever className={styles.share_menu_icon} id={styles.icone_supprimer} /><span>Supprimer</span></MenuItem>
                 )}
+                <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+
             </Menu>
         </div>
     )
