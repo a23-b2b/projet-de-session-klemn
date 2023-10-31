@@ -78,8 +78,8 @@
 
 
     /*Couleur d'accent*/
-    --accent_color_dark: var(--accent_color);
-    --accent_color_light: var(--accent_color);
+    --accent_color_dark: var(--dark_40);
+    --accent_color_light: var(--light_60);
 
     /*Couleur d'accent*/
     --background_dark: var(--dark_5);

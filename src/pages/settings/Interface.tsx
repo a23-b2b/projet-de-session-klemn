@@ -71,7 +71,7 @@ function Interface() {
     // CELA OVERWRITE LES VALEURS CSS DANS LE FICHIER GLOBAL.
     // document.documentElement.style.setProperty('--base_h', "30");
     // document.documentElement.style.setProperty('--base_s', "30%");
-    // document.documentElement.style.setProperty('--accent_color', "rgb(121, 61, 153)");
+    // document.documentElement.style.setProperty('--accent_color', "rgb(121, 61, 153)"); // valeur d'accent custom
 
     return (
         <div className={styles.container_parametres}>
