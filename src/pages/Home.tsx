@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { Link } from "react-router-dom";
 
 function Home() {
     const navigate = useNavigate();
@@ -160,7 +159,7 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-                            <Link to={`/p/${id_post}`} >
+
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -182,7 +181,6 @@ function Home() {
                                     sharedPostId={id_shared_post}
                                     isSharedPostQuote={is_quoted_post}/>
                             </div>
-                            </Link>
 
                         )
                     })}
