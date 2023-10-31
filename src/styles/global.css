@@ -1,23 +1,100 @@
 :root {
-    /*Couleur d'accent*/
-    --accent_color_dark: rgb(121, 61, 154);
-    --accent_color_light: rgb(157, 102, 197);
+    /* Couleur a lorigine du theme */
+    --base_theme_color: hsl(279, 43%, 42%); /* cette variable ne sert qu'a permettre de choisir rapidement une couleur HSL pour recup les values*/
+    --base_h: 71;
+    --base_s: 70%;
 
-    /*Couleur de fond*/
-    --background_dark: rgb(15, 15, 15);
-    --background_light: rgb(240, 240, 240);
+    --dark_0: hsl(var(--base_h), var(--base_s), 0%);
+    /* Noir */
+    --light_0: hsl(var(--base_h), var(--base_s), 100%);
+    /* Blanc */
+
+    --dark_2: hsl(var(--base_h), var(--base_s), 2%);
+    --light_2: hsl(var(--base_h), var(--base_s), 98%);
+
+    --dark_4: hsl(var(--base_h), var(--base_s), 4%);
+    --light_4: hsl(var(--base_h), var(--base_s), 96%);
+
+    --dark_5: hsl(var(--base_h), var(--base_s), 5%);
+    --light_5: hsl(var(--base_h), var(--base_s), 95%);
+
+    --dark_6: hsl(var(--base_h), var(--base_s), 6%);
+    --light_6: hsl(var(--base_h), var(--base_s), 94%);
+
+    --dark_7: hsl(var(--base_h), var(--base_s), 7%);
+    --light_7: hsl(var(--base_h), var(--base_s), 93%);
+
+    --dark_8: hsl(var(--base_h), var(--base_s), 8%);
+    --light_8: hsl(var(--base_h), var(--base_s), 92%);
+
+    --dark_9: hsl(var(--base_h), var(--base_s), 9%);
+    --light_9: hsl(var(--base_h), var(--base_s), 91%);
+
+    --dark_10: hsl(var(--base_h), var(--base_s), 10%);
+    --light_10: hsl(var(--base_h), var(--base_s), 90%);
+
+    --dark_13: hsl(var(--base_h), var(--base_s), 13%);
+    --light_13: hsl(var(--base_h), var(--base_s), 87%);
+
+    --dark_15: hsl(var(--base_h), var(--base_s), 15%);
+    --light_15: hsl(var(--base_h), var(--base_s), 85%);
+
+    --dark_20: hsl(var(--base_h), var(--base_s), 20%);
+    --light_20: hsl(var(--base_h), var(--base_s), 80%);
+
+    --dark_25: hsl(var(--base_h), var(--base_s), 25%);
+    --light_25: hsl(var(--base_h), var(--base_s), 75%);
+
+    --dark_30: hsl(var(--base_h), var(--base_s), 30%);
+    --light_30: hsl(var(--base_h), var(--base_s), 70%);
+
+    --dark_35: hsl(var(--base_h), var(--base_s), 35%);
+    --light_35: hsl(var(--base_h), var(--base_s), 35%);
+
+    --dark_40: hsl(var(--base_h), var(--base_s), 40%);
+    --light_40: hsl(var(--base_h), var(--base_s), 60%);
+
+    --dark_45: hsl(var(--base_h), var(--base_s), 45%);
+    --light_45: hsl(var(--base_h), var(--base_s), 55%);
+
+    --dark_50: hsl(var(--base_h), var(--base_s), 50%);
+    --light_50: hsl(var(--base_h), var(--base_s), 50%);
+
+    --dark_55: hsl(var(--base_h), var(--base_s), 45%);
+    --light_55: hsl(var(--base_h), var(--base_s), 55%);
+
+    --dark_60: hsl(var(--base_h), var(--base_s), 60%);
+    --light_60: hsl(var(--base_h), var(--base_s), 40%);
+
+    --dark_80: hsl(var(--base_h), var(--base_s), 80%);
+    --light_80: hsl(var(--base_h), var(--base_s), 20%);
+
+    --dark_90: hsl(var(--base_h), var(--base_s), 90%);
+    --light_90: hsl(var(--base_h), var(--base_s), 10%);
+
+    --dark_100: hsl(var(--base_h), var(--base_s), 100%);
+    --light_100: hsl(var(--base_h), var(--base_s), 0%);
+
+
+    /*Couleur d'accent*/
+    --accent_color_dark: var(--dark_40);
+    --accent_color_light: var(--light_60);
+
+    /*Couleur d'accent*/
+    --background_dark: var(--dark_5);
+    --background_light: var(--light_5);
 
     /*Couleur du texte*/
-    --on_background_dark: rgb(225, 225, 225);
-    --on_background_light: rgb(30, 30, 30);
+    --on_background_dark: var(--dark_90);
+    --on_background_light: var(--light_90);
 
     /*Couleur de fond secondaire*/
-    --on_background_container_dark: rgb(35,35, 35);
-    --on_background_container_light: rgb(220, 220, 220);
+    --container_dark: var(--dark_10);
+    --container_light: var(--light_10);
 
-    /*Couleur de fond tertiaire*/
-    --background_dark_tertiary: rgb(121, 73, 155);
-    --background_light_tertiary: rgb(88, 21, 119);
+    /*Conteneurs par dessus le container ^^^*/
+    --on_container_dark_container: var(--dark_80);
+    --on_container_light_container: var(--light_80);
 
     /*Couleur du gradient*/
     /* --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--on_background_container_dark), transparent); */
