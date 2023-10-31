@@ -4,10 +4,11 @@
     --base_h: 71;
     --base_s: 70%;
 
-    --dark_0: hsl(var(--base_h), var(--base_s), 0%);
     /* Noir */
-    --light_0: hsl(var(--base_h), var(--base_s), 100%);
+    --dark_0: hsl(var(--base_h), var(--base_s), 0%); 
+
     /* Blanc */
+    --light_0: hsl(var(--base_h), var(--base_s), 100%); 
 
     --dark_2: hsl(var(--base_h), var(--base_s), 2%);
     --light_2: hsl(var(--base_h), var(--base_s), 98%);
@@ -93,8 +94,8 @@
     --container_light: var(--light_10);
 
     /*Conteneurs par dessus le container ^^^*/
-    --on_container_dark_container: var(--dark_80);
-    --on_container_light_container: var(--light_80);
+    --on_container_dark_container: var(--dark_20);
+    --on_container_light_container: var(--light_20);
 
     /*Couleur du gradient*/
     /* --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--on_background_container_dark), transparent); */
@@ -105,12 +106,12 @@
     --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
-    /* --dark_container_color: rgba(255, 255, 255, 0.199);
-    --light_container_color: rgba(163, 124, 183, 0.219); */
+    --dark_container_color: var(--container_dark);
+    --light_container_color: var(--container_light);
 
     /*Couleur de fond input field*/
-    --dark_input_field_color: var(--on_background_container_dark);
-    --light_input_field_color: var(--on_background_container_light);
+    --dark_input_field_color: var(--on_container_dark_container);
+    --light_input_field_color: var(--on_container_light_container);
 
     /*Couleur de bordure (Input field et Container*/
     --dark_border_color: rgb(255, 255, 255);
@@ -125,8 +126,8 @@
     --light_button_text_color: rgb(98, 9, 145);
 
     /**/
-    --dark_container_post_color: rgba(138, 138, 138, 0.16);
-    --light_container_post_color: rgba(103, 18, 114, 0.256);
+    --dark_container_post_color: var(--container_dark);
+    --light_container_post_color: var(--container_light);
 
 
     /* ===================================== */
