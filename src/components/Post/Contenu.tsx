@@ -47,8 +47,9 @@ const PostContent = (props: ContentProps) => {
             }
         }
     }
-
+    // https://stackoverflow.com/a/54926212
     return (
+        
         <Link to={!props.isPostFullScreen ? `/p/${props.idPost}` : '#'} className={styles.titre} >
 
         <div className={styles.contenu}>
