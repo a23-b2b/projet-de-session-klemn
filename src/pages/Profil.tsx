@@ -26,7 +26,7 @@ function Profil() {
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
 
     const [userPosts, setUserPosts] = useState<any[]>([])
-    const [postOffset, setPostOffset] = useState(0)
+    const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
     const [loadingUserPosts, setLoadingUserPosts] = useState(true)
@@ -105,8 +105,6 @@ function Profil() {
             }).then(response => {
                 let data = response
 
-                console.log(response)
-
                 setDisplayName(data.nom_affichage ? data.nom_affichage : username)
                 setNombreAbonnes(data.nombre_abonnes)
                 setVisitorFollowsUser(data.visitor_follows_profile)
@@ -125,25 +123,25 @@ function Profil() {
         setLoadingUserPosts(true)
 
         onAuthStateChanged(auth, (user) => {
-            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${postOffset}`, {
+            fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${cursor}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': user?.uid || ''
                 }
             }).then(response => response.json()).then(response => {
-                let data = response;
+                let data = response["posts"]
 
-                console.log(data)
+                let newCursor = parseInt(response.newCursor)
 
-                setPostOffset(postOffset + OFFSET)
+                setCursor(newCursor)
 
-                if (data.length < OFFSET) {
+                if (!newCursor) {
                     setIsEndOfFeed(true)
                 }
 
                 setUserPosts(userPosts.concat(data));
-                setLoadingUserPosts(false)
+                setLoadingUserPosts(false);
             }).catch((error) => {
                 console.log(error)
             })
