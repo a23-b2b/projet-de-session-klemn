@@ -26,7 +26,7 @@ function Home() {
                     'authorization': idToken
                 },
             }).then(response => response.json()).then(response => {
-                let data = response["posts"]
+                let data = response["posts"]  
 
                 let newCursor = parseInt(response.newCursor)
 
