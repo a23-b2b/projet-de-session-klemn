@@ -8,6 +8,7 @@ export const post = mysqlTable("post", {
     postType: int("id_type_post"),
     title: varchar("titre", { length: 255 }),
     content: varchar("contenu", { length: 4000 }),
+    est_markdown: boolean('est_markdown').notNull().default(false),
     likes: int("nombre_likes").notNull(),
     dislikes: int("nombre_dislikes").notNull(),
     reposts: int("nombre_reposts").notNull(),

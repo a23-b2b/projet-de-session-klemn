@@ -44,7 +44,6 @@ function FollowButton(props: Props) {
                         }
 
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                         setDatabaseLoading(false)
                     })
@@ -76,7 +75,6 @@ function FollowButton(props: Props) {
                         }
 
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                         setDatabaseLoading(false)
                     })

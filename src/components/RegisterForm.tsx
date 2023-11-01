@@ -45,7 +45,6 @@ function RegisterForm() {
                 toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
                 navigate(0)
             }).catch((error) => {
-
                 switch (error.code) {
                     case 'auth/invalid-email':
                         toast.error('Le courriel est invalide.');
