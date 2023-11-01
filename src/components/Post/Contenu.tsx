@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from '../../styles/Post.module.css'
 import { AnimatePresence, motion } from "framer-motion";
+import MarkdownCode from "../MarkdownCode";
 import { Link } from "react-router-dom";
-
 
 interface ContentProps {
     titre?: string;
     contenu: string;
     idPost: string;
     isPostFullScreen: Boolean;
+    estMarkdown: Boolean;
 }
 
 const PostContent = (props: ContentProps) => {
@@ -47,8 +48,15 @@ const PostContent = (props: ContentProps) => {
             }
         }
     }
-
-    return (
+    // if estMarkdown CodeMarkdown avec text sinon le reste
+    /*{props.estMarkdown && 
+           < MarkdownCode c={props.contenu}/>
+        }
+        {!props.estMarkdown && 
+            props.contenu
+        }*/
+    return (<>
+        
         <div className={styles.contenu}>
 
             {
@@ -99,13 +107,18 @@ const PostContent = (props: ContentProps) => {
                     </AnimatePresence> */}
 
                     {!isPostExpanded && (
-                        <p>{truncatedPostContent}</p>
+                        <MarkdownCode c= {truncatedPostContent}/>
                     )}
 
                     <AnimatePresence>
                         {isPostExpanded && (
                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                {props.contenu}
+                                {props.estMarkdown && 
+                                    < MarkdownCode c={props.contenu}/>
+                                }
+                                {!props.estMarkdown && 
+                                    props.contenu
+                                }
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -126,8 +139,9 @@ const PostContent = (props: ContentProps) => {
                 </AnimatePresence> */}
             </motion.div>
         </div>
+        </>
     )
-
+    
 }
 
 export default PostContent;

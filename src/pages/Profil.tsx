@@ -9,6 +9,7 @@ import { useAnimate } from 'framer-motion';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
 import BadgesContainer from '../components/Badges/_BadgesContainer';
+import Chargement from '../components/EcranChargement';
 
 function Profil() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Profil() {
     let { username } = useParams();
 
     const [userData, setUserData] = useState<any>('')
+    const [loadingUserData, setLoadingUserData] = useState(true)
 
     const [displayName, setDisplayName] = useState('');
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
@@ -26,6 +28,8 @@ function Profil() {
     const [userPosts, setUserPosts] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
+
+    const [loadingUserPosts, setLoadingUserPosts] = useState(true)
 
 
     const [followerNumberScope, animateFollowerNumber] = useAnimate()
@@ -86,6 +90,8 @@ function Profil() {
 
     function getUserData() {
 
+        setLoadingUserData(true)
+
         onAuthStateChanged(auth, (user) => {
             fetch(`${process.env.REACT_APP_API_URL}/user/${username}`, {
                 method: 'GET',
@@ -104,6 +110,7 @@ function Profil() {
                 setDisplayName(data.nom_affichage ? data.nom_affichage : username)
                 setNombreAbonnes(data.nombre_abonnes)
                 setVisitorFollowsUser(data.visitor_follows_profile)
+                setLoadingUserData(false)
 
                 setUserData(data)
             }).catch((error) => {
@@ -115,6 +122,8 @@ function Profil() {
 
 
     function getPosts() {
+        setLoadingUserPosts(true)
+
         onAuthStateChanged(auth, (user) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/user/${userData.id_compte}/${postOffset}`, {
                 method: 'GET',
@@ -134,6 +143,7 @@ function Profil() {
                 }
 
                 setUserPosts(userPosts.concat(data));
+                setLoadingUserPosts(false)
             }).catch((error) => {
                 console.log(error)
             })
@@ -142,11 +152,9 @@ function Profil() {
 
     }
 
-    if (!userData) {
+    if (loadingUserData) {
         return (
-            <div>
-                Chargement...
-            </div>
+            <Chargement />
         )
     }
 
@@ -194,11 +202,12 @@ function Profil() {
                 dataLength={userPosts.length}
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
-                loader={<p>Chargement...</p>}
+                loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 {userPosts?.map(({
                     contenu,
+                    est_markdown,
                     date_publication,
                     id_compte,
                     id_infos,
@@ -224,6 +233,7 @@ function Profil() {
                             nomUtilisateur={username + ''}
                             titre={titre}
                             contenu={contenu}
+                            estMarkdown={est_markdown}
                             nombreLike={nombre_likes}
                             nombreDislike={nombre_dislikes}
                             nombrePartage={nombre_partages}

@@ -3,7 +3,7 @@ const app = express()
 const { check, body, validationResult } = require('express-validator');
 const mysql = require('mysql2')
 const { admin } = require('../../serveur.js')
-const { logger } = require('../../serveur')
+const { logger } = require('../../logger.js')
 const { pool } = require('../../serveur.js')
 
 
@@ -21,7 +21,7 @@ module.exports = app.post('/nom', [], (req, res) => {
             [newName, userId],
             function (err, results) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
+                    logger.info(`Erreur lors de lexecution de la query POST nom: ${err.code}`)
                     res.status(500).send('Erreur de base de données', err)
                 }
                 if (results) {
