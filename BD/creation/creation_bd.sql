@@ -1,4 +1,4 @@
--- Active: 1697459873316@@127.0.0.1@3306@dev
+-- Active: 1693586986008@@localhost@32769@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -11,12 +11,20 @@ DROP
   TABLE IF EXISTS post_collab;
 DROP 
   TABLE IF EXISTS post_question;
-DROP 
-  TABLE IF EXISTS post CASCADE;
-DROP 
-  TABLE IF EXISTS compte;
+
 DROP
   TABLE IF EXISTS post_partage;
+
+DROP 
+  TABLE IF EXISTS post CASCADE;
+
+DROP 
+  TABLE IF EXISTS collaborateur;
+DROP 
+  TABLE IF EXISTS projet;
+
+DROP 
+  TABLE IF EXISTS compte;
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
@@ -47,6 +55,7 @@ CREATE TABLE post
     id_infos            VARCHAR(255)  NULL,
     titre               VARCHAR(255)  NULL,
     contenu             VARCHAR(4000) NOT NULL,
+    est_markdown        BOOLEAN       NOT NULL DEFAULT FALSE,  
     nombre_likes        INT           NOT NULL,
     nombre_dislikes     INT           NOT NULL,
     nombre_reposts      INT           NOT NULL,
@@ -131,7 +140,8 @@ CREATE TABLE post_question (
 );
 
 CREATE OR REPLACE VIEW post_view AS
-SELECT post.*,
+SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,
+       post.*,
        pc.url_git,
        pc.est_ouvert,
        pc.id_collab,
@@ -141,11 +151,14 @@ SELECT post.*,
        pp.is_quoted_post,
        c.nom_affichage,
        c.nom_utilisateur,
-       c.url_image_profil
+       c.url_image_profil,
+       b.badges
 FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
-         INNER JOIN compte c on post.id_compte = c.id_compte;
+         INNER JOIN compte c on post.id_compte = c.id_compte
+         LEFT JOIN badge b on c.id_compte = b.id_compte
+ORDER BY post.date_publication DESC;
 
 COMMIT;

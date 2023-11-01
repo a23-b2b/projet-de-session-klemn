@@ -1,11 +1,11 @@
 #conteneur_post {
-margin-bottom: 30px;
-margin-top: 30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .conteneurDiv {
     width: 100%;
-    
+
 }
 
 .header {
@@ -58,7 +58,7 @@ margin-top: 30px;
 
 .titre {
     text-decoration: none;
-    color: var(--auto_text_color)
+    color: var(--auto_text_color);
 }
 
 #header_conteneur_droit {
@@ -67,7 +67,6 @@ margin-top: 30px;
     background-color: var(--auto_container_color);
     border-radius: 15px 15px 9px 9px;
     padding-right: 20px;
-
 }
 
 #inner_droit_nom_utilisateur {
@@ -81,9 +80,10 @@ margin-top: 30px;
     word-wrap: break-word;
     white-space: pre-wrap;
     text-align: justify;
-    opacity: .8;
+    /* opacity: .8; */
+    color: var(--auto_text_secondary_color);
     margin-bottom: 40px;
-   padding-left: 2px;
+    padding-left: 2px;
 }
 
 .footer {
@@ -228,7 +228,8 @@ margin-top: 30px;
     transition: 0.4s;
 } */
 
-.share_menu, .tooltip {
+.share_menu,
+.tooltip {
     backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
     padding: 6px;

@@ -13,6 +13,7 @@ export interface CollabProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -64,6 +65,7 @@ function PosteCollab(props: CollabProp) {
                 titre={props.titre}
                 idPost={props.idPost}
                 contenu={props.contenu}
+                estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
             

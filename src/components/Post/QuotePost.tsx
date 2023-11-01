@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
+import toast from 'react-hot-toast';
 
 interface Props {
     idPost: string;
@@ -14,6 +15,7 @@ interface Props {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -37,7 +39,6 @@ function QuotePost(props: Props) {
 
     function getQuotedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.quotedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -52,7 +53,7 @@ function QuotePost(props: Props) {
                     setQuotedPostData(data)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error(error.toString())
                 })
         });
     }
@@ -69,6 +70,7 @@ function QuotePost(props: Props) {
                 urlImageProfil={props.urlImageProfil} />
 
             <PostContent
+                estMarkdown={props.estMarkdown}
                 contenu={props.contenu}
                 idPost={props.idPost}
                 isPostFullScreen={props.isPostFullScreen} />

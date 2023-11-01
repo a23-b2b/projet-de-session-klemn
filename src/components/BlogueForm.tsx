@@ -13,7 +13,7 @@ function BlogueForm() {
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
     const [urlGit, setUrlGit] = useState("");
-
+    const [estMarkdown, setEstMarkdown] = useState(false);
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -31,15 +31,14 @@ function BlogueForm() {
                             titre: titre,
                             contenu: contenu,
                             urlGit: urlGit,
-                            type: 1
+                            type: 1,
+                            est_markdown: estMarkdown
                         }),
                     }).then(response => response.json()).then(response => {
-                        console.log(response)
                         toast.success('Votre message a été publié!');
 
                         navigate(`/p/${response['id_post']}`)
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                     })
                 })
@@ -81,6 +80,24 @@ function BlogueForm() {
                     <option value='question'>Question</option>
                     <option value='collab'>Collaboration</option>
                 </select>
+                
+                <div className={styles.conteneurToggleModeMarkdown}>
+                    
+                    <div>
+                        <label className={styles.switch}>
+                            <input onChange={()=> { 
+                                toast(`Mode markdown actif?: ${estMarkdown}`)
+                                setEstMarkdown(!estMarkdown)
+                            }} type="checkbox"/>
+                            <span className={styles.slider}/> 
+                        </label>
+                    </div>
+                    <div className={styles.titreToggleModeMarkdown}>
+                        <p>Mode Markdown</p>
+                    </div>
+                </div>
+                
+                
 
                 {type === "collab" && (
                     <div >

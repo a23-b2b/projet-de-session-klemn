@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
+import BadgesContainer from '../Badges/_BadgesContainer';
 import {Menu, MenuDivider, MenuItem} from "@szhsin/react-menu";
 import {SlOptionsVertical} from "react-icons/sl";
 import {MdDeleteForever} from "react-icons/md";
@@ -117,6 +118,7 @@ const PostHeader = (props: HeaderProps) => {
             <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                     <p className={styles.display_name}>{props.nomAffichage}</p>
+                    {/* <BadgesContainer badgesInt={15}/> */}
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
             </div>
