@@ -189,3 +189,11 @@
 background-color: var(--auto_button_unselected_hover_color);
 
 }
+
+#selectURL {
+    margin-top: 10px;
+}
+
+#ConteneurSelectURL {
+    width: 100%;
+}

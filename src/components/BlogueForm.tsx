@@ -179,9 +179,10 @@ function BlogueForm() {
                 </div>
 
                 {type == "collab" && (
-                    <div >
+                    <div id={styles["ConteneurSelectURL"]}>
                         <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
-                        <select                             
+                        <select         
+                            id={styles["selectURL"]}                    
                             className={'global_input_field'}
                             onChange={handleChange}
                             >
