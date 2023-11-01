@@ -33,11 +33,11 @@ function MarkdownCode(props: MarkdownCodeProps) {
                             PreTag="div"
                             showLineNumbers={true}
                         />
-                    ) : (<p>
-                        <code className={style.inline_code}>
-                            {children}
-                        </code>
-                    </p>
+                    ) : (<div className={style.inline_code}>
+                            <code >
+                                {children}
+                            </code>
+                        </div>
                     )
                 },
                 /*

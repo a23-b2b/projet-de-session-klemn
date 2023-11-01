@@ -1,13 +1,17 @@
-.reactMarkDown a {}
+.conteneur {
+    color: inherit;    
+    margin: 0 auto; 
+    max-width: 500px; 
+    padding: 15px;
+}
 
 .inline_code {
     padding: 4px 8px;
     background: rgb(46, 46, 46);
     border: 1px solid var(--auto_border_color);
-    width: max-content;
-    overflow: auto;
+    width: inherit;
     border-radius: 6px;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .block_code {}
