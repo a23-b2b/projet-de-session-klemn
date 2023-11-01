@@ -2,6 +2,7 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const { pool } = require('../serveur.js')
 const { admin } = require('../serveur.js')
+const { logger } = require('../logger.js')
 
 const app = express()
 
@@ -58,8 +59,8 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                     [userId, titre, contenu, estMarkdown, userId],
                     function (err, results, fields) {
                         if (err) {
-                            console.log(err)
-                            res.status(500).send("ERREUR: " + err.code)
+                            logger.info(err.code)
+                            res.status(500).send(`ERREUR: ${err.code}`)
                         } else {
                             res.send(JSON.stringify(results[1][0]))
                         }

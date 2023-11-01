@@ -48,7 +48,7 @@ VALUES
   ('id_collab_1', 'id_projet_1', 'post_collab_id_3');
 
 INSERT INTO demande_collab 
-  (id_demande_collab, est_accepte, projet_id_projet, compte_id_compte) 
+  (id_demande_collab, est_accepte, projet_id_projet, id_collaborateur) 
 VALUES 
   ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2'),
   ('id_demande_collab_2', null, 'id_projet_3', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');

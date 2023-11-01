@@ -1,4 +1,4 @@
--- Active: 1694035110728@@localhost@3306@dev
+-- Active: 1693586986008@@localhost@32769@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -153,9 +153,10 @@ CREATE TABLE demande_collab (
 );
 
 CREATE OR REPLACE VIEW post_view AS
-SELECT post.*,
-       pc.id_collab,
+SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,
+       post.*,       
        pc.projet_id_projet,
+       pc.id_collab,
        pq.est_resolu,
        pq.post_meilleure_reponse,
        pp.id_shared_post,
@@ -168,9 +169,9 @@ FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
-         LEFT JOIN projet p ON pc.projet_id_projet = p.id_projet
-         INNER JOIN compte c on post.id_compte = c.id_compte;
+         INNER JOIN compte c on post.id_compte = c.id_compte
          LEFT JOIN badge b on c.id_compte = b.id_compte
 ORDER BY post.date_publication DESC;
+
 
 COMMIT;
