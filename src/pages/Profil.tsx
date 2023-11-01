@@ -8,12 +8,16 @@ import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
+import UserReference from '../components/UserReference';
+import Modal from '../components/Modal';
+
 
 function Profil() {
     const navigate = useNavigate();
     const OFFSET = 6;
 
     let { username } = useParams();
+
 
     const [userData, setUserData] = useState<any>('')
 
@@ -28,6 +32,9 @@ function Profil() {
 
 
     const [followerNumberScope, animateFollowerNumber] = useAnimate()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
 
     useEffect(() => {
@@ -138,6 +145,7 @@ function Profil() {
             })
         }
         )
+        // setIsModalOpen(true);
 
     }
 
@@ -174,12 +182,20 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
+                    <div><p ref={followerNumberScope} onClick={() => setIsModalOpen(true)}>{nombreAbonnesBefore}</p> abonnés</div>
                     <div><p>{userData.nombre_abonnements}</p> Abonnements</div>
                 </div>
 
                 <p className={styles.bio}>{userData.biographie}</p>
-            </div>
+
+                <Modal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}>
+                    {/* {UserReference} */}
+
+                </Modal>
+
+            </div >
 
             <InfiniteScroll
                 dataLength={userPosts.length}

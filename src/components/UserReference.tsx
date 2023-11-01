@@ -1,5 +1,10 @@
 import styles from '../styles/UserReference.module.css'
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router';
+import Modal from './Modal';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { userInfo } from 'os';
+
 
 interface UserReferenceProps {
     nomAffichage: string;
@@ -12,7 +17,11 @@ function UserReference(props: UserReferenceProps) {
         <div className={styles.container}>
 
             <Link to={`/u/${props.nomUtilisateur}`}>
-                <img className={styles.image_profil} src={props.urlImageProfil} alt={props.nomAffichage}/>
+                <img
+                    className={styles.image_profil}
+                    src={props.urlImageProfil}
+                    alt={props.nomAffichage}
+                />
             </Link>
 
 
@@ -21,7 +30,8 @@ function UserReference(props: UserReferenceProps) {
                 <p className={styles.username}>@{props.nomUtilisateur}</p>
             </Link>
         </div>
-    )
+
+    );
 }
 
 export default UserReference;

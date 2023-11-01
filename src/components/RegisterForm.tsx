@@ -91,12 +91,8 @@ function RegisterForm() {
                         onChange={(e) => setPrenom(e.target.value)} />
 
 
-                    <label className={'global_input_field_label'}>Numéro de téléphone</label>
-                    <input
-                        className={'global_input_field'}
-                        type="tel"
-                        onChange={(e) => setTelephone(e.target.value)} />
-                        
+
+
                     <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => registerWithEmailAndPassword(email, password)}>
                             Inscription

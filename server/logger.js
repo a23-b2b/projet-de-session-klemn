@@ -5,7 +5,7 @@ const winston = require("winston");
 const formatConfig = winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm' }),
     winston.format.printf(
-      (info) => `${info.timestamp} ${info.level}: ${info.message}`
+        (info) => `${info.timestamp} ${info.level}: ${info.message}`
     )
 );
 
