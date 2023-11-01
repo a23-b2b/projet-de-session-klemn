@@ -73,7 +73,6 @@ module.exports = app.post('/create',
                     function (err, results, fields) {
                         if (err) {
                             logger.log("info", `IP ${req.ip}: Erreur lors de la création du compte sur MySQL: ${err}`)
-                            console.log(err)
 
                             // supprimer le compte de firebase
                             admin.auth().deleteUser(user.uid);
