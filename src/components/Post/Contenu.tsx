@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from '../../styles/Post.module.css'
 import { AnimatePresence, motion } from "framer-motion";
 import MarkdownCode from "../MarkdownCode";
+import { Link } from "react-router-dom";
 
 interface ContentProps {
     titre?: string;
