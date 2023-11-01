@@ -20,7 +20,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
     }
 
     return (<>
-        <div className={style.conteneur}>
+        <div>
             <Markdown components={{
                 code(props) { // Block de code 
                     const { children, className, } = props

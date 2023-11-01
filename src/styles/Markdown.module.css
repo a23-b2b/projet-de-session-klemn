@@ -9,9 +9,10 @@
     padding: 4px 8px;
     background: rgb(46, 46, 46);
     border: 1px solid var(--auto_border_color);
-    width: inherit;
+    width: fit-content;
     border-radius: 6px;
     overflow-x: auto;
+    margin-top: 6px;
 }
 
 .block_code {}
