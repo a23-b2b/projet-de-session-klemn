@@ -1,87 +1,76 @@
-import { useNavigate } from 'react-router-dom';
-import Bonjour from '../components/ComponentWithParameters';
-import HelloWorldComponent from '../components/HelloWorldComponent';
 import styles from '../styles/Home.module.css'
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Chargement from '../components/EcranChargement';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
-    const navigate = useNavigate();
-
-    const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
+    const navigate = useNavigate()
     const [postData, setPostData] = useState<any[]>([])
-    const [postOffset, setPostOffset] = useState(0)
+    const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
 
     async function getGlobalPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response
-        
-                        setPostOffset(postOffset + OFFSET)
-        
-                        if (data.length < OFFSET) {
-                            setIsEndOfFeed(true)
-                        }
-        
-                        setPostData(postData.concat(data))
-        
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response["posts"]
+
+                let newCursor = parseInt(response.newCursor)
+
+                setCursor(newCursor)
+
+                if (!newCursor) {
+                    setIsEndOfFeed(true)
+                }
+
+                setPostData(postData.concat(data))
+
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
         })
     }
 
-
     function getSubscribedPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response
-        
-                        setPostOffset(postOffset + OFFSET)
-        
-                        if (data.length < OFFSET) {
-                            setIsEndOfFeed(true)
-                        }
-        
-                        setPostData(postData.concat(data))
-        
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
-        });
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/followed/${cursor}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response["posts"]
+
+                let newCursor = parseInt(response.newCursor)
+
+                setCursor(newCursor)
+
+                if (!newCursor) {
+                    setIsEndOfFeed(true)
+                }
+
+                setPostData(postData.concat(data))
+
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
+        })
     }
+
 
     function getPosts() {
         let localStorageFeedType = localStorage.getItem("feedType")
@@ -100,24 +89,21 @@ function Home() {
     }
 
     function changeFeedType(type: any) {
-        console.log("Changing feed to", type)
+        console.info("Changing feed to", type)
         localStorage.setItem("feedType", type.toString())
         setFeedType(type)
 
-        // console.log('BEFORE CLEAR: ', postData)
+        setCursor(-1)
         setPostData([])
         setIsEndOfFeed(false)
-        setPostOffset(0)
-        // console.log('AFTER CLEAR: ', postData)
-
-
-        // getPosts()
-        // console.log('AFTER POPULATING: ', postData)
     }
 
     useEffect(() => {
-        getPosts()
-        console.log('posts gotten')
+        onAuthStateChanged(auth, (user) => {
+            if (!user) navigate('/authenticate')
+
+            else getPosts()
+        });
     }, [feedType]);
 
     return (
@@ -133,12 +119,13 @@ function Home() {
                 dataLength={postData.length}
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
-                loader={<p>Chargement...</p>}
+                loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            > 
+            >
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -159,7 +146,6 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -168,6 +154,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}
@@ -176,10 +163,10 @@ function Home() {
                                     type={id_type_post}
                                     isPostFullScreen={false}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} 
+                                    userVote={vote}
 
                                     sharedPostId={id_shared_post}
-                                    isSharedPostQuote={is_quoted_post}/>
+                                    isSharedPostQuote={is_quoted_post} />
                             </div>
 
                         )

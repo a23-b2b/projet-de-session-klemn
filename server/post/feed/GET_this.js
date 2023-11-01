@@ -4,35 +4,33 @@ const { admin } = require('../../serveur.js')
 const { pool } = require('../../serveur.js')
 
 
-module.exports = app.get('/feed/:offset', (req, res) => {
-    const offset = parseInt(req.params.offset);
+module.exports = app.get('/feed/:cursor', (req, res) => {
+    const userCursor = parseInt(req.params.cursor);
     const userToken = req.headers.authorization;
-    const limit = 6
-
+    const limit = 10
 
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid
 
-        console.log(userId)
-
         pool.query(`
             SELECT post_view.*,
-                vote.id_compte AS vote_user_id,
-                vote.score
+                vote.score as vote
             FROM post_view
-                LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?           
-            where id_type_post != 4
-            order by date_publication desc
-            limit ? offset ?;`,
-            [userId, limit, offset],
+                LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
+            WHERE post_view.numero_post <
+                IF(? = -1, (SELECT COUNT(*) FROM post_view), ?)
+                AND post_view.id_type_post != 4
+            LIMIT ?;`,
+            [userId, userCursor, userCursor, limit],
             function (err, results, fields) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                     res.status(500)
                 }
                 if (results) {
-                    // console.log(results)
-                    res.status(200).send(results)
+                    let nextCursor = NaN;
+                    if (results.length === limit) nextCursor = results[limit - 1]['numero_post']
+
+                    res.status(200).send({ "newCursor": nextCursor, "posts": [...results] })
                 }
             })
     })

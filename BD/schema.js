@@ -8,6 +8,7 @@ export const post = mysqlTable("post", {
     postType: int("id_type_post"),
     title: varchar("titre", { length: 255 }),
     content: varchar("contenu", { length: 4000 }),
+    est_markdown: boolean('est_markdown').notNull().default(false),
     likes: int("nombre_likes").notNull(),
     dislikes: int("nombre_dislikes").notNull(),
     reposts: int("nombre_reposts").notNull(),
@@ -70,6 +71,11 @@ export const question = mysqlTable("post_question", {
     postId: varchar("post_id_post", { length: 255 }).references(() => post.id),
     isSolved: boolean("est_resolu").notNull().default(false),
     answerPostId: varchar("post_meilleure_reponse", { length: 255 }).references(() => post.id),
+});
+
+export const badge = mysqlTable("badge", {
+    userId: varchar("id_compte", { length: 255 }).notNull().references(() => user.id),
+    badges: int("badges")
 });
 
 export const postView = mysqlView("post_view")

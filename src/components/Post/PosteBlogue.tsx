@@ -10,6 +10,7 @@ export interface BlogueProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -35,6 +36,7 @@ function PosteBlogue(props: BlogueProp) {
                 titre={props.titre}
                 idPost={props.idPost}
                 contenu={props.contenu}
+                estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
             <PostFooter

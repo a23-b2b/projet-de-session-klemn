@@ -26,7 +26,7 @@
 
     /*Couleur du gradient secondaire*/
     --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
     --dark_container_color: rgba(255, 255, 255, 0.199);
@@ -37,8 +37,8 @@
     --light_input_field_color: rgba(242, 225, 249, 0.913);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgb(255, 255, 255);
-    --light_border_color: rgba(172, 143, 184, 0.518);
+    --dark_border_color: rgb(94, 94, 94);
+    --light_border_color: rgb(119, 119, 119);
 
     /*Couleur de fond bouton*/
     --dark_button_color: var(--accent_color_dark);
@@ -64,6 +64,7 @@
 
     /*Thème sombre*/
     --auto_text_color: var(--text_color_dark);
+    --auto_text_secondary_color: var(--text_secondary_color_dark);
     --auto_accent_color: var(--accent_color_dark);
     --auto_background: var(--background_dark);
     --auto_background_secondary: var(--background_dark_secondary);
@@ -77,10 +78,10 @@
     --auto_button_text_color: var(--dark_button_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
 
-
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
         --auto_text_color: var(--text_color_light);
+        --auto_text_secondary_color: var(--text_secondary_color_light);
         --auto_accent_color: var(--accent_color_light);
         --auto_background: var(--background_light);
         --auto_background_secondary: var(--background_light_secondary);
