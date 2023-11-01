@@ -17,7 +17,7 @@ module.exports = app.get('/user/:user_id/:cursor', (req, res) => {
         FROM post_view
             LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
         WHERE post_view.numero_post <
-            IF(? = -1, (SELECT COUNT(*) FROM post_view), ?)
+            IF(? = -1, (SELECT COUNT(*) + 1 FROM post_view), ?)
             AND post_view.id_type_post != 4
             AND post_view.id_compte like ?
         LIMIT ?;`,
