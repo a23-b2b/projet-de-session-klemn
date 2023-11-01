@@ -7,6 +7,8 @@ const app = express()
 const admin = require('firebase-admin');
 const dotenv = require('dotenv');
 const mysql = require('mysql2')
+const rateLimit = require('express-rate-limit')
+
 dotenv.config();
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
@@ -23,6 +25,16 @@ const pool = mysql.createPool({
     multipleStatements: true
 });
 exports.pool = pool;
+
+/* https://www.npmjs.com/package/express-rate-limit */
+const limiter = rateLimit({
+	windowMs: 1 * 60 * 1000, // 1 minute
+	max: 90, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+app.use(limiter)
 
 app.use(express.json())
 app.use(express.urlencoded())
