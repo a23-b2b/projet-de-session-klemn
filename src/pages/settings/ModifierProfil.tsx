@@ -1,10 +1,10 @@
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
-import ReactCrop, {centerCrop, convertToPixelCrop, Crop, makeAspectCrop} from "react-image-crop";
+import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
 
 
@@ -183,7 +183,7 @@ function ModifierProfil() {
 
             if (ctx != null) {
                 ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-                ctx.imageSmoothingQuality = 'high';
+                ctx.imageSmoothingQuality = 'low';
 
                 ctx.drawImage(
                     image,
@@ -198,32 +198,30 @@ function ModifierProfil() {
                 );
             }
 
-            console.log(cropProfil)
-            let nouvelleImage: Blob
-            canvas.toBlob(blob => {
-                if (blob) {
-                    auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                        console.log(blob)
-                        fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'authorization': idToken
-                            },
-                            body: JSON.stringify({
-                                new_image: blob,
-                            }),
-                        }).then(response => response.json()).then(response => {
-                            toast.success('Paramètre modifié.');
-                        }).catch((error) => {
-                            toast.error(`Une erreur est survenue: (${error.code})`)
-                        })
+            const dataUrl = canvas.toDataURL('image/webp', 0)
+
+            if (dataUrl) {
+                auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            new_image: dataUrl,
+                        }),
+                    }).then(response => {
+                        console.log(response)
+
+                        if (response.ok) toast.success('Paramètre modifié.');
+
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: (${error.code})`)
                     })
-                }
-
-            }, 'image/webp', 1)
+                })
+            }
         }
-
     }
 
     return (
@@ -364,40 +362,40 @@ function ModifierProfil() {
                         </button>
                     </div>
 
-            </div>
-
-            <br />
-            <hr className={styles.hr}></hr>
-            <br />
-
-            <div>
-                <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
-                <div className={styles.import_image}>
-                    <input
-                        type={'file'}
-                        accept={'image/'}
-                        onChange={onInputProfilLoad}
-                    />
-                    <br/>
-                    {urlImageProfil && (
-                        <ReactCrop crop={cropProfil}
-                                   onChange={crop => setCropProfil(crop)}
-                                   aspect={1}
-                                   circularCrop={true}>
-                            <img src={urlImageProfil} onLoad={onImageProfilLoad}/>
-                        </ReactCrop>
-                    )
-                    }
-                    {urlImageProfil && (
-                        <button className={'global_bouton'} onClick={() => changerImageProfil()}>
-                            Modifier
-                        </button>
-                    )
-                    }
-
                 </div>
-            </div>
-        </motion.div>
+
+                <br />
+                <hr className={styles.hr}></hr>
+                <br />
+
+                <div>
+                    <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
+                    <div className={styles.import_image}>
+                        <input
+                            type={'file'}
+                            accept={'image/'}
+                            onChange={onInputProfilLoad}
+                        />
+                        <br />
+                        {urlImageProfil && (
+                            <ReactCrop crop={cropProfil}
+                                onChange={crop => setCropProfil(crop)}
+                                aspect={1}
+                                circularCrop={true}>
+                                <img src={urlImageProfil} onLoad={onImageProfilLoad} />
+                            </ReactCrop>
+                        )
+                        }
+                        {urlImageProfil && (
+                            <button className={'global_bouton'} onClick={() => changerImageProfil()}>
+                                Modifier
+                            </button>
+                        )
+                        }
+
+                    </div>
+                </div>
+            </motion.div>
         </div>
     );
 }
