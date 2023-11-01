@@ -157,8 +157,8 @@ FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
-         INNER JOIN compte c on post.id_compte = c.id_compte;
-         LEFT JOIN badge b on c.id_compte = b.id_compte;
+         INNER JOIN compte c on post.id_compte = c.id_compte
+         LEFT JOIN badge b on c.id_compte = b.id_compte
 ORDER BY post.date_publication DESC;
 
 COMMIT;
