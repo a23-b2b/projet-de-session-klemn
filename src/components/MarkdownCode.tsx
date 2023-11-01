@@ -3,13 +3,22 @@ import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import style from '../styles/Markdown.module.css'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneLight, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface MarkdownCodeProps {
     c: string // Code markdown a render
 }
 
 function MarkdownCode(props: MarkdownCodeProps) {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    let theme = atomDark;
+
+    if (darkThemeMq.matches) {
+        theme = atomDark
+    } else {
+        theme = oneLight
+    }
+
     return (<>
         <div className={style.conteneur}>
             <Markdown components={{
@@ -19,7 +28,7 @@ function MarkdownCode(props: MarkdownCodeProps) {
                     return match ? (
                         <SyntaxHighlighter
                             children={String(children).replace(/\n$/, '')}
-                            style={atomDark}
+                            style={theme}
                             language={match[1]}
                             PreTag="div"
                             showLineNumbers={true}
