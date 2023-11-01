@@ -71,11 +71,11 @@ const PostContent = (props: ContentProps) => {
                     :
 
                     <div className={styles.conteneurDiv}>
-                        
-                        <h2>
-                            {props.titre}
-                        </h2>
-                        
+                        <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                            <h2>
+                                {props.titre}
+                            </h2>
+                        </Link>
                     </div>
 
             }
