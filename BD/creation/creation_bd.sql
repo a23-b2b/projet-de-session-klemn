@@ -19,12 +19,17 @@ DROP
   TABLE IF EXISTS post_question;
 DROP
   TABLE IF EXISTS post_partage;
+
 DROP 
   TABLE IF EXISTS post CASCADE;
+
+DROP 
+  TABLE IF EXISTS collaborateur;
+DROP 
+  TABLE IF EXISTS projet;
+
 DROP 
   TABLE IF EXISTS compte;
-DROP
-  TABLE IF EXISTS post_partage;
 
 CREATE TABLE compte(  
     id_compte                       varchar(255) NOT NULL PRIMARY KEY,
@@ -55,6 +60,7 @@ CREATE TABLE post
     id_infos            VARCHAR(255)  NULL,
     titre               VARCHAR(255)  NULL,
     contenu             VARCHAR(4000) NOT NULL,
+    est_markdown        BOOLEAN       NOT NULL DEFAULT FALSE,  
     nombre_likes        INT           NOT NULL,
     nombre_dislikes     INT           NOT NULL,
     nombre_reposts      INT           NOT NULL,
@@ -156,12 +162,15 @@ SELECT post.*,
        pp.is_quoted_post,
        c.nom_affichage,
        c.nom_utilisateur,
-       c.url_image_profil
+       c.url_image_profil,
+       b.badges
 FROM post
          LEFT JOIN post_collab pc on post.id_post = pc.post_id_post
          LEFT JOIN post_question pq on post.id_post = pq.post_id_post
          LEFT JOIN post_partage pp on post.id_post = pp.id_post_original
          LEFT JOIN projet p ON pc.projet_id_projet = p.id_projet
          INNER JOIN compte c on post.id_compte = c.id_compte;
+         LEFT JOIN badge b on c.id_compte = b.id_compte
+ORDER BY post.date_publication DESC;
 
 COMMIT;

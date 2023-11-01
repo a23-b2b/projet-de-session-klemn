@@ -8,6 +8,7 @@ export const post = mysqlTable("post", {
     postType: int("id_type_post"),
     title: varchar("titre", { length: 255 }),
     content: varchar("contenu", { length: 4000 }),
+    est_markdown: boolean('est_markdown').notNull().default(false),
     likes: int("nombre_likes").notNull(),
     dislikes: int("nombre_dislikes").notNull(),
     reposts: int("nombre_reposts").notNull(),
@@ -88,3 +89,38 @@ export const question = mysqlTable("post_question", {
     isSolved: boolean("est_resolu").notNull().default(false),
     answerPostId: varchar("post_meilleure_reponse", { length: 255 }).references(() => post.id),
 });
+
+export const badge = mysqlTable("badge", {
+    userId: varchar("id_compte", { length: 255 }).notNull().references(() => user.id),
+    badges: int("badges")
+});
+
+export const postView = mysqlView("post_view")
+    .as((qb) => qb
+        .select({
+            id: post.id,
+            createdAt: post.createdAt,
+            userId: post.userId,
+            parentId: post.parentId,
+            postType: post.postType,
+            title: post.title,
+            content: post.content,
+            likes: post.likes,
+            dislikes: post.dislikes,
+            comments: post.comments,
+            reposts: post.reposts,
+            shares: post.shares,
+            collabGitUrl: collaboration.projectUrl,
+            collabId: collaboration.id,
+            questionIsSolved: question.isSolved,
+            questionBestAnswer: question.answerPostId,
+            userDisplayName: user.displayName,
+            userUserName: user.userName,
+            userProfileImage: user.profileImageUrl
+        })
+        .from(post)
+        .leftJoin(collaboration, eq(post.id, collaboration.postId))
+        .leftJoin(question, eq(post.id, question.postId))
+        .leftJoin(share, eq(post.id, share.postId))
+        .innerJoin(user, eq(post.userId, user.id))
+    );

@@ -20,6 +20,7 @@ interface Props {
     urlImageProfil: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -54,6 +55,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -70,6 +72,7 @@ function Post(props: Props) {
                     nomAffichage={props.nomAffichage}
                     nomUtilisateur={props.nomUtilisateur}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
@@ -84,6 +87,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -105,6 +109,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -128,6 +133,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}

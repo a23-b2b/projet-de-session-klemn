@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { useState } from 'react';
 
 import { Tooltip } from "@chakra-ui/react"
+import BadgesContainer from '../Badges/_BadgesContainer';
 
 interface HeaderProps {
     date: string;
@@ -66,7 +67,6 @@ const PostHeader = (props: HeaderProps) => {
         timeStampText = datePost.toLocaleDateString()
     }
 
-    console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
             <Link to={`/u/${props.nomUtilisateur}`}>
@@ -76,6 +76,7 @@ const PostHeader = (props: HeaderProps) => {
             <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                     <p className={styles.display_name}>{props.nomAffichage}</p>
+                    {/* <BadgesContainer badgesInt={15}/> */}
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
             </div>
