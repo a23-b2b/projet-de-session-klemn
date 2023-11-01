@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Chargement from '../components/EcranChargement';
 
 function Home() {
     const navigate = useNavigate();
@@ -36,15 +37,15 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response
-        
+
                         setPostOffset(postOffset + OFFSET)
-        
+
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -66,15 +67,15 @@ function Home() {
                         },
                     }).then(response => response.json()).then(response => {
                         let data = response
-        
+
                         setPostOffset(postOffset + OFFSET)
-        
+
                         if (data.length < OFFSET) {
                             setIsEndOfFeed(true)
                         }
-        
+
                         setPostData(postData.concat(data))
-        
+
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: ${error}`)
                     })
@@ -133,9 +134,9 @@ function Home() {
                 dataLength={postData.length}
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
-                loader={<p>Chargement...</p>}
+                loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
-            > 
+            >
                 <div>
                     {postData?.map(({
                         contenu,
@@ -176,10 +177,10 @@ function Home() {
                                     type={id_type_post}
                                     isPostFullScreen={false}
                                     urlImageProfil={url_image_profil}
-                                    userVote={vote} 
+                                    userVote={vote}
 
                                     sharedPostId={id_shared_post}
-                                    isSharedPostQuote={is_quoted_post}/>
+                                    isSharedPostQuote={is_quoted_post} />
                             </div>
 
                         )
