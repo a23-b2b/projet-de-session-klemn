@@ -27,7 +27,7 @@
 
     /*Couleur du gradient secondaire*/
     --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85),  rgb(253, 221, 106));
+    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur de fond container*/
     --dark_container_color: rgba(255, 255, 255, 0.199);
@@ -38,8 +38,8 @@
     --light_input_field_color: rgba(242, 225, 249, 0.913);
 
     /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgb(255, 255, 255);
-    --light_border_color: rgba(172, 143, 184, 0.518);
+    --dark_border_color: rgb(94, 94, 94);
+    --light_border_color: rgb(119, 119, 119);
 
     /*Couleur de fond bouton*/
     --dark_button_color: var(--accent_color_dark);
@@ -72,6 +72,33 @@
     /*Couleur de fond header*/
     --dark_background_color_header: rgba(52, 46, 57, 0.463);
     --light_background_color_header: rgba(214, 150, 223, 0.256);
+    /*Couleur de fond bouton2*/
+    --dark_button2_color: rgb(86, 29, 117);
+    --light_button2_color: rgb(247, 232, 247);
+
+    /*Couleur du text bouton2*/
+    --dark_button2_text_color: rgb(243, 234, 243);
+    --light_button2_text_color: rgb(98, 9, 145);
+
+    /**/
+    --dark_container_post_color: rgba(138, 138, 138, 0.16);
+    --light_container_post_color: rgba(103, 18, 114, 0.256);
+
+    /*Couleur conteneur getsion */
+    --dark_container_gestion: rgb(69, 61, 76);
+    --light_container_gestion: rgb(98, 9, 145);
+
+
+    /*Couleur du background du container gestsion projet rapide*/
+    --dark_container_gestion_projet_rapide: rgba(69, 64, 75, 0.425);
+    --light_container_gestion_projet_rapide: rgb(98, 9, 145);
+
+    /*Couleur du background du container gestsion collaboration*/
+    --dark_container_gestion_collaboration: rgba(138, 138, 138, 0.283);
+    --light_container_gestion_collaboration: rgb(98, 9, 145);
+
+
+
 
     /* ===================================== */
     /* VARIABLES QUI CHANGENT SELON LE THEME */
@@ -84,6 +111,7 @@
 
     /*Thème sombre*/
     --auto_text_color: var(--text_color_dark);
+    --auto_text_secondary_color: var(--text_secondary_color_dark);
     --auto_accent_color: var(--accent_color_dark);
     --auto_background: var(--background_dark);
     --auto_background_secondary: var(--background_dark_secondary);
@@ -95,6 +123,8 @@
     --auto_border_color: var(--dark_border_color);
     --auto_button_color: var(--dark_button_color);
     --auto_button_text_color: var(--dark_button_text_color);
+    --auto_button2_color: var(--dark_button2_color);
+    --auto_button2_text_color: var(--dark_button2_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
     --auto_container_modal_color: var(--dark_container_modal_color);
     --auto_background_color_header: var(--dark_background_color_header);
@@ -102,10 +132,14 @@
     --auto_button_unselected_hover_color: var(--dark_button_unselected_hover_color);
     --auto_button_unselected_text_color: var(--dark_button_unselected_text_color);
 
+    --auto_container_gestion_projet_rapide: var(--dark_container_gestion_projet_rapide);
+    --auto_container_gestion: var(--dark_container_gestion);
+    --auto_container_gestion_collaboration: var(--dark_container_gestion_collaboration);
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
         --auto_text_color: var(--text_color_light);
+        --auto_text_secondary_color: var(--text_secondary_color_light);
         --auto_accent_color: var(--accent_color_light);
         --auto_background: var(--background_light);
         --auto_background_secondary: var(--background_light_secondary);
@@ -117,12 +151,18 @@
         --auto_border_color: var(--light_border_color);
         --auto_button_color: var(--light_button_color);
         --auto_button_text_color: var(--light_button_text_color);
+        --auto_button2_color: var(--light_button2_color);
+        --auto_button2_text_color: var(--light_button2_text_color);
         --auto_container_post_color: var(--light_container_post_color);
         --auto_container_modal_color: var(--light_container_modal_color);
         --auto_background_color_header: var(--light_background_color_header);
         --auto_button_unselected_color: var(--light_button_unselected_color);
         --auto_button_unselected_hover_color: var(--light_button_unselected_hover_color);
         --auto_button_unselected_text_color: var(--light_button_unselected_text_color);
+        --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
+        --auto_container_gestion: var(--light_container_gestion);
+        --auto_container_gestion_collaboration: var(--light_container_gestion_collaboration);
+
     }
 
 }
@@ -189,9 +229,20 @@ textarea {
     padding: 13px 30px 13px 30px;
     border: 0px;
     width: fit-content;
-    border-radius: 18px;
-    color: var(--auto_text_color);
+    border-radius: 50px;
+    color: var(--auto_button_text_color);
     background-color: var(--auto_button_color);
+    font-weight: bold;
+
+}
+
+.global_bouton2 {
+    padding: 13px 30px 13px 30px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 50px;
+    color: var(--auto_button2_text_color);
+    background-color: var(--auto_button2_color);
     font-weight: bold;
 
 }

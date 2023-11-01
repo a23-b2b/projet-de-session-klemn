@@ -38,7 +38,6 @@ function QuotePostModal(props: Props) {
                             }),
                         }).then(response => response.json())
                             .then(response => {
-                                console.log(response)
                                 toast.success('Votre message a été publié!');
 
                                 navigate(`/p/${response['id_post']}`)

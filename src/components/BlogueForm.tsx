@@ -1,8 +1,11 @@
 import styles from '../styles/PostsForm.module.css'
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
-import { useState } from "react";
+import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Divider } from '@chakra-ui/react';
+
 
 function BlogueForm() {
     const navigate = useNavigate();
@@ -12,8 +15,41 @@ function BlogueForm() {
     const [nbCaracteres, setNbCaracteres] = useState(0)
     // Hook pour le type de post
     const [type, setType] = useState('blogue');
-    const [urlGit, setUrlGit] = useState("");
+    const [IdChoixDeProjet, setIdChoixDeProjet] = useState<String>();;
 
+    const [projets, setProjets] = useState<any[]>([]);
+    const naviguate = useNavigate()
+
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value
+        setIdChoixDeProjet(value)
+    }
+
+    useEffect(() => {
+        getProjets()
+    }, []);
+
+    async function getProjets() {    
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },        
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        setProjets(json)
+                    })
+                    .catch(error => toast.error(error));
+            } else {
+                navigate("/authenticate")
+            }
+        })
+    }
+    const [urlGit, setUrlGit] = useState("");
+    const [estMarkdown, setEstMarkdown] = useState(false);
 
     async function publierBlogue() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
@@ -30,16 +66,15 @@ function BlogueForm() {
                         body: JSON.stringify({
                             titre: titre,
                             contenu: contenu,
-                            urlGit: urlGit,
-                            type: 1
+                            idProjet: IdChoixDeProjet,
+                            type: type,
+                            est_markdown: estMarkdown
                         }),
                     }).then(response => response.json()).then(response => {
-                        console.log(response)
                         toast.success('Votre message a été publié!');
 
                         navigate(`/p/${response['id_post']}`)
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                     })
                 })
@@ -106,6 +141,24 @@ function BlogueForm() {
                     <option value='question'>Question</option>
                     <option value='collab'>Collaboration</option>
                 </select>
+                
+                <div className={styles.conteneurToggleModeMarkdown}>
+                    
+                    <div>
+                        <label className={styles.switch}>
+                            <input onChange={()=> { 
+                                toast(`Mode markdown actif?: ${estMarkdown}`)
+                                setEstMarkdown(!estMarkdown)
+                            }} type="checkbox"/>
+                            <span className={styles.slider}/> 
+                        </label>
+                    </div>
+                    <div className={styles.titreToggleModeMarkdown}>
+                        <p>Mode Markdown</p>
+                    </div>
+                </div>
+                
+                
 
 */}
 
@@ -125,15 +178,23 @@ function BlogueForm() {
                     }}>Collaboration</button>
                 </div>
 
-                {type === "collab" && (
-                    <div id={styles["divCollab"]} >
-                        <label className={'global_input_field_label'}>URL du projet GitHub</label>
-                        <input
-                            placeholder='https://github.com/'
-                            type="text"
+                {type == "collab" && (
+                    <div >
+                        <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
+                        <select                             
                             className={'global_input_field'}
-                            id={styles["inputCollab"]}
-                            onChange={(e) => setUrlGit(e.target.value)} />
+                            onChange={handleChange}
+                            >
+                                {projets && projets?.map(({
+                                    id_projet,
+                                    titre_projet,
+                                    est_ouvert
+                                }) => { return (<>                       
+                                    {est_ouvert && 
+                                        <option value={id_projet}>{titre_projet}</option>}
+                                </>)
+                            })}
+                        </select>
                     </div>
                 )}
             </div>

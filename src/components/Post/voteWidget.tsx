@@ -47,10 +47,6 @@ const VoteWidget = (props: FooterProps) => {
         const onVoteIconAnimationType = localStorage.getItem("voteClickAnimation")
         const onVoteTextAnimationType = localStorage.getItem("voteTextAnimation")
 
-        console.log()
-        console.log('userVote', userVote)
-        console.log('score', score)
-        console.log('add', userVote + score)
 
         if (score > 0) {
             if (userVote + score == 2) {
@@ -172,12 +168,12 @@ const VoteWidget = (props: FooterProps) => {
                     setScoreDifference(response['postScoreDifference'])
                     setLoading(false)
                 }).catch((error) => {
-                    console.log(error)
+                    toast.error(error)
                     props.idPost != '0' && toast.error('Une erreur est survenue');
                 }).then(() => {
 
-                    console.log("LIKE & CANCEL DISLIKE", score > 0 || cancelledVoteRef.current && score < 0)
-                    console.log("DISLIKE & CANCEL LIKE", score < 0 || cancelledVoteRef.current && score > 0)
+                    // console.log("LIKE & CANCEL DISLIKE", score > 0 || cancelledVoteRef.current && score < 0)
+                    // console.log("DISLIKE & CANCEL LIKE", score < 0 || cancelledVoteRef.current && score > 0)
                     // Animation slide texte vers le haut (LIKE et CANCEL DISLIKE)
                     if (!cancelledVoteRef.current && score > 0 || cancelledVoteRef.current && score < 0) {
                         animateNumberScore(scopeNumberScore.current, {

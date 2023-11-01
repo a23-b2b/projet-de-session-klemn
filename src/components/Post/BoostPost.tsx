@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Post from '../Post';
 import { FaRetweet } from 'react-icons/fa6';
 import styles from '../../styles/BoostedPost.module.css'
+import toast from 'react-hot-toast';
 
 interface Props {
     idPost: string;
@@ -29,7 +30,6 @@ function BoostPost(props: Props) {
 
     function getSharedboostedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.boostedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -43,10 +43,9 @@ function BoostPost(props: Props) {
 
                     setBoostedPostData(data)
 
-                    console.log(data)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error('Une erreur est survenue');
                 })
         });
     }
@@ -54,8 +53,8 @@ function BoostPost(props: Props) {
     if (boostedPostData) {
         return (
             <div>
-                <span id={styles["boutonCollab"]}>
-                    <FaRetweet className={styles.icone_boost}/>
+                <span>
+                    <FaRetweet className={styles.icone_boost} />
                     <Link to={`/u/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
                 </span>
                 <Post
@@ -66,6 +65,7 @@ function BoostPost(props: Props) {
                     idCompte={boostedPostData.id_compte}
                     titre={boostedPostData.titre}
                     contenu={boostedPostData.contenu}
+                    estMarkdown={boostedPostData.est_markdown}
                     nombreLike={boostedPostData.nombre_likes}
                     nombreDislike={boostedPostData.nombre_dislikes}
                     nombrePartage={boostedPostData.nombre_partages}
@@ -74,7 +74,7 @@ function BoostPost(props: Props) {
                     type={boostedPostData.id_type_post}
                     urlImageProfil={boostedPostData.url_image_profil}
                     userVote={boostedPostData.vote}
-    
+
                     sharedPostId={boostedPostData.id_shared_post}
                     isSharedPostQuote={boostedPostData.is_quoted_post} />
             </div>

@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
+import { getAuth } from "firebase/auth";
+import { useState } from 'react';
+
 import { Tooltip } from "@chakra-ui/react"
+import BadgesContainer from '../Badges/_BadgesContainer';
 
 interface HeaderProps {
     date: string;
@@ -17,6 +21,8 @@ const DEUX_SEMAINES_EN_SECONDES = 1209600
 
 
 const PostHeader = (props: HeaderProps) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const datePost = new Date(props.date)
     const datePostUTC = new Date(Date.UTC(datePost.getUTCFullYear(), datePost.getUTCMonth(), datePost.getUTCDate(), datePost.getUTCHours() - datePost.getTimezoneOffset() / 60, datePost.getUTCMinutes(), datePost.getUTCSeconds()))
@@ -61,7 +67,6 @@ const PostHeader = (props: HeaderProps) => {
         timeStampText = datePost.toLocaleDateString()
     }
 
-    console.log(props.urlImageProfil)
     return (
         <div className={styles.header}>
             <Link to={`/u/${props.nomUtilisateur}`}>
@@ -71,6 +76,7 @@ const PostHeader = (props: HeaderProps) => {
             <div id={styles["inner_droit_nom_utilisateur"]}>
                 <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
                     <p className={styles.display_name}>{props.nomAffichage}</p>
+                    {/* <BadgesContainer badgesInt={15}/> */}
                     <p className={styles.username}>@{props.nomUtilisateur}</p>
                 </Link>
             </div>

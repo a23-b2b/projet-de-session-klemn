@@ -47,6 +47,14 @@
 background-color: var(--auto_button_unselected_hover_color);
 
 }
+.lien_vers_post {
+    text-decoration: none;
+    color: var(--auto_text_color);
+}
+    .lien_vers_post:hover {
+        background-color: rgba(228, 228, 228, 0.279);
+        transition: 0.2s;
+    }
 
 @media only screen and (max-width: 600px) {
     .body {
