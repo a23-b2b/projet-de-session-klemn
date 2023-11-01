@@ -5,6 +5,8 @@ import CommentaireForm from './CommentaireForm';
 import { AnimatePresence, motion } from 'framer-motion';
 import Post, { TYPE_REPONSE } from "./Post";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Chargement from './EcranChargement';
+import toast from 'react-hot-toast';
 
 export interface SectionReponsesProps {
     idParent: string;
@@ -41,7 +43,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     }, 325);
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error(error)
                 })
         })
     }, [props.idParent])
@@ -59,6 +61,7 @@ function SectionReponses(props: SectionReponsesProps) {
                         nom_utilisateur,
                         titre,
                         contenu,
+                        est_markdown,
                         nombre_likes,
                         nombre_dislikes,
                         nombre_partages,
@@ -74,12 +77,13 @@ function SectionReponses(props: SectionReponsesProps) {
                                 nomUtilisateur={nom_utilisateur}
                                 titre={titre}
                                 contenu={contenu}
+                                estMarkdown={est_markdown}
                                 nombreLike={nombre_likes}
                                 nombreDislike={nombre_dislikes}
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 isPostFullScreen={false}
-                                type={TYPE_REPONSE} 
+                                type={TYPE_REPONSE}
                                 urlImageProfil={url_image_profil}
                                 userVote={vote} />
                         )
@@ -122,7 +126,7 @@ function SectionReponses(props: SectionReponsesProps) {
             <CommentaireForm idParent={props.idParent} ajouterNouvCommentaire={ajouterNouvCommentaire} />
 
             <AnimatePresence>
-                {loading ? '' : <RepliesContent />}
+                {loading ? <Chargement /> : <RepliesContent />}
             </AnimatePresence>
 
         </motion.div>

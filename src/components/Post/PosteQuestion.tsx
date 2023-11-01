@@ -11,6 +11,7 @@ export interface QuestionProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -39,6 +40,7 @@ function PosteQuestion(props: QuestionProp) {
                 titre={props.titre}
                 idPost={props.idPost}
                 contenu={props.contenu}
+                estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
             {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}

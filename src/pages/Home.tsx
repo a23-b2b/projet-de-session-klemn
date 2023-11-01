@@ -6,8 +6,11 @@ import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Chargement from '../components/EcranChargement';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate = useNavigate()
     const [postData, setPostData] = useState<any[]>([])
     const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -15,67 +18,59 @@ function Home() {
 
 
     async function getGlobalPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response["posts"]
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response["posts"]
 
-                        let newCursor = parseInt(response.newCursor)
+                let newCursor = parseInt(response.newCursor)
 
-                        setCursor(newCursor)
+                setCursor(newCursor)
 
-                        if (!newCursor) {
-                            setIsEndOfFeed(true)
-                        }
+                if (!newCursor) {
+                    setIsEndOfFeed(true)
+                }
 
-                        setPostData(postData.concat(data))
+                setPostData(postData.concat(data))
 
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
         })
     }
 
-
     function getSubscribedPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${cursor}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response["posts"]
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/followed/${cursor}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response["posts"]
 
-                        let newCursor = parseInt(response.newCursor)
+                let newCursor = parseInt(response.newCursor)
 
-                        setCursor(newCursor)
+                setCursor(newCursor)
 
-                        if (!newCursor) {
-                            setIsEndOfFeed(true)
-                        }
+                if (!newCursor) {
+                    setIsEndOfFeed(true)
+                }
 
-                        setPostData(postData.concat(data))
+                setPostData(postData.concat(data))
 
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
-        });
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
+        })
     }
+
 
     function getPosts() {
         let localStorageFeedType = localStorage.getItem("feedType")
@@ -104,7 +99,11 @@ function Home() {
     }
 
     useEffect(() => {
-        getPosts()
+        onAuthStateChanged(auth, (user) => {
+            if (!user) navigate('/authenticate')
+
+            else getPosts()
+        });
     }, [feedType]);
 
     return (
@@ -119,13 +118,14 @@ function Home() {
             <InfiniteScroll
                 dataLength={postData.length}
                 next={() => getPosts()}
-                hasMore={!isEndOfFeed}
-                loader={<p>Chargement...</p>}
+                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -146,7 +146,6 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -155,6 +154,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}
