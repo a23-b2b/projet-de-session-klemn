@@ -13,12 +13,7 @@ import Chargement from '../components/EcranChargement';
 
 function Home() {
     const navigate = useNavigate();
-
     const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -26,63 +21,56 @@ function Home() {
 
 
     async function getGlobalPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/feed/${postOffset}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response
 
-                        setPostOffset(postOffset + OFFSET)
+                setPostOffset(postOffset + OFFSET)
 
-                        if (data.length < OFFSET) {
-                            setIsEndOfFeed(true)
-                        }
+                if (data.length < OFFSET) {
+                    setIsEndOfFeed(true)
+                }
 
-                        setPostData(postData.concat(data))
+                setPostData(postData.concat(data))
 
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
         })
     }
 
 
     function getSubscribedPosts() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                    }).then(response => response.json()).then(response => {
-                        let data = response
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': idToken
+                },
+            }).then(response => response.json()).then(response => {
+                let data = response
 
-                        setPostOffset(postOffset + OFFSET)
+                setPostOffset(postOffset + OFFSET)
 
-                        if (data.length < OFFSET) {
-                            setIsEndOfFeed(true)
-                        }
+                if (data.length < OFFSET) {
+                    setIsEndOfFeed(true)
+                }
 
-                        setPostData(postData.concat(data))
+                setPostData(postData.concat(data))
 
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: ${error}`)
-                    })
-                })
-            }
-        });
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: ${error}`)
+            })
+        })
     }
+
 
     function getPosts() {
         let localStorageFeedType = localStorage.getItem("feedType")
@@ -117,8 +105,11 @@ function Home() {
     }
 
     useEffect(() => {
-        getPosts()
-        console.log('posts gotten')
+        onAuthStateChanged(auth, (user) => {
+            if (!user) navigate('/authenticate')
+
+            else getPosts()
+        });
     }, [feedType]);
 
     return (
@@ -140,6 +131,7 @@ function Home() {
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -160,7 +152,6 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -169,6 +160,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}
