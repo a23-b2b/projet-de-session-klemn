@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const { pool } = require('../../serveur.js')
-const { logger } = require('../../logger.js')
+const logger = require('../../logger.js')
 
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)
