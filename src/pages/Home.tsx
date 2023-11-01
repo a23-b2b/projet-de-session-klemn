@@ -13,12 +13,7 @@ import Chargement from '../components/EcranChargement';
 
 function Home() {
     const navigate = useNavigate();
-
     const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -140,6 +135,7 @@ function Home() {
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -160,7 +156,6 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -169,6 +164,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}

@@ -198,6 +198,7 @@ function Profil() {
             >
                 {userPosts?.map(({
                     contenu,
+                    est_markdown,
                     date_publication,
                     id_compte,
                     id_infos,
@@ -223,6 +224,7 @@ function Profil() {
                             nomUtilisateur={username + ''}
                             titre={titre}
                             contenu={contenu}
+                            estMarkdown={est_markdown}
                             nombreLike={nombre_likes}
                             nombreDislike={nombre_dislikes}
                             nombrePartage={nombre_partages}
