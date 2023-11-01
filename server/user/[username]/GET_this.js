@@ -40,8 +40,7 @@ module.exports = app.get('/:username', async (req, res) => {
             function (err, results, fields) {
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-                    console.log(err)
-                    res.status(500).send('Erreur de base de données', err)
+                    res.status(500).send(`Erreur de base de données, ${err}`)
                 }
 
                 let visitorFollowsProfile;

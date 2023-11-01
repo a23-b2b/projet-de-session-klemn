@@ -9,6 +9,8 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { CgProfile } from 'react-icons/cg';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import toast from 'react-hot-toast';
 
 
 function Header() {
@@ -20,23 +22,25 @@ function Header() {
   }, []);
 
   async function getUsername() {
-    auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-      fetch(`${process.env.REACT_APP_API_URL}/username/${auth.currentUser?.uid}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'authorization': idToken,
-        }
-      })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-          setUsername(data.username);
-        }).catch((error) => {
-            console.log(error.code)
-        });
-    });
-  };
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+          user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+              fetch(`${process.env.REACT_APP_API_URL}/username/${user.uid}`, {
+                  method: 'GET',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'authorization': idToken
+                  },
+              }).then(response => response.json()).then(response => {
+
+                  setUsername(response[0].nom_utilisateur)
+              }).catch((error) => {
+                  toast.error(`Une erreur est survenue: ${error}`)
+              })
+          })
+      }
+  })
+  }
 
   return (
     <div id={styles["HeaderConnecte"]}>
@@ -57,8 +61,8 @@ function Header() {
                 </div>
               }
             >
-              <Link to={'/u/' + username} id={styles["linkConteneur"]}>
-                <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/u/' + username)}>
+              <Link to={`/u/${username}`} id={styles["linkConteneur"]}>
+                <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate(`/u/${username}`)}>
                   <CgProfile id={styles["linkConteneur"]} className={styles.dropdown_menu_icon} />
                   <span id={styles["link"]} className={'link'}>
                     Profil
