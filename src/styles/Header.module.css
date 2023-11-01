@@ -58,6 +58,12 @@
 
 /* Menu dropdown */
 
+
+#linkConteneur {
+    text-decoration: none;
+    color: var(--auto_text_color);
+}
+
 .dropdown_menu {
     backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
@@ -101,6 +107,7 @@
     color: var(--text_color_dark);
     outline: none;
     cursor: pointer;
+    
 }
 
 #link {

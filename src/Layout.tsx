@@ -25,7 +25,6 @@ function Layout() {
                     {/* Gestion des erreurs 404 */}
                     <Route path="/404" element={<Erreur404 />} />
                     <Route path="*" element={<Navigate to="/404" />} />
-
                     <Route path="/" element={<Home />} />
                     <Route path="/authenticate" element={<Landing />} />
                     <Route path="/u/:username" element={<Profil />} />
