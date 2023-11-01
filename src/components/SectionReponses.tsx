@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Post, { TYPE_REPONSE } from "./Post";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Chargement from './EcranChargement';
+import toast from 'react-hot-toast';
 
 export interface SectionReponsesProps {
     idParent: string;
@@ -42,7 +43,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     }, 325);
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error(error)
                 })
         })
     }, [props.idParent])

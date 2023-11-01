@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
+import toast from 'react-hot-toast';
 
 interface Props {
     idPost: string;
@@ -37,7 +38,6 @@ function QuotePost(props: Props) {
 
     function getQuotedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.quotedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -52,7 +52,7 @@ function QuotePost(props: Props) {
                     setQuotedPostData(data)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error(error.toString())
                 })
         });
     }
