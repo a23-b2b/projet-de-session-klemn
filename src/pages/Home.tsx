@@ -17,6 +17,7 @@ function Home() {
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
 
+
     async function getGlobalPosts() {
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
@@ -107,13 +108,18 @@ function Home() {
     }, [feedType]);
 
     return (
+        
         <div className={styles.body}>
             <BlogueForm />
 
-            <select value={feedType} onChange={e => changeFeedType(e.target.value)}>
-                <option value="global">Global</option>
-                <option value="followed">Abonnements</option>
-            </select>
+            <div className={styles.conteneurBoutons}>
+                <button className={feedType === "global" ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                  changeFeedType("global");
+                }}>Global</button>
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                  changeFeedType("followed");
+                }}>Abonnements</button>
+            </div>
 
             <InfiniteScroll
                 dataLength={postData.length}

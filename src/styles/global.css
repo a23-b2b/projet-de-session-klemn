@@ -1,5 +1,6 @@
 :root {
 
+
     /*Couleur du text*/
     --text_color_dark: rgb(255, 255, 255);
     --text_color_light: rgb(59, 30, 72);
@@ -44,10 +45,33 @@
     --dark_button_color: var(--accent_color_dark);
     --light_button_color: var(--accent_color_light);
 
+    /*Couleur de fond bouton non sélectionné*/
+    --dark_button_unselected_color: rgba(177, 177, 177, 0.253); 
+    --light_button_unselected_color: rgb(247, 232, 247);
+
+    /*Couleur de fond bouton non sélectionné hover*/
+    --dark_button_unselected_hover_color: rgba(138, 138, 138, 0.253);
+    --light_button_unselected_hover_color: rgb(247, 232, 247);
+
     /*Couleur du text bouton*/
     --dark_button_text_color: rgb(247, 232, 247);
     --light_button_text_color: rgb(98, 9, 145);
 
+    /*Couleur du text bouton non sélectionné*/
+    --dark_button_unselected_text_color: rgb(247, 232, 247);
+    --light_button_unselected_text_color: rgb(98, 9, 145);
+
+    /*Couleur de fond containeur post*/
+    --dark_container_post_color: rgba(138, 138, 138, 0.16);
+    --light_container_post_color: rgba(103, 18, 114, 0.256);
+
+    /*Couleur de fond containeur modal*/
+    --dark_container_modal_color: rgba(61, 56, 65, 0.957);
+    --light_container_modal_color: rgba(103, 18, 114, 0.256);
+
+    /*Couleur de fond header*/
+    --dark_background_color_header: rgba(52, 46, 57, 0.463);
+    --light_background_color_header: rgba(214, 150, 223, 0.256);
     /*Couleur de fond bouton2*/
     --dark_button2_color: rgb(86, 29, 117);
     --light_button2_color: rgb(247, 232, 247);
@@ -102,6 +126,12 @@
     --auto_button2_color: var(--dark_button2_color);
     --auto_button2_text_color: var(--dark_button2_text_color);
     --auto_container_post_color: var(--dark_container_post_color);
+    --auto_container_modal_color: var(--dark_container_modal_color);
+    --auto_background_color_header: var(--dark_background_color_header);
+    --auto_button_unselected_color: var(--dark_button_unselected_color);
+    --auto_button_unselected_hover_color: var(--dark_button_unselected_hover_color);
+    --auto_button_unselected_text_color: var(--dark_button_unselected_text_color);
+
     --auto_container_gestion_projet_rapide: var(--dark_container_gestion_projet_rapide);
     --auto_container_gestion: var(--dark_container_gestion);
     --auto_container_gestion_collaboration: var(--dark_container_gestion_collaboration);
@@ -124,6 +154,11 @@
         --auto_button2_color: var(--light_button2_color);
         --auto_button2_text_color: var(--light_button2_text_color);
         --auto_container_post_color: var(--light_container_post_color);
+        --auto_container_modal_color: var(--light_container_modal_color);
+        --auto_background_color_header: var(--light_background_color_header);
+        --auto_button_unselected_color: var(--light_button_unselected_color);
+        --auto_button_unselected_hover_color: var(--light_button_unselected_hover_color);
+        --auto_button_unselected_text_color: var(--light_button_unselected_text_color);
         --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
         --auto_container_gestion: var(--light_container_gestion);
         --auto_container_gestion_collaboration: var(--light_container_gestion_collaboration);
@@ -235,4 +270,53 @@ textarea {
     border: none;
     padding: 20px;
     background-color: var(--auto_container_post_color);
+}
+
+.global_conteneur_parametres {
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    background-color: var(--auto_container_post_color);
+}
+
+
+.global_conteneur_modal {
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    background-color: var(--auto_container_modal_color);
+}
+
+
+.global_selected_bouton {
+
+    text-align: center;
+    border-radius: 18px;
+    padding: 11px 30px;
+    border: none;
+    color: var(--auto_text_color);
+    background-color: var(--auto_button_color);
+    font-weight: bold;
+}
+
+
+.global_select_dropdown {
+    backdrop-filter: blur(12px) saturate(150%);
+    list-style-type: none;
+    padding: 6px;
+    margin: 0;
+    width: max-content;
+    border-radius: 12px;
+    background-color: #ffffff18;
+    box-shadow:
+        0px 1.2px 2.2px rgba(0, 0, 0, 0.02),
+        0px 2.9px 5.3px rgba(0, 0, 0, 0.028),
+        0px 5.4px 10px rgba(0, 0, 0, 0.035),
+        0px 9.6px 17.9px rgba(0, 0, 0, 0.042),
+        0px 18px 33.4px rgba(0, 0, 0, 0.05),
+        0px 43px 80px rgba(0, 0, 0, 0.07);
+}
+
+.global_select_dropdown_item {
+    
 }

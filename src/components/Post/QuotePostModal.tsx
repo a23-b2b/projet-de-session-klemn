@@ -64,8 +64,8 @@ function QuotePostModal(props: Props) {
                 <div className={styles.form}>
 
 
-                    <label className={'global_input_field_label'}>Contenu</label>
-                    <textarea className={'global_input_field'}
+
+                    <textarea className={styles.textarea}
                         rows={10}
                         maxLength={4000}
                         placeholder="Exprimez-vous!"
@@ -75,10 +75,14 @@ function QuotePostModal(props: Props) {
                             setNbCaracteres(e.target.textLength)
                         }}></textarea>
                 </div>
-                <span>{nbCaracteres}/4000</span>
-                <button className={'global_bouton'} onClick={() => publierBlogue()}>
-                    Publier
-                </button>
+                <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
+
+                    <span id={styles["span"]}>{nbCaracteres}/4000</span>
+                    <button className={'global_bouton'} onClick={() => publierBlogue()}>
+                        Publier
+                    </button>
+                </div>
+
             </div>
         </Modal>
 
