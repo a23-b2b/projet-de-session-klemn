@@ -26,7 +26,7 @@ module.exports = app.get('/user/:user_id/:offset', (req, res) => {
             if (err) {
                 // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
                 console.log(err)
-                res.status(500).send('Erreur de base de données', err)
+                res.status(500).send(`Erreur de base de données, ${err.code}`)
             }
             if (results) {
                 console.log(results)
