@@ -34,12 +34,10 @@ function BlogueForm() {
                             type: 1
                         }),
                     }).then(response => response.json()).then(response => {
-                        console.log(response)
                         toast.success('Votre message a été publié!');
 
                         navigate(`/p/${response['id_post']}`)
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                     })
                 })
