@@ -33,7 +33,7 @@ module.exports = app.get('/:username', async (req, res) => {
             pool.query(`           
             SELECT count(*)
             FROM compte_suivi
-            WHERE id_compte=?
+            WHERE compte=?
             AND suit=?;`,
             [userId, profileResults[0]["id_compte"]],
 

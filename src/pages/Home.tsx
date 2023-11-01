@@ -9,15 +9,11 @@ import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
 import InfiniteScroll from 'react-infinite-scroll-component'
+import Chargement from '../components/EcranChargement';
 
 function Home() {
     const navigate = useNavigate();
-
     const OFFSET = 6;
-
-    console.log(process.env.REACT_APP_API_URL)
-
-
     const [postData, setPostData] = useState<any[]>([])
     const [postOffset, setPostOffset] = useState(0)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -51,7 +47,6 @@ function Home() {
 
 
     function getSubscribedPosts() {
-
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/followed/${postOffset}`, {
                 method: 'GET',
@@ -130,12 +125,13 @@ function Home() {
                 dataLength={postData.length}
                 next={() => getPosts()}
                 hasMore={!isEndOfFeed} // Replace with a condition based on your data source
-                loader={<p>Chargement...</p>}
+                loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
                 <div>
                     {postData?.map(({
                         contenu,
+                        est_markdown,
                         date_publication,
                         id_compte,
                         id_infos,
@@ -156,7 +152,6 @@ function Home() {
                         is_quoted_post,
                     }) => {
                         return (
-
                             <div key={id_post}>
                                 <Post
                                     idPost={id_post}
@@ -165,6 +160,7 @@ function Home() {
                                     nomUtilisateur={nom_utilisateur}
                                     titre={titre}
                                     contenu={contenu}
+                                    estMarkdown={est_markdown}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}

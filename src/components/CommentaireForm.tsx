@@ -36,7 +36,6 @@ function CommentaireForm(props: CommentaireFormProps) {
                         setNbCaracteres(0);
                         toast.success('Votre commentaire a été publié!');
                     }).catch((error) => {
-                        console.log(error)
                         toast.error('Une erreur est survenue');
                     })
                 })
