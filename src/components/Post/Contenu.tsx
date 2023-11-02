@@ -5,7 +5,7 @@ import MarkdownCode from "../MarkdownCode";
 import { Link } from "react-router-dom";
 
 interface ContentProps {
-    titre?: string;
+    titre: string;
     contenu: string;
     idPost: string;
     isPostFullScreen: Boolean;
@@ -81,6 +81,8 @@ const PostContent = (props: ContentProps) => {
 
             }
 
+            <div>separation titre contenu</div>
+
             <motion.div>   
                 <div className={styles.contenu} onClick={() => handleExpandContent()}>
 
@@ -94,17 +96,17 @@ const PostContent = (props: ContentProps) => {
                         truncatedPostContent
                         
                     )}
+
+                    <div> separation postExpanded condition</div>
                     
 
                     <AnimatePresence>
                         {props.isPostFullScreen && (
+                            
                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                {props.estMarkdown && (
-                                    <MarkdownCode c={props.contenu}/>
-                                )}
-                                {!props.estMarkdown && (
-                                    <div>{props.contenu}</div>
-                                )}
+                                {
+                                    props.estMarkdown ? <MarkdownCode c={props.contenu}/> : <div>{props.contenu}</div>
+                                }
                             </motion.div>
                         )}
                     </AnimatePresence>
