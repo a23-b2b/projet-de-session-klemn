@@ -81,30 +81,8 @@ const PostContent = (props: ContentProps) => {
 
             }
 
-
-
-
-            <motion.div>
-                {/* <p className={styles.contenu}>{props.contenu.length > 250 && !props.isContentExpanded ? <motion.div layout>{`${props.contenu.slice(0, 247)}...`} </motion.div>: <motion.div layout>{props.contenu}</motion.div>}</p> */}
-                {/* <p className={styles.contenu}>{props.contenu.length > 250 && !props.isContentExpanded ? `${props.contenu.slice(0, 247)}...` : props.contenu}</p> */}
-                {/* {props.isContentExpanded ? <p className={styles.contenu}>{props.contenu}</p> : <p className={styles.contenu}>{truncatedPostContent}</p>} */}
-
+            <motion.div>   
                 <div className={styles.contenu} onClick={() => handleExpandContent()}>
-
-
-                    {/* {postContent} */}
-
-                    {/* <div style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                        <p className={styles.contenu}>{props.contenu}</p>
-                    </div> */}
-
-                    {/* <AnimatePresence>
-                        {!isPostExpanded && (
-                            <motion.div>
-                                {truncatedPostContent}
-                            </motion.div>
-                        )}
-                    </AnimatePresence> */}
 
                     {!isPostExpanded && props.estMarkdown &&  (
                         
@@ -119,32 +97,21 @@ const PostContent = (props: ContentProps) => {
                     
 
                     <AnimatePresence>
-                        {isPostExpanded && (
+                        {props.isPostFullScreen && (
                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                {props.estMarkdown && 
-                                    < MarkdownCode c={props.contenu}/>
-                                }
-                                {props.estMarkdown === false && 
-                                    props.contenu
-                                }
+                                {props.estMarkdown && (
+                                    <MarkdownCode c={props.contenu}/>
+                                )}
+                                {!props.estMarkdown && (
+                                    <div>{props.contenu}</div>
+                                )}
                             </motion.div>
                         )}
                     </AnimatePresence>
 
                 </div>
 
-                {/* <AnimatePresence>
-                    {props.isContentExpanded && (
-                        // <div style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                        //     <p className={styles.contenu}>{props.contenu}</p>
-                        // </div>
-
-
-                        <motion.div initial={{ height: 'auto', opacity: 1 }} animate={{ maxHeight: '200px', opacity: 1 }} exit={{ height: 'auto', opacity: 1 }} style={{ overflow: "hidden" }}>
-                            <p className={styles.contenu}>{props.contenu}</p>
-                        </motion.div>
-                    )}
-                </AnimatePresence> */}
+                
             </motion.div>
         </div>
         </>
