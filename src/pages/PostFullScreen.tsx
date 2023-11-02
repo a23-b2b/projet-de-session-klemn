@@ -33,6 +33,8 @@ function PostFullScreen() {
                         navigate("/404")
                     }
 
+                    console.log(data)
+
                     setPostData(data)
                 })
                 .catch((error) => {
