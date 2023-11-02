@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const { pool } = require('../../serveur.js')
+const logger = require('../../logger.js')
 
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)
@@ -10,17 +11,15 @@ module.exports = app.get('/:post_id', (req, res) => {
 
     pool.query(`
         SELECT post_view.*,
-            vote.id_compte AS vote_user_id,
-            vote.score
+            vote.score as vote
         FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
         WHERE post_view.id_post LIKE ?;`,
         [userId, req.params.post_id],
         function (err, results, fields) {
             if (err) {
-                console.log(err)
-                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-                res.status(500).send('Erreur de base de données', err)
+                logger.info(err.code)
+                res.status(500).send(`ERREUR: ${err.code}`)
             }
             if (results) {
                 res.status(200).send(results)

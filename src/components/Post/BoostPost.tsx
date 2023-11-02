@@ -54,7 +54,7 @@ function BoostPost(props: Props) {
         return (
             <div>
                 <span>
-                    <FaRetweet className={styles.icone_boost}/>
+                    <FaRetweet className={styles.icone_boost} />
                     <Link to={`/u/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
                 </span>
                 <Post
@@ -65,6 +65,7 @@ function BoostPost(props: Props) {
                     idCompte={boostedPostData.id_compte}
                     titre={boostedPostData.titre}
                     contenu={boostedPostData.contenu}
+                    estMarkdown={boostedPostData.est_markdown}
                     nombreLike={boostedPostData.nombre_likes}
                     nombreDislike={boostedPostData.nombre_dislikes}
                     nombrePartage={boostedPostData.nombre_partages}
@@ -73,7 +74,7 @@ function BoostPost(props: Props) {
                     type={boostedPostData.id_type_post}
                     urlImageProfil={boostedPostData.url_image_profil}
                     userVote={boostedPostData.vote}
-    
+
                     sharedPostId={boostedPostData.id_shared_post}
                     isSharedPostQuote={boostedPostData.is_quoted_post} />
             </div>

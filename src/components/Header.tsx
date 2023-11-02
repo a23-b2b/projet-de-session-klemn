@@ -1,6 +1,8 @@
 import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
 import user from '../images/user.png';
+import search from '../images/search.png';
+import gestion from '../images/icn_manage.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { CiCircleList } from 'react-icons/ci';
 import { LuFileQuestion } from 'react-icons/lu';
@@ -21,10 +23,19 @@ function Header() {
                 <div id={styles["LogoSite"]}>
                     {/* IMG LOGO Site */}
                     <Link to={'/'}>
-                        <img src={logo} width="80" height="80" alt="Logo" />
+                        <img src={logo} width="63" height="63" alt="Logo" />
                     </Link>
                 </div>
 
+
+                
+
+                {/* <div>
+                    Lien page Forum
+                    <Link to={'/'} className='link'>
+                        <h3>Accueil</h3>
+                    </Link>
+                </div> */}
                 <div id={styles["SectionDroite"]}>
                     <div id={styles["IconeUtilisateur"]}>
                         {/* IMG Icône Utilisateur */}
@@ -55,12 +66,14 @@ function Header() {
                                 </Link>
                             </MenuItem>
 
-                            <MenuItem className={styles.dropdown_menu_item}>
-                                <RiTeamLine className={styles.dropdown_menu_icon} />
-                                <Link to={'/'} id={styles["link"]} className={'link'}>
-                                    Collaboration
-                                </Link>
-                            </MenuItem>
+                            {user &&
+                                <MenuItem className={styles.dropdown_menu_item}>
+                                    <RiTeamLine className={styles.dropdown_menu_icon} />
+                                    <Link to={'/gestion'} id={styles["link"]} className={'link'}>
+                                        Collaboration
+                                    </Link>
+                                </MenuItem>
+                            }
 
                             <MenuItem className={styles.dropdown_menu_item}>
                                 <LuSettings className={styles.dropdown_menu_icon} />
