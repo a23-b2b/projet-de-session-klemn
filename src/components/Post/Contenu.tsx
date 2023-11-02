@@ -83,16 +83,9 @@ const PostContent = (props: ContentProps) => {
 
             <motion.div>   
                 <div className={styles.contenu} onClick={() => handleExpandContent()}>
-                    {!isPostExpanded && props.estMarkdown &&  (
-                        
-                        <MarkdownCode c= {truncatedPostContent}/>
-                        
+                    {!isPostExpanded &&  (       
+                            props.estMarkdown ? <MarkdownCode c= {truncatedPostContent}/> : <div>{truncatedPostContent}</div>                  
                     )}
-                    {!isPostExpanded && !props.estMarkdown &&  (
-                        
-                        truncatedPostContent
-                        
-                    )}    
                                     
                     <AnimatePresence>
                         {props.isPostFullScreen && (
