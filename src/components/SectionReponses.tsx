@@ -56,6 +56,7 @@ function SectionReponses(props: SectionReponsesProps) {
                     {replies.map(({
                         id_post,
                         id_compte,
+                        id_type_post,
                         date_publication,
                         nom_affichage,
                         nom_utilisateur,
@@ -83,7 +84,7 @@ function SectionReponses(props: SectionReponsesProps) {
                                 nombrePartage={nombre_partages}
                                 nombreCommentaire={nombre_commentaires}
                                 isPostFullScreen={false}
-                                type={TYPE_REPONSE}
+                                type={id_type_post}
                                 urlImageProfil={url_image_profil}
                                 userVote={vote} />
                         )

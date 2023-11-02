@@ -109,6 +109,8 @@ const PostHeader = (props: HeaderProps) => {
                         }).then(response => response.json())
                             .then(response => {
                                 toast.success('La publication à été supprimée!');
+                            }).catch(() => {
+                                toast.error('Une erreur est survenue');
                             })
                     }).catch((error) => {
                         toast.error('Une erreur est survenue');
