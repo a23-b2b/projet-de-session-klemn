@@ -17,7 +17,6 @@ function PostFullScreen() {
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
                 method: 'GET',
                 headers: {
@@ -32,8 +31,6 @@ function PostFullScreen() {
                     if (!data) {
                         navigate("/404")
                     }
-
-                    console.log(data)
 
                     setPostData(data)
                 })

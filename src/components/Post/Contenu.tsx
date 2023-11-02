@@ -17,13 +17,11 @@ const PostContent = (props: ContentProps) => {
     const [isPostExpanded, setIsPostExpanded] = useState(false);
 
     let truncatedPostContent = props.contenu.slice(0, 247)
-    console.log(truncatedPostContent)
     if (props.contenu.length > 247 && !isPostExpanded) truncatedPostContent += '...'
 
     let contentAfterTruncatedPostContent = props.contenu.slice(247)
 
     const postTruncated = props.contenu.length > 247
-    console.log(props.contenu)
 
     useEffect(() => {
         if (props.isPostFullScreen) setIsPostExpanded(true)
