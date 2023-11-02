@@ -1,5 +1,7 @@
+
+
 #conteneur {
-    margin-bottom: 30px;
+    margin-bottom: 15%;
 }
 
 .conteneurDiv {
@@ -26,6 +28,16 @@
     border-radius: 10px 10px 16px 16px;
     padding: 15px;
  
+}
+
+#divCollab {
+    width: 100%;
+}
+
+#inputCollab {
+    margin-top: 10px;
+    border-radius: 12px;
+    
 }
 
 #conteneurDivFooter {
@@ -134,3 +146,54 @@
 
 /*À ajuster ou effacer ↑*/
 
+
+
+
+/* Boutons */
+.conteneurBoutons {
+    text-align: center;
+    margin: 3% auto;
+    width: 100%;
+}
+
+#boutonQuestion, #boutonCollab {
+    margin-left: 10px;
+}
+
+
+.boutonSelectionne {
+    text-align: center;
+    border-radius: 15px;
+    padding: 10px;
+    width: 130px;
+    border: none;
+    color: var(--auto_text_color);
+    background-color: var(--auto_button_color);
+    font-weight: bold;
+}
+
+.boutonNonSelectionne {
+
+    text-align: center;
+    border-radius: 15px;
+    padding: 10px;
+    width: 130px;
+    border: none;
+    color: var(--auto_button_unselected_text_color);
+    background-color: var(--auto_button_unselected_color);
+    font-weight: bold;
+
+}
+
+.boutonNonSelectionne:hover {
+background-color: var(--auto_button_unselected_hover_color);
+
+}
+
+#selectURL {
+    margin-top: 10px;
+}
+
+#ConteneurSelectURL {
+    width: 100%;
+}

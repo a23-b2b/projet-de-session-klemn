@@ -1,11 +1,11 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import {Tooltip} from "@chakra-ui/react"
+import { getAuth } from "firebase/auth";
 import BadgesContainer from '../Badges/_BadgesContainer';
 import {Menu, MenuItem} from "@szhsin/react-menu";
 import {SlOptionsVertical} from "react-icons/sl";
 import {MdDeleteForever} from "react-icons/md";
-import {auth} from "../../firebase";
 import toast from "react-hot-toast";
 
 interface HeaderProps {
@@ -26,6 +26,8 @@ const DEUX_SEMAINES_EN_SECONDES = 1209600
 
 
 const PostHeader = (props: HeaderProps) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const datePost = new Date(props.date)
     const datePostUTC = new Date(Date.UTC(datePost.getUTCFullYear(), datePost.getUTCMonth(), datePost.getUTCDate(), datePost.getUTCHours() - datePost.getTimezoneOffset() / 60, datePost.getUTCMinutes(), datePost.getUTCSeconds()))
