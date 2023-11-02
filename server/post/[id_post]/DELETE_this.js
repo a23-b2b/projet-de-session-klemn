@@ -30,8 +30,14 @@ module.exports = app.delete('/:id_post', (req, res) => {
                 titre        = NULL,
                 contenu      = 'Cette publication a été supprimée',
                 est_markdown = 0
-            WHERE id_post = ?;`,
-            [postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId],
+            WHERE id_post = ?;
+
+            UPDATE post
+            SET nombre_commentaires = nombre_commentaires - 1
+            WHERE id_post = (SELECT p2.id_parent
+                             FROM (SELECT id_post, id_parent FROM post) as p2
+                             WHERE p2.id_post = ?);`,
+            [postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId],
             function (err, results, fields) {
                 if (err) {
                     // logger.info("Erreur lors de lexecution de la query.", err)
