@@ -104,6 +104,9 @@ app.use('/post', quote_post);
 const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
 
+const delete_post = require('./post/[id_post]/DELETE_this.js')
+app.use('/post', delete_post)
+
 const read_me = require('./readme.js');
 app.use('/readme', read_me)
 

@@ -2,14 +2,11 @@ import styles from '../../styles/Post.module.css'
 import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
-import { Link } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
-import { useState } from 'react';
 
-export interface CollabProp {
+export interface BlogueProp {
     idPost: string;
     date: string;
-    nomAffichage: string;
+    nomAffichage: string,
     nomUtilisateur: string;
     titre: string;
     contenu: string;
@@ -22,37 +19,13 @@ export interface CollabProp {
     urlImageProfil: string;
     userVote: number;
 
-    idCollaborateur?: string;
-
     isPostFullScreen: Boolean;
 }
 
-function PosteCollab(props: CollabProp) {
-    var enabled = false;
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    function demanderCollabortion(props: CollabProp){        
-        if (user !== null) {
-            const uid = user.uid;
-            fetch(`/p/${props.idPost}/${uid}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            })
-        } 
-    }
-
-    function ActiverCollab(){
-        if (user !== null && props.idCompte !== user.uid) {
-            enabled = true;
-        } else {
-            enabled = false;
-        }
-        
-    }
+function PosteBlogue(props: BlogueProp) {
 
     return (
-        <div className={styles.container}>
+        <div className={'global_conteneur_post'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}
@@ -60,7 +33,7 @@ function PosteCollab(props: CollabProp) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={false} />
+                isDeleted={true} />
 
             <PostContent
                 titre={props.titre}
@@ -69,9 +42,6 @@ function PosteCollab(props: CollabProp) {
                 estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            
-            <button disabled={!enabled} onClick={() => demanderCollabortion(props)}>Demander à collaborer</button>       
-            
             <PostFooter
                 idPost={props.idPost}
                 nombreLike={props.nombreLike}
@@ -79,10 +49,9 @@ function PosteCollab(props: CollabProp) {
                 nombrePartage={props.nombrePartage}
                 nombreCommentaire={props.nombreCommentaire}
                 isPostFullScreen={props.isPostFullScreen}
-                userVote={props.userVote}
-            />
+                userVote={props.userVote} />
         </div>
     );
 }
 
-export default PosteCollab;
+export default PosteBlogue;

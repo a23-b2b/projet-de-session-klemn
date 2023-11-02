@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
-import { Tooltip } from "@chakra-ui/react"
+import {Tooltip} from "@chakra-ui/react"
 import BadgesContainer from '../Badges/_BadgesContainer';
-import {Menu, MenuDivider, MenuItem} from "@szhsin/react-menu";
+import {Menu, MenuItem} from "@szhsin/react-menu";
 import {SlOptionsVertical} from "react-icons/sl";
 import {MdDeleteForever} from "react-icons/md";
 import {auth} from "../../firebase";
@@ -15,6 +15,7 @@ interface HeaderProps {
     nomAffichage: string;
     nomUtilisateur: string;
     urlImageProfil: string;
+    isDeleted: boolean;
 }
 
 
@@ -36,7 +37,14 @@ const PostHeader = (props: HeaderProps) => {
 
     const timeDifference = dateNowSeconds - datePostSeconds
 
-    const formattedData = datePostUTC.toLocaleString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })
+    const formattedData = datePostUTC.toLocaleString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+    })
 
     const estProprietaire = auth.currentUser ? auth.currentUser.uid === props.idCompte : false
 
@@ -88,60 +96,76 @@ const PostHeader = (props: HeaderProps) => {
         const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce post ?");
 
         if (confirmDelete) {
-            // const utilisateur = auth.currentUser;
-            // if (utilisateur) {
-            //     utilisateur.getIdToken(/* forceRefresh */ true)
-            //         .then((idToken) => {
-            //             fetch(`${process.env.REACT_APP_API_URL}/post/${props.idPost}`, {
-            //                 method: 'DELETE',
-            //                 headers: {
-            //                     'authorization': idToken
-            //                 },
-            //             }).then(response => response.json())
-            //                 .then(response => {
-            //                     toast.success('La publication à été supprimée!');
-            //
-            //                 }).catch((error) => {
-            //                 toast.error('Une erreur est survenue');
-            //             })
-            //         })
-            // }
+            const utilisateur = auth.currentUser;
+            if (utilisateur) {
+                utilisateur.getIdToken(/* forceRefresh */ true)
+                    .then((idToken) => {
+                        fetch(`${process.env.REACT_APP_API_URL}/post/${props.idPost}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            },
+                        }).then(response => response.json())
+                            .then(response => {
+                                toast.success('La publication à été supprimée!');
+                            })
+                    }).catch((error) => {
+                        toast.error('Une erreur est survenue');
+                    })
+            }
         }
     }
 
     return (
         <div className={styles.header}>
-            <Link to={`/u/${props.nomUtilisateur}`}>
-                <img className={styles.image_profil} src={props.urlImageProfil} />
-            </Link>
+            {!props.isDeleted && (
+                <>
+                    <Link to={`/u/${props.nomUtilisateur}`}>
+                        <img className={styles.image_profil} src={props.urlImageProfil}/>
+                    </Link>
 
-            <div id={styles["inner_droit_nom_utilisateur"]}>
-                <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
-                    <p className={styles.display_name}>{props.nomAffichage}</p>
-                    {/* <BadgesContainer badgesInt={15}/> */}
-                    <p className={styles.username}>@{props.nomUtilisateur}</p>
-                </Link>
-            </div>
+                    <div id={styles["inner_droit_nom_utilisateur"]}>
+                        <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
+                            <p className={styles.display_name}>{props.nomAffichage}</p>
+                            {/* <BadgesContainer badgesInt={15}/> */}
+                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+                        </Link>
+                    </div>
+                </>
+            )}
+            {props.isDeleted && (
+                <>
+                    <img className={styles.image_profil} src={props.urlImageProfil}/>
+                    <div id={styles["inner_droit_nom_utilisateur"]}></div>
+                </>
+            )}
+
 
             <Tooltip className={styles.tooltip} label={formattedData} placement='top'>
                 <p className={styles.date}>{timeStampText}</p>
             </Tooltip>
 
-            <Menu menuButton={
-                <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
-                    <SlOptionsVertical className={styles.icone} id={styles.icone_options} />
-                </div>
-            }
-                  transition={true}
-                  menuClassName={styles.share_menu}
-                  onItemClick={(e) => handleOptionsItemClick(e.value)}>
+            {!props.isDeleted && (
+                <Menu menuButton={
+                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
+                        <SlOptionsVertical className={styles.icone} id={styles.icone_options}/>
+                    </div>
+                }
+                      transition={true}
+                      menuClassName={styles.share_menu}
+                      onItemClick={(e) => handleOptionsItemClick(e.value)}>
 
-                {estProprietaire && (
-                    <MenuItem value={'delete'} className={styles.share_menu_item}><MdDeleteForever className={styles.share_menu_icon} id={styles.icone_supprimer} /><span>Supprimer</span></MenuItem>
-                )}
-                <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+                    {estProprietaire && (
+                        <MenuItem value={'delete'} className={styles.share_menu_item}><MdDeleteForever
+                            className={styles.share_menu_icon}
+                            id={styles.icone_supprimer}/><span>Supprimer</span></MenuItem>
+                    )}
+                    <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
 
-            </Menu>
+                </Menu>
+            )}
+
         </div>
     )
 }

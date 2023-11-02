@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
 import toast from 'react-hot-toast';
+import {TYPE_DELETED} from "../Post";
 
 interface Props {
     idPost: string;
@@ -67,7 +68,8 @@ function QuotePost(props: Props) {
                 idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
                 estMarkdown={props.estMarkdown}
@@ -81,7 +83,13 @@ function QuotePost(props: Props) {
                     <div className={styles.quoted_post_container}>
                         <div className={styles.header}>
                             <img className={styles.image_profil} src={quotedPostData.url_image_profil}></img>
-                            <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
+                            {quotedPostData.id_type_post != TYPE_DELETED && (
+                                <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
+                            )}
+                            {quotedPostData.id_type_post == TYPE_DELETED && (
+                                <h4></h4>
+                            )}
+
                         </div>
 
                         <p className={styles.contenu}>{quotedPostData.contenu}</p>

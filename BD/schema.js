@@ -62,7 +62,7 @@ export const collaboration = mysqlTable("post_collab", {
 export const collaborationRequest = mysqlTable("demande_collab", {
     id: varchar("id_demande_collab", { length: 255 }).primaryKey(),
     isAccepted: boolean("est_accepte").notNull().default(false),
-    collaborationId: varchar("post_collab_id_collab", { length: 255 }).references(() => collaboration.id),
+    collaborationId: varchar("post_collab_id_collab", { length: 255 }).references(() => collaboration.id, {onDelete: 'cascade'}),
     userId: varchar("id_collaborateur", { length: 255 }).references(() => user.id),
 });
 

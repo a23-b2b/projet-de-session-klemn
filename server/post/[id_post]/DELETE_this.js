@@ -1,44 +1,51 @@
 const express = require('express')
-const { body, validationResult } = require('express-validator');
 const { pool } = require('../../serveur.js')
 const { admin } = require('../../serveur.js')
+const { logger } = require('../../logger')
 
 const app = express()
 
-module.exports = app.delete('/:id_post', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
-    const resultatValidation = validationResult(req);
-    if (resultatValidation.isEmpty()) {
+module.exports = app.delete('/:id_post', (req, res) => {
+    const postToDeleteId = req.params.id_post;
+    const idToken = req.headers.authorization;
 
-        const postToDeleteId = req.params.id_post;
-        const idToken = req.headers.authorization;
+    admin.auth().verifyIdToken(idToken, true).then((payload) => {
+        pool.query(
+            `DELETE
+             FROM post_partage
+             WHERE id_shared_post = ?
+               AND is_quoted_post = 0;
 
-        admin.auth().verifyIdToken(idToken, true).then((payload) => {
+            DELETE
+            FROM post_collab
+            WHERE post_id_post = ?;
 
-            const userId = payload.uid;
+            DELETE
+            FROM post_question
+            WHERE post_id_post = ?;
 
-            pool.query(
-                `DELETE FROM vote
-                 WHERE id_post = ?;`,
-                [userId],
-                function (err, results, fields) {
-                    if (err) {
-                        // logger.info("Erreur lors de lexecution de la query.", err)
-                        console.log(err)
-                        res.status(500).send("ERREUR: " + err.code)
+            UPDATE post
+            SET id_compte    = 'deleted',
+                id_type_post = 7,
+                titre        = NULL,
+                contenu      = 'Cette publication a été supprimée',
+                est_markdown = 0
+            WHERE id_post = ?;`,
+            [postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId],
+            function (err, results, fields) {
+                if (err) {
+                    // logger.info("Erreur lors de lexecution de la query.", err)
+                    console.log(err)
+                    res.status(500).send("ERREUR: " + err.code)
 
-                    } else {
-                        res.send()
-                    }
+                } else {
+                    res.status(200).send(results)
                 }
-            );
+            }
+        );
 
 
-        }).catch((error) => {
-            res.status(500).send("ERREUR: " + error.code)
-        });
-
-    } else {
-        // Erreur de validation des donnees (Express-validator)
-        res.send(JSON.stringify(resultatValidation))
-    }
+    }).catch((error) => {
+        res.status(500).send("ERREUR: " + error.code)
+    });
 })

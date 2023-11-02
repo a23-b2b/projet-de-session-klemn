@@ -21,7 +21,7 @@ export interface ReponseProps {
 function Reponse(props: ReponseProps) {
     return (
         <div>
-            <PostHeader date={props.date} idPost={props.idPost} idCompte={props.idCompte} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} />
+            <PostHeader date={props.date} idPost={props.idPost} idCompte={props.idCompte} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} isDeleted={false} />
             <PostContent contenu={props.contenu} estMarkdown={props.estMarkdown} idPost={props.idPost} isPostFullScreen={false} />
             <PostFooter idPost={props.idPost} nombreLike={props.nombreLike} nombreDislike={props.nombreDislike}
             nombrePartage={props.nombrePartage} nombreCommentaire={props.nombreCommentaire} isPostFullScreen={false} userVote={props.userVote} />

@@ -32,7 +32,8 @@ function PosteBlogue(props: BlogueProp) {
                 idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
                 titre={props.titre}
