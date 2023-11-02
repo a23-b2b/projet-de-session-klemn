@@ -16,7 +16,7 @@ const PostContent = (props: ContentProps) => {
     const [postContent, setPostContent] = useState('')
     const [isPostExpanded, setIsPostExpanded] = useState(false);
 
-    let truncatedPostContent = props.contenu.slice(0, 247)
+    let truncatedPostContent = props.contenu.slice(1, 247)
 
     if (props.contenu.length > 247 && !isPostExpanded) truncatedPostContent += '...'
 
@@ -106,9 +106,17 @@ const PostContent = (props: ContentProps) => {
                         )}
                     </AnimatePresence> */}
 
-                    {!isPostExpanded && (
+                    {!isPostExpanded && props.estMarkdown &&  (
+                        
                         <MarkdownCode c= {truncatedPostContent}/>
+                        
                     )}
+                    {!isPostExpanded && !props.estMarkdown &&  (
+                        
+                        truncatedPostContent
+                        
+                    )}
+                    
 
                     <AnimatePresence>
                         {isPostExpanded && (
@@ -116,7 +124,7 @@ const PostContent = (props: ContentProps) => {
                                 {props.estMarkdown && 
                                     < MarkdownCode c={props.contenu}/>
                                 }
-                                {!props.estMarkdown && 
+                                {props.estMarkdown === false && 
                                     props.contenu
                                 }
                             </motion.div>

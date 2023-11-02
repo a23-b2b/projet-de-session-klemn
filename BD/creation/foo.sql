@@ -13,6 +13,6 @@ INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes
                      
                     SELECT id_post
                     FROM post
-                    WHERE id_compte = ?
+                    WHERE id_compte = "yjoI2WF3w4WVr3kD9L01shSjjnL2"
                     order by date_publication desc
                     limit 1;
