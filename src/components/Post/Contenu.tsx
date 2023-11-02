@@ -81,11 +81,8 @@ const PostContent = (props: ContentProps) => {
 
             }
 
-            <div>separation titre contenu</div>
-
             <motion.div>   
                 <div className={styles.contenu} onClick={() => handleExpandContent()}>
-
                     {!isPostExpanded && props.estMarkdown &&  (
                         
                         <MarkdownCode c= {truncatedPostContent}/>
@@ -95,11 +92,8 @@ const PostContent = (props: ContentProps) => {
                         
                         truncatedPostContent
                         
-                    )}
-
-                    <div> separation postExpanded condition</div>
-                    
-
+                    )}    
+                                    
                     <AnimatePresence>
                         {props.isPostFullScreen && (
                             
@@ -110,10 +104,7 @@ const PostContent = (props: ContentProps) => {
                             </motion.div>
                         )}
                     </AnimatePresence>
-
                 </div>
-
-                
             </motion.div>
         </div>
         </>
