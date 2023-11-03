@@ -84,13 +84,7 @@ function QuotePost(props: Props) {
                     <div className={styles.quoted_post_container}>
                         <div className={styles.header}>
                             <img className={styles.image_profil} src={quotedPostData.url_image_profil}></img>
-                            {quotedPostData.id_type_post != TYPE_DELETED && (
-                                <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
-                            )}
-                            {quotedPostData.id_type_post == TYPE_DELETED && (
-                                <h4></h4>
-                            )}
-
+                            <h4 className={styles.nom_affichage}>{quotedPostData.nom_affichage}</h4>
                         </div>
 
                         <p className={styles.contenu}>{quotedPostData.contenu}</p>

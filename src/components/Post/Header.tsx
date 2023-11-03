@@ -141,7 +141,13 @@ const PostHeader = (props: HeaderProps) => {
             {props.isDeleted && (
                 <>
                     <img className={styles.image_profil} src={props.urlImageProfil}/>
-                    <div id={styles["inner_droit_nom_utilisateur"]}></div>
+                    <div id={styles["inner_droit_nom_utilisateur"]}>
+                        <div className={styles.user_info}>
+                            <p className={styles.display_name}>{props.nomAffichage}</p>
+                            {/* <BadgesContainer badgesInt={15}/> */}
+                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+                        </div>
+                    </div>
                 </>
             )}
 
