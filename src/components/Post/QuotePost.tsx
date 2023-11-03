@@ -72,6 +72,7 @@ function QuotePost(props: Props) {
                 isDeleted={false} />
 
             <PostContent
+                titre = {props.titre}
                 estMarkdown={props.estMarkdown}
                 contenu={props.contenu}
                 idPost={props.idPost}
