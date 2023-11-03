@@ -25,6 +25,7 @@ function Layout() {
             <BrowserRouter>
                 <Header />
                 <Toaster />
+
                 <body>
                     <Routes>
                         {/* Gestion des erreurs 404 */}
