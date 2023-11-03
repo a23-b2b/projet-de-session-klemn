@@ -37,10 +37,27 @@
 .containerDiv {
     display: flex;
 }
+
 .hr {
     width: 85%;
 }
 
+.import_image {
+    max-width: max-content;
+}
+
+.upload_input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 70vw;
+}
+
+@media only screen and (max-width: 850px) {
+    /* .container_parametres {
+        width: 80%;
+    } */
+}
 
 /* Dropdown Menu */
 
