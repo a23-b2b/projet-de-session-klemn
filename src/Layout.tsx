@@ -18,30 +18,32 @@ import ProjetForm from './pages/ProjetForm';
 
 import README from "./pages/AProposReadMe";
 
-        
+
 function Layout() {
     return (
         <>
             <BrowserRouter>
                 <Header />
                 <Toaster />
-                <Routes>
-                    {/* Gestion des erreurs 404 */}
-                    <Route path="/404" element={<Erreur404 />} />
-                    <Route path="*" element={<Navigate to="/404" />} />
+                <body>
+                    <Routes>
+                        {/* Gestion des erreurs 404 */}
+                        <Route path="/404" element={<Erreur404 />} />
+                        <Route path="*" element={<Navigate to="/404" />} />
 
-                    <Route path="/" element={<Home />} />
-                    <Route path="/authenticate" element={<Landing />} />
-                    <Route path="/u/:username" element={<Profil />} />
-                    <Route path="/p/:postId" element={<PostFullScreen />} />
-                    <Route path="/parametres" element={<Parametres />}>
-                        <Route path="profil" element={<ModifierProfil />} />
-                        <Route path="interface" element={<Interface />} />
-                    </Route>
-                    <Route path="/gestion" element={<GestionCollab/>} />
-                    <Route path="/projet" element={<ProjetForm />} />
-                    <Route path="/apropos" element={<README/>}/>
-                </Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/authenticate" element={<Landing />} />
+                        <Route path="/u/:username" element={<Profil />} />
+                        <Route path="/p/:postId" element={<PostFullScreen />} />
+                        <Route path="/parametres" element={<Parametres />}>
+                            <Route path="profil" element={<ModifierProfil />} />
+                            <Route path="interface" element={<Interface />} />
+                        </Route>
+                        <Route path="/gestion" element={<GestionCollab />} />
+                        <Route path="/projet" element={<ProjetForm />} />
+                        <Route path="/apropos" element={<README />} />
+                    </Routes>
+                </body>
                 <Footer />
             </BrowserRouter>
         </>
