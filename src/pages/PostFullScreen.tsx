@@ -6,6 +6,7 @@ import SectionReponses from '../components/SectionReponses';
 import styles from '../styles/PostFullScreen.module.css'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
+import Chargement from '../components/EcranChargement';
 
 
 function PostFullScreen() {
@@ -16,7 +17,6 @@ function PostFullScreen() {
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
                 method: 'GET',
                 headers: {
@@ -27,11 +27,11 @@ function PostFullScreen() {
                 .then(response => response.json())
                 .then(response => {
                     let data = response[0]
-    
+
                     if (!data) {
                         navigate("/404")
                     }
-    
+
                     setPostData(data)
                 })
                 .catch((error) => {
@@ -39,11 +39,10 @@ function PostFullScreen() {
                 })
         });
 
-        
+
     }, [postId]);
 
     if (postData) {
-        console.log(postData)
         return (
             <div className={styles.body}>
                 <Post
@@ -54,6 +53,7 @@ function PostFullScreen() {
                     idCompte={postData.id_compte}
                     titre={postData.titre}
                     contenu={postData.contenu}
+                    estMarkdown={postData.est_markdown}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}
@@ -61,10 +61,10 @@ function PostFullScreen() {
                     isPostFullScreen={true}
                     type={postData.id_type_post}
                     urlImageProfil={postData.url_image_profil}
-                    userVote={postData.vote} 
-                    
+                    userVote={postData.vote}
+
                     sharedPostId={postData.id_shared_post}
-                    isSharedPostQuote={postData.is_quoted_post}/>
+                    isSharedPostQuote={postData.is_quoted_post} />
 
                 <SectionReponses idParent={postData.id_post} />
             </div>
@@ -72,7 +72,7 @@ function PostFullScreen() {
     }
 
     return (
-        <h2>La publication n'existe pas.</h2>
+        <Chargement />
     )
 
 }

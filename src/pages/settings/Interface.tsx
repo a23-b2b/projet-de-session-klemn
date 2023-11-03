@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
-import { motion, AnimatePresence } from "framer-motion";
-import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
-import { auth } from '../../firebase';
-import toast from 'react-hot-toast';
+import { motion } from "framer-motion";
 import VoteWidget from '../../components/Post/voteWidget';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
@@ -62,10 +60,8 @@ function Interface() {
     useEffect(() => {
         if (localStorage.getItem("voteAnimationType")) {
             setVoteAnimationType(localStorage.getItem("voteAnimationType") || "shake_slide")
-
         }
     }, [])
-
 
     return (
         <div className={styles.container_parametres}>
@@ -81,24 +77,19 @@ function Interface() {
 
                         </div>
 
-                        <div>
-                            <select className={styles.selectInterface} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
-                                <option value="shake_slide">Shake + slide</option>
-                                <option value="shake_fade">Shake + fade</option>
-                                <option value="same_slide">Same + slide</option>
-                                <option value="same_fade">Same + fade</option>
-                                {/* <option value="fade_fade">Fade only</option> */}
-                                {/* <option value="none">None</option> */}
-                            </select>
-                        </div>
-
-
+                        <select className={styles.selectInterface} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
+                            <option value="shake_slide">Shake + slide</option>
+                            <option value="shake_fade">Shake + fade</option>
+                            <option value="same_slide">Same + slide</option>
+                            <option value="same_fade">Same + fade</option>
+                        </select>
                     </div>
 
 
                     <div className={styles.exemple_animation} style={{ maxWidth: '100px' }}>
                         <VoteWidget idPost={'0'} nombreLike={0} nombreDislike={0} userVote={0} />
                     </div>
+
                 </div>
                 <br />
             </motion.div>
