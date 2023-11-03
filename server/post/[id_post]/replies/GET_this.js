@@ -14,6 +14,7 @@ module.exports = app.get('/:post_id/replies', (req, res) => {
         FROM post_view
             LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
         where post_view.id_parent like ?
+        and post_view.id_type_post != 7
         order by date_publication desc;`,
         [userId, req.params.post_id],
         function (err, results, fields) {

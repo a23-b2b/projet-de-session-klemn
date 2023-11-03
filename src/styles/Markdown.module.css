@@ -1,0 +1,48 @@
+.conteneur {
+    color: inherit;    
+    margin: 0 auto; 
+    max-width: 500px; 
+    padding: 15px;
+}
+
+.inline_code {
+    padding: 4px 8px;
+    background: rgb(46, 46, 46);
+    border: 1px solid var(--auto_border_color);
+    width: fit-content;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-top: 6px;
+}
+
+.block_code {}
+
+.table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow: auto;
+}
+
+/* Table delta */
+/* Table header */
+.td,
+.th {
+    border: 1px solid var(--auto_border_color);
+    padding: 6px
+}
+
+/* Ordered list */
+.ol {
+    list-style-type: circle;
+}
+
+/*Thème clair*/
+@media (prefers-color-scheme: light) {
+    .inline_code {
+        background: rgb(240, 240, 240);
+        border: 1px solid var(--auto_border_color);
+    }
+}
