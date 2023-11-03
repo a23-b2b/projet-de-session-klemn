@@ -2,6 +2,7 @@ const express = require('express')
 const { body, validationResult } = require('express-validator');
 const { pool } = require('../serveur.js')
 const { admin } = require('../serveur.js')
+const { logger } = require('../logger.js')
 
 const app = express()
 
@@ -19,11 +20,12 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
+        const estMarkdown = true;
         const titre = req.body.titre;
         const contenu = req.body.contenu;
         const idToken = req.headers.authorization;
 
-        const urlGit = req.body.urlGit;
+        const idProjet = req.body.idProjet;
         const typePoste = req.body.type;
 
         const quotedPostId = req.body.quoted_post_id;
@@ -50,17 +52,15 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
 
             if (typePost === TypesDePost.BlogLong) {
                 pool.query(
-                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 1, ?, ?, ?,0, 0, 0, 0, 0, NOW());
                      SELECT id_post FROM post WHERE  id_compte=? order by date_publication desc limit 1;`,
-                    [userId, titre, contenu, userId],
+                    [userId, titre, contenu, estMarkdown, userId],
                     function (err, results, fields) {
                         if (err) {
-                            // logger.info("Erreur lors de lexecution de la query.", err)
-                            console.log(err)
-                            res.status(500).send("ERREUR: " + err.code)
-
+                            logger.info(err.code)
+                            res.status(500).send(`ERREUR: ${err.code}`)
                         } else {
                             res.send(JSON.stringify(results[1][0]))
                         }
@@ -70,15 +70,14 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
 
             if (typePost === TypesDePost.Collab) {
                 pool.query(
-                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
                      INSERT INTO post_collab 
-                        (id_collab, est_ouvert, url_git, post_id_post)
+                        (id_collab, projet_id_projet, post_id_post)
                      VALUES (
-                        SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
-                        true, 
+                        SUBSTRING(MD5(UUID()) FROM 1 FOR 12),     
                         ?, 
                         (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1)
                      );
@@ -88,7 +87,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                     WHERE id_compte = ?
                     order by date_publication desc
                     limit 1;`,
-                    [userId, titre, contenu, userId, urlGit, userId],
+                    [userId, titre, contenu, estMarkdown, idProjet, userId, userId],
                     function (err, results, fields) {
                         if (err) {
                             // logger.info("Erreur lors de lexecution de la query.", err)
@@ -104,7 +103,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
 
             if (typePost === TypesDePost.Question) {
                 pool.query(
-                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
+                    `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                         nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
                      VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
@@ -122,7 +121,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                      WHERE id_compte = ?
                      order by date_publication desc
                      limit 1;`,
-                    [userId, titre, contenu, userId, userId],
+                    [userId, titre, contenu, estMarkdown, userId, userId],
                     function (err, results, fields) {
                         if (err) {
                             // logger.info("Erreur lors de lexecution de la query.", err)

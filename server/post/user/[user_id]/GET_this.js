@@ -3,34 +3,34 @@ const app = express()
 const { pool } = require('../../../serveur.js')
 
 
-module.exports = app.get('/user/:user_id/:offset', (req, res) => {
-    console.log(req.params)
-    const offset = parseInt(req.params.offset);
+module.exports = app.get('/user/:user_id/:cursor', (req, res) => {
+    const userCursor = parseInt(req.params.cursor);
     const userToGet = req.params.user_id;
     const limit = 6
 
     const authUserId = req.headers.authorization
 
     pool.query(`
-        SELECT post_view.*,
-            vote.id_compte AS vote_user_id,
-            vote.score
+        SELECT 
+            post_view.*,
+            vote.score as vote
         FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
-        where post_view.id_compte like ? AND post_view.id_type_post != 4
-        order by post_view.date_publication desc
-        limit ? offset ?;`,
-        [authUserId, userToGet, limit, offset],
-
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
+        WHERE post_view.numero_post <
+            IF(? = -1, (SELECT COUNT(*) + 1 FROM post_view), ?)
+            AND post_view.id_type_post != 4
+            AND post_view.id_compte like ?
+        LIMIT ?;`,
+        [authUserId, userCursor, userCursor, userToGet, limit],
         function (err, results, fields) {
             if (err) {
-                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-                console.log(err)
-                res.status(500).send(`Erreur de base de données, ${err.code}`)
+                res.status(500)
             }
             if (results) {
-                console.log(results)
-                res.status(200).send(results)
+                let nextCursor = NaN;
+                if (results.length === limit) nextCursor = results[limit - 1]['numero_post']
+
+                res.status(200).send({ "newCursor": nextCursor, "posts": [...results] })
             }
         })
 });
