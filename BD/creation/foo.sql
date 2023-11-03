@@ -1,24 +1,17 @@
--- Active: 1694035110728@@localhost@3306@dev
-INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes, nombre_dislikes,
-                                       nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
-                     
-                     INSERT INTO post_collab 
-                        (id_collab, projet_id_projet, post_id_post)
-                     VALUES (
-                        SUBSTRING(MD5(UUID()) FROM 1 FOR 12),     
-                        ?, 
-                        (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1)
-                     );
-                     
-                    SELECT *
-                    FROM post
-                    WHERE id_compte = "yjoI2WF3w4WVr3kD9L01shSjjnL2"
-                    order by date_publication desc
-                    limit 1;
+SELECT * FROM projet;
+SELECT * FROM demande_collab;
 
-                     SELECT post_view.*,
-            vote.score as vote
-        FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = 'yjoI2WF3w4WVr3kD9L01shSjjnL2'
-        WHERE post_view.id_post = 'abc3bdafea29';
+SELECT 
+                c.id_compte,
+                c.url_image_profil,
+                c.nom_utilisateur,
+                p.compte_id_proprio,
+                p.id_projet,
+                p.titre_projet,
+                p.description_projet,
+                id_demande_collab
+            FROM demande_collab
+                left JOIN compte c ON demande_collab.id_collaborateur = c.id_compte
+                LEFT JOIN projet p ON demande_collab.projet_id_projet = p.id_projet
+                WHERE p.compte_id_proprio = 'yjoI2WF3w4WVr3kD9L01shSjjnL2' 
+                AND demande_collab.est_accepte IS NULL;
