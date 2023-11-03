@@ -21,7 +21,7 @@ module.exports = app.get('/followed/:cursor', (req, res) => {
                 INNER JOIN compte_suivi cs ON post_view.id_compte = cs.suit
             WHERE 
                 post_view.numero_post < IF(? = -1, (SELECT COUNT(*) + 1 FROM post_view), ?)
-                AND post_view.id_type_post != 4
+                AND post_view.id_type_post NOT IN (4, 7)
                 AND cs.id_compte = ?
             LIMIT ?;`,
             [userId, userCursor, userCursor, userId, limit],

@@ -5,6 +5,13 @@ INSERT INTO compte
 VALUES
     ('yjoI2WF3w4WVr3kD9L01shSjjnL2', NOW(), 'nom de louis', 'prenom de louis', 'usernameLouis', 'Louis Nom Affichage', 'louis@louis.com', '777-555-1234', 0, 0, 'Je viens d''arriver sur Klemn!', 2),
     ('vOArxLHmRBO5ixknQ1LUbwcopCp2', NOW(), 'nom de marie', 'prenom de marie', 'usernamemarie', 'marie Nom Affichage', 'marie@marie.com', '222-555-1234', 0, 0, 'Je suis Marie!', 2);
+
+INSERT INTO compte (id_compte, courriel, date_creation_compte, prenom, nom, nom_utilisateur, nom_affichage, biographie,
+                    url_image_profil, url_image_banniere, autorisation, telephone, nombre_abonnes, nombre_abonnements)
+VALUES ('deleted', 'deleted@email.com', '1970-01-01 00:00:00', 'Deleted', 'Deleted', 'deleted', '[DELETED]', null,
+        'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdeleted.svg?alt=media&token=81467bd4-3ce7-442e-b016-2d34d8d2d3c1',
+        null, 1, null, null, null);
+
 INSERT INTO post (
   id_post, id_compte, id_type_post, 
   titre, contenu, nombre_likes, nombre_dislikes, 
@@ -14,17 +21,17 @@ INSERT INTO post (
 VALUES 
   (
     'post_blogue_id_1', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', 
-    1, "Titre de Blogue", "Contenu de Blogue", 
+    1, 'Titre de Blogue', 'Contenu de Blogue',
     0, 0, 0, 0, 0, NOW()
-  ), 
+  ),
   (
     'post_question_id_2', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', 
-    2, "Titre de Question", "Contenu de Question", 
+    2, 'Titre de Question', 'Contenu de Question',
     0, 0, 0, 0, 0, NOW()
   ), 
   (
     'post_collab_id_3', 'yjoI2WF3w4WVr3kD9L01shSjjnL2', 
-    3, "Titre de Collaboration", "Contenu de Collaboration", 
+    3, 'Titre de Collaboration', 'Contenu de Collaboration',
     0, 0, 0, 0, 0, NOW()
   );
 INSERT INTO post_question 
@@ -50,8 +57,8 @@ VALUES
 INSERT INTO demande_collab 
   (id_demande_collab, est_accepte, projet_id_projet, id_collaborateur) 
 VALUES 
-  ('id_demande_collab_1', null, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2'),
-  ('id_demande_collab_2', null, 'id_projet_3', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
+  ('id_demande_collab_1', FALSE, 'id_projet_1', 'vOArxLHmRBO5ixknQ1LUbwcopCp2'),
+  ('id_demande_collab_2', FALSE, 'id_projet_3', 'vOArxLHmRBO5ixknQ1LUbwcopCp2');
 
 
 COMMIT;

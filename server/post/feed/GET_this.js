@@ -19,7 +19,7 @@ module.exports = app.get('/feed/:cursor', (req, res) => {
                 LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
             WHERE post_view.numero_post <
                 IF(? = -1, (SELECT COUNT(*) + 1 FROM post_view), ?)
-                AND post_view.id_type_post != 4
+                AND post_view.id_type_post NOT IN (4, 7)
             LIMIT ?;`,
             [userId, userCursor, userCursor, limit],
             function (err, results, fields) {
