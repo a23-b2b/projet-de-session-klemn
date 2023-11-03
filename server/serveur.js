@@ -114,6 +114,9 @@ app.use('/post', quote_post);
 const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
 
+const delete_post = require('./post/[id_post]/DELETE_this.js')
+app.use('/post', delete_post)
+
 const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 

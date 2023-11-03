@@ -133,6 +133,16 @@ margin: 30px 0px 30px 0px;
     transition: 0.2s;
 }
 
+#bouton_interraction_options {
+    padding: 8px 8px;
+    height: fit-content;
+    margin-right: 0;
+    margin-top: 14px;
+    margin-left: 8px;
+    border-radius: 100px;
+    transition: 0.2s;
+}
+
 .disliked_post {
     transition: 0.5s;
     color: rgb(170, 0, 0);
@@ -150,13 +160,22 @@ margin: 30px 0px 30px 0px;
     transition: 0.5s;
 }
 
+#icone_supprimer {
+    scale: 1.2;
+}
+
+#icone_options {
+    margin: 0;
+}
+
 @media (hover: hover) and (pointer: fine) {
     #icone_like:hover {
         color: rgb(0, 187, 62);
         transition: 0.1s;
     }
 
-    #icone_dislike:hover {
+    #icone_dislike:hover,
+    #icone_supprimer:hover{
         color: rgb(170, 0, 0);
         transition: 0.1s;
     }
@@ -188,6 +207,11 @@ margin: 30px 0px 30px 0px;
 
     #icone_partage:hover {
         color: rgb(111, 0, 255);
+        transition: 0.1s;
+    }
+
+    #bouton_interraction_options:hover{
+        background-color: var(--auto_container_post_color);
         transition: 0.1s;
     }
 }
