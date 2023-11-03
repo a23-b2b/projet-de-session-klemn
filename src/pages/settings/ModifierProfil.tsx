@@ -373,13 +373,16 @@ function ModifierProfil() {
                     <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
                     <div className={styles.import_image}>
                         <input
+                            className={styles.upload_input}
                             type={'file'}
-                            accept={'image/'}
+                            accept={'image/*'}
                             onChange={onInputProfilLoad}
                         />
                         <br />
                         {urlImageProfil && (
-                            <ReactCrop crop={cropProfil}
+                            <ReactCrop
+                                className={styles.image_profil}
+                                crop={cropProfil}
                                 onChange={crop => setCropProfil(crop)}
                                 aspect={1}
                                 circularCrop={true}>
