@@ -20,7 +20,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
-        const estMarkdown = req.body.est_markdown;
+        const estMarkdown = true;
         const titre = req.body.titre;
         const contenu = req.body.contenu;
         const idToken = req.headers.authorization;
