@@ -4,10 +4,10 @@
     --base_s: 30%;
 
     /* Noir */
-    --dark_0: hsl(var(--base_h), var(--base_s), 0%); 
+    --dark_0: hsl(var(--base_h), var(--base_s), 0%);
 
     /* Blanc */
-    --light_0: hsl(var(--base_h), var(--base_s), 100%); 
+    --light_0: hsl(var(--base_h), var(--base_s), 100%);
 
     --dark_2: hsl(var(--base_h), var(--base_s), 2%);
     --light_2: hsl(var(--base_h), var(--base_s), 98%);
@@ -125,20 +125,20 @@
     --light_button_color: var(--accent_color_light);
 
     /*Couleur de fond bouton non sélectionné*/
-    --dark_button_unselected_color: rgba(177, 177, 177, 0.253); 
-    --light_button_unselected_color: rgb(247, 232, 247);
+    --dark_button_unselected_color: var(--dark_15);
+    --light_button_unselected_color: var(--light_15);
 
     /*Couleur de fond bouton non sélectionné hover*/
-    --dark_button_unselected_hover_color: rgba(138, 138, 138, 0.253);
-    --light_button_unselected_hover_color: rgb(247, 232, 247);
+    --dark_button_unselected_hover_color: var(--dark_13);
+    --light_button_unselected_hover_color: var(--light_13);
 
     /*Couleur du text bouton*/
-    --dark_button_text_color: var(--dark_90);
-    --light_button_text_color: var(--light_90);
+    --dark_button_text_color: var(--dark_10);
+    --light_button_text_color: var(--light_10);
 
     /*Couleur du text bouton non sélectionné*/
-    --dark_button_unselected_text_color: rgb(247, 232, 247);
-    --light_button_unselected_text_color: rgb(98, 9, 145);
+    --dark_button_unselected_text_color: var(--dark_80);
+    --light_button_unselected_text_color: var(--light_80);
 
     /*Couleur de fond containeur post*/
     --dark_container_post_color: rgba(138, 138, 138, 0.16);
@@ -243,9 +243,7 @@
         --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
         --auto_container_gestion: var(--light_container_gestion);
         --auto_container_gestion_collaboration: var(--light_container_gestion_collaboration);
-
     }
-
 }
 
 body {
@@ -398,6 +396,4 @@ textarea {
         0px 43px 80px rgba(0, 0, 0, 0.07);
 }
 
-.global_select_dropdown_item {
-    
-}
+.global_select_dropdown_item {}
