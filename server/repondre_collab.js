@@ -21,7 +21,7 @@ const DEMANDE_ACCEPTEE = 'true';
 const queryUpdateSelonIdCompte = `
         UPDATE demande_collab 
             SET est_accepte = ?
-            WHERE compte_id_compte = ? 
+            WHERE id_collaborateur = ? 
             AND projet_id_projet = ?
             ;
     `;
@@ -29,7 +29,7 @@ const queryUpdateSelonIdCompte = `
     const queryUpdateSelonCourriel = `
         UPDATE demande_collab 
             SET est_accepte = ?
-            WHERE compte_id_compte = (SELECT id_compte FROM compte WHERE courriel = ?) 
+            WHERE id_collaborateur = (SELECT id_compte FROM compte WHERE courriel = ?) 
             AND projet_id_projet = ?
             ;
     `;
@@ -37,7 +37,7 @@ const queryUpdateSelonIdCompte = `
     const queryUpdateSelonUsername = `
         UPDATE demande_collab 
             SET est_accepte = ?
-            WHERE compte_id_compte = (SELECT id_compte FROM compte WHERE nom_utilisateur = ?)
+            WHERE id_collaborateur = (SELECT id_compte FROM compte WHERE nom_utilisateur = ?)
             AND projet_id_projet = ?
             ;
     `;
