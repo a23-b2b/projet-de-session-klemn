@@ -65,20 +65,20 @@ export const project = mysqlTable("projet", {
 
 export const collaboration = mysqlTable("post_collab", {
     id: varchar("id_collab", { length: 255 }).primaryKey(),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
     postId: varchar("post_id_post", { length: 255 }).references(() => post.id),
 });
 
 export const collaborator = mysqlTable("collaborateur", {
     id: varchar("id_collaborateur", { length: 255 }).primaryKey(),
     userId: varchar("compte_id_compte", { length: 255 }).references(() => user.id),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
 });
 
 export const collaborationRequest = mysqlTable("demande_collab", {
     id: varchar("id_demande_collab", { length: 255 }).primaryKey(),
     isAccepted: boolean("est_accepte").notNull().default(false),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
     userId: varchar("id_collaborateur", { length: 255 }).references(() => user.id),
 });
 

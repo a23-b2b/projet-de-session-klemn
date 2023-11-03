@@ -29,7 +29,7 @@ module.exports = app.delete('/:id_post', (req, res) => {
                 id_type_post = 7,
                 titre        = NULL,
                 contenu      = 'Cette publication a été supprimée',
-                est_markdown = 0
+                est_markdown = FALSE
             WHERE id_post = ?;
 
             UPDATE post
