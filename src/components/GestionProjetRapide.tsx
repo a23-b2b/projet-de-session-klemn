@@ -60,10 +60,15 @@ function GestionProjetRapide(props: PropsProjet) {
     async function rendreProjetOuvertAuCollab() {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
-            if (user?.uid == props.compte_id_proprio) {
-                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
-                    method: 'POST',
-                })
+            if (user) {
+                user.getIdToken(true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        }
+                    })
                     .then(() => {
                         setEstOuvert(!estOuvert)
                         if (!estOuvert) {
@@ -76,6 +81,8 @@ function GestionProjetRapide(props: PropsProjet) {
                             toast.error(error)
                         }
                     });
+                })
+                
             } else {
                 navigate("/authenticate")
             }
