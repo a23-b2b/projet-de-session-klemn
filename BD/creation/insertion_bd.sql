@@ -1,4 +1,4 @@
--- Active: 1693586986008@@localhost@32769@dev
+-- Active: 1699032824852@@127.0.0.1@3306@dev
 
 INSERT INTO compte 
     (id_compte, date_creation_compte, nom, prenom, nom_utilisateur, nom_affichage, courriel, telephone, nombre_abonnes, nombre_abonnements, biographie, autorisation)

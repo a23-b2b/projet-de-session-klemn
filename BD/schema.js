@@ -59,7 +59,7 @@ export const project = mysqlTable("projet", {
     title: varchar("titre_projet", { length: 255 }),
     description: varchar("description_projet", { length: 255 }),
     repoUrl: varchar("url_repo_git", { length: 255 }),
-    isOpen: boolean("est_ouvert", { length: 255 }),
+    isOpen: boolean("est_ouvert"),
     userId: varchar("compte_id_proprio", { length: 255 }).references(() => user.id),
 });
 

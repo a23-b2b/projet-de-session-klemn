@@ -19,7 +19,7 @@ const query =
         ?,
         ?, 
         ?, 
-        false)
+        ?)
     ;`
 
 // TODO: chaine de validation avec const { body, validationResult } = require('express-validator');
@@ -29,7 +29,7 @@ module.exports = app.post('/add/',
         const titre_projet = req.body.titre_projet
         const description_projet = req.body.description_projet
         const url_repo_git = req.body.url_repo_git
-
+        const estOuvert = req.body.est_ouvert
         const idToken = req.headers.authorization;
 
         logger.info(`Creation d'un nouveau projet: ${titre_projet}`)
@@ -41,7 +41,8 @@ module.exports = app.post('/add/',
                 [titre_projet,
                 description_projet,
                 url_repo_git,
-                userId],
+                userId,
+                estOuvert],
                 function(err) {
                     if (err) {
                         res.status(500).send()

@@ -34,7 +34,8 @@ function ProjetForm() {
                             titre_projet: titre_projet,
                             description_projet: description_projet,
                             url_repo_git: url_repo_git,
-                            compte_id_proprio: uid
+                            compte_id_proprio: uid,
+                            est_ouvert: est_ouvert
                         })
                     })
                     navigate("/gestion")
@@ -81,7 +82,7 @@ function ProjetForm() {
                         <input onChange={() => { set_est_ouvert(!est_ouvert) }}
                             id={styles["radioBouton"]}
                             className={'global_input_field'}
-                            type="radio" value={titre_projet} />
+                            type='checkbox' value={titre_projet} />
                     </div>
                     <div className={styles.labelRadioBouton}>
                         <label>J'autorise les utilisateurs de KLEMN à vous envoyer des demandes de collaboration.</label>
