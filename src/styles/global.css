@@ -172,9 +172,8 @@ body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--auto_text_color);
     accent-color: var(--auto_accent_color);
-    min-height: 55vh;
-    padding-top: 170px;
-    padding-bottom: 20px;
+    min-height: 100vh;
+    padding-top: 60px;
     transition: 0.3s;
     accent-color: var(--auto_accent_color);
 }
