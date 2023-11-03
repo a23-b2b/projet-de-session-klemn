@@ -13,8 +13,12 @@ import ModifierProfil from "./pages/settings/ModifierProfil";
 import PostFullScreen from "./pages/PostFullScreen";
 import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
+import GestionCollab from "./pages/GestionCollab";
+import ProjetForm from './pages/ProjetForm';
+
 import README from "./pages/AProposReadMe";
 
+        
 function Layout() {
     return (
         <>
@@ -34,6 +38,8 @@ function Layout() {
                         <Route path="profil" element={<ModifierProfil />} />
                         <Route path="interface" element={<Interface />} />
                     </Route>
+                    <Route path="/gestion" element={<GestionCollab/>} />
+                    <Route path="/projet" element={<ProjetForm />} />
                     <Route path="/apropos" element={<README/>}/>
                 </Routes>
                 <Footer />

@@ -66,6 +66,9 @@ app.use('/user', changer_nom_affichage)
 const changer_nom = require('./user/update/POST_nom.js')
 app.use('/user', changer_nom)
 
+const repondre_demande_collab = require('./repondre_collab')
+app.use('/collab', repondre_demande_collab)
+
 const changer_prenom = require('./user/update/POST_prenom.js')
 app.use('/user', changer_prenom)
 
@@ -107,6 +110,21 @@ app.use('/post', quote_post);
 
 const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
+
+const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
+app.use('/get-all-demande-collab', get_all_demande_collab)
+
+const get_all_projet = require('./collaboration/GET_all_projet.js')
+app.use('/get-all-projets', get_all_projet)
+
+const delete_project = require('./collaboration/POST_delete_project.js')
+app.use('/projet/delete', delete_project)
+
+const update_open_project = require('./collaboration/POST_update_open_project.js')
+app.use('/projet/open', update_open_project)
+
+const creer_project = require('./collaboration/POST_projet.js')
+app.use('/projet', creer_project)
 
 const read_me = require('./readme.js');
 app.use('/readme', read_me)

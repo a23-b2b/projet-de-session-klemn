@@ -8,10 +8,15 @@ DROP
 DROP 
   TABLE IF EXISTS demande_collab;
 DROP 
-  TABLE IF EXISTS post_collab;
+  TABLE IF EXISTS post_collab CASCADE;
+
+DROP
+  TABLE IF EXISTS collaborateur CASCADE;
+DROP 
+  TABLE IF EXISTS projet CASCADE;
+
 DROP 
   TABLE IF EXISTS post_question;
-
 DROP
   TABLE IF EXISTS post_partage;
 
@@ -68,39 +73,6 @@ CREATE TABLE post
         FOREIGN KEY (id_parent) REFERENCES post (id_post)
 );
 
-CREATE TABLE image_post
-(
-    id_image  VARCHAR(255)  NOT NULL
-        PRIMARY KEY,
-    id_post   VARCHAR(255)  NOT NULL,
-    url_image VARCHAR(4000) NOT NULL,
-    CONSTRAINT image_post_post_id_post_fk
-        FOREIGN KEY (id_post) REFERENCES post (id_post)
-);
-
-create table compte_suivi
-(
-    compte      varchar(255) not null comment 'id du compte qui suit lautre compte (colonne suit)',
-    suit        varchar(255) not null comment 'compte qui est suivi par compte',
-    suit_depuis datetime     not null comment 'date depuis id_compte suit le compte',
-    constraint compte_suivi_compte_id_compte_fk
-        foreign key (compte) references compte (id_compte),
-    constraint compte_suivi_compte_id_compte_fk2
-        foreign key (suit) references compte (id_compte)
-)
-    comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
-
-create table vote
-(
-    id_compte varchar(255) not null,
-    id_post   varchar(255) not null,
-    score     int          not null,
-    constraint vote_compte_id_compte_fk
-        foreign key (id_compte) references compte (id_compte),
-    constraint vote_post_id_post_fk
-        foreign key (id_post) references post (id_post)
-)
-    comment 'Contient les votes (like, dislike) associés aux posts.';
 
 create table post_partage
 (
@@ -113,22 +85,8 @@ create table post_partage
         foreign key (id_shared_post) references post (id_post)
   );
     
-CREATE TABLE post_collab (
-  id_collab VARCHAR(255) PRIMARY KEY, 
-  est_ouvert BOOLEAN NOT NULL DEFAULT TRUE, 
-  url_git VARCHAR (255), 
-  post_id_post VARCHAR(255), 
-  CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post)
-  );
 
-  CREATE TABLE demande_collab (
-  id_demande_collab VARCHAR(255) PRIMARY KEY, 
-  est_accepte BOOLEAN NOT NULL DEFAULT FALSE, 
-  post_collab_id_collab VARCHAR(255), 
-  id_collaborateur VARCHAR (255), 
-  CONSTRAINT demande_collab_post_collab_id_collab_fk FOREIGN KEY (post_collab_id_collab) REFERENCES post_collab (id_collab), 
-  CONSTRAINT demande_collab_compte_id_collaborateur_fk FOREIGN KEY (id_collaborateur) REFERENCES compte (id_compte)
-);
+
 
 CREATE TABLE post_question (
   id_question VARCHAR(255) PRIMARY KEY, 
@@ -138,12 +96,66 @@ CREATE TABLE post_question (
   CONSTRAINT post_question_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post), 
   CONSTRAINT post_question_post_meilleure_reponse_fk FOREIGN KEY (post_meilleure_reponse) REFERENCES post (id_post)
 );
+CREATE TABLE image_post (
+  id_image VARCHAR(255) NOT NULL PRIMARY KEY, 
+  id_post VARCHAR(255) NOT NULL, 
+  url_image VARCHAR(4000) NOT NULL, 
+  CONSTRAINT image_post_post_id_post_fk FOREIGN KEY (id_post) REFERENCES post (id_post)
+);
+create table compte_suivi (
+  compte varchar(255) not null comment 'id du compte qui suit lautre compte (colonne suit)', 
+  suit varchar(255) not null comment 'compte qui est suivi par compte', 
+  suit_depuis datetime not null comment 'date depuis id_compte suit le compte', 
+  constraint compte_suivi_compte_id_compte_fk foreign key (compte) references compte (id_compte), 
+  constraint compte_suivi_compte_id_compte_fk2 foreign key (suit) references compte (id_compte)
+) comment 'Table qui contient les comptes suivis (follow) des utilisateurs';
+create table vote (
+  id_compte varchar(255) not null, 
+  id_post varchar(255) not null, 
+  score int not null, 
+  constraint vote_compte_id_compte_fk foreign key (id_compte) references compte (id_compte), 
+  constraint vote_post_id_post_fk foreign key (id_post) references post (id_post)
+) comment 'Contient les votes (like, dislike) associés aux posts.';
+
+CREATE TABLE projet (
+  id_projet varchar(255) PRIMARY KEY,
+  titre_projet VARCHAR(255),
+  description_projet VARCHAR(255),
+  url_repo_git varchar(255),
+  est_ouvert BOOLEAN DEFAULT FALSE,
+  compte_id_proprio varchar(255),
+  CONSTRAINT projet_compte_id_proprio_fk FOREIGN KEY (compte_id_proprio) REFERENCES compte (id_compte)
+) comment 'Contient les projets pour système de collaboration';
+
+CREATE TABLE post_collab (
+  id_collab VARCHAR(255) PRIMARY KEY, 
+  projet_id_projet VARCHAR(255),  
+  post_id_post VARCHAR(255), 
+  CONSTRAINT post_collab_post_id_post_fk FOREIGN KEY (post_id_post) REFERENCES post (id_post),
+  CONSTRAINT post_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE
+) comment 'Contient le lien entre les posts de demande de collab et les information de projet et de compte';
+
+CREATE TABLE collaborateur (
+  id_collaborateur varchar(255) PRIMARY KEY,
+  compte_id_compte varchar(255),
+  projet_id_projet varchar(255),
+  CONSTRAINT collaborateur_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE,
+  CONSTRAINT collaborateur_compte_id_collaborateur_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)   
+) comment 'Contient le lien entre les comptes participants et les projets';
+
+CREATE TABLE demande_collab (
+  id_demande_collab VARCHAR(255) PRIMARY KEY, 
+  est_accepte BOOLEAN NULL, 
+  projet_id_projet VARCHAR(255),
+  compte_id_compte VARCHAR(255) comment 'Collaborateur potentiel', 
+  CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE, 
+  CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
+);
 
 CREATE OR REPLACE VIEW post_view AS
 SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,
-       post.*,
-       pc.url_git,
-       pc.est_ouvert,
+       post.*,       
+       pc.projet_id_projet,
        pc.id_collab,
        pq.est_resolu,
        pq.post_meilleure_reponse,
@@ -160,5 +172,6 @@ FROM post
          INNER JOIN compte c on post.id_compte = c.id_compte
          LEFT JOIN badge b on c.id_compte = b.id_compte
 ORDER BY post.date_publication DESC;
+
 
 COMMIT;

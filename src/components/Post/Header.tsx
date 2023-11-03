@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
+import { getAuth } from "firebase/auth";
+import { useState } from 'react';
+
 import { Tooltip } from "@chakra-ui/react"
 import BadgesContainer from '../Badges/_BadgesContainer';
 
@@ -18,6 +21,8 @@ const DEUX_SEMAINES_EN_SECONDES = 1209600
 
 
 const PostHeader = (props: HeaderProps) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const datePost = new Date(props.date)
     const datePostUTC = new Date(Date.UTC(datePost.getUTCFullYear(), datePost.getUTCMonth(), datePost.getUTCDate(), datePost.getUTCHours() - datePost.getTimezoneOffset() / 60, datePost.getUTCMinutes(), datePost.getUTCSeconds()))

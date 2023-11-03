@@ -35,7 +35,10 @@ interface Props {
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // props collab optionnels
+    idProjet?: string; 
+    estOuvert?: Boolean; // va dependre du projet
+
 
     sharedPostId?: string;
     isSharedPostQuote?: boolean;
@@ -118,7 +121,8 @@ function Post(props: Props) {
                     userVote={props.userVote}
 
                     // Collab Prop
-                    idCollaborateur={props.idCollaborateur}
+                    estOuvert={props.estOuvert}
+                    idProjet={props.idProjet}
                 />
             )}
 

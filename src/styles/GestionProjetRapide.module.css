@@ -1,0 +1,75 @@
+.conteneur_gestion_rapide {
+    display: flex;
+    background-color: var(--auto_container_gestion_projet_rapide);
+   margin-bottom: 20px; 
+   padding: 20px;
+   border-radius: 10px;
+}
+
+.conteneur_info_projet {
+    width: 100%;
+    margin-right: 20px;
+    text-align: left;
+}
+
+
+.conteneur_action_projet {
+display: inline-block;
+
+}
+
+.ligne1, .ligne2 {
+display: inline-flex;
+width: 100%;
+margin-bottom: 5px;
+
+}
+
+.conteneurIcone {
+    margin: auto;
+}
+
+.titre_projet {
+    font-weight: bold;
+    color: var(--auto_text_color);
+}
+
+.description_projet {
+    color: var(--auto_text_color);
+    opacity: .55;
+}
+
+button {
+    cursor: pointer;  
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    background: none     
+}
+
+.icone {
+    color: var(--auto_text_color);
+    opacity: .80;
+}
+
+
+/* https://www.w3schools.com/howto/howto_css_overlay.asp */
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: block; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#input {
+    border-radius: 17px 17px 10px 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}

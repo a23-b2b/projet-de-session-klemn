@@ -17,6 +17,7 @@ function Home() {
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
 
 
+
     async function getGlobalPosts() {
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/feed/${cursor}`, {
@@ -26,7 +27,7 @@ function Home() {
                     'authorization': idToken
                 },
             }).then(response => response.json()).then(response => {
-                let data = response["posts"]
+                let data = response["posts"]  
 
                 let newCursor = parseInt(response.newCursor)
 
@@ -107,13 +108,18 @@ function Home() {
     }, [feedType]);
 
     return (
+        
         <div className={styles.body}>
             <BlogueForm />
 
-            <select value={feedType} onChange={e => changeFeedType(e.target.value)}>
-                <option value="global">Global</option>
-                <option value="followed">Abonnements</option>
-            </select>
+            <div className={styles.conteneurBoutons}>
+                <button className={feedType === "global" ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                  changeFeedType("global");
+                }}>Global</button>
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                  changeFeedType("followed");
+                }}>Abonnements</button>
+            </div>
 
             <InfiniteScroll
                 dataLength={postData.length}
@@ -144,6 +150,12 @@ function Home() {
                         vote,
                         id_shared_post,
                         is_quoted_post,
+                        
+                        est_resolu,
+                        post_meilleure_reponse,
+                        
+                        projet_id_projet,
+                        est_ouvert
                     }) => {
                         return (
                             <div key={id_post}>
@@ -166,7 +178,13 @@ function Home() {
                                     userVote={vote}
 
                                     sharedPostId={id_shared_post}
-                                    isSharedPostQuote={is_quoted_post} />
+                                    isSharedPostQuote={is_quoted_post}
+                                    
+                                    idProjet={projet_id_projet}
+                                    estOuvert={est_ouvert}
+                                    
+                                    statutReponse={est_resolu}
+                                    idMeilleureReponse={post_meilleure_reponse}/>
                             </div>
 
                         )

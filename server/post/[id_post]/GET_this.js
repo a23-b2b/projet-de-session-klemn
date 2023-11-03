@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const { pool } = require('../../serveur.js')
+const logger = require('../../logger.js')
 
 module.exports = app.get('/:post_id', (req, res) => {
     console.log(req.params)
@@ -17,11 +18,11 @@ module.exports = app.get('/:post_id', (req, res) => {
         [userId, req.params.post_id],
         function (err, results, fields) {
             if (err) {
-                console.log(err)
-                // logger.info("Erreur lors de lexecution de la query GET PROFIL: ", err)
-                res.status(500).send('Erreur de base de données', err)
+                logger.info(err.code)
+                res.status(500).send(`ERREUR: ${err.code}`)
             }
             if (results) {
+                logger.info(JSON.stringify(results))
                 res.status(200).send(results)
             }
         })
