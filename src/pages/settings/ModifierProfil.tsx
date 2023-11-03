@@ -202,7 +202,7 @@ function ModifierProfil() {
 
             if (dataUrl) {
                 auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
+                    const fetchPromise = fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -211,14 +211,15 @@ function ModifierProfil() {
                         body: JSON.stringify({
                             new_image: dataUrl,
                         }),
-                    }).then(response => {
-                        console.log(response)
-
-                        if (response.ok) toast.success('Paramètre modifié.');
-
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: (${error.code})`)
                     })
+
+                    toast.promise(fetchPromise, {
+                        loading: 'Chargement...',
+                        success: 'Paramètre modifié.',
+                        error: `Une erreur est survenue.`,
+                    });
                 })
             }
         }

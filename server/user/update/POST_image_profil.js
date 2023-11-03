@@ -49,7 +49,7 @@ module.exports = app.post('/update/image_profil', (req, res) => {
                                         return res.status(500).send('Erreur de base de données')
                                     }
                                     if (results["affectedRows"] === 1) {
-                                        return res.status(200)
+                                        return res.status(200).send({"code": "succes", "urlImage": urlImage})
                                     }
                                 });
                         })
