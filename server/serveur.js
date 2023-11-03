@@ -13,7 +13,8 @@ dotenv.config();
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
 exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseServiceAccount)
+    credential: admin.credential.cert(firebaseServiceAccount),
+    storageBucket: 'klemn-702af.appspot.com/'
 });
 
 const pool = mysql.createPool({
@@ -73,6 +74,9 @@ app.use('/user', changer_prenom)
 
 const changer_bio = require('./user/update/POST_bio.js')
 app.use('/user', changer_bio)
+
+const changer_image_profil = require('./user/update/POST_image_profil')
+app.use('/user', changer_image_profil)
 
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
