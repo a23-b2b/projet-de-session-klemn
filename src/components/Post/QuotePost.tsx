@@ -68,6 +68,7 @@ function QuotePost(props: Props) {
                 urlImageProfil={props.urlImageProfil} />
 
             <PostContent
+                titre = {props.titre}
                 estMarkdown={props.estMarkdown}
                 contenu={props.contenu}
                 idPost={props.idPost}

@@ -22,6 +22,7 @@ module.exports = app.get('/:post_id', (req, res) => {
                 res.status(500).send(`ERREUR: ${err.code}`)
             }
             if (results) {
+                logger.info(JSON.stringify(results))
                 res.status(200).send(results)
             }
         })
