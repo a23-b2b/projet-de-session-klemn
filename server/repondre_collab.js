@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const logger = require('./logger.js')
-const { pool } = require('../../serveur.js')
+const { pool } = require('./serveur.js')
 
 const METHODE = {
     EMAIL: "1",
