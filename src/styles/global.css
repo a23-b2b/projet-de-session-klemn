@@ -2,6 +2,7 @@
     /* Couleur a lorigine du theme */
     --base_h: 279;
     --base_s: 30%;
+    /* --accent_color: yellow; */
 
     /* Noir */
     --dark_0: hsl(var(--base_h), var(--base_s), 0%);
@@ -311,7 +312,6 @@ textarea {
     color: var(--auto_button_text_color);
     background-color: var(--auto_button_color);
     font-weight: bold;
-
 }
 
 .global_bouton2 {
