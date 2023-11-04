@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dev
+foo.sql
+
 # idea
 .idea
 
@@ -31,3 +34,4 @@ yarn-error.log*
 server/firebaseServiceAccountKey.json
 firebaseServiceAccountKey.json
 */firebaseServiceAccountKey.json
+server/firebaseServiceAccountKey.json

@@ -10,6 +10,7 @@ export interface BlogueProp {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -27,14 +28,18 @@ function PosteBlogue(props: BlogueProp) {
         <div className={'global_conteneur_post'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} 
-                urlImageProfil={props.urlImageProfil} />
+                nomUtilisateur={props.nomUtilisateur}
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
                 titre={props.titre}
                 idPost={props.idPost}
                 contenu={props.contenu}
+                estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
             <PostFooter
