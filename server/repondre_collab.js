@@ -1,15 +1,7 @@
 const express = require('express')
 const app = express()
-const mysql = require('mysql2')
 const logger = require('./logger.js')
-
-const mysqlConnection = mysql.createConnection({
-    host: process.env.MYSQL_HOSTNAME,
-    port: process.env.MYSQL_PORT,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-})
+const { pool } = require('./serveur.js')
 
 const METHODE = {
     EMAIL: "1",
@@ -112,7 +104,7 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
     // Sinon, faire update false
     // Si a id_demande_collab, est une reponse a une demande, sinon cest manuel dans le menu
     
-    mysqlConnection.query(
+    pool.query(
     queryUpdate, 
     [est_accepte, identity, id_projet],
     function(err) {
@@ -126,7 +118,7 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
 
     async function ajouterCollaborateur() {
         if (est_accepte) {
-            mysqlConnection.query(
+            pool.query(
                 queryInsert,
                 [identity, id_projet],
                 function(err) {
