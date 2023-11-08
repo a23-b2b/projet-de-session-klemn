@@ -236,7 +236,7 @@ function ModifierProfil() {
                     <h3 className={'global_subtitle'}>Modifier le courriel</h3>
 
 
-                    <label className={'global_input_field_label'}>Nouveau courriel</label>
+                    <label className={'global_label'}>Nouveau courriel</label>
 
                     <input
                         id={styles["input"]}
@@ -245,7 +245,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewEmail(e.target.value)}
                     />
 
-                    <label className={'global_input_field_label'}>Confirmez le courriel</label>
+                    <label className={'global_label'}>Confirmez le courriel</label>
 
 
                     <input
@@ -267,13 +267,13 @@ function ModifierProfil() {
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le nom d'affichage</h3>
 
-                    <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
+                    <label className={'global_label'}>Nouveau nom d'affichage </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewNameAffichage(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le nom d'affichage</label>
+                    <label className={'global_label'}>Confirmez le nom d'affichage</label>
 
                     <input
                         id={styles["input"]}
@@ -295,13 +295,13 @@ function ModifierProfil() {
 
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le nom </h3>
-                    <label className={'global_input_field_label'}>Nouveau nom  </label>
+                    <label className={'global_label'}>Nouveau nom  </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewName(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le nom </label>
+                    <label className={'global_label'}>Confirmez le nom </label>
 
                     <input
                         id={styles["input"]}
@@ -324,13 +324,13 @@ function ModifierProfil() {
 
                 <div>
                     <h3 className={'global_subtitle'}>Modifier le prenom </h3>
-                    <label className={'global_input_field_label'}>Nouveau prenom </label>
+                    <label className={'global_label'}>Nouveau prenom </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewPrenom(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le prenom </label>
+                    <label className={'global_label'}>Confirmez le prenom </label>
 
                     <input
                         id={styles["input"]}
@@ -351,7 +351,7 @@ function ModifierProfil() {
 
                 <div>
                     <h3 className={'global_subtitle'}>Modifier le Bio </h3>
-                    <label className={'global_input_field_label'}>Nouveau Bio </label>
+                    <label className={'global_label'}>Nouveau Bio </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}

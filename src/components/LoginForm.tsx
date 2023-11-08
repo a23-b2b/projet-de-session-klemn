@@ -45,13 +45,13 @@ function LoginForm() {
             <h2 className={'global_title'}>Connexion</h2>
             <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
                 <div className={styles.form}>
-                    <label className={'global_input_field_label'}>Courriel</label>
+                    <label className={'global_label'}>Courriel</label>
                     <input
                         className={'global_input_field'}
                         type="email"
                         onChange={(e) => setEmail(e.target.value)} />
 
-                    <label className={'global_input_field_label'}>Mot de passe</label>
+                    <label className={'global_label'}>Mot de passe</label>
                     <input
                         className={'global_input_field'}
                         type="password"

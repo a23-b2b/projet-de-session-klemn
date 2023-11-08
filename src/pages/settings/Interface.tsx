@@ -73,7 +73,7 @@ function Interface() {
                 <div className={styles.form}>
                     <div className={styles.containerDiv}>
                         <div>
-                            <label className={'global_input_field_label'} >Animation d'interraction avec une publication (like, dislike)</label>
+                            <label className={'global_label'} >Animation d'interraction avec une publication (like, dislike)</label>
 
                         </div>
 

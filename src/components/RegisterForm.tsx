@@ -82,44 +82,44 @@ function RegisterForm() {
     }
 
     return (
-        <div className={'global_conteneur'}>
+        <div className={'global_container_1'}>
             <h2 className={'global_title'}>Inscription</h2>
             <motion.div initial={{ opacity: 0, height: 323 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>
 
-                    <label className={'global_input_field_label'}>Nom d'utilisateur</label>
+                    <label className={'global_label'}>Nom d'utilisateur</label>
                     <input
                         className={'global_input_field'}
                         type="text"
                         onChange={(e) => setUsername(e.target.value)} />
 
 
-                    <label className={'global_input_field_label'}>Prénom</label>
+                    <label className={'global_label'}>Prénom</label>
                     <input
                         className={'global_input_field'}
                         type="text"
                         onChange={(e) => setPrenom(e.target.value)} />
 
 
-                    <label className={'global_input_field_label'}>Nom</label>
+                    <label className={'global_label'}>Nom</label>
                     <input
                         className={'global_input_field'}
                         type="text"
                         onChange={(e) => setNom(e.target.value)} />
 
-                    <label className={'global_input_field_label'}>Courriel</label>
+                    <label className={'global_label'}>Courriel</label>
                     <input
                         className={'global_input_field'}
                         type="email"
                         onChange={(e) => setEmail(e.target.value)} />
 
-                    <label className={'global_input_field_label'}>Mot de passe</label>
+                    <label className={'global_label'}>Mot de passe</label>
                     <input
                         className={'global_input_field'}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} />
 
-                    <label className={'global_input_field_label'}>Confirmez le mot de passe</label>
+                    <label className={'global_label'}>Confirmez le mot de passe</label>
                     <input
                         className={'global_input_field'}
                         type="password"

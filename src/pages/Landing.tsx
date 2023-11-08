@@ -52,7 +52,7 @@ function Landing() {
                 )}
 
             </div>
-            <div className='global_conteneurCouleur' >
+            <div className='global_container_gradient' >
                 <h2>Contenu a droite ici!!</h2>
                 <p className={styles.p}>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.

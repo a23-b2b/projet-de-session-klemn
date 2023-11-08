@@ -110,7 +110,7 @@ function BlogueForm() {
     }
 
     return (
-        <div className={'global_conteneur'} id={styles["conteneur"]}>
+        <div className={'global_container_1'} id={styles["conteneur"]}>
             <div className={styles.conteneurDiv}>
                 <h2 className={'global_title'}>Publication</h2>
             </div>
@@ -180,7 +180,7 @@ function BlogueForm() {
 
                 {type == "collab" && (
                     <div id={styles["ConteneurSelectURL"]}>
-                        <label className={'global_input_field_label'}>Source d'URL du projet GitHub</label>
+                        <label className={'global_label'}>Source d'URL du projet GitHub</label>
                         <select         
                             id={styles["selectURL"]}                    
                             className={'global_input_field'}
@@ -202,7 +202,7 @@ function BlogueForm() {
 
             <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
                 <span id={styles["span"]}>{nbCaracteres}/4000</span>
-                <button className={'global_bouton'} onClick={() => publierBlogue()}>
+                <button className={'global_selected_bouton'} onClick={() => publierBlogue()}>
                     Publier
                 </button>
             </div>
