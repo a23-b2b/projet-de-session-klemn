@@ -11,7 +11,7 @@ module.exports = app.post('/:id_projet', (req, res) => {
         const userId = payload.uid;
 
         pool.query(`
-        DELETE FROM projet WHERE projet.id_projet = ? AND WHERE compte_id_proprio = ?;`,
+        DELETE FROM projet WHERE projet.id_projet = ? AND compte_id_proprio = ?;`,
             [id_projet, userId],
             function (err) {
                 if (err) {

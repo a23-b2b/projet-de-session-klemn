@@ -63,21 +63,26 @@ function GestionProjetRapide(props: PropsProjet) {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user?.uid == props.compte_id_proprio) {
-                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
-                    method: 'POST',
-
-                })
-                    .then(() => {
-                        if (!estOuvert) {
-                            toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
                         }
-                        setEstOuvert(!estOuvert)
                     })
-                    .catch(error => {
-                        if (error) {
-                            toast.error(error)
-                        }
-                    });
+                        .then(() => {
+                            if (!estOuvert) {
+                                toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
+                            }
+                            setEstOuvert(!estOuvert)
+                        })
+                        .catch(error => {
+                            if (error) {
+                                toast.error(error)
+                            }
+                        });
+                })
             } else {
                 navigate("/authenticate")
             }
