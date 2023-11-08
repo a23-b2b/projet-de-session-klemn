@@ -15,6 +15,8 @@ import { HiLockOpen } from 'react-icons/hi';
 import { HiLockClosed } from 'react-icons/hi';
 import { HiFunnel } from 'react-icons/hi2';
 import { GoTrash } from 'react-icons/go';
+import {Tooltip} from "@chakra-ui/react";
+import {VscEdit} from "react-icons/vsc";
 
 
 
@@ -61,15 +63,15 @@ function GestionProjetRapide(props: PropsProjet) {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user?.uid == props.compte_id_proprio) {
-                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
                     method: 'POST',
+
                 })
                     .then(() => {
-                        setEstOuvert(!estOuvert)
                         if (!estOuvert) {
                             toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
                         }
-
+                        setEstOuvert(!estOuvert)
                     })
                     .catch(error => {
                         if (error) {
@@ -108,21 +110,25 @@ function GestionProjetRapide(props: PropsProjet) {
 
 
                 <div className={styles.ligne1}>
+                    <Tooltip className={styles.tooltip} label={"Ajouter Collaborateur"} placement={"top"}>
+                        <div className={styles.conteneurIcone}>
+                            <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
+                                <RiTeamLine size={50} className={styles.icone} />
+                            </button>
+                        </div>
+                    </Tooltip>
+
                     <div className={styles.conteneurIcone}>
-                        <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
-                            <RiTeamLine size={50} className={styles.icone} />
-                        </button>
-                    </div>
-                    <div className={styles.conteneurIcone}>
 
-                        <button onClick={rendreProjetOuvertAuCollab}>
+                        <Tooltip className={styles.tooltip} label={estOuvert ? "Verrouiller" : "Déverrouiller"} placement={"top"}>
+                            <button onClick={rendreProjetOuvertAuCollab}>
 
-                            {Boolean(estOuvert) && <HiLockOpen size={55} className={styles.icone} />}
+                                {Boolean(estOuvert) && <HiLockOpen size={55} className={styles.icone} />}
 
-                            {Boolean(!estOuvert) && <HiLockClosed size={55} className={styles.icone} />}
-                            
-                        </button>
+                                {Boolean(!estOuvert) && <HiLockClosed size={55} className={styles.icone} />}
 
+                            </button>
+                        </Tooltip>
                     </div>
 
                 </div>
@@ -130,14 +136,19 @@ function GestionProjetRapide(props: PropsProjet) {
 
                 <div className={styles.ligne2}>
                     <div className={styles.conteneurIcone}>
-                        <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
-                            <HiFunnel size={50} className={styles.icone} />
-                        </button>
+                        <Tooltip className={styles.tooltip} label={"Modifier"} placement={"bottom"}>
+                            <button onClick={() => {}}>
+                                <VscEdit size={50} className={styles.icone} />
+                            </button>
+                        </Tooltip>
                     </div>
                     <div className={styles.conteneurIcone}>
-                        <button onClick={supprimerProjet}>
-                            <GoTrash size={55} className={styles.icone} />
-                        </button>
+                        <Tooltip className={styles.tooltip} label={"Supprimer"} placement={"bottom"}>
+                            <button onClick={supprimerProjet}>
+                                <GoTrash size={55} className={styles.icone} />
+                            </button>
+                        </Tooltip>
+
                     </div>
 
 
