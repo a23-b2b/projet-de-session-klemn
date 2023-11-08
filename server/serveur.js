@@ -84,6 +84,9 @@ app.use('/user', changer_image_profil)
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
 
+const sync_id_github = require('./user/update/POST_id_github.js')
+app.use('/user', sync_id_github);
+
 const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
 

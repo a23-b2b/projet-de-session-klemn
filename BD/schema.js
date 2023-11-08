@@ -19,6 +19,7 @@ export const post = mysqlTable("post", {
 
 export const user = mysqlTable("compte", {
     id: varchar("id_compte", { length: 255 }).notNull().primaryKey(),
+    idGithub: varchar("id_github", {length: 255}).unique(), // Permet d'identifier un utilisateur auprès de l'API REST GitHub
     email: varchar("courriel", { length: 255 }).notNull().unique(),
     createdAt: datetime("date_creation_compte").notNull(),
     firstName: varchar("prenom", { length: 255 }).notNull(),
