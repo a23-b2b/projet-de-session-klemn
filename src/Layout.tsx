@@ -17,6 +17,7 @@ import GestionCollab from "./pages/GestionCollab";
 import ProjetForm from './pages/ProjetForm';
 
 import README from "./pages/AProposReadMe";
+import ModifProjetForm from "./pages/ModifProjetForm";
 
 
 function Layout() {
@@ -42,6 +43,7 @@ function Layout() {
                         </Route>
                         <Route path="/gestion" element={<GestionCollab />} />
                         <Route path="/projet" element={<ProjetForm />} />
+                        <Route path="/projet/:projetId" element={<ModifProjetForm />} />
                         <Route path="/apropos" element={<README />} />
                     </Routes>
                 </body>

@@ -84,7 +84,7 @@ function ProjetForm() {
                             type="radio" value={titre_projet} />
                     </div>
                     <div className={styles.labelRadioBouton}>
-                        <label>J'autorise les utilisateurs de KLEMN à vous envoyer des demandes de collaboration.</label>
+                        <label>J'autorise les utilisateurs de KLEMN à m'envoyer des demandes de collaboration.</label>
                     </div>
 
 
