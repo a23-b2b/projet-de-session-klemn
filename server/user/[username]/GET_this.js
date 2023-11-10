@@ -6,7 +6,7 @@ const { pool } = require('../../serveur.js')
 module.exports = app.get('/:username', async (req, res) => {
     const username = req.params.username;
     const userId = req.headers.authorization;
-
+    console.log(username)
     pool.query(`
         SELECT compte.id_compte,
             date_creation_compte,

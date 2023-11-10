@@ -11,8 +11,14 @@ INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, nombre_likes
                         (SELECT id_post FROM post WHERE id_compte=? order by date_publication desc limit 1)
                      );
                      
-                    SELECT id_post
+                    SELECT *
                     FROM post
-                    WHERE id_compte = ?
+                    WHERE id_compte = "yjoI2WF3w4WVr3kD9L01shSjjnL2"
                     order by date_publication desc
                     limit 1;
+
+                     SELECT post_view.*,
+            vote.score as vote
+        FROM post_view
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = 'yjoI2WF3w4WVr3kD9L01shSjjnL2'
+        WHERE post_view.id_post = 'abc3bdafea29';

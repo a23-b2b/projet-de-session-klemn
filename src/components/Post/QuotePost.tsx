@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
 import toast from 'react-hot-toast';
+import {TYPE_DELETED} from "../Post";
 
 interface Props {
     idPost: string;
@@ -63,11 +64,15 @@ function QuotePost(props: Props) {
         <div id={styles["conteneur"]} className={'global_conteneur_post'}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
+                titre = {props.titre}
                 estMarkdown={props.estMarkdown}
                 contenu={props.contenu}
                 idPost={props.idPost}

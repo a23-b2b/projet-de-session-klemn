@@ -20,7 +20,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
-        const estMarkdown = req.body.est_markdown;
+        const estMarkdown = true;
         const titre = req.body.titre;
         const contenu = req.body.contenu;
         const idToken = req.headers.authorization;
@@ -72,7 +72,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                 pool.query(
                     `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                                        nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 3, ?, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
                      INSERT INTO post_collab 
                         (id_collab, projet_id_projet, post_id_post)

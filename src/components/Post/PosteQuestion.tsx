@@ -32,9 +32,12 @@ function PosteQuestion(props: QuestionProp) {
         <div className={styles.container}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur} 
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
                 titre={props.titre}

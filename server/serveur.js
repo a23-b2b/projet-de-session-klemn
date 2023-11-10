@@ -13,7 +13,8 @@ dotenv.config();
 
 const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
 exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseServiceAccount)
+    credential: admin.credential.cert(firebaseServiceAccount),
+    storageBucket: 'klemn-702af.appspot.com/'
 });
 
 const pool = mysql.createPool({
@@ -53,6 +54,9 @@ app.use('/user', inscription);
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
 
+const get_username = require('./user/[username]/GET_username.js')
+app.use('/username', get_username);
+
 const follow_user = require('./user/[user_id]/POST_follow.js');
 app.use('/user', follow_user);
 
@@ -73,6 +77,9 @@ app.use('/user', changer_prenom)
 
 const changer_bio = require('./user/update/POST_bio.js')
 app.use('/user', changer_bio)
+
+const changer_image_profil = require('./user/update/POST_image_profil')
+app.use('/user', changer_image_profil)
 
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
@@ -106,6 +113,9 @@ app.use('/post', quote_post);
 
 const boost_post = require('./post/[id_post]/POST_boost.js');
 app.use('/post', boost_post);
+
+const delete_post = require('./post/[id_post]/DELETE_this.js')
+app.use('/post', delete_post)
 
 const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
