@@ -110,7 +110,7 @@ function BlogueForm() {
     }
 
     return (
-        <div className={'global_container_1'} id={styles["conteneur"]}>
+        <div className={'global_container_2'} id={styles["conteneur"]}>
             <div className={styles.conteneurDiv}>
                 <h2 className={'global_title'}>Publication</h2>
             </div>
@@ -122,8 +122,7 @@ function BlogueForm() {
                     type="text"
                     placeholder="Titre"
                     onChange={(e) => setTitre(e.target.value)} />
-                <textarea className={'global_input_field'}
-                    id={styles["textarea"]}
+                <textarea className={'global_textarea'}
                     rows={10}
                     maxLength={4000}
                     placeholder="Exprimez-vous!"
@@ -133,46 +132,17 @@ function BlogueForm() {
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
 
-
-
-                {/*
-                <select className={'global_input_field'} value={type} onChange={e => setType(e.target.value)}>
-                    <option value='blogue'>Blogue</option>
-                    <option value='question'>Question</option>
-                    <option value='collab'>Collaboration</option>
-                </select>
-                
-                <div className={styles.conteneurToggleModeMarkdown}>
-                    
-                    <div>
-                        <label className={styles.switch}>
-                            <input onChange={()=> { 
-                                toast(`Mode markdown actif?: ${estMarkdown}`)
-                                setEstMarkdown(!estMarkdown)
-                            }} type="checkbox"/>
-                            <span className={styles.slider}/> 
-                        </label>
-                    </div>
-                    <div className={styles.titreToggleModeMarkdown}>
-                        <p>Mode Markdown</p>
-                    </div>
-                </div>
-                
-                
-
-*/}
-
                 <div className={styles.conteneurBoutons}>
-                    <button className={isBlogueSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                    <button className={isBlogueSelected ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e => {
                         setType("blogue");
                         handleClickBlogue();
                     }}>Blogue</button>
-                    <button id={styles["boutonQuestion"]} className={isQuestionSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                    <button id={styles["boutonQuestion"]} className={isQuestionSelected ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e => {
                         setType("question");
                         handleClickQuestion();
                     }}>Question</button>
 
-                    <button id={styles["boutonCollab"]} className={isCollabSelected ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e => {
+                    <button id={styles["boutonCollab"]} className={isCollabSelected ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e => {
                         setType("collab");
                         handleClickCollab();
                     }}>Collaboration</button>

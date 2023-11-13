@@ -126,7 +126,7 @@ function RegisterForm() {
                         onChange={(e) => setPasswordConfirmation(e.target.value)} />
 
                     <div className={styles.containerBouton}>
-                        <button className={'global_bouton'} onClick={() => handleRegister(username, prenom, nom, email, password, passwordConfirmation)}>
+                        <button className={'global_selected_bouton'} onClick={() => handleRegister(username, prenom, nom, email, password, passwordConfirmation)}>
                             Inscription
                         </button>
                     </div>

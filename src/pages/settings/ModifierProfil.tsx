@@ -255,7 +255,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -281,7 +281,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -310,7 +310,7 @@ function ModifierProfil() {
                     />
 
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -338,7 +338,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewPrenomConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -358,7 +358,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewBio(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
                             Modifier
                         </button>
                     </div>
@@ -391,7 +391,7 @@ function ModifierProfil() {
                         )
                         }
                         {urlImageProfil && (
-                            <button className={'global_bouton'} onClick={() => changerImageProfil()}>
+                            <button className={'global_selected_bouton'} onClick={() => changerImageProfil()}>
                                 Modifier
                             </button>
                         )
