@@ -44,6 +44,7 @@
 
 .import_image {
     max-width: max-content;
+    margin: 25px 0px;
 }
 
 .upload_input {
@@ -51,6 +52,43 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 70vw;
+}
+
+#conteneuurChoisirImg {
+    display: flex;
+
+}
+
+#conteneurIcone {
+    background-color: var(--auto_selected_button_color);
+    border: 0px;
+    width: fit-content;
+    border-radius: 10px 0px 0px 10px;
+    padding-left: 15px;
+    padding-top: 3px;
+    font-weight: bold;
+}
+
+
+input[type="file"] {
+    display: none;
+}
+
+#custom-file-upload {
+    background-color: var(--auto_selected_button_color);
+    color: var(--auto_selected_button_text_color);
+    padding: 13px 15px 13px 9px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 0px 10px 10px 0px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+#icone {
+    color: var(--auto_text_color);
 }
 
 @media only screen and (max-width: 850px) {

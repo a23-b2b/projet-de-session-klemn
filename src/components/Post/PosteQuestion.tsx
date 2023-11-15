@@ -29,7 +29,7 @@ export interface QuestionProp {
 function PosteQuestion(props: QuestionProp) {
 
     return (
-        <div className={styles.container}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}

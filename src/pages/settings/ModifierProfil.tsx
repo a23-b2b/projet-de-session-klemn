@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
+import { FaRegFolderOpen } from 'react-icons/fa6';
 
 
 
@@ -373,11 +374,31 @@ function ModifierProfil() {
                     <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
                     <div className={styles.import_image}>
                         <input
-                            className={styles.upload_input}
+                            className={''}
                             type={'file'}
                             accept={'image/*'}
                             onChange={onInputProfilLoad}
                         />
+
+                        <div id={styles["conteneuurChoisirImg"]}>
+                            <div id={styles["conteneurIcone"]}>
+                                <FaRegFolderOpen size="40px" id={styles["icone"]} />
+                            </div>
+
+                            <label id={styles["custom-file-upload"]}>
+
+                                <input className={''}
+                                    type={'file'}
+                                    accept={'image/*'}
+                                    onChange={onInputProfilLoad}>
+                                </input>
+                                <i className={"fa fa-cloud-upload"}></i> Choisir une image
+                            </label>
+
+                        </div>
+
+
+
                         <br />
                         {urlImageProfil && (
                             <ReactCrop
@@ -391,9 +412,11 @@ function ModifierProfil() {
                         )
                         }
                         {urlImageProfil && (
-                            <button className={'global_selected_bouton'} onClick={() => changerImageProfil()}>
-                                Modifier
-                            </button>
+                            <div id={styles["containerDiv"]}>
+                                <button className={'global_selected_bouton'} onClick={() => changerImageProfil()}>
+                                    Modifier
+                                </button>
+                            </div>
                         )
                         }
 
