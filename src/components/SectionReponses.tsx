@@ -67,7 +67,8 @@ function SectionReponses(props: SectionReponsesProps) {
                         nombre_partages,
                         nombre_commentaires,
                         url_image_profil,
-                        vote
+                        vote,
+                        est_modifie
                     }) => {
                         return (
                             <Post idPost={id_post}
@@ -85,7 +86,8 @@ function SectionReponses(props: SectionReponsesProps) {
                                 isPostFullScreen={false}
                                 type={TYPE_REPONSE}
                                 urlImageProfil={url_image_profil}
-                                userVote={vote} />
+                                userVote={vote} 
+                                estModifie={est_modifie}/>
                         )
                     })}
                 </motion.div>

@@ -17,6 +17,7 @@ interface Props {
     titre: string;
     contenu: string;
     estMarkdown: Boolean;
+    estModifie: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -69,7 +70,8 @@ function QuotePost(props: Props) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={false} />
+                isDeleted={false}
+                estModifie={props.estModifie} />
 
             <PostContent
                 titre = {props.titre}

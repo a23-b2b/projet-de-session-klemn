@@ -54,6 +54,7 @@ function PostFullScreen() {
                     titre={postData.titre}
                     contenu={postData.contenu}
                     estMarkdown={postData.est_markdown}
+                    estModifie={postData.est_modifie}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}

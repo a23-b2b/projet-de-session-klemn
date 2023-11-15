@@ -155,7 +155,8 @@ function Home() {
                         post_meilleure_reponse,
                         
                         projet_id_projet,
-                        est_ouvert
+                        est_ouvert,
+                        est_modifie
                     }) => {
                         return (
                             <div key={id_post}>
@@ -167,6 +168,7 @@ function Home() {
                                     titre={titre}
                                     contenu={contenu}
                                     estMarkdown={est_markdown}
+                                    estModifie={est_modifie}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}
