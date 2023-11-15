@@ -13,7 +13,8 @@ interface infoCompte {
     prenom: string,
     nom: string,
     email: string,
-    password: string,
+    password?: string,
+    id_github?: string,
 }
 
 function RegisterForm() {
@@ -91,6 +92,8 @@ function RegisterForm() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                // github id?
+                github_id: info.id_github,
                 username: info.username,
                 prenom: info.prenom,
                 nom: info.nom,
@@ -166,11 +169,22 @@ function RegisterForm() {
                         "gists_url":"https://api.github.com/users/Nathan-Cournoyer/gists{/gist_id}",
                         "repos_url":"https://api.github.com/users/Nathan-Cournoyer/repos",
                         "following_url":"https://api.github.com/users/Nathan-Cournoyer/following{/other_user}",
-                        "twitter_username":null,"bio":null,"created_at":"2021-01-27T16:41:31Z","login":"Nathan-Cournoyer",
-                        "type":"User","blog":"","subscriptions_url":"https://api.github.com/users/Nathan-Cournoyer/subscriptions",
-                        "updated_at":"2023-11-08T13:11:25Z","site_admin":false,"company":"Collège Bois-de-Boulogne","id":78099040,
-                        "public_repos":0,"gravatar_id":"","email":null,"organizations_url":"https://api.github.com/users/Nathan-Cournoyer/orgs",
-                        "hireable":null,"starred_url":"https://api.github.com/users/Nathan-Cournoyer/starred{/owner}{/repo}",
+                        "twitter_username":null,
+                        "bio":null,
+                        "created_at":"2021-01-27T16:41:31Z",
+                        "login":"Nathan-Cournoyer",
+                        "type":"User","blog":"",
+                        "subscriptions_url":"https://api.github.com/users/Nathan-Cournoyer/subscriptions",
+                        "updated_at":"2023-11-08T13:11:25Z",
+                        "site_admin":false,
+                        "company":"Collège Bois-de-Boulogne",
+                        "id":78099040,
+                        "public_repos":0,
+                        "gravatar_id":"",
+                        "email":null,
+                        "organizations_url":"https://api.github.com/users/Nathan-Cournoyer/orgs",
+                        "hireable":null,
+                        "starred_url":"https://api.github.com/users/Nathan-Cournoyer/starred{/owner}{/repo}",
                         "followers_url":"https://api.github.com/users/Nathan-Cournoyer/followers","public_gists":0,"url":"https://api.github.com/users/Nathan-Cournoyer",
                         "received_events_url":"https://api.github.com/users/Nathan-Cournoyer/received_events","followers":0,"avatar_url":"https://avatars.githubusercontent.com/u/78099040?v=4",
                         "events_url":"https://api.github.com/users/Nathan-Cournoyer/events{/privacy}","html_url":"https://github.com/Nathan-Cournoyer","following":1,
@@ -184,7 +198,7 @@ function RegisterForm() {
                         const profile = additionalInfo.profile
                         var prenom = "UNKNOWN"
                         var nom = "UNKNOWN"
-                        const prenomNom : Array<string> = typeof(profile.username) === 'string' ? profile.username.split(" "): [prenom, nom]
+                        const prenomNom : Array<string> = typeof(profile.username) === 'string' ? profile.username.split(' '): [prenom, nom]
                         
                         if (prenomNom[0]) {
                             prenom = prenomNom[0]
@@ -198,7 +212,7 @@ function RegisterForm() {
                             prenom: prenom,
                             nom: nom,
                             email: typeof(user.email) === 'string' ? user.email : "UNKNOWN@email.com",
-                            password: "",
+                            id_github: typeof(profile.id) === 'number' ? profile.id.toString() : undefined                             
                         }
                         creerNouveauCompteGithub(info)
                     }

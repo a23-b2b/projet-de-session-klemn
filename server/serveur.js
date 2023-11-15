@@ -51,6 +51,9 @@ app.use(morgan('tiny', {
 const inscription = require('./user/POST_create.js')
 app.use('/user', inscription);
 
+const inscription_github = require('./user/POST_create_github.js')
+app.use('/user', inscription_github)
+
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
 
