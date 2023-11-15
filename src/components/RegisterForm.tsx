@@ -1,10 +1,20 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { AiFillGithub } from 'react-icons/ai';
+import { GithubAuthProvider } from "firebase/auth";
+
+interface infoCompte {
+    username: string,
+    prenom: string,
+    nom: string,
+    email: string,
+    password: string,
+}
 
 function RegisterForm() {
     const navigate = useNavigate()
@@ -16,69 +26,186 @@ function RegisterForm() {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    function handleRegister(
-        username: string,
-        prenom: string,
-        nom: string,
-        email: string,
-        password: string,
-        passwordConfirmation: string
-    ) {
+    // le post de creation de compte actuel valide les info et puis create user mais avec github cest different le service creeer le user par lui meme
+    // Il faut donc prendre en charge deux maniere de creation de compte
+    // Il y a aussi aucun mot de passe 
+    function creerNouveauCompte(info: infoCompte) {
+        fetch(`${process.env.REACT_APP_API_URL}/user/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: info.username,
+                prenom: info.prenom,
+                nom: info.nom,
+                email: info.email,
+                password: info.password
+            }),
+        }).then(response => response.json()).then(response => {
+            if (response.code) throw response
+
+            toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
+            navigate(0)
+        }).catch((error) => {
+            // TODO: Gestion erreur selon methode de sign up
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    toast.error('Le courriel est invalide.');
+                    break;
+
+                case 'auth/email-already-exists':
+                    toast.error('Le courriel est déjà inscrit.');
+                    break;
+
+                case 'auth/weak-password':
+                    toast.error('Le mot de passe est trop faible.');
+                    break;
+
+                case 'auth/wrong-password':
+                    toast.error('Le mot de passe est invalide. Il doit faire au moins 6 caractères.');
+                    break;
+
+                case 'ER_DUP_ENTRY':
+                    if (error.sqlMessage.includes("courriel")) {
+                        toast.error('Le courriel est déjà inscrit.');
+                    }
+
+                    if (error.sqlMessage.includes("nom_utilisateur")) {
+                        toast.error('Le nom d\'utilisateur est déjà pris.');
+                    }
+
+                    break;
+
+                default:
+                    toast.error('Une erreur est survenue: ' + error.code)
+                    break;
+            }
+        })
+    }
+
+    function creerNouveauCompteGithub(info: infoCompte) {
+        fetch(`${process.env.REACT_APP_API_URL}/user/create-github`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: info.username,
+                prenom: info.prenom,
+                nom: info.nom,
+                email: info.email,
+            }),
+        }).then(response => response.json()).then(response => {
+            if (response.code) throw response
+
+            toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
+            navigate(0)
+        }).catch((error) => {
+            // TODO: Gestion erreur selon methode de sign up
+            switch (error.code) {
+                case 'auth/account-exists-with-different-credential':
+                    toast.error('Ce compte existe avec informations différente')
+                    break;
+                case 'auth/email-already-exists':
+                    toast.error('Le courriel est déjà inscrit.');
+                    break;                
+                case 'ER_DUP_ENTRY':
+                    if (error.sqlMessage.includes("courriel")) {
+                        toast.error('Le courriel est déjà inscrit.');
+                    }
+                    if (error.sqlMessage.includes("nom_utilisateur")) {
+                        toast.error('Le nom d\'utilisateur est déjà pris.');
+                    }
+                    break;
+                default:
+                    toast.error('Une erreur est survenue: ' + error.code)
+                    break;
+            }
+        })
+    }
+
+    function handleRegister(info: infoCompte) {
         if (password !== passwordConfirmation) {
             toast.error("La confirmation de mot de passe n'est pas égale au mot de passe.")
         } else {
-            fetch(`${process.env.REACT_APP_API_URL}/user/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    prenom: prenom,
-                    nom: nom,
-                    email: email,
-                    password: password
-                }),
-            }).then(response => response.json()).then(response => {
-                if (response.code) throw response
-
-                toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
-                navigate(0)
-            }).catch((error) => {
-                switch (error.code) {
-                    case 'auth/invalid-email':
-                        toast.error('Le courriel est invalide.');
-                        break;
-
-                    case 'auth/email-already-exists':
-                        toast.error('Le courriel est déjà inscrit.');
-                        break;
-
-                    case 'auth/weak-password':
-                        toast.error('Le mot de passe est trop faible.');
-                        break;
-
-                    case 'auth/wrong-password':
-                        toast.error('Le mot de passe est invalide. Il doit faire au moins 6 caractères.');
-                        break;
-
-                    case 'ER_DUP_ENTRY':
-                        if (error.sqlMessage.includes("courriel")) {
-                            toast.error('Le courriel est déjà inscrit.');
-                        }
-
-                        if (error.sqlMessage.includes("nom_utilisateur")) {
-                            toast.error('Le nom d\'utilisateur est déjà pris.');
-                        }
-                        
-                        break;
-
-                    default:
-                        toast.error('Une erreur est survenue: ' + error.code)
-                        break;
-                }
-            })
+            creerNouveauCompte(info)
         }
+    }
+
+    function handleGitHubSignUp(): void {
+        const provider = new GithubAuthProvider();
+
+        provider.setCustomParameters({
+            'allow_signup': 'true'
+        });
+
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+                const credential = GithubAuthProvider.credentialFromResult(result);
+                if (credential) {
+                    // Credentials: {"accessToken":"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","pendingToken":null,"providerId":"github.com","signInMethod":"github.com"}
+                    const token = credential.accessToken;
+                    console.log("Credentials: " + JSON.stringify(credential))
+                }
+
+                // The signed-in user info.
+                const user = result.user;
+                if (user) {
+                    console.log(JSON.stringify(user))
+                }
+                // IdP data available using getAdditionalUserInfo(result)
+                const additionalInfo = getAdditionalUserInfo(result)
+                if (additionalInfo) {
+                    /* 
+                    {"isNewUser":false,"
+                    providerId":"github.com",
+                    "profile": {
+                        "gists_url":"https://api.github.com/users/Nathan-Cournoyer/gists{/gist_id}",
+                        "repos_url":"https://api.github.com/users/Nathan-Cournoyer/repos",
+                        "following_url":"https://api.github.com/users/Nathan-Cournoyer/following{/other_user}",
+                        "twitter_username":null,"bio":null,"created_at":"2021-01-27T16:41:31Z","login":"Nathan-Cournoyer",
+                        "type":"User","blog":"","subscriptions_url":"https://api.github.com/users/Nathan-Cournoyer/subscriptions",
+                        "updated_at":"2023-11-08T13:11:25Z","site_admin":false,"company":"Collège Bois-de-Boulogne","id":78099040,
+                        "public_repos":0,"gravatar_id":"","email":null,"organizations_url":"https://api.github.com/users/Nathan-Cournoyer/orgs",
+                        "hireable":null,"starred_url":"https://api.github.com/users/Nathan-Cournoyer/starred{/owner}{/repo}",
+                        "followers_url":"https://api.github.com/users/Nathan-Cournoyer/followers","public_gists":0,"url":"https://api.github.com/users/Nathan-Cournoyer",
+                        "received_events_url":"https://api.github.com/users/Nathan-Cournoyer/received_events","followers":0,"avatar_url":"https://avatars.githubusercontent.com/u/78099040?v=4",
+                        "events_url":"https://api.github.com/users/Nathan-Cournoyer/events{/privacy}","html_url":"https://github.com/Nathan-Cournoyer","following":1,
+                        "name":"Nathan Cournoyer","location":null,"node_id":"MDQ6VXNlcjc4MDk5MDQw"},
+                        "username":"Nathan-Cournoyer"
+                    }
+                    */
+                    console.log(JSON.stringify( additionalInfo))
+                    
+                    if (additionalInfo.profile && user) {
+                        const profile = additionalInfo.profile
+                        var prenom = "UNKNOWN"
+                        var nom = "UNKNOWN"
+                        const prenomNom : Array<string> = typeof(profile.username) === 'string' ? profile.username.split(" "): [prenom, nom]
+                        
+                        if (prenomNom[0]) {
+                            prenom = prenomNom[0]
+                        }
+                        if (prenomNom[1]) {
+                            nom = prenomNom[1]
+                        }
+
+                        const info: infoCompte = {
+                            username: typeof(profile.username) === 'string' ? profile.username: "",
+                            prenom: prenom,
+                            nom: nom,
+                            email: typeof(user.email) === 'string' ? user.email : "UNKNOWN@email.com",
+                            password: "",
+                        }
+                        creerNouveauCompteGithub(info)
+                    }
+                }                            
+            }).catch((error) => {
+                console.log(JSON.stringify(error))
+            });
     }
 
     return (
@@ -126,9 +253,14 @@ function RegisterForm() {
                         onChange={(e) => setPasswordConfirmation(e.target.value)} />
 
                     <div className={styles.containerBouton}>
-                        <button className={'global_bouton'} onClick={() => handleRegister(username, prenom, nom, email, password, passwordConfirmation)}>
+                        <button className={'global_bouton'} onClick={() => handleRegister({username, prenom, nom, email, password})}>
                             Inscription
                         </button>
+
+                        <button className={'global_bouton'} style={{ margin: '10px' }} onClick={() => handleGitHubSignUp()}>
+                            Inscription avec GitHub <AiFillGithub />
+                        </button>
+
                     </div>
                 </div>
             </motion.div>

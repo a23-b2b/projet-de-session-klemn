@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
-import user from '../images/user.png';
-import search from '../images/search.png';
-import gestion from '../images/icn_manage.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { CiCircleList } from 'react-icons/ci';
 import { RiTeamLine } from 'react-icons/ri';
@@ -16,7 +13,6 @@ import { auth } from '../../src/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } from 'firebase/auth'
-import { FirebaseError } from 'firebase/app';
 
 
 function Header() {
