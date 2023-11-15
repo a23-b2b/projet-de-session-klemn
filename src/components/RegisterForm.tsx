@@ -15,6 +15,7 @@ interface infoCompte {
     email: string,
     password?: string,
     id_github?: string,
+    nom_affichage?: string
 }
 
 function RegisterForm() {
@@ -98,6 +99,7 @@ function RegisterForm() {
                 prenom: info.prenom,
                 nom: info.nom,
                 email: info.email,
+                nomAffichage: info.nom_affichage
             }),
         }).then(response => response.json()).then(response => {
             if (response.code) throw response
@@ -212,7 +214,8 @@ function RegisterForm() {
                             prenom: prenom,
                             nom: nom,
                             email: typeof(user.email) === 'string' ? user.email : "UNKNOWN@email.com",
-                            id_github: typeof(profile.id) === 'number' ? profile.id.toString() : undefined                             
+                            id_github: typeof(profile.id) === 'number' ? profile.id.toString() : undefined,
+                            nom_affichage: typeof(user.displayName) === 'string' ? user.displayName: "Nom Affichage"                              
                         }
                         creerNouveauCompteGithub(info)
                     }

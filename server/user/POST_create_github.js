@@ -3,7 +3,8 @@ const app = express()
 const { check, body, validationResult } = require('express-validator');
 const { pool } = require('../serveur.js')
 const { admin } = require('../serveur.js')
-const logger = require('../logger.js')
+const logger = require('../logger.js');
+const { user } = require('../../BD/schema.js');
 
 
 module.exports = app.post('/create-github',
@@ -34,11 +35,20 @@ module.exports = app.post('/create-github',
             const nom = req.body.nom;
             const email = req.body.email;
             const id_github = req.body.github_id
-
+            const nomAffichage = req.body.nomAffichage
+            const id_compte = admin.auth().getUserByEmail(email)
+            .then((userRecord) => {
+              return userRecord.uid 
+            })
+            .catch((error) => {
+              console.log('Error fetching user data:', error);
+            });
+          
 
             pool.query(
                 `INSERT INTO compte (
-                        id_compte, 
+                        id_compte,
+                        id_github, 
                         date_creation_compte, 
                         nom, 
                         prenom, 
@@ -53,14 +63,26 @@ module.exports = app.post('/create-github',
                         autorisation) 
         
                     VALUES (
-                        ?, NOW(), ?, ?, ?, ?, 0, 0, ?, ?, ?, ?, ?);`,
-                [
-                    user.uid,
+                        ?,
+                        ?, 
+                        NOW(), 
+                        ?, 
+                        ?, 
+                        ?, 
+                        ?, 
+                        0, 
+                        0, 
+                        ?, 
+                        ?,
+                        ?, ?, ?);`,
+                [     
+                    id_compte,   
+                    id_github,            
                     nom,
                     prenom,
                     username,
-                    user.email,
-                    username,
+                    email,
+                    nomAffichage,
                     'Je viens d\'arriver sur Klemn!',
                     'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdefault.jpg?alt=media&token=40dc04ca-5a18-46cd-8519-425fd4855a33',
                     'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/bannieres%2Fbanniere%20klemn2.webp?alt=media&token=b70ae459-52c2-4d30-8fd4-7aa12725e3e9',
@@ -81,7 +103,7 @@ module.exports = app.post('/create-github',
                         res.status(201).send({
                             "succes": "Compte créé avec succès.",
                             "username": username,
-                            "userId": user.uid
+                            "userId": 
                         })
                     }
                 }
