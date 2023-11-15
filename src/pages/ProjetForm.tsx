@@ -81,7 +81,7 @@ function ProjetForm() {
                         <input onChange={() => { set_est_ouvert(!est_ouvert) }}
                             id={styles["radioBouton"]}
                             className={'global_input_field'}
-                            type="radio" value={titre_projet} />
+                            type="checkbox" />
                     </div>
                     <div className={styles.labelRadioBouton}>
                         <label>J'autorise les utilisateurs de KLEMN à m'envoyer des demandes de collaboration.</label>

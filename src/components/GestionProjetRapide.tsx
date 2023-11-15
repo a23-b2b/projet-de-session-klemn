@@ -5,7 +5,7 @@ import ouvert from '../images/icn-open.png';
 import collaboration from '../images/icn-collaboration.png';
 import fermer from '../images/icn-closed.png';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
 import { ExceptionHandler } from 'winston';
@@ -142,9 +142,11 @@ function GestionProjetRapide(props: PropsProjet) {
                 <div className={styles.ligne2}>
                     <div className={styles.conteneurIcone}>
                         <Tooltip className={styles.tooltip} label={"Modifier"} placement={"bottom"}>
-                            <button onClick={() => {}}>
-                                <VscEdit size={50} className={styles.icone} />
-                            </button>
+                            <Link to={`/projet/${props.id_projet}`}>
+                                <button>
+                                    <VscEdit size={50} className={styles.icone} />
+                                </button>
+                            </Link>
                         </Tooltip>
                     </div>
                     <div className={styles.conteneurIcone}>

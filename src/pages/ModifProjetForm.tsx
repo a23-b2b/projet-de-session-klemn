@@ -3,19 +3,45 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import {useParams} from "react-router";
+import {auth} from "../firebase";
+import {response} from "express";
 
 
 
 function ModifProjetForm() {
     const navigate = useNavigate();
 
-    // const [, ] = useState<any[]>([])
+    let { projetId } = useParams();
 
     const [titre_projet, set_titre_projet] = useState("")
     const [description_projet, set_description_projet] = useState("")
     const [url_repo_git, set_url_repo_git] = useState("")
 
     const [est_ouvert, set_est_ouvert] = useState(false)
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/${projetId}`, {
+                    method: 'GET'
+                }).then(response => response.json())
+                    .then(response => {
+                        const data = response[0];
+                        if (data.compte_id_proprio != user.uid) {
+                            toast.error('Vous n\'êtes pas le propriétaire de ce projet');
+                            navigate('/');
+                        }
+                        set_titre_projet(data.titre_projet);
+                        set_description_projet(data.description_projet);
+                        set_url_repo_git(data.url_repo_git);
+                        set_est_ouvert(data.est_ouvert);
+                    })
+            } else {
+                navigate('/authenticate')
+            }
+        })
+    }, [projetId])
 
 
     // async function creerProjet() {
@@ -81,7 +107,7 @@ function ModifProjetForm() {
                         <input onChange={() => { set_est_ouvert(!est_ouvert) }}
                                id={styles["radioBouton"]}
                                className={'global_input_field'}
-                               type="radio" value={titre_projet} />
+                               type="checkbox" checked={est_ouvert} />
                     </div>
                     <div className={styles.labelRadioBouton}>
                         <label>J'autorise les utilisateurs de KLEMN à m'envoyer des demandes de collaboration.</label>
