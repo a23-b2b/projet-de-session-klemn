@@ -1,7 +1,7 @@
 const express = require('express')
-const { pool } = require('../../serveur.js')
-const { admin } = require('../../serveur.js')
-const { logger } = require('../../logger.js')
+const { pool } = require('../../../serveur.js')
+const { admin } = require('../../../serveur.js')
+const { logger } = require('../../../logger.js')
 
 const app = express()
 
