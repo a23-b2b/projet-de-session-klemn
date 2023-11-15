@@ -9,6 +9,7 @@ import { AiFillGithub } from 'react-icons/ai';
 import { GithubAuthProvider } from "firebase/auth";
 
 interface infoCompte {
+     
     username: string,
     prenom: string,
     nom: string,
@@ -16,6 +17,7 @@ interface infoCompte {
     password?: string,
     id_github?: string,
     nom_affichage?: string
+    id_compte?: string
 }
 
 function RegisterForm() {
@@ -208,14 +210,15 @@ function RegisterForm() {
                         if (prenomNom[1]) {
                             nom = prenomNom[1]
                         }
-
+                        // TODO: TROUVE COMMENT SET UP LE USERNAME AVANT DE FAIRE UN INSERT DANS COMPTE 
                         const info: infoCompte = {
-                            username: typeof(profile.username) === 'string' ? profile.username: "",
+                            id_compte: typeof(user.uid) == 'string' ? user.uid : undefined,
+                            username: typeof(profile.username) == 'string' ? profile.username: "",
                             prenom: prenom,
                             nom: nom,
-                            email: typeof(user.email) === 'string' ? user.email : "UNKNOWN@email.com",
-                            id_github: typeof(profile.id) === 'number' ? profile.id.toString() : undefined,
-                            nom_affichage: typeof(user.displayName) === 'string' ? user.displayName: "Nom Affichage"                              
+                            email: typeof(user.email) == 'string' ? user.email : "",
+                            id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
+                            nom_affichage: typeof(user.displayName) == 'string' ? user.displayName: "Nom Affichage"                              
                         }
                         creerNouveauCompteGithub(info)
                     }

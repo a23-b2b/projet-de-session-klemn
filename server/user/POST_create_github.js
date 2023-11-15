@@ -4,7 +4,7 @@ const { check, body, validationResult } = require('express-validator');
 const { pool } = require('../serveur.js')
 const { admin } = require('../serveur.js')
 const logger = require('../logger.js');
-const { user } = require('../../BD/schema.js');
+const e = require('express');
 
 
 module.exports = app.post('/create-github',
@@ -36,14 +36,10 @@ module.exports = app.post('/create-github',
             const email = req.body.email;
             const id_github = req.body.github_id
             const nomAffichage = req.body.nomAffichage
-            const id_compte = admin.auth().getUserByEmail(email)
-            .then((userRecord) => {
-              return userRecord.uid 
-            })
-            .catch((error) => {
-              console.log('Error fetching user data:', error);
-            });
-          
+            const id_compte = req.body.id_compte
+
+            logger.info(JSON.stringify(req.body))
+
 
             pool.query(
                 `INSERT INTO compte (
@@ -61,7 +57,6 @@ module.exports = app.post('/create-github',
                         url_image_profil,
                         url_image_banniere,
                         autorisation) 
-        
                     VALUES (
                         ?,
                         ?, 
@@ -73,27 +68,25 @@ module.exports = app.post('/create-github',
                         0, 
                         0, 
                         ?, 
-                        ?,
-                        ?, ?, ?);`,
-                [     
-                    id_compte,   
-                    id_github,            
+                        'Je viens d\'arriver sur Klemn!',
+                        'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdefault.jpg?alt=media&token=40dc04ca-5a18-46cd-8519-425fd4855a33',
+                        'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/bannieres%2Fbanniere%20klemn2.webp?alt=media&token=b70ae459-52c2-4d30-8fd4-7aa12725e3e9', 
+                        3);`,
+                [
+                    id_compte,
+                    id_github,
                     nom,
                     prenom,
                     username,
                     email,
-                    nomAffichage,
-                    'Je viens d\'arriver sur Klemn!',
-                    'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdefault.jpg?alt=media&token=40dc04ca-5a18-46cd-8519-425fd4855a33',
-                    'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/bannieres%2Fbanniere%20klemn2.webp?alt=media&token=b70ae459-52c2-4d30-8fd4-7aa12725e3e9',
-                    3
+                    nomAffichage
                 ],
                 function (err, results, fields) {
                     if (err) {
-                        logger.log("info", `IP ${req.ip}: Erreur lors de la création du compte sur MySQL: ${err}`)
+                        logger.info(`IP ${req.ip}: Erreur lors de la création du compte sur MySQL: ${err}`)
 
                         // supprimer le compte de firebase
-                        admin.auth().deleteUser(user.uid);
+                        admin.auth().deleteUser(id_compte);
 
                         res.status(500).send(err)
                     }
@@ -103,7 +96,7 @@ module.exports = app.post('/create-github',
                         res.status(201).send({
                             "succes": "Compte créé avec succès.",
                             "username": username,
-                            "userId": 
+                            "userId": id_compte
                         })
                     }
                 }
@@ -111,7 +104,7 @@ module.exports = app.post('/create-github',
 
 
         } else {
-            logger.log("info", `IP ${req.ip} à tenté de créer un compte mais à entré des données invalides: ${resultatValidation}`)
+            logger.log("info", `IP ${req.ip} à tenté de créer un compte mais à entré des données invalides: ${JSON.stringify(resultatValidation)}`)
             res.send(resultatValidation)
         }
     });
