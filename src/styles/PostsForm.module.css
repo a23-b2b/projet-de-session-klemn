@@ -2,6 +2,27 @@
     margin-bottom: 15%;
 }
 
+
+#conteneur_titre {
+    text-align: center;
+}
+
+#conteneur_commentaire {
+    margin: 30px 0px 30px 0px;
+    margin: auto;
+    width: 93%;
+    height: 300px;
+    
+}
+
+#conteneur_formCommentaire {
+    width: 100%;
+}
+
+#textarea {
+    height: 200px;
+}
+
 .conteneurDiv {
     width: 100%;
 }

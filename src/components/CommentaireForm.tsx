@@ -49,9 +49,10 @@ function CommentaireForm(props: CommentaireFormProps) {
     }
 
     return (
-        <div className={styles.conteneurCommentaire}>
+        <div className={'global_container_2'} id={styles["conteneur_commentaire"]}>
             <div className={styles.form}>
-                <textarea className={'global_input_field'}
+                <textarea className={'global_textarea'}
+                id={styles["textarea"]}
                     rows={5}
                     maxLength={4000}
                     placeholder="Écrivez un commentaire"
@@ -61,10 +62,14 @@ function CommentaireForm(props: CommentaireFormProps) {
                         setNbCaracteres(e.target.textLength)
                     }}></textarea>
             </div>
-            <span>{nbCaracteres}/4000</span>
-            <button className={'global_bouton'} onClick={() => publierCommentaire()}>
-                Publier
-            </button>
+
+
+            <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
+                <span id={styles["span"]}>{nbCaracteres}/4000</span>
+                <button className={'global_selected_bouton'} onClick={() => publierCommentaire()}>
+                    Publier
+                </button>
+            </div>
         </div>
     )
 }
