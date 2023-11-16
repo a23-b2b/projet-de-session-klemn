@@ -49,7 +49,6 @@ module.exports = app.get('/:username/followers', async (req, res) => {
                             nom_utilisateur: follower.nom_utilisateur,
                             url_image_profil: follower.url_image_profil
 
-
                         }));
 
                         pool.query(`

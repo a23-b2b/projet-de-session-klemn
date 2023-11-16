@@ -10,6 +10,7 @@ interface UserReferenceProps {
     nomAffichage: string;
     nomUtilisateur: string;
     urlImageProfil: string;
+
 }
 
 function UserReference(props: UserReferenceProps) {

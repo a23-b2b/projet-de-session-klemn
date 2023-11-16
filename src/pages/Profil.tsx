@@ -44,7 +44,9 @@ function Profil() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-
+    useEffect(() => {
+        setIsModalOpen(false);
+    }, [username]);
 
     useEffect(() => {
         // Unfollow
@@ -245,15 +247,14 @@ function Profil() {
 
                     {userFollowers.map((follower) => (
                         <div className={'follower-item'} key={follower.id_compte}>
-
                             <UserReference
                                 nomAffichage={follower.nom_affichage}
                                 nomUtilisateur={follower.nom_utilisateur}
                                 urlImageProfil={follower.url_image_profil}
+
                             />
                         </div>
                     ))}
-
                 </Modal>
 
             </div >
