@@ -28,8 +28,12 @@ function Profil() {
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
     const [nombreAbonnesBefore, setNombreAbonnesBefore] = useState(nombreAbonnes);
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
+    const [followerName, setFollowerName] = useState('');
+
 
     const [userPosts, setUserPosts] = useState<any[]>([])
+    const [userFollowers, setUserFollowers] = useState<any[]>([])
+
     const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
@@ -87,7 +91,8 @@ function Profil() {
     }, [nombreAbonnes])
 
     useEffect(() => {
-        getUserData()
+        getUserData();
+        // getProfileWithFollowers();
     }, [username])
 
     useEffect(() => {
@@ -154,7 +159,7 @@ function Profil() {
             })
         }
         )
-        // setIsModalOpen(true);
+
 
     }
 
@@ -162,6 +167,34 @@ function Profil() {
         return (
             <Chargement />
         )
+    }
+
+
+    function getFollowers() {
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/followers`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': user?.uid || ''
+                    },
+                });
+
+                if (response.ok) {
+                    const followersData = await response.json();
+                    console.log(followersData);
+
+                    const followers = followersData[0]?.followers || [];
+                    setUserFollowers(followers);
+
+                } else {
+                    throw await response.json();
+                }
+            } catch (error) {
+                console.log('Erreur lors de la récupération des followers', error);
+            }
+        });
     }
 
 
@@ -197,7 +230,7 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p ref={followerNumberScope} onClick={() => setIsModalOpen(true)}>{nombreAbonnesBefore}</p> abonnés</div>
+                    <div><p ref={followerNumberScope} onClick={() => { setIsModalOpen(true); getFollowers() }}>{nombreAbonnesBefore}</p> abonnés</div>
                     <div><p>{userData.nombre_abonnements}</p> Abonnements</div>
                 </div>
 
@@ -206,7 +239,20 @@ function Profil() {
                 <Modal
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}>
-                    {/* {UserReference} */}
+                    <br />
+                    <br />
+                    <br />
+
+                    {userFollowers.map((follower) => (
+                        <div className={'follower-item'} key={follower.id_compte}>
+
+                            <UserReference
+                                nomAffichage={follower.nom_affichage}
+                                nomUtilisateur={follower.nom_utilisateur}
+                                urlImageProfil={follower.url_image_profil}
+                            />
+                        </div>
+                    ))}
 
                 </Modal>
 
@@ -215,7 +261,7 @@ function Profil() {
             <InfiniteScroll
                 dataLength={userPosts.length}
                 next={() => getPosts()}
-                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                hasMore={!isEndOfFeed}
                 loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
