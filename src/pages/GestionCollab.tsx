@@ -92,12 +92,15 @@ function GestionCollab() {
 
             </div>
 
-            {afficherForm && <div id={styles["coteneurAjoutCollaborateur"]} className={'global_conteneur'}>
-
-                    <button className={styles.conteneurBoutonX} onClick={() => { setAfficherForm(!afficherForm) }}>
-                        <RxCross2 size={20} className={styles.icone} />
-                    </button>
+            {afficherForm && <div id={styles["coteneurAjoutCollaborateur"]} className={'global_container_3'}>
                 <form className={styles.form}>
+
+                    <div className={styles.conteneurBoutonX}>
+                        <button onClick={() => { setAfficherForm(!afficherForm) }}>
+                            <RxCross2 size={20} className={styles.icone} />
+                        </button>
+                    </div>
+
                     <div>
                         <p id={styles["titre"]} className={'global_title'}>
                             Projet ID: {idProjet}

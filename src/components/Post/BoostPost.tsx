@@ -74,6 +74,7 @@ function BoostPost(props: Props) {
                     type={boostedPostData.id_type_post}
                     urlImageProfil={boostedPostData.url_image_profil}
                     userVote={boostedPostData.vote}
+                    estModifie={boostedPostData.est_modifie}
 
                     sharedPostId={boostedPostData.id_shared_post}
                     isSharedPostQuote={boostedPostData.is_quoted_post} />
