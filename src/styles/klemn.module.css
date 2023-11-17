@@ -1,0 +1,40 @@
+#conteneur {
+    display: inline-flex;
+    margin: 20px;
+    width: 100%;
+}
+
+#conteneurTableMatieres {
+    width: 400px;
+    height: fit-content;
+}
+
+#conteneurTableMatieres h2 {
+    opacity: .95;
+}
+
+#conteneurTableMatieres h3 {
+    opacity: .85;
+}
+
+#conteneurPage {
+    width: 100%;
+    text-align: justify;
+    margin: 0 40px;
+}
+
+#conteneurPage h1 {
+    text-align: center;
+}
+
+#conteneurPage h2 {
+    opacity: .8;
+    text-align: left;
+    margin-left: 20px;
+}
+
+#conteneurPage p {
+    margin: 5px 20px;
+    opacity: .7;
+}
+

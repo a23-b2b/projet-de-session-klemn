@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import Interface from "./pages/settings/Interface";
 import GestionCollab from "./pages/GestionCollab";
 import ProjetForm from './pages/ProjetForm';
+import PageKlemn from './pages/klemn';
 
 import README from "./pages/AProposReadMe";
 
@@ -38,6 +39,8 @@ function Layout() {
                         <Route path="/404" element={<Erreur404 />} />
                         <Route path="*" element={<Navigate to="/404" />} />
 
+                        
+
                         <Route path="/" element={<Home />} />
                         <Route path="/authenticate" element={<Landing />} />
                         <Route path="/u/:username" element={<Profil />} />
@@ -48,6 +51,7 @@ function Layout() {
                         </Route>
                         <Route path="/gestion" element={<GestionCollab />} />
                         <Route path="/projet" element={<ProjetForm />} />
+                        <Route path="/klemn" element={<PageKlemn/>} />
                         <Route path="/apropos" element={<README />} />
                     </Routes>
                 </body>
