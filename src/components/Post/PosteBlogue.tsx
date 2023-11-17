@@ -26,7 +26,7 @@ export interface BlogueProp {
 function PosteBlogue(props: BlogueProp) {
 
     return (
-        <div className={'global_conteneur_post'} id={styles["conteneur_post"]}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}

@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
+import { FaRegFolderOpen } from 'react-icons/fa6';
 
 
 
@@ -236,7 +237,7 @@ function ModifierProfil() {
                     <h3 className={'global_subtitle'}>Modifier le courriel</h3>
 
 
-                    <label className={'global_input_field_label'}>Nouveau courriel</label>
+                    <label className={'global_label'}>Nouveau courriel</label>
 
                     <input
                         id={styles["input"]}
@@ -245,7 +246,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewEmail(e.target.value)}
                     />
 
-                    <label className={'global_input_field_label'}>Confirmez le courriel</label>
+                    <label className={'global_label'}>Confirmez le courriel</label>
 
 
                     <input
@@ -255,7 +256,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -267,13 +268,13 @@ function ModifierProfil() {
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le nom d'affichage</h3>
 
-                    <label className={'global_input_field_label'}>Nouveau nom d'affichage </label>
+                    <label className={'global_label'}>Nouveau nom d'affichage </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewNameAffichage(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le nom d'affichage</label>
+                    <label className={'global_label'}>Confirmez le nom d'affichage</label>
 
                     <input
                         id={styles["input"]}
@@ -281,7 +282,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -295,13 +296,13 @@ function ModifierProfil() {
 
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le nom </h3>
-                    <label className={'global_input_field_label'}>Nouveau nom  </label>
+                    <label className={'global_label'}>Nouveau nom  </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewName(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le nom </label>
+                    <label className={'global_label'}>Confirmez le nom </label>
 
                     <input
                         id={styles["input"]}
@@ -310,7 +311,7 @@ function ModifierProfil() {
                     />
 
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -324,13 +325,13 @@ function ModifierProfil() {
 
                 <div>
                     <h3 className={'global_subtitle'}>Modifier le prenom </h3>
-                    <label className={'global_input_field_label'}>Nouveau prenom </label>
+                    <label className={'global_label'}>Nouveau prenom </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewPrenom(e.target.value)}
                     />
-                    <label className={'global_input_field_label'}>Confirmez le prenom </label>
+                    <label className={'global_label'}>Confirmez le prenom </label>
 
                     <input
                         id={styles["input"]}
@@ -338,7 +339,7 @@ function ModifierProfil() {
                         onChange={(e) => setNewPrenomConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
                             Modifier
                         </button>
                     </div>
@@ -351,14 +352,14 @@ function ModifierProfil() {
 
                 <div>
                     <h3 className={'global_subtitle'}>Modifier le Bio </h3>
-                    <label className={'global_input_field_label'}>Nouveau Bio </label>
+                    <label className={'global_label'}>Nouveau Bio </label>
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         onChange={(e) => setNewBio(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
                             Modifier
                         </button>
                     </div>
@@ -373,11 +374,31 @@ function ModifierProfil() {
                     <h3 className={'global_subtitle'}>Modifier l'image de profil</h3>
                     <div className={styles.import_image}>
                         <input
-                            className={styles.upload_input}
+                            className={''}
                             type={'file'}
                             accept={'image/*'}
                             onChange={onInputProfilLoad}
                         />
+
+                        <div id={styles["conteneuurChoisirImg"]}>
+                            <div id={styles["conteneurIcone"]}>
+                                <FaRegFolderOpen size="40px" id={styles["icone"]} />
+                            </div>
+
+                            <label id={styles["custom-file-upload"]}>
+
+                                <input className={''}
+                                    type={'file'}
+                                    accept={'image/*'}
+                                    onChange={onInputProfilLoad}>
+                                </input>
+                                <i className={"fa fa-cloud-upload"}></i> Choisir une image
+                            </label>
+
+                        </div>
+
+
+
                         <br />
                         {urlImageProfil && (
                             <ReactCrop
@@ -391,9 +412,11 @@ function ModifierProfil() {
                         )
                         }
                         {urlImageProfil && (
-                            <button className={'global_bouton'} onClick={() => changerImageProfil()}>
-                                Modifier
-                            </button>
+                            <div id={styles["containerDiv"]}>
+                                <button className={'global_selected_bouton'} onClick={() => changerImageProfil()}>
+                                    Modifier
+                                </button>
+                            </div>
                         )
                         }
 

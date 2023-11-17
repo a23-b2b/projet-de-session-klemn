@@ -62,7 +62,7 @@ function QuotePost(props: Props) {
 
 
     return (
-        <div id={styles["conteneur"]} className={'global_conteneur_post'}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}

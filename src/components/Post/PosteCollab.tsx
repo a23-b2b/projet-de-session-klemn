@@ -65,7 +65,7 @@ function PosteCollab(props: CollabProp) {
     
 
     return (
-        <div className={styles.container}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}
@@ -86,7 +86,7 @@ function PosteCollab(props: CollabProp) {
 
             
             {user && 
-                <button disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
+                <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
                     Demander à collaborer
                 </button> }
 

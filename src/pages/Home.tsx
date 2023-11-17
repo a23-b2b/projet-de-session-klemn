@@ -113,10 +113,10 @@ function Home() {
             <BlogueForm />
 
             <div className={styles.conteneurBoutons}>
-                <button className={feedType === "global" ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                <button className={feedType === "global" ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e =>  {
                   changeFeedType("global");
                 }}>Global</button>
-                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? 'global_selected_bouton' : 'global_unselected_bouton'}  onClick={e =>  {
                   changeFeedType("followed");
                 }}>Abonnements</button>
             </div>
