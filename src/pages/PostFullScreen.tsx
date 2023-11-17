@@ -16,6 +16,10 @@ function PostFullScreen() {
     const [postData, setPostData] = useState<any>();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
+    useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
                 method: 'GET',

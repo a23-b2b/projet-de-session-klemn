@@ -108,6 +108,10 @@ function Profil() {
         if (userData) getPosts()
     }, [userData])
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
 
     function getUserData() {
 
