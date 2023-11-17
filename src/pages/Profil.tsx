@@ -194,7 +194,7 @@ function Profil() {
                     const followersData = await response.json();
                     console.log(followersData);
 
-                    const followers = followersData[0]?.followers || [];
+                    const followers = followersData?.followers || [];
                     setUserFollowers(followers);
 
 
@@ -220,7 +220,7 @@ function Profil() {
 
                 if (response.ok) {
                     const followingsData = await response.json();
-                    console.log(followingsData);
+
 
                     const followings = followingsData?.followings || [];
                     setUserFollowings(followings);
