@@ -152,6 +152,8 @@ CREATE TABLE demande_collab (
   CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
 );
 
+DROP VIEW post_view;
+
 CREATE OR REPLACE VIEW post_view AS
 SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,
        post.*,       

@@ -115,7 +115,6 @@ function RegisterForm() {
             toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
             navigate(0)
         }).catch((error) => {
-            // TODO: Gestion erreur selon methode de sign up
             switch (error.code) {
                 case 'auth/account-exists-with-different-credential':
                     toast.error('Ce compte existe avec informations différente')

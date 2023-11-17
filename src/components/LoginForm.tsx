@@ -1,10 +1,11 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { GithubAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { AiFillGithub } from 'react-icons/ai';
 
 function LoginForm() {
     const navigate = useNavigate()
@@ -39,6 +40,31 @@ function LoginForm() {
             });
     }
 
+    function handleGithubLogin(): void {
+        const provider = new GithubAuthProvider();
+
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+                const credential = GithubAuthProvider.credentialFromResult(result);
+                if (credential) {
+                    const token = credential.accessToken;
+                    console.log("Credentials: " + JSON.stringify(credential))
+                }
+
+                // The signed-in user info.
+                const user = result.user;
+                if (user) {
+                    console.log("User info: " + JSON.stringify(user))
+                }                  
+                
+                navigate('/')
+            }).catch((error) => {
+                console.log(JSON.stringify(error))
+            });
+    }
+
     return (
 
         <div className={'global_conteneur'}>
@@ -59,6 +85,10 @@ function LoginForm() {
                     <div className={styles.containerBouton}>
                         <button className={'global_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                             Connexion
+                        </button>
+
+                        <button className={'global_bouton'} style={{ margin: '10px' }} onClick={() => handleGithubLogin()}>
+                            Connexion avec GitHub <AiFillGithub />
                         </button>
                     </div>
 
