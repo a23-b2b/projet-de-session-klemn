@@ -59,6 +59,7 @@ function ModifProjetForm() {
                             titre_projet: titre_projet,
                             description_projet: description_projet,
                             url_repo_git: url_repo_git,
+                            est_ouvert: est_ouvert
                         })
                     }).then(response => {
                             if (response.ok) {
