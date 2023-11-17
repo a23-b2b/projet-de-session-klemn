@@ -34,12 +34,12 @@ function ProjetForm() {
                             titre_projet: titre_projet,
                             description_projet: description_projet,
                             url_repo_git: url_repo_git,
-                            compte_id_proprio: uid
+                            est_ouvert: est_ouvert
                         })
                     })
-                    navigate("/gestion")
                 }).then(() => {
-                    toast("Projet publier")
+                    toast.success("Projet publié")
+                    navigate("/gestion")
                 }).catch((error) => {
                     toast(error.toString())
                     toast.error('Une erreur est survenue');
