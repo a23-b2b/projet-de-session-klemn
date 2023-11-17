@@ -33,6 +33,9 @@ function Profil() {
 
     const [userPosts, setUserPosts] = useState<any[]>([])
     const [userFollowers, setUserFollowers] = useState<any[]>([])
+    const [userFollowings, setUserFollowings] = useState<any[]>([])
+    const [followersOrFollowings, setFollowersOrFollowings] = useState('');
+
 
     const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
@@ -46,6 +49,10 @@ function Profil() {
 
     useEffect(() => {
         setIsModalOpen(false);
+        setFollowersOrFollowings('');
+        setUserFollowings([]);
+        setUserFollowers([]);
+        setDisplayName('');
     }, [username]);
 
     useEffect(() => {
@@ -190,14 +197,44 @@ function Profil() {
                     const followers = followersData[0]?.followers || [];
                     setUserFollowers(followers);
 
+
                 } else {
                     throw await response.json();
                 }
             } catch (error) {
-                console.log('Erreur lors de la récupération des followers', error);
+                console.log('Erreur lors de la récupération des abonnés', error);
             }
         });
     }
+
+    function getFollowings() {
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/followings`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': user?.uid || ''
+                    },
+                });
+
+                if (response.ok) {
+                    const followingsData = await response.json();
+                    console.log(followingsData);
+
+                    const followings = followingsData?.followings || [];
+                    setUserFollowings(followings);
+                    console.log(followings);
+
+                } else {
+                    throw await response.json();
+                }
+            } catch (error) {
+                console.log('Erreur lors de la récupération des abonnements', error);
+            }
+        });
+    }
+
 
 
     return (
@@ -232,31 +269,45 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p ref={followerNumberScope} onClick={() => { setIsModalOpen(true); getFollowers() }}>{nombreAbonnesBefore}</p> abonnés</div>
-                    <div><p>{userData.nombre_abonnements}</p> Abonnements</div>
+                    <div><p ref={followerNumberScope} onClick={() => { setFollowersOrFollowings('followers'); setIsModalOpen(true); getFollowers() }}>{nombreAbonnesBefore}</p> abonnés</div>
+                    <div><p onClick={() => { setFollowersOrFollowings('followings'); setIsModalOpen(true); getFollowings() }}>{userData.nombre_abonnements}</p> Abonnements</div>
                 </div>
 
                 <p className={styles.bio}>{userData.biographie}</p>
 
                 <Modal
                     isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}>
+                    setIsModalOpen={setIsModalOpen}
+                >
                     <br />
                     <br />
                     <br />
 
-                    {userFollowers.map((follower) => (
-                        <div className={'follower-item'} key={follower.id_compte}>
-                            <UserReference
-                                nomAffichage={follower.nom_affichage}
-                                nomUtilisateur={follower.nom_utilisateur}
-                                urlImageProfil={follower.url_image_profil}
+                    {followersOrFollowings === 'followers' && (
+                        userFollowers.map((follower) => (
+                            <div className={'follower-item'} key={follower.id_compte}>
+                                <UserReference
+                                    nomAffichage={follower.nom_affichage}
+                                    nomUtilisateur={follower.nom_utilisateur}
+                                    urlImageProfil={follower.url_image_profil}
+                                />
+                            </div>
+                        ))
+                    )}
 
-                            />
-                        </div>
-                    ))}
+                    {followersOrFollowings === 'followings' && (
+                        userFollowings.map((following) => (
+                            <div className={'following-item'} key={following.id_compte}>
+
+                                <UserReference
+                                    nomAffichage={following.nom_affichage}
+                                    nomUtilisateur={following.nom_utilisateur}
+                                    urlImageProfil={following.url_image_profil}
+                                />
+                            </div>
+                        ))
+                    )}
                 </Modal>
-
             </div >
 
             <InfiniteScroll

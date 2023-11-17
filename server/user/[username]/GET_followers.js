@@ -1,6 +1,6 @@
 const { pool } = require('../../serveur.js');
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 module.exports = app.get('/:username/followers', async (req, res) => {
     const username = req.params.username;

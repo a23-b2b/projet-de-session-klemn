@@ -138,6 +138,9 @@ app.use('/readme', read_me)
 const get_followers = require('./user/[username]/GET_followers.js')
 app.use('/user', get_followers)
 
+const get_followings = require('./user/[username]/GET_followings.js')
+app.use('/user', get_followings)
+
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
 });
