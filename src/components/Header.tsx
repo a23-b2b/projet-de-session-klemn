@@ -36,7 +36,7 @@ function Header() {
                       'authorization': idToken
                   },
               }).then(response => response.json()).then(response => {
-
+                  
                   setUsername(response[0].nom_utilisateur)
               }).catch((error) => {
                   toast.error(`Une erreur est survenue: ${error}`)

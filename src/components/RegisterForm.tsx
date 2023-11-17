@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { createUserWithEmailAndPassword, deleteUser, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth"
+import { createUserWithEmailAndPassword, deleteUser, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup, signOut } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
@@ -87,14 +87,6 @@ function RegisterForm() {
         })
     }
 
-    /*
-    id: varchar("id_compte", { length: 255 }).notNull().primaryKey(),
-    idGithub: varchar("id_github", {length: 255}).unique(), // Permet d'identifier un utilisateur auprès de l'API REST GitHub
-    email: varchar("courriel", { length: 255 }).notNull().unique(),
-    firstName: varchar("prenom", { length: 255 }).notNull(),
-    lastName: varchar("nom", { length: 255 }).notNull(),
-    userName: varchar("nom_utilisateur", { length: 255 }).notNull().unique(),
-    */
     function creerNouveauCompteGithub(info: infoCompte) {
         fetch(`${process.env.REACT_APP_API_URL}/user/create-github`, {
             method: 'POST',
@@ -129,11 +121,15 @@ function RegisterForm() {
                     if (error.sqlMessage.includes("nom_utilisateur")) {
                         toast.error('Le nom d\'utilisateur est déjà pris.');
                     }
-                    break;
-                default:
-                    toast.error('Une erreur est survenue: ' + error.code)
-                    break;
+                    break;            
             }
+
+            const auth = getAuth();
+
+            signOut(auth).then(() => {
+                toast.error("Erreur lors de l'inscription, vous serez deconnecté" + error.code)
+            })
+
         })
     }
 
@@ -208,18 +204,7 @@ function RegisterForm() {
                     if (additionalInfo.profile && user) {
                         const profile = additionalInfo.profile
                         var prenom = "UNKNOWN"
-                        var nom = "UNKNOWN"
-                        const prenomNom : Array<string> = typeof(profile.username) === 'string' ? profile.username.split(' '): [prenom, nom]
-                        
-                        // https://www.w3schools.com/JS//js_typeof.asp
-                        if (prenomNom.constructor === Array){
-                            if (prenomNom[0]) {
-                                prenom = prenomNom[0]
-                            }
-                            if (prenomNom[1]) {
-                                nom = prenomNom[1]
-                            }
-                        }
+                        var nom = "UNKNOWN"                        
                         
                         const info: infoCompte = {
                             id_compte: typeof(user.uid) == 'string' ? user.uid : undefined,
