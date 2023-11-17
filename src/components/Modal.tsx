@@ -10,6 +10,7 @@ interface Props {
     setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 
     children: React.ReactNode;
+    FollowersOrFollowings?: 'followers' | 'followings';
 }
 
 function Modal(props: Props) {
@@ -40,7 +41,7 @@ function Modal(props: Props) {
                 animate={{ backdropFilter: 'blur(4px) saturate(50%) brightness(50%)' }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15, ease: 'circOut' }}>
-                <motion.div 
+                <motion.div
                     id={styles["modal"]}
                     className={"global_conteneur_modal"}
                     initial={{ scale: 0.7, opacity: 0 }}
@@ -54,7 +55,7 @@ function Modal(props: Props) {
                         transition: { duration: 0.15, ease: "linear" }
                     }}>
 
-                    <button className={styles.bouton_fermer} onClick={closeModal}><GrFormClose className={styles.bouton_fermer_icone}/></button>
+                    <button className={styles.bouton_fermer} onClick={closeModal}><GrFormClose className={styles.bouton_fermer_icone} /></button>
 
                     {props.children}
 

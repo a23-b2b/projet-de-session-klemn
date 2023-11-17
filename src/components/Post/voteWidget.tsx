@@ -71,7 +71,9 @@ const VoteWidget = (props: FooterProps) => {
 
             // afficher animation speciale shake
             if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
-                navigator.vibrate([15, 15, 15, 15, 15])
+                try {
+                    navigator.vibrate([15, 15, 15, 15, 15])
+                } catch { }
                 animateLike(scopeLike.current, {
                     x: [0, -10, 10, -7, 3, 0],
                 }, {
@@ -81,7 +83,10 @@ const VoteWidget = (props: FooterProps) => {
 
             // animation normale
             else {
-                navigator.vibrate([10, 5, 20])
+                try {
+                    navigator.vibrate([10, 5, 20])
+                } catch { }
+
                 animateLike(scopeLike.current, {
                     scale: 1.3,
                     y: '-18px',
@@ -101,7 +106,9 @@ const VoteWidget = (props: FooterProps) => {
         if (score < 0) {
             // animation speciale shake
             if (cancelledVoteRef.current && onVoteIconAnimationType === "shake") {
-                navigator.vibrate([15, 15, 15, 15, 15])
+                try {
+                    navigator.vibrate([15, 15, 15, 15, 15])
+                } catch { }
                 animateDisike(scopeDislike.current, {
                     x: [0, 10, -10, 7, -3, 0],
                 }, {
@@ -111,7 +118,9 @@ const VoteWidget = (props: FooterProps) => {
 
             // Animation normale
             else {
-                navigator.vibrate([10, 5, 20])
+                try {
+                    navigator.vibrate([10, 5, 20])
+                } catch { }
                 animateDisike(scopeDislike.current, {
                     scale: 0.7,
                     y: '18px',
@@ -200,7 +209,7 @@ const VoteWidget = (props: FooterProps) => {
     return (
         <div>
             <motion.div className={styles.like_dislike_container} /*layout*/>
-                
+
                 <motion.div className={styles.bouton_interraction} id={styles.bouton_interraction_like} onClick={() => handleVote(1)}>
                     <div ref={scopeLike}>
                         <AiFillLike className={`styles.icone ${userVote === 1 && styles.liked_post}`} id={styles.icone_like} />

@@ -15,18 +15,26 @@
     padding: 10px 10px 20px 10px;
 }
 
+/*Footer Haut: Section Gauche*/
+
 #SectionGauche {
     max-width: 600px;
 }
 
-#TitreSectionGauche {
-    opacity: 60%;
+#SectionGauche h1 {
+    color: var(--auto_title_color);
 }
 
-#DescriptionSectionGauche {
+#SectionGauche h2 {
+    opacity: 60%; 
+}
+
+#SectionGauche h3 {
     opacity: 40%;
 }
 
+
+/*Footer Haut: Section Droite*/
 #SectionDroite {
     max-width: 600px;
     display: flex;
@@ -35,25 +43,26 @@
     justify-content: space-around;
 }
 
-#SectionDroite h2 {
-    opacity: 60%;
-}
-
 .column {
     padding: 15px;
 }
 
+#SectionDroite h2 {
+    opacity: 60%;
+}
 
 #SectionDroite h3 {
     opacity: 40%;
 }
 
-/*Footer Bottom Part */
+
+
+/*Footer Bas */
 
 #FooterBas {
+    background-color: var(--auto_footer_color);
     display: inline-grid;
     grid-template-columns: auto auto auto auto auto;
-    background-color: var(--auto_background_secondary);
     width: 100%;
     font-size: 10px;
     flex-direction: row;
@@ -64,19 +73,13 @@
 }
 
 
-#NomSite {
+#TitreFooterBas {
+    color: var(--auto_title_color);
     padding: 5px;
 }
 
-#NomsSections {
-    display: inline-flex;
-    margin: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-#NomsSections div {
-    padding: 0px 20px 0px 20px;
+#FooterBasElements {
+    opacity: .85;
 }
 
 /*Images Footer Bas */

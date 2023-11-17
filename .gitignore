@@ -34,3 +34,6 @@ yarn-error.log*
 server/firebaseServiceAccountKey.json
 firebaseServiceAccountKey.json
 */firebaseServiceAccountKey.json
+server/firebaseServiceAccountKey.json
+server/logs/logger.log
+server/logs/morgan.log

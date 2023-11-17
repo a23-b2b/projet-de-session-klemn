@@ -1,103 +1,189 @@
 :root {
+    /* Couleur a l'origine du theme (Hue et Saturation) */
+    /* --base_h: 270;*/
+    --base_h: 270;
+    --base_s: 30%;
 
 
-    /*Couleur du text*/
-    --text_color_dark: rgb(255, 255, 255);
-    --text_color_light: rgb(59, 30, 72);
+    /* ===================================== */
+    /*               Couleurs                */
+    /* ===================================== */
 
-    /*Couleur d'accent*/
-    --accent_color_dark: rgb(121, 61, 154);
-    --accent_color_light: rgb(157, 102, 197);
+    /* Noir */
+    --dark_0: hsl(var(--base_h), var(--base_s), 0%);
+    /* Blanc */
+    --light_0: hsl(var(--base_h), var(--base_s), 100%);
 
-    /*Couleur de fond*/
-    --background_dark: rgb(20, 14, 23);
-    --background_light: rgb(247, 228, 252);
+    --dark_2: hsl(var(--base_h), var(--base_s), 2%);
+    --light_2: hsl(var(--base_h), var(--base_s), 98%);
 
-    /*Couleur de fond secondaire*/
-    --background_dark_secondary: rgb(79, 39, 108);
-    --background_light_secondary: rgb(206, 141, 224);
+    --dark_4: hsl(var(--base_h), var(--base_s), 4%);
+    --light_4: hsl(var(--base_h), var(--base_s), 96%);
 
-    /*Couleur de fond tertiaire*/
-    --background_dark_tertiary: rgb(121, 73, 155);
-    --background_light_tertiary: rgb(88, 21, 119);
+    --dark_5: hsl(var(--base_h), var(--base_s), 5%);
+    --light_5: hsl(var(--base_h), var(--base_s), 95%);
 
-    /*Couleur du gradient*/
-    --gradient_dark: linear-gradient(var(--background_dark_tertiary), var(--background_dark_secondary), transparent);
-    --gradient_light: linear-gradient(var(--background_light_tertiary), var(--background_light_secondary), transparent);
+    --dark_6: hsl(var(--base_h), var(--base_s), 6%);
+    --light_6: hsl(var(--base_h), var(--base_s), 94%);
 
-    /*Couleur du gradient secondaire*/
-    --gradient_dark_secondary: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
-    --gradient_light_secondary: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
+    --dark_7: hsl(var(--base_h), var(--base_s), 7%);
+    --light_7: hsl(var(--base_h), var(--base_s), 93%);
 
-    /*Couleur de fond container*/
-    --dark_container_color: rgba(255, 255, 255, 0.199);
-    --light_container_color: rgba(163, 124, 183, 0.219);
+    --dark_8: hsl(var(--base_h), var(--base_s), 8%);
+    --light_8: hsl(var(--base_h), var(--base_s), 92%);
 
-    /*Couleur de fond input field*/
-    --dark_input_field_color: rgba(255, 255, 255, 0.25);
-    --light_input_field_color: rgba(242, 225, 249, 0.913);
+    --dark_9: hsl(var(--base_h), var(--base_s), 9%);
+    --light_9: hsl(var(--base_h), var(--base_s), 91%);
 
-    /*Couleur de bordure (Input field et Container*/
-    --dark_border_color: rgb(94, 94, 94);
-    --light_border_color: rgb(119, 119, 119);
+    --dark_10: hsl(var(--base_h), var(--base_s), 10%);
+    --light_10: hsl(var(--base_h), var(--base_s), 90%);
 
-    /*Couleur de fond bouton*/
-    --dark_button_color: var(--accent_color_dark);
-    --light_button_color: var(--accent_color_light);
+    --dark_13: hsl(var(--base_h), var(--base_s), 13%);
+    --light_13: hsl(var(--base_h), var(--base_s), 87%);
 
-    /*Couleur de fond bouton non sélectionné*/
-    --dark_button_unselected_color: rgba(177, 177, 177, 0.253); 
-    --light_button_unselected_color: rgb(247, 232, 247);
+    --dark_15: hsl(var(--base_h), var(--base_s), 15%);
+    --light_15: hsl(var(--base_h), var(--base_s), 85%);
 
-    /*Couleur de fond bouton non sélectionné hover*/
-    --dark_button_unselected_hover_color: rgba(138, 138, 138, 0.253);
-    --light_button_unselected_hover_color: rgb(247, 232, 247);
+    --dark_20: hsl(var(--base_h), var(--base_s), 20%);
+    --light_20: hsl(var(--base_h), var(--base_s), 80%);
 
-    /*Couleur du text bouton*/
-    --dark_button_text_color: rgb(247, 232, 247);
-    --light_button_text_color: rgb(98, 9, 145);
+    --dark_25: hsl(var(--base_h), var(--base_s), 25%);
+    --light_25: hsl(var(--base_h), var(--base_s), 75%);
 
-    /*Couleur du text bouton non sélectionné*/
-    --dark_button_unselected_text_color: rgb(247, 232, 247);
-    --light_button_unselected_text_color: rgb(98, 9, 145);
+    --dark_30: hsl(var(--base_h), var(--base_s), 30%);
+    --light_30: hsl(var(--base_h), var(--base_s), 70%);
 
-    /*Couleur de fond containeur post*/
-    --dark_container_post_color: rgba(138, 138, 138, 0.16);
-    --light_container_post_color: rgba(103, 18, 114, 0.256);
+    --dark_35: hsl(var(--base_h), var(--base_s), 35%);
+    --light_35: hsl(var(--base_h), var(--base_s), 65%);
 
-    /*Couleur de fond containeur modal*/
-    --dark_container_modal_color: rgba(61, 56, 65, 0.957);
-    --light_container_modal_color: rgba(103, 18, 114, 0.256);
+    --dark_40: hsl(var(--base_h), var(--base_s), 40%);
+    --light_40: hsl(var(--base_h), var(--base_s), 60%);
 
-    /*Couleur de fond header*/
-    --dark_background_color_header: rgba(52, 46, 57, 0.463);
-    --light_background_color_header: rgba(214, 150, 223, 0.256);
-    /*Couleur de fond bouton2*/
-    --dark_button2_color: rgb(86, 29, 117);
-    --light_button2_color: rgb(247, 232, 247);
+    --dark_45: hsl(var(--base_h), var(--base_s), 45%);
+    --light_45: hsl(var(--base_h), var(--base_s), 55%);
 
-    /*Couleur du text bouton2*/
-    --dark_button2_text_color: rgb(243, 234, 243);
-    --light_button2_text_color: rgb(98, 9, 145);
+    --dark_50: hsl(var(--base_h), var(--base_s), 50%);
+    --light_50: hsl(var(--base_h), var(--base_s), 50%);
 
-    /**/
-    --dark_container_post_color: rgba(138, 138, 138, 0.16);
-    --light_container_post_color: rgba(103, 18, 114, 0.256);
+    --dark_55: hsl(var(--base_h), var(--base_s), 45%);
+    --light_55: hsl(var(--base_h), var(--base_s), 55%);
 
-    /*Couleur conteneur getsion */
-    --dark_container_gestion: rgb(69, 61, 76);
-    --light_container_gestion: rgb(98, 9, 145);
+    --dark_60: hsl(var(--base_h), var(--base_s), 60%);
+    --light_60: hsl(var(--base_h), var(--base_s), 40%);
+
+    --dark_80: hsl(var(--base_h), var(--base_s), 80%);
+    --light_80: hsl(var(--base_h), var(--base_s), 20%);
+
+    --dark_90: hsl(var(--base_h), var(--base_s), 90%);
+    --light_90: hsl(var(--base_h), var(--base_s), 10%);
+
+    --dark_100: hsl(var(--base_h), var(--base_s), 100%);
+    --light_100: hsl(var(--base_h), var(--base_s), 0%);
+
+    /* ====================================== */
+    /*              Éléments CSS              */
+    /* ====================================== */
 
 
-    /*Couleur du background du container gestsion projet rapide*/
-    --dark_container_gestion_projet_rapide: rgba(69, 64, 75, 0.425);
-    --light_container_gestion_projet_rapide: rgb(98, 9, 145);
+    /*Couleur de fond des pages*/
+    --background_dark: var(--dark_10);
+    --background_light: var(--light_10);
 
-    /*Couleur du background du container gestsion collaboration*/
-    --dark_container_gestion_collaboration: rgba(138, 138, 138, 0.283);
-    --light_container_gestion_collaboration: rgb(98, 9, 145);
+    /*Couleur d'accent 1*/
+    --on_background_dark_accent_color_1: var(--dark_60);
+    --on_background_light_accent_color_1: var(--light_60);
 
+    /*Couleur d'accent 2*/
+    --on_background_dark_accent_color_2: var(--dark_40);
+    --on_background_light_accent_color_2: var(--light_40);
 
+    /*Couleur header*/
+    --on_background_dark_header: var(--dark_50);
+    --on_background_light_header: var(--dark_9);
+
+    /*Couleur footer*/
+    --on_background_dark_footer: var(--dark_40);
+    --on_background_light_footer: var(--dark_40);
+
+    /*Couleur des titres*/
+    --on_background_dark_title: var(--dark_90);
+    --on_background_light_title: var(--light_90);
+
+    /*Couleur des sous-titres*/
+    --on_background_dark_subtitles: var(--dark_90);
+    --on_background_light_subtitles: var(--light_90);
+
+    /*Couleur du texte*/
+    --on_background_dark_text: var(--dark_90);
+    --on_background_light_text: var(--light_90);
+
+    /* Couleur des îcones */
+    --on_background_dark_icon: var(--dark_0);
+    --on_background_light_icon: var(--light_0);
+
+    /* Couleur des conteneurs dégradées */
+    --on_background_dark_container_gradient: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
+    --on_background_light_container_gradient: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
+
+    /*Couleur des conteneurs 1*/
+    --on_background_dark_container_1: var(--dark_13);
+    --on_background_light_container_1: var(--light_13);
+
+    /*Couleur des conteneurs 2*/
+    --on_background_dark_container_2: var(--dark_15);
+    --on_background_light_container_2: var(--light_15);
+
+    /*Couleur des conteneurs 3*/
+    --on_background_dark_container_3: var(--dark_20);
+    --on_background_light_container_3: var(--light_20);
+
+    /*Couleur des conteneurs 4*/
+    --on_background_dark_container_4: var(--dark_25);
+    --on_background_light_container_4: var(--light_25);
+
+    /*Couleur des conteneurs 5*/
+    --on_background_dark_container_4: var(--dark_30);
+    --on_background_light_container_4: var(--light_30);
+
+    /*Couleur des étiquettes des champs texte*/
+    --on_background_dark_label: var(--dark_80);
+    --on_background_light_label: var(--light_80);
+
+    /*Couleur des champs texte*/
+    --on_background_dark_input_field: var(--dark_20);
+    --on_background_light_input_field: var(--light_20);
+
+    /*Couleur des du text placeholder dans les champs texte*/
+    --on_background_dark_placeholder_text: var(--dark_0);
+    --on_background_light_placeholder_text: var(--light_0);
+
+    /* Couleur des zones texte */
+    --on_background_dark_textarea: var(--on_background_dark_input_field);
+    --on_background_light_textarea: var(--on_background_light_input_field);
+
+    /* Couleur des boutons selectionnés */
+    --on_background_dark_selected_button: var(--on_background_dark_accent_color_1);
+    --on_background_light_selected_button: var(--on_background_light_accent_color_1);
+
+    /* Couleur des boutons non selectionnés */
+    --on_background_dark_unselected_button: var(--dark_15);
+    --on_background_light_unselected_button: var(--light_15);
+
+    /* Couleur du text des boutons selectionnés */
+    --on_background_dark_selected_button_text: var(--dark_10);
+    --on_background_light_selected_button_text: var(--light_10);
+
+    /* Couleur du text des boutons non selectionnés */
+    --on_background_dark_unselected_button_text: var(--dark_80);
+    --on_background_light_unselected_button_text: var(--light_80);
+
+    /* Couleur des boutons on hover */
+    --on_background_dark_button_hover: var(--dark_10);
+    --on_background_light_button_hover: var(--light_10);
+
+    /* Couleur des bordures */
+    --border_color_dark: var(--dark_40);
+    --border_color_light: var(--light_40);
 
 
     /* ===================================== */
@@ -110,194 +196,243 @@
     /*                  v v                  */
 
     /*Thème sombre*/
-    --auto_text_color: var(--text_color_dark);
-    --auto_text_secondary_color: var(--text_secondary_color_dark);
-    --auto_accent_color: var(--accent_color_dark);
-    --auto_background: var(--background_dark);
-    --auto_background_secondary: var(--background_dark_secondary);
-    --auto_background_tertiary: var(--background_dark_tertiary);
-    --auto_gradient: var(--gradient_dark);
-    --auto_gradient_secondary: var(--gradient_dark_secondary);
-    --auto_container_color: var(--dark_container_color);
-    --auto_input_field_color: var(--dark_input_field_color);
-    --auto_border_color: var(--dark_border_color);
-    --auto_button_color: var(--dark_button_color);
-    --auto_button_text_color: var(--dark_button_text_color);
-    --auto_button2_color: var(--dark_button2_color);
-    --auto_button2_text_color: var(--dark_button2_text_color);
-    --auto_container_post_color: var(--dark_container_post_color);
-    --auto_container_modal_color: var(--dark_container_modal_color);
-    --auto_background_color_header: var(--dark_background_color_header);
-    --auto_button_unselected_color: var(--dark_button_unselected_color);
-    --auto_button_unselected_hover_color: var(--dark_button_unselected_hover_color);
-    --auto_button_unselected_text_color: var(--dark_button_unselected_text_color);
 
-    --auto_container_gestion_projet_rapide: var(--dark_container_gestion_projet_rapide);
-    --auto_container_gestion: var(--dark_container_gestion);
-    --auto_container_gestion_collaboration: var(--dark_container_gestion_collaboration);
+    --auto_background_color: var(--background_dark);
+    --auto_accent_color_1: var(--on_background_dark_accent_color_1);
+    --auto_accent_color_2: var(--on_background_dark_accent_colorborder_2);
+    --auto_header_color: var(--on_background_dark_header);
+    --auto_footer_color: var(--on_background_dark_footer);
+
+
+    --auto_title_color: var(--on_background_dark_title);
+    --auto_subtitle_color: var(--on_background_dark_subtitles);
+    --auto_text_color: var(--on_background_dark_text);
+
+    --auto_icon_color: var(--on_background_dark_icon);
+
+    --auto_container_gradient_color: var(--on_background_dark_container_gradient);
+    --auto_container_color_1: var(--on_background_dark_container_1);
+    --auto_container_color_2: var(--on_background_dark_container_2);
+    --auto_container_color_3: var(--on_background_dark_container_3);
+    --auto_container_color_4: var(--on_background_dark_container_4);
+    --auto_container_color_5: var(--on_background_dark_container_5);
+
+    --auto_container_project_form_color: var(--on_background_dark_container_project_form);
+    --auto_container_project_management_color: var(--on_background_dark_container_project_management);
+    --auto_container_collaboration_management_color: var(--on_background_dark_container_collaboration_management);
+
+    --auto_label_color: var(--on_background_dark_label);
+    --auto_input_field_color: var(--on_background_dark_input_field);
+    --auto_placeholder_text_color: var(--on_background_dark_placeholder_text);
+    --auto_textarea_color: var(--on_background_dark_textarea);
+    --auto_selected_button_color: var(--on_background_dark_selected_button);
+    --auto_unselected_button_color: var(--on_background_dark_unselected_button);
+    --auto_selected_button_text_color: var(--on_background_dark_selected_button_text);
+    --auto_unselected_button_text_color: var(--on_background_dark_unselected_button_text);
+    --auto_button_hover_color: var(--on_background_dark_button_hover);
+
+    --auto_border_color: var(--border_color_dark);
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
-        --auto_text_color: var(--text_color_light);
-        --auto_text_secondary_color: var(--text_secondary_color_light);
-        --auto_accent_color: var(--accent_color_light);
-        --auto_background: var(--background_light);
-        --auto_background_secondary: var(--background_light_secondary);
-        --auto_background_tertiary: var(--background_light_tertiary);
-        --auto_gradient: var(--gradient_light);
-        --auto_gradient_secondary: var(--gradient_light_secondary);
-        --auto_container_color: var(--light_container_color);
-        --auto_input_field_color: var(--light_input_field_color);
-        --auto_border_color: var(--light_border_color);
-        --auto_button_color: var(--light_button_color);
-        --auto_button_text_color: var(--light_button_text_color);
-        --auto_button2_color: var(--light_button2_color);
-        --auto_button2_text_color: var(--light_button2_text_color);
-        --auto_container_post_color: var(--light_container_post_color);
-        --auto_container_modal_color: var(--light_container_modal_color);
-        --auto_background_color_header: var(--light_background_color_header);
-        --auto_button_unselected_color: var(--light_button_unselected_color);
-        --auto_button_unselected_hover_color: var(--light_button_unselected_hover_color);
-        --auto_button_unselected_text_color: var(--light_button_unselected_text_color);
-        --auto_container_gestion_projet_rapide: var(--light_container_gestion_projet_rapide);
-        --auto_container_gestion: var(--light_container_gestion);
-        --auto_container_gestion_collaboration: var(--light_container_gestion_collaboration);
 
+        --auto_background_color: var(--background_light);
+        --auto_accent_color_1: var(--on_background_light_accent_color_1);
+        --auto_accent_color_2: var(--on_background_light_accent_color_2);
+        --auto_header_color: var(--on_background_light_header);
+        --auto_footer_color: var(--on_background_light_footer);
+
+
+        --auto_title_color: var(--on_background_light_title);
+        --auto_subtitle_color: var(--on_background_light_subtitles);
+        --auto_text_color: var(--on_background_light_text);
+
+        --auto_icon_color: var(--on_background_light_icon);
+
+
+        --auto_container_gradient_color: var(--on_background_light_container_gradient);
+        --auto_container_color_1: var(--on_background_light_container_1);
+        --auto_container_color_2: var(--on_background_light_container_2);
+        --auto_container_color_3: var(--on_background_light_container_3);
+        --auto_container_color_4: var(--on_background_light_container_4);
+        --auto_container_color_5: var(--on_background_light_container_5);
+
+        --auto_container_project_form_color: var(--on_background_light_container_project_form);
+        --auto_container_project_management_color: var(--on_background_light_container_project_management);
+        --auto_container_collaboration_management_color: var(--on_background_light_container_collaboration_management);
+
+        --auto_label_color: var(--on_background_light_label);
+        --auto_input_field_color: var(--on_background_light_input_field);
+        --auto_placeholder_text_color: var(--on_background_light_placeholder_text);
+        --auto_textarea_color: var(--on_background_light_textarea);
+        --auto_selected_button_color: var(--on_background_light_selected_button);
+        --auto_unselected_button_color: var(--on_background_light_unselected_button);
+        --auto_selected_button_text_color: var(--on_background_light_selected_button_text);
+        --auto_unselected_button_text_color: var(--on_background_light_unselected_button_text);
+        --auto_button_hover_color: var(--on_background_light_button_hover);
+
+        --auto_border_color: var(--border_color_light);
     }
-
 }
 
+
 body {
-    background-color: var(--auto_background);
+    background-color: var(--auto_background_color);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: var(--auto_text_color);
-    accent-color: var(--auto_accent_color);
     min-height: 100vh;
     padding-top: 60px;
     transition: 0.3s;
-    accent-color: var(--auto_accent_color);
+}
+
+hr {
+    color: var(--auto_text_color);
+    opacity: .6;
+}
+
+.global_header {
+    background-color: var(--auto_header_color);
+}
+
+.global_footer {
+    background-color: var(--auto_footer_color);
 }
 
 .link {
-    cursor: pointer;
     text-decoration: none;
+    cursor: pointer;
     color: var(--auto_text_color);
 }
 
 .global_title {
     text-align: center;
-    color: var(--auto_text_color);
+    color: var(--auto_title_color);
 }
 
 .global_subtitle {
+    color: var(--auto_subtitle_color);
     text-align: center;
-    color: var(--auto_text_color);
     margin-left: 5px;
     opacity: .85;
 }
 
-.global_input_field_label {
+.global_text_accent {
+    color: var(--auto_accent_color_1);
+}
+
+.global_icon {
+    color: var(--auto_icon_color);
+}
+
+.global_container_gradient {
+    background-image: var(--auto_container_gradient_color);
+    border-radius: 70px;
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+.global_container_1 {
+    background-color: var(--auto_container_color_1);
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+}
+
+.global_container_2 {
+    background-color: var(--auto_container_color_2);
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+}
+
+.global_container_3 {
+    background-color: var(--auto_container_color_3);
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+}
+
+.global_container_4 {
+    background-color: var(--auto_container_color_4);
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+}
+
+.global_container_5 {
+    background-color: var(--auto_container_color_5);
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+}
+
+
+.global_label {
     margin-bottom: 3px;
     font-size: 17px;
     font-weight: bold;
     opacity: 70%;
     padding: 5px;
+    color: var(--auto_label_color);
 }
 
 .global_input_field {
+    background-color: var(--auto_input_field_color);
+    color: var(--auto_text_color);
     box-sizing: border-box;
     border-radius: 12px;
     padding: 10px;
-    border: none;
-    width: 100%;
+    border: 1.5px solid var(--auto_border_color);
     max-width: 100%;
     min-width: 100%;
-    border: none;
-    background-color: var(--auto_input_field_color);
-    color: var(--auto_text_color);
 }
 
-textarea {
+::placeholder {
+    color: var(--auto_placeholder_text_color);
+}
+
+.global_textarea {
+    background-color: var(--auto_textarea_color);
+    color: var(--auto_text_color);
     resize: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
+
+    border-radius: 10px 10px 16px 16px;
+    padding: 15px;
+    color: var(--auto_text_color);
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    border: 1.5px solid var(--auto_border_color);
 }
-
-.global_bouton {
-    padding: 13px 30px 13px 30px;
-    border: 0px;
-    width: fit-content;
-    border-radius: 50px;
-    color: var(--auto_button_text_color);
-    background-color: var(--auto_button_color);
-    font-weight: bold;
-
-}
-
-.global_bouton2 {
-    padding: 13px 30px 13px 30px;
-    border: 0px;
-    width: fit-content;
-    border-radius: 50px;
-    color: var(--auto_button2_text_color);
-    background-color: var(--auto_button2_color);
-    font-weight: bold;
-
-}
-
-.global_conteneur {
-    border-radius: 20px;
-    border: none;
-    padding: 20px;
-    background-color: var(--auto_container_color);
-}
-
-
-.global_conteneurCouleur {
-    background-image: var(--auto_gradient_secondary);
-    border-radius: 70px;
-    padding: 20px;
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-
-.global_conteneur_post {
-    border-radius: 20px;
-    border: none;
-    padding: 20px;
-    background-color: var(--auto_container_post_color);
-}
-
-.global_conteneur_parametres {
-    border-radius: 20px;
-    border: none;
-    padding: 10px 20px;
-    background-color: var(--auto_container_post_color);
-}
-
-
-.global_conteneur_modal {
-    border-radius: 20px;
-    border: none;
-    padding: 20px;
-    background-color: var(--auto_container_modal_color);
-}
-
 
 .global_selected_bouton {
-
-    text-align: center;
-    border-radius: 18px;
-    padding: 11px 30px;
-    border: none;
-    color: var(--auto_text_color);
-    background-color: var(--auto_button_color);
+    background-color: var(--auto_selected_button_color);
+    color: var(--auto_selected_button_text_color);
+    padding: 13px 30px 13px 30px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 50px;
     font-weight: bold;
 }
 
+.global_unselected_bouton {
+    background-color: var(--auto_unselected_button_color);
+    color: var(--auto_unselected_button_text_color);
+    padding: 13px 30px 13px 30px;
+    border: 0px;
+    width: fit-content;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+
+/* Couleur boutons on hover */
 
 .global_select_dropdown {
     backdrop-filter: blur(12px) saturate(150%);
@@ -314,8 +449,4 @@ textarea {
         0px 9.6px 17.9px rgba(0, 0, 0, 0.042),
         0px 18px 33.4px rgba(0, 0, 0, 0.05),
         0px 43px 80px rgba(0, 0, 0, 0.07);
-}
-
-.global_select_dropdown_item {
-    
 }

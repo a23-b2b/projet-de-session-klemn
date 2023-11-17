@@ -41,23 +41,23 @@ function LoginForm() {
 
     return (
 
-        <div className={'global_conteneur'}>
+        <div className={'global_container_1'}>
             <h2 className={'global_title'}>Connexion</h2>
             <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
                 <div className={styles.form}>
-                    <label className={'global_input_field_label'}>Courriel</label>
+                    <label className={'global_label'}>Courriel</label>
                     <input
                         className={'global_input_field'}
                         type="email"
                         onChange={(e) => setEmail(e.target.value)} />
 
-                    <label className={'global_input_field_label'}>Mot de passe</label>
+                    <label className={'global_label'}>Mot de passe</label>
                     <input
                         className={'global_input_field'}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)} />
                     <div className={styles.containerBouton}>
-                        <button className={'global_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
+                        <button className={'global_selected_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                             Connexion
                         </button>
                     </div>

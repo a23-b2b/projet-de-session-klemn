@@ -38,14 +38,15 @@
     width: 48px;
     background: none;
     border: none;
-    border-radius: 100%;
+    border-radius: 20px;
     transition: 0.3s;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .bouton_fermer:hover {
-    background-color: rgba(255, 0, 0, 0.151);
+    background-color: var(--auto_accent_color_1);
     transition: 0.3s;
 }
 
@@ -62,6 +63,9 @@
     opacity: .8;
   }
 
+  #titre {
+    margin-left: 35px;
+  }
 
 .titre {
     margin: 7px 0px auto 3px;
@@ -100,4 +104,10 @@
 
 #span {
     margin-right: 15px;
+}
+
+
+#conteneurModal {
+
+    width: 450px;
 }
