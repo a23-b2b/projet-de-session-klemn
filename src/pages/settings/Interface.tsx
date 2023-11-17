@@ -80,10 +80,11 @@ function Interface() {
 
 
     const [hue, setData] = useState(0);
+    const [saturation, setSaturation] = useState(0);
 
-    function changeTheme(hue: number){
+    function changeTheme(hue: number, saturation: number) {
         document.documentElement.style.setProperty('--base_h', hue.toString())
-         //something here that sends the value to the css file
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
     }
 
     return (
@@ -146,12 +147,22 @@ function Interface() {
                         max="360"
                         value={hue}
                         onChange={(e) => {
-                        setData(parseInt(e.target.value)); 
-                        changeTheme(hue);
-                        }}/>
+                            setData(parseInt(e.target.value));
+                            changeTheme(hue, saturation);
+                        }} />
+
+                    <input className={styles.slider}
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={saturation}
+                        onChange={(e) => {
+                            setSaturation(parseInt(e.target.value));
+                            changeTheme(hue, saturation);
+                        }} />
                 </div>
 
-               
+
             </motion.div>
         </div>
     );
