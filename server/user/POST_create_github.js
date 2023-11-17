@@ -91,7 +91,7 @@ module.exports = app.post('/create-github',
                     }
 
                     else {
-                        logger.log("info", `IP ${req.ip}: compte créé avec succès: ${user.uid}`)
+                        logger.log("info", `IP ${req.ip}: compte créé avec succès: ${id_compte}`)
                         res.status(201).send({
                             "succes": "Compte créé avec succès.",
                             "username": username,
