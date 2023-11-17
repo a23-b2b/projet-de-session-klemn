@@ -1,5 +1,6 @@
 :root {
     /* Couleur a l'origine du theme (Hue et Saturation) */
+    /* --base_h: 270;*/
     --base_h: 270;
     --base_s: 30%;
 

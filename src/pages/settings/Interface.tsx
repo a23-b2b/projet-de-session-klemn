@@ -12,6 +12,8 @@ const options = [
     { value: 'same_fade', label: 'Same + fade' },
 ];
 
+
+
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
     const [voteClickAnimation, setVoteClickAnimation] = useState("");
@@ -72,7 +74,17 @@ function Interface() {
     }, [])
 
 
-    const [selectedOption, setSelectedOption] = useState(null);
+
+
+    const [selectedOption, setSelectedOption] = useState(0);
+
+
+    const [hue, setData] = useState(0);
+
+    function changeTheme(hue: number){
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+         //something here that sends the value to the css file
+    }
 
     return (
         <div className={styles.container_parametres}>
@@ -96,7 +108,7 @@ function Interface() {
                         />
                         
                         */}
-                        
+
 
                         <select className={styles.selectInterface} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
                             <option value="shake_slide">Shake + slide</option>
@@ -113,9 +125,38 @@ function Interface() {
 
                 </div>
                 <br />
+
+                <hr className={styles.hr}></hr>
+
+                <h3 className={'global_subtitle'}>Thème du site</h3>
+
+                <div>
+
+                    <div id={styles["descriptionsTheme"]}>
+                        <p>Glisser le slider pour changer la couleur!</p>
+                    </div>
+
+                    <div className={styles.conteneurCouleur} id={styles["descriptionsTheme"]}>
+                        <p>NOUVELLE COULEUR!</p>
+                    </div>
+
+                    <input className={styles.slider}
+                        type="range"
+                        min="0"
+                        max="360"
+                        value={hue}
+                        onChange={(e) => {
+                        setData(parseInt(e.target.value)); 
+                        changeTheme(hue);
+                        }}/>
+                </div>
+
+                <h1>{hue}</h1>
             </motion.div>
         </div>
     );
+
+
 }
 
 export default Interface;

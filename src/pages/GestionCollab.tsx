@@ -85,7 +85,7 @@ function GestionCollab() {
 
             </div>
 
-            {afficherForm && <div id={styles["coteneurAjoutCollaborateur"]} className={'global_container_1'}>
+            {afficherForm && <div id={styles["coteneurAjoutCollaborateur"]} className={'global_container_3'}>
                 <form className={styles.form}>
 
                     <div className={styles.conteneurBoutonX}>
