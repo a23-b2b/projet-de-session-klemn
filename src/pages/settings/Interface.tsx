@@ -151,7 +151,7 @@ function Interface() {
                         }}/>
                 </div>
 
-                <h1>{hue}</h1>
+               
             </motion.div>
         </div>
     );
