@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { GithubAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { GithubAuthProvider, deleteUser, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ function LoginForm() {
                 // Signed in 
                 const user = userCredential.user;
                 toast.success('Vous êtes connecté!')
-                // TODO: Ajouter le ID dans la BD MySQL
                 navigate('/')
             })
             .catch((error) => {
@@ -40,10 +39,27 @@ function LoginForm() {
             });
     }
 
+    function credentialValide(uid: string): Boolean {
+        let estValide = false
+
+        fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/validate`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json()).then(response => {
+            estValide = response.valide
+        }).catch((err) => {
+            throw err
+        })
+
+        return estValide
+
+    }
+
     function handleGithubLogin(): void {
         const provider = new GithubAuthProvider();
 
-        const auth = getAuth();
         signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -57,10 +73,9 @@ function LoginForm() {
                 const user = result.user;
                 if (user) {
                     console.log("User info: " + JSON.stringify(user))
-                }                  
-                
-                // si uid pas dans BD mysql il faut logout et redirect /authenticate
+                }
 
+                
                 navigate('/')
             }).catch((error) => {
                 console.log(JSON.stringify(error))
@@ -71,7 +86,7 @@ function LoginForm() {
 
         <div className={'global_conteneur'}>
             <h2 className={'global_title'}>Connexion</h2>
-            <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
+            <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>
                     <label className={'global_input_field_label'}>Courriel</label>
                     <input

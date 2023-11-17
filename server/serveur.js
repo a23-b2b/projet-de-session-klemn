@@ -57,6 +57,9 @@ app.use('/user', inscription_github)
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
 
+const valider_user = require('./user/[user_id]/GET_id_compte.js')
+app.use('/user', valider_user)
+
 const get_username = require('./user/[username]/GET_username.js')
 app.use('/username', get_username);
 

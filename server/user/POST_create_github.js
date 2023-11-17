@@ -84,9 +84,6 @@ module.exports = app.post('/create-github',
                     if (err) {
                         logger.info(`IP ${req.ip}: Erreur lors de la création du compte sur MySQL: ${err}`)
 
-                        // supprimer le compte de firebase
-                        admin.auth().deleteUser(id_compte);
-
                         res.status(500).send(err)
                     }
 
