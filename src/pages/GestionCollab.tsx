@@ -182,6 +182,7 @@ function GestionCollab() {
                             id_projet,
                             titre_projet,
                             description_projet,
+                            url_repo_git,
                             est_ouvert
                         }) => {
                             return (<>
@@ -194,6 +195,7 @@ function GestionCollab() {
                                         id_projet={id_projet}
                                         titre={titre_projet}
                                         description={description_projet}
+                                        url_repo_git={url_repo_git}
                                         compte_id_proprio={compte_id_proprio}
                                         est_ouvert={est_ouvert}
                                     />

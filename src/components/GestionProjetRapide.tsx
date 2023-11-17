@@ -25,6 +25,7 @@ export interface PropsProjet {
     id_projet: String,
     titre: String,
     description: String,
+    url_repo_git: String,
     compte_id_proprio: String,
     est_ouvert: Boolean
 
@@ -101,14 +102,9 @@ function GestionProjetRapide(props: PropsProjet) {
             {/* Rang/e du haut */}
 
             <div className={styles.conteneur_info_projet}>
-                <div>
-                    <p className={styles.titre_projet}>Titre: {props.titre}</p>
-                </div>
-
-                <div>
-                    <p className={styles.description_projet}>Description: {props.description}</p>
-                </div>
-
+                <p className={styles.titre_projet}>Titre: {props.titre}</p>
+                <p className={styles.description_projet}>Description: {props.description}</p>
+                <p className={styles.description_projet}>URL Git: {props.url_repo_git.trim() ? props.url_repo_git : "Aucun dépôt associé"}</p>
             </div>
 
             <div className={styles.conteneur_action_projet}>
