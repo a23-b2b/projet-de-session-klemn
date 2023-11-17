@@ -121,13 +121,16 @@ function RegisterForm() {
                     if (error.sqlMessage.includes("nom_utilisateur")) {
                         toast.error('Le nom d\'utilisateur est déjà pris.');
                     }
+                    if (error.sqlMessage.includes("PRIMARY")) {
+                        toast.error('Ce compte existe deja');
+                    }
                     break;            
             }
 
             const auth = getAuth();
 
             signOut(auth).then(() => {
-                toast.error("Erreur lors de l'inscription, vous serez deconnecté" + error.code)
+                toast.error("Erreur lors de l'inscription" + error.code)
             })
 
         })
