@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { createUserWithEmailAndPassword, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth"
+import { createUserWithEmailAndPassword, deleteUser, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
@@ -222,13 +222,12 @@ function RegisterForm() {
                             }
                         }
                        
-                        // TODO: TROUVE COMMENT SET UP LE USERNAME AVANT DE FAIRE UN INSERT DANS COMPTE 
                         const info: infoCompte = {
                             id_compte: typeof(user.uid) == 'string' ? user.uid : undefined,
                             username: typeof(profile.username) == 'string' ? profile.username: "",
                             prenom: prenom,
                             nom: nom,
-                            email: typeof(user.email) == 'string' ? user.email : "",
+                            email: typeof(profile.email) == 'string' ? profile.email : "",
                             id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
                         }
                         creerNouveauCompteGithub(info)
@@ -236,6 +235,14 @@ function RegisterForm() {
                 }                            
             }).catch((error) => {
                 console.log(JSON.stringify(error))
+
+                const user = auth.currentUser;
+
+                deleteUser(user!).then(() => {
+                    console.log("Erreur utilisateur deleted: " + JSON.stringify(error))
+                }).catch((error) => {
+                    console.log("Erreur lors delete user: " + JSON.stringify(error))
+                });
             });
     }
 
