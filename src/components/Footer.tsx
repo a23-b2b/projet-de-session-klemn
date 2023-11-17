@@ -20,7 +20,6 @@ function Footer() {
                     <h1>KLEMN</h1>
 
                     <div>
-                        <h2 >Titre section</h2>
 
                         <h3>Curabitur id vestibulum nulla.
                             Phasellus vehicula sem odio, non posuere tortor porta at.

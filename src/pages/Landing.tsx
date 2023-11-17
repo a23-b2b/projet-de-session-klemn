@@ -51,7 +51,7 @@ function Landing() {
 
             </div>
             <div className='global_container_gradient' >
-                <h2>Contenu a droite ici!!</h2>
+                <h2>KLEMN</h2>
                 <p className={styles.paragraphe}>
                 KLEMN est bien plus qu'un simple site, c'est une plateforme dynamique qui révolutionne la manière dont nous interagissons en ligne. 
                 Conçu pour favoriser la collaboration et le partage de connaissances, KLEMN offre un espace polyvalent où les utilisateurs peuvent poser des questions, 
