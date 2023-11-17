@@ -102,12 +102,12 @@ function RegisterForm() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // github id?
                 github_id: info.id_github,
                 username: info.username,
                 prenom: info.prenom,
                 nom: info.nom,
                 email: info.email,
+                id_compte: info.id_compte
             }),
         }).then(response => response.json()).then(response => {
             if (response.code) throw response
@@ -221,13 +221,13 @@ function RegisterForm() {
                                 nom = prenomNom[1]
                             }
                         }
-                       
+                        
                         const info: infoCompte = {
                             id_compte: typeof(user.uid) == 'string' ? user.uid : undefined,
-                            username: typeof(profile.username) == 'string' ? profile.username: "",
+                            username: typeof(profile.login) == 'string' ? profile.login: "",
                             prenom: prenom,
                             nom: nom,
-                            email: typeof(profile.email) == 'string' ? profile.email : "",
+                            email: typeof(user.email) == 'string' ? user.email : "",
                             id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
                         }
                         creerNouveauCompteGithub(info)

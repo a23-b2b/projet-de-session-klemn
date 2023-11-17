@@ -127,12 +127,13 @@ function Header() {
                   Déconnexion
                 </span>
               </MenuItem>
+              {/*TODO: Check si deja linked sinon propose
               <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
                 <AiFillGithub className={styles.dropdown_menu_icon} />
                   <span  id={styles["link"]} className={'link'}>
                     Lier Compte GitHub
                   </span>
-              </MenuItem>
+            </MenuItem>*/}
             </Menu>
           </div>
         </div>

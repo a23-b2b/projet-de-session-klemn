@@ -67,7 +67,7 @@ module.exports = app.post('/create-github',
                         0, 
                         0, 
                         ?, 
-                        'Je viens d\'arriver sur Klemn!',
+                        'Je viens d arriver sur Klemn!',
                         'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdefault.jpg?alt=media&token=40dc04ca-5a18-46cd-8519-425fd4855a33',
                         'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/bannieres%2Fbanniere%20klemn2.webp?alt=media&token=b70ae459-52c2-4d30-8fd4-7aa12725e3e9', 
                         3);`,
@@ -78,7 +78,7 @@ module.exports = app.post('/create-github',
                     prenom,
                     username,
                     email,
-                    nomAffichage
+                    username
                 ],
                 function (err, results, fields) {
                     if (err) {
