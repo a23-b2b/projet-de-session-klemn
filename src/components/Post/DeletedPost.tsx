@@ -35,7 +35,8 @@ function PosteBlogue(props: BlogueProp) {
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
                 isDeleted={true} 
-                estModifie={props.estModifie}/>
+                estModifie={props.estModifie}
+                contenu={props.contenu}/>
 
             <PostContent
                 titre={props.titre}

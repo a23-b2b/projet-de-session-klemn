@@ -20,6 +20,7 @@ interface HeaderProps {
     urlImageProfil: string;
     isDeleted: boolean;
     estModifie: Boolean;
+    contenu: string;
 }
 
 
@@ -45,7 +46,7 @@ const PostHeader = (props: HeaderProps) => {
     const timeDifference = dateNowSeconds - datePostSeconds
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [contenu, setContenu] = useState('');
+    const [contenu, setContenu] = useState(props.contenu);
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
     const formattedData = datePostUTC.toLocaleString(undefined, {
