@@ -110,6 +110,7 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
     function(err) {
         if (err) {
             logger.info(JSON.stringify(err))
+            console.log(err)
             res.status(500).send()
         } else {
             ajouterCollaborateur()
@@ -123,6 +124,7 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
                 [identity, id_projet],
                 function(err) {
                     if (err) {
+                        console.log(err)
                         res.status(500).send()
                     }   
                     res.status(200).send()
@@ -130,5 +132,4 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
             )
         }
     }
-
 })

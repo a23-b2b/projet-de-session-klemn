@@ -46,7 +46,7 @@ function PosteCollab(props: CollabProp) {
             user.getIdToken(true)
                 .then((idToken) => {
                     console.log("Id Projet: (demanderCollaboration) "+ props.idProjet)
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}/${uid}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}/${uid}/true`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
