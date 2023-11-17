@@ -45,14 +45,13 @@ const PostContent = (props: ContentProps) => {
             }
 
             {showFullContent && !displayShowMoreButton &&
-                <p>
-                    {props.contenu}
-                </p>
+
+                <MarkdownCode c={props.contenu} />
             }
 
             {!showFullContent &&
                 <div style={{ maxHeight: `${maxHeight}px`, overflow: "hidden" }}>
-                    {props.contenu}
+                    <MarkdownCode c={props.contenu} />
                 </div>
             }
 
@@ -67,7 +66,7 @@ const PostContent = (props: ContentProps) => {
             }
         </div>
     )
-    
+
 }
 
 export default PostContent;
