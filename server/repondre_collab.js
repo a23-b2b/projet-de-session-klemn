@@ -30,9 +30,7 @@ const queryUpdateSelonIdCompte = `
         UPDATE demande_collab 
             SET est_accepte = ?
             WHERE id_collaborateur = (SELECT id_compte FROM compte WHERE nom_utilisateur = ?)
-            AND projet_id_projet = ?
-            ;
-    `;
+            AND projet_id_projet = ?;`;
 
     const queryInsertSelonCourriel = `
     INSERT INTO collaborateur (
@@ -42,8 +40,7 @@ const queryUpdateSelonIdCompte = `
     VALUES (
         SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
         (SELECT id_compte FROM compte WHERE courriel = ?),
-        ? );     
-    `;
+        ?);`;
 
     const queryInsertSelonUsername = `
     INSERT INTO collaborateur (
@@ -53,8 +50,7 @@ const queryUpdateSelonIdCompte = `
     VALUES (
         SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
         (SELECT id_compte FROM compte WHERE nom_utilisateur = ?),
-        ? );     
-    `;
+        ?);`;
 
     const queryInsertSelonIdCompte = `
     INSERT INTO collaborateur (
@@ -64,8 +60,7 @@ const queryUpdateSelonIdCompte = `
     VALUES (
         SUBSTRING(MD5(UUID()) FROM 1 FOR 12),
         ?,
-        ? );     
-    `;
+        ?);`;
 
 
 module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res) => {

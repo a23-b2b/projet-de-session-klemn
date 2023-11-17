@@ -48,10 +48,9 @@ interface Props {
 }
 
 function Post(props: Props) {
-
     return (
         <>
-            {props.type == TYPE_BLOGUE && (
+            {props.type === TYPE_BLOGUE && (
                 <PosteBlogue
                     date={props.date}
                     nomAffichage={props.nomAffichage}
@@ -70,7 +69,7 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil}
                     userVote={props.userVote} />
             )}
-            {props.type == TYPE_REPONSE && (
+            {props.type === TYPE_REPONSE && (
                 <Reponse idPost={props.idPost}
                     date={props.date}
                     nomAffichage={props.nomAffichage}

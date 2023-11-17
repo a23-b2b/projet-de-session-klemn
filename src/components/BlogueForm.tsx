@@ -29,14 +29,14 @@ function BlogueForm() {
         getProjets()
     }, []);
 
-    async function getProjets() {    
+    async function getProjets() {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
                 fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },        
+                    headers: { 'Content-Type': 'application/json' },
                 })
                     .then(response => response.json())
                     .then(json => {
@@ -151,17 +151,17 @@ function BlogueForm() {
                 {type == "collab" && (
                     <div id={styles["ConteneurSelectURL"]}>
                         <label className={'global_label'}>Source d'URL du projet GitHub</label>
-                        <select         
-                            id={styles["selectURL"]}                    
+                        <select
+                            id={styles["selectURL"]}
                             className={'global_input_field'}
-                            onChange={handleChange}
-                            >
-                                {projets && projets?.map(({
-                                    id_projet,
-                                    titre_projet,
-                                    est_ouvert
-                                }) => { return (<>                       
-                                    {est_ouvert && 
+                            onChange={e => handleChange(e)}>
+                            {projets && projets?.map(({
+                                id_projet,
+                                titre_projet,
+                                est_ouvert
+                            }) => {
+                                return (<>
+                                    {est_ouvert &&
                                         <option value={id_projet}>{titre_projet}</option>}
                                 </>)
                             })}
