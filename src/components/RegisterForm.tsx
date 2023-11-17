@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiFillGithub } from 'react-icons/ai';
 import { GithubAuthProvider } from "firebase/auth";
+import { type } from "os";
 
 interface infoCompte {
      
@@ -16,7 +17,6 @@ interface infoCompte {
     email: string,
     password?: string,
     id_github?: string,
-    nom_affichage?: string
     id_compte?: string
 }
 
@@ -52,7 +52,6 @@ function RegisterForm() {
             toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
             navigate(0)
         }).catch((error) => {
-            // TODO: Gestion erreur selon methode de sign up
             switch (error.code) {
                 case 'auth/invalid-email':
                     toast.error('Le courriel est invalide.');
@@ -88,6 +87,14 @@ function RegisterForm() {
         })
     }
 
+    /*
+    id: varchar("id_compte", { length: 255 }).notNull().primaryKey(),
+    idGithub: varchar("id_github", {length: 255}).unique(), // Permet d'identifier un utilisateur auprès de l'API REST GitHub
+    email: varchar("courriel", { length: 255 }).notNull().unique(),
+    firstName: varchar("prenom", { length: 255 }).notNull(),
+    lastName: varchar("nom", { length: 255 }).notNull(),
+    userName: varchar("nom_utilisateur", { length: 255 }).notNull().unique(),
+    */
     function creerNouveauCompteGithub(info: infoCompte) {
         fetch(`${process.env.REACT_APP_API_URL}/user/create-github`, {
             method: 'POST',
@@ -101,7 +108,6 @@ function RegisterForm() {
                 prenom: info.prenom,
                 nom: info.nom,
                 email: info.email,
-                nomAffichage: info.nom_affichage
             }),
         }).then(response => response.json()).then(response => {
             if (response.code) throw response
@@ -146,6 +152,8 @@ function RegisterForm() {
         provider.setCustomParameters({
             'allow_signup': 'true'
         });
+
+        provider.addScope('user');
 
         const auth = getAuth();
         signInWithPopup(auth, provider)
@@ -204,12 +212,16 @@ function RegisterForm() {
                         var nom = "UNKNOWN"
                         const prenomNom : Array<string> = typeof(profile.username) === 'string' ? profile.username.split(' '): [prenom, nom]
                         
-                        if (prenomNom[0]) {
-                            prenom = prenomNom[0]
+                        // https://www.w3schools.com/JS//js_typeof.asp
+                        if (prenomNom.constructor === Array){
+                            if (prenomNom[0]) {
+                                prenom = prenomNom[0]
+                            }
+                            if (prenomNom[1]) {
+                                nom = prenomNom[1]
+                            }
                         }
-                        if (prenomNom[1]) {
-                            nom = prenomNom[1]
-                        }
+                       
                         // TODO: TROUVE COMMENT SET UP LE USERNAME AVANT DE FAIRE UN INSERT DANS COMPTE 
                         const info: infoCompte = {
                             id_compte: typeof(user.uid) == 'string' ? user.uid : undefined,
@@ -218,7 +230,6 @@ function RegisterForm() {
                             nom: nom,
                             email: typeof(user.email) == 'string' ? user.email : "",
                             id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
-                            nom_affichage: typeof(user.displayName) == 'string' ? user.displayName: "Nom Affichage"                              
                         }
                         creerNouveauCompteGithub(info)
                     }

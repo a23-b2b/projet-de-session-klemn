@@ -35,7 +35,6 @@ module.exports = app.post('/create-github',
             const nom = req.body.nom;
             const email = req.body.email;
             const id_github = req.body.github_id
-            const nomAffichage = req.body.nomAffichage
             const id_compte = req.body.id_compte
 
             logger.info(JSON.stringify(req.body))
