@@ -224,15 +224,7 @@ function RegisterForm() {
                     }
                 }                            
             }).catch((error) => {
-                console.log(JSON.stringify(error))
-
-                const user = auth.currentUser;
-
-                deleteUser(user!).then(() => {
-                    console.log("Erreur utilisateur deleted: " + JSON.stringify(error))
-                }).catch((error) => {
-                    console.log("Erreur lors delete user: " + JSON.stringify(error))
-                });
+                console.log(JSON.stringify(error))                
             });
     }
 
