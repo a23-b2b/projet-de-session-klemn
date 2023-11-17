@@ -29,7 +29,6 @@ function ModifProjetForm() {
                     .then(response => {
                         const data = response[0];
                         if (data.compte_id_proprio != user.uid) {
-                            toast.error('Vous n\'êtes pas le propriétaire de ce projet');
                             navigate('/');
                         }
                         set_titre_projet(data.titre_projet);

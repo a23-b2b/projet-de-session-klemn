@@ -36,13 +36,17 @@ function ProjetForm() {
                             url_repo_git: url_repo_git,
                             est_ouvert: est_ouvert
                         })
+                    }).then(response => {
+                        if (response.ok) {
+                            toast.success("Projet modifié")
+                            navigate('/gestion');
+                        } else {
+                            toast.error('Une erreur est survenue');
+                        }
+                    }).catch((error) => {
+                        toast(error.toString())
+                        toast.error('Une erreur est survenue');
                     })
-                }).then(() => {
-                    toast.success("Projet publié")
-                    navigate("/gestion")
-                }).catch((error) => {
-                    toast(error.toString())
-                    toast.error('Une erreur est survenue');
                 })
                 
             } else {
