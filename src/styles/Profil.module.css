@@ -10,6 +10,23 @@
     flex-direction: column;
 }
 
+.badge_container {
+    display: block;
+
+    z-index: 10;
+    transform: translateY(48px);
+    background-color: var(--auto_background);
+    backdrop-filter: blur(12px);
+    border-radius: 8px;
+    width: fit-content;
+
+    padding: 6px 8px;
+    padding-top: 10px;
+
+    margin-left: auto;
+    margin-right: 12px;
+}
+
 .photo_banniere {
     object-fit: cover;
     flex-grow: 1;
@@ -33,7 +50,7 @@
     height: 150px;
     border-radius: 100%;
     transform: translateY(-50%);
-    
+
     /* Box shadow de: https://shadows.brumm.af/ */
     box-shadow:
         0px 2px 2.2px rgba(0, 0, 0, 0.008),
@@ -75,12 +92,12 @@
     flex-wrap: wrap;
 }
 
-.follows > div {
+.follows>div {
     text-align: center;
     line-height: 0;
 }
 
-.follows > div > p {
+.follows>div>p {
     font-size: 2.5rem;
     font-weight: 700;
 }

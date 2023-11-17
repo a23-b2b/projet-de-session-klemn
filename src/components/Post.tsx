@@ -4,6 +4,7 @@ import PosteCollab from './Post/PosteCollab';
 import Reponse from "./Reponse";
 import QuotePost from './Post/QuotePost';
 import BoostPost from './Post/BoostPost';
+import DeletedPost from "./Post/DeletedPost";
 
 export const TYPE_BLOGUE = 1;
 export const TYPE_QUESTION = 2;
@@ -11,6 +12,7 @@ export const TYPE_COLLABORATION = 3;
 export const TYPE_REPONSE = 4;
 export const TYPE_QUOTE_POST = 5;
 export const TYPE_BOOST = 6 // boost est quand qqun partage et donc "insere" le post dans le feed des autres
+export const TYPE_DELETED = 7; // un post qui a ete supprime, l'affichage sera different
 
 interface Props {
     idPost: string;
@@ -20,6 +22,7 @@ interface Props {
     urlImageProfil: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     nombreLike: number;
     nombreDislike: number;
     nombrePartage: number;
@@ -34,7 +37,10 @@ interface Props {
     statutReponse?: Boolean;
     idMeilleureReponse?: string;
 
-    idCollaborateur?: string;
+    // props collab optionnels
+    idProjet?: string; 
+    estOuvert?: Boolean; // va dependre du projet
+
 
     sharedPostId?: string;
     isSharedPostQuote?: boolean;
@@ -51,6 +57,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -67,6 +74,8 @@ function Post(props: Props) {
                     nomAffichage={props.nomAffichage}
                     nomUtilisateur={props.nomUtilisateur}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
+                    idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
                     nombrePartage={props.nombrePartage}
@@ -81,6 +90,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -102,6 +112,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -113,7 +124,8 @@ function Post(props: Props) {
                     userVote={props.userVote}
 
                     // Collab Prop
-                    idCollaborateur={props.idCollaborateur}
+                    estOuvert={props.estOuvert}
+                    idProjet={props.idProjet}
                 />
             )}
 
@@ -124,6 +136,7 @@ function Post(props: Props) {
                     nomUtilisateur={props.nomUtilisateur}
                     titre={props.titre}
                     contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
                     idCompte={props.idCompte}
                     nombreLike={props.nombreLike}
                     nombreDislike={props.nombreDislike}
@@ -150,6 +163,25 @@ function Post(props: Props) {
 
                     boostedPostId={props.sharedPostId}
                 />
+            )}
+
+            {props.type === TYPE_DELETED && (
+                <DeletedPost
+                    date={props.date}
+                    nomAffichage={props.nomAffichage}
+                    nomUtilisateur={props.nomUtilisateur}
+                    titre={props.titre}
+                    contenu={props.contenu}
+                    estMarkdown={props.estMarkdown}
+                    idCompte={props.idCompte}
+                    nombreLike={props.nombreLike}
+                    nombreDislike={props.nombreDislike}
+                    nombrePartage={props.nombrePartage}
+                    nombreCommentaire={props.nombreCommentaire}
+                    isPostFullScreen={props.isPostFullScreen}
+                    idPost={props.idPost}
+                    urlImageProfil={props.urlImageProfil}
+                    userVote={props.userVote} />
             )}
         </>
     );

@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../styles/Modal.module.css'
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, color, motion } from 'framer-motion';
 
 import { GrFormClose } from 'react-icons/gr'
 
@@ -40,8 +40,9 @@ function Modal(props: Props) {
                 animate={{ backdropFilter: 'blur(4px) saturate(50%) brightness(50%)' }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15, ease: 'circOut' }}>
-                <motion.div
-                    className={styles.modal}
+                <motion.div 
+                    id={styles["modal"]}
+                    className={"global_conteneur_modal"}
                     initial={{ scale: 0.7, opacity: 0 }}
                     animate={{
                         scale: 1,

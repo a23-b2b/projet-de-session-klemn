@@ -8,6 +8,7 @@ export const post = mysqlTable("post", {
     postType: int("id_type_post"),
     title: varchar("titre", { length: 255 }),
     content: varchar("contenu", { length: 4000 }),
+    est_markdown: boolean('est_markdown').notNull().default(false),
     likes: int("nombre_likes").notNull(),
     dislikes: int("nombre_dislikes").notNull(),
     reposts: int("nombre_reposts").notNull(),
@@ -51,17 +52,33 @@ export const share = mysqlTable("post_partage", {
     isQuote: tinyint("is_quoted_post"),
 });
 
+
+///// ===== Tables collaboration/projet ===== \\\\\
+export const project = mysqlTable("projet", {
+    id: varchar("id_projet", { length: 255 }).primaryKey(),
+    title: varchar("titre_projet", { length: 255 }),
+    description: varchar("description_projet", { length: 255 }),
+    repoUrl: varchar("url_repo_git", { length: 255 }),
+    isOpen: boolean("est_ouvert", { length: 255 }),
+    userId: varchar("compte_id_proprio", { length: 255 }).references(() => user.id),
+});
+
 export const collaboration = mysqlTable("post_collab", {
     id: varchar("id_collab", { length: 255 }).primaryKey(),
-    isOpen: boolean("est_ouvert").notNull().default(true),
-    projectUrl: varchar("url_git", { length: 255 }),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
     postId: varchar("post_id_post", { length: 255 }).references(() => post.id),
+});
+
+export const collaborator = mysqlTable("collaborateur", {
+    id: varchar("id_collaborateur", { length: 255 }).primaryKey(),
+    userId: varchar("compte_id_compte", { length: 255 }).references(() => user.id),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
 });
 
 export const collaborationRequest = mysqlTable("demande_collab", {
     id: varchar("id_demande_collab", { length: 255 }).primaryKey(),
     isAccepted: boolean("est_accepte").notNull().default(false),
-    collaborationId: varchar("post_collab_id_collab", { length: 255 }).references(() => collaboration.id),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
     userId: varchar("id_collaborateur", { length: 255 }).references(() => user.id),
 });
 
@@ -72,32 +89,7 @@ export const question = mysqlTable("post_question", {
     answerPostId: varchar("post_meilleure_reponse", { length: 255 }).references(() => post.id),
 });
 
-export const postView = mysqlView("post_view")
-    .as((qb) => qb
-        .select({
-            id: post.id,
-            createdAt: post.createdAt,
-            userId: post.userId,
-            parentId: post.parentId,
-            postType: post.postType,
-            title: post.title,
-            content: post.content,
-            likes: post.likes,
-            dislikes: post.dislikes,
-            comments: post.comments,
-            reposts: post.reposts,
-            shares: post.shares,
-            collabGitUrl: collaboration.projectUrl,
-            collabId: collaboration.id,
-            questionIsSolved: question.isSolved,
-            questionBestAnswer: question.answerPostId,
-            userDisplayName: user.displayName,
-            userUserName: user.userName,
-            userProfileImage: user.profileImageUrl
-        })
-        .from(post)
-        .leftJoin(collaboration, eq(post.id, collaboration.postId))
-        .leftJoin(question, eq(post.id, question.postId))
-        .leftJoin(share, eq(post.id, share.postId))
-        .innerJoin(user, eq(post.userId, user.id))
-    );
+export const badge = mysqlTable("badge", {
+    userId: varchar("id_compte", { length: 255 }).notNull().references(() => user.id),
+    badges: int("badges")
+});

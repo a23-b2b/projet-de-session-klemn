@@ -6,6 +6,8 @@ import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
+import toast from 'react-hot-toast';
+import {TYPE_DELETED} from "../Post";
 
 interface Props {
     idPost: string;
@@ -14,6 +16,7 @@ interface Props {
     nomUtilisateur: string;
     titre: string;
     contenu: string;
+    estMarkdown: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -37,7 +40,6 @@ function QuotePost(props: Props) {
 
     function getQuotedPostData() {
         onAuthStateChanged(auth, (user) => {
-            console.log(user?.uid)
             fetch(`${process.env.REACT_APP_API_URL}/post/${props.quotedPostId}`, {
                 method: 'GET',
                 headers: {
@@ -52,21 +54,26 @@ function QuotePost(props: Props) {
                     setQuotedPostData(data)
                 })
                 .catch((error) => {
-                    console.log(error)
+                    toast.error(error.toString())
                 })
         });
     }
 
 
     return (
-        <div className={styles.container}>
+        <div id={styles["conteneur"]} className={'global_conteneur_post'}>
             <PostHeader
                 date={props.date}
+                idPost={props.idPost}
+                idCompte={props.idCompte}
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil} />
+                urlImageProfil={props.urlImageProfil}
+                isDeleted={false} />
 
             <PostContent
+                titre = {props.titre}
+                estMarkdown={props.estMarkdown}
                 contenu={props.contenu}
                 idPost={props.idPost}
                 isPostFullScreen={props.isPostFullScreen} />

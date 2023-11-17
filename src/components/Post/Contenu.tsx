@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import styles from '../../styles/Post.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import { BsArrowBarDown } from 'react-icons/bs'
-
+import { AnimatePresence, motion } from "framer-motion";
+import MarkdownCode from "../MarkdownCode";
 
 interface ContentProps {
-    titre?: string;
+    titre: string;
     contenu: string;
     idPost: string;
     isPostFullScreen: Boolean;
+    estMarkdown: Boolean;
 }
 
 const PostContent = (props: ContentProps) => {
@@ -19,7 +21,6 @@ const PostContent = (props: ContentProps) => {
 
     const showFullContent = contentHeight <= maxHeight || props.isPostFullScreen;
     const displayShowMoreButton = !showFullContent && !props.isPostFullScreen
-
 
     useEffect(() => {
         if (contentRef.current) {
@@ -66,7 +67,7 @@ const PostContent = (props: ContentProps) => {
             }
         </div>
     )
-
+    
 }
 
 export default PostContent;

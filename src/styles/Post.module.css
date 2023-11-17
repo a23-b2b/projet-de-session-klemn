@@ -1,11 +1,12 @@
 #conteneur_post {
-margin-bottom: 30px;
-margin-top: 30px;
+margin: 30px 0px 30px 0px;
+
+
 }
 
 .conteneurDiv {
     width: 100%;
-    
+
 }
 
 .header {
@@ -58,7 +59,7 @@ margin-top: 30px;
 
 .titre {
     text-decoration: none;
-    color: var(--auto_text_color)
+    color: var(--auto_text_color);
 }
 
 #header_conteneur_droit {
@@ -67,7 +68,6 @@ margin-top: 30px;
     background-color: var(--auto_container_color);
     border-radius: 15px 15px 9px 9px;
     padding-right: 20px;
-
 }
 
 #inner_droit_nom_utilisateur {
@@ -81,9 +81,10 @@ margin-top: 30px;
     word-wrap: break-word;
     white-space: pre-wrap;
     text-align: justify;
-    opacity: .8;
+    /* opacity: .8; */
+    color: var(--auto_text_secondary_color);
     margin-bottom: 40px;
-   padding-left: 2px;
+    padding-left: 2px;
 }
 
 .footer {
@@ -132,6 +133,16 @@ margin-top: 30px;
     transition: 0.2s;
 }
 
+#bouton_interraction_options {
+    padding: 8px 8px;
+    height: fit-content;
+    margin-right: 0;
+    margin-top: 14px;
+    margin-left: 8px;
+    border-radius: 100px;
+    transition: 0.2s;
+}
+
 .disliked_post {
     transition: 0.5s;
     color: rgb(170, 0, 0);
@@ -149,13 +160,22 @@ margin-top: 30px;
     transition: 0.5s;
 }
 
+#icone_supprimer {
+    scale: 1.2;
+}
+
+#icone_options {
+    margin: 0;
+}
+
 @media (hover: hover) and (pointer: fine) {
     #icone_like:hover {
         color: rgb(0, 187, 62);
         transition: 0.1s;
     }
 
-    #icone_dislike:hover {
+    #icone_dislike:hover,
+    #icone_supprimer:hover{
         color: rgb(170, 0, 0);
         transition: 0.1s;
     }
@@ -189,6 +209,11 @@ margin-top: 30px;
         color: rgb(111, 0, 255);
         transition: 0.1s;
     }
+
+    #bouton_interraction_options:hover{
+        background-color: var(--auto_container_post_color);
+        transition: 0.1s;
+    }
 }
 
 /* === Widget like/dislike === */
@@ -204,7 +229,8 @@ margin-top: 30px;
     transition: 0.4s;
 } */
 
-.share_menu, .tooltip {
+.share_menu,
+.tooltip {
     backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
     padding: 6px;
