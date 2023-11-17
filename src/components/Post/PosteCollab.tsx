@@ -64,7 +64,7 @@ function PosteCollab(props: CollabProp) {
     
 
     return (
-        <div className={'global_container_4'} id={styles["conteneur_post"]}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}
