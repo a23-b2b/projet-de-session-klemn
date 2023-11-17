@@ -54,7 +54,7 @@
     --light_30: hsl(var(--base_h), var(--base_s), 70%);
 
     --dark_35: hsl(var(--base_h), var(--base_s), 35%);
-    --light_35: hsl(var(--base_h), var(--base_s), 35%);
+    --light_35: hsl(var(--base_h), var(--base_s), 65%);
 
     --dark_40: hsl(var(--base_h), var(--base_s), 40%);
     --light_40: hsl(var(--base_h), var(--base_s), 60%);
@@ -80,17 +80,14 @@
     --dark_100: hsl(var(--base_h), var(--base_s), 100%);
     --light_100: hsl(var(--base_h), var(--base_s), 0%);
 
-
-
-
     /* ====================================== */
     /*              Éléments CSS              */
     /* ====================================== */
 
 
     /*Couleur de fond des pages*/
-    --background_dark: var(--dark_0);
-    --background_light: var(--light_0);
+    --background_dark: var(--dark_10);
+    --background_light: var(--light_10);
 
     /*Couleur d'accent 1*/
     --on_background_dark_accent_color_1: var(--dark_60);
@@ -120,55 +117,49 @@
     --on_background_dark_text: var(--dark_90);
     --on_background_light_text: var(--light_90);
 
-
-
     /* Couleur des îcones */
     --on_background_dark_icon: var(--dark_0);
     --on_background_light_icon: var(--light_0);
-
-
 
     /* Couleur des conteneurs dégradées */
     --on_background_dark_container_gradient: linear-gradient(rgb(245, 185, 22), rgb(240, 117, 22), rgb(231, 39, 93));
     --on_background_light_container_gradient: linear-gradient(rgb(246, 92, 184), rgb(252, 163, 85), rgb(253, 221, 106));
 
     /*Couleur des conteneurs 1*/
-    --on_background_dark_container_1: var(--dark_20);
-    --on_background_light_container_1: var(--dark_20);
+    --on_background_dark_container_1: var(--dark_13);
+    --on_background_light_container_1: var(--light_13);
 
     /*Couleur des conteneurs 2*/
-    --on_background_dark_container_2: var(--dark_25);
-    --on_background_light_container_2: var(--dark_25);
+    --on_background_dark_container_2: var(--dark_15);
+    --on_background_light_container_2: var(--light_15);
 
     /*Couleur des conteneurs 3*/
-    --on_background_dark_container_3: var(--dark_40);
-    --on_background_light_container_3: var(--dark_40);
+    --on_background_dark_container_3: var(--dark_20);
+    --on_background_light_container_3: var(--light_20);
 
     /*Couleur des conteneurs 4*/
-    --on_background_dark_container_4: var(--dark_50);
-    --on_background_light_container_4: var(--dark_50);
+    --on_background_dark_container_4: var(--dark_25);
+    --on_background_light_container_4: var(--light_25);
 
     /*Couleur des conteneurs 5*/
-    --on_background_dark_container_4: var(--dark_60);
-    --on_background_light_container_4: var(--dark_60);
-
-
+    --on_background_dark_container_4: var(--dark_30);
+    --on_background_light_container_4: var(--light_30);
 
     /*Couleur des étiquettes des champs texte*/
     --on_background_dark_label: var(--dark_80);
     --on_background_light_label: var(--light_80);
 
     /*Couleur des champs texte*/
-    --on_background_dark_input_field: var(--dark_40);
-    --on_background_light_input_field: var(--light_40);
+    --on_background_dark_input_field: var(--dark_20);
+    --on_background_light_input_field: var(--light_20);
 
     /*Couleur des du text placeholder dans les champs texte*/
     --on_background_dark_placeholder_text: var(--dark_0);
     --on_background_light_placeholder_text: var(--light_0);
 
     /* Couleur des zones texte */
-    --on_background_dark_textarea: var(--dark_40);
-    --on_background_light_textarea: var(--light_40);
+    --on_background_dark_textarea: var(--on_background_dark_input_field);
+    --on_background_light_textarea: var(--on_background_light_input_field);
 
     /* Couleur des boutons selectionnés */
     --on_background_dark_selected_button: var(--on_background_dark_accent_color_1);
@@ -190,7 +181,9 @@
     --on_background_dark_button_hover: var(--dark_10);
     --on_background_light_button_hover: var(--light_10);
 
-
+    /* Couleur des bordures */
+    --border_color_dark: var(--dark_40);
+    --border_color_light: var(--light_40);
 
 
     /* ===================================== */
@@ -206,7 +199,7 @@
 
     --auto_background_color: var(--background_dark);
     --auto_accent_color_1: var(--on_background_dark_accent_color_1);
-    --auto_accent_color_2: var(--on_background_dark_accent_color_2);
+    --auto_accent_color_2: var(--on_background_dark_accent_colorborder_2);
     --auto_header_color: var(--on_background_dark_header);
     --auto_footer_color: var(--on_background_dark_footer);
 
@@ -238,6 +231,7 @@
     --auto_unselected_button_text_color: var(--on_background_dark_unselected_button_text);
     --auto_button_hover_color: var(--on_background_dark_button_hover);
 
+    --auto_border_color: var(--border_color_dark);
 
     /*Thème clair*/
     @media (prefers-color-scheme: light) {
@@ -276,6 +270,8 @@
         --auto_selected_button_text_color: var(--on_background_light_selected_button_text);
         --auto_unselected_button_text_color: var(--on_background_light_unselected_button_text);
         --auto_button_hover_color: var(--on_background_light_button_hover);
+
+        --auto_border_color: var(--border_color_light);
     }
 }
 
@@ -387,11 +383,9 @@ hr {
     box-sizing: border-box;
     border-radius: 12px;
     padding: 10px;
-    border: none;
+    border: 1.5px solid var(--auto_border_color);
     max-width: 100%;
     min-width: 100%;
-    border: none;
-    
 }
 
 ::placeholder {
@@ -412,9 +406,9 @@ hr {
     box-sizing: border-box;
     border-radius: 12px;
     padding: 10px;
-    border: none;
     max-width: 100%;
     min-width: 100%;
+    border: 1.5px solid var(--auto_border_color);
 }
 
 .global_selected_bouton {
