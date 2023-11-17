@@ -55,7 +55,7 @@ function GestionCollab() {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user?.uid === idProprio) {
-                {/* Nous utilison le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
+                {/* Nous utilisons le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
                         method: 'POST',
@@ -77,6 +77,13 @@ function GestionCollab() {
                 navigate("/authenticate")
             }
         })
+    }
+
+    const supprimerProjet = (projet: object) => {
+        const nouvTabProjets = [...projets];
+        const positionProjet = nouvTabProjets.indexOf(projet);
+        nouvTabProjets.splice(positionProjet, 1);
+        setProjets(nouvTabProjets)
     }
 
     return (
@@ -177,14 +184,15 @@ function GestionCollab() {
 
 
 
-                        {projets && projets?.map(({
-                            compte_id_proprio,
-                            id_projet,
-                            titre_projet,
-                            description_projet,
-                            url_repo_git,
-                            est_ouvert
-                        }) => {
+                        {projets && projets?.map(projet => {
+                            const {
+                                compte_id_proprio,
+                                id_projet,
+                                titre_projet,
+                                description_projet,
+                                url_repo_git,
+                                est_ouvert
+                            } = projet;
                             return (<>
 
                                 <div key={id_projet}>
@@ -198,6 +206,8 @@ function GestionCollab() {
                                         url_repo_git={url_repo_git}
                                         compte_id_proprio={compte_id_proprio}
                                         est_ouvert={est_ouvert}
+
+                                        supprimerProjetDeListe={() => supprimerProjet(projet)}
                                     />
                                 </div>
                             </>)
@@ -287,6 +297,7 @@ function GestionCollab() {
                 })
                     .then(response => response.json())
                     .then(json => {
+                        console.log(json)
                         setProjets(json)
                     })
                     .catch(error => toast.error("Erreur"));

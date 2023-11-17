@@ -17,6 +17,7 @@ import { HiFunnel } from 'react-icons/hi2';
 import { GoTrash } from 'react-icons/go';
 import {Tooltip} from "@chakra-ui/react";
 import {VscEdit} from "react-icons/vsc";
+import {response} from "express";
 
 
 
@@ -32,6 +33,7 @@ export interface PropsProjet {
     /* https://upmostly.com/tutorials/how-to-pass-a-function-as-a-prop-in-react */
     filtrerDemandeParIdProjet: Function
     montrerFormulaireAjoutCollaborateur: Function
+    supprimerProjetDeListe: () => void
 }
 
 
@@ -51,6 +53,11 @@ function GestionProjetRapide(props: PropsProjet) {
                         headers: {
                             'Content-Type': 'application/json',
                             'authorization': idToken
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            toast.success("Projet supprimé")
+                            props.supprimerProjetDeListe()
                         }
                     })
                 }).catch(error => toast.error(JSON.stringify(error)));

@@ -19,7 +19,7 @@ module.exports = app.post('/:id_projet', (req, res) => {
                     res.status(500).send()
                     logger.info(JSON.stringify(errJSON))
                 } else {
-                    res.status(200)
+                    res.sendStatus(200)
                 }
             })
     }).catch((error) => {
