@@ -333,7 +333,8 @@ function Profil() {
                     nombre_reposts,
                     titre,
                     url_image_profil,
-                    vote
+                    vote,
+                    est_modifie
                 }) => {
                     return (
                         <Post
@@ -346,6 +347,7 @@ function Profil() {
                             titre={titre}
                             contenu={contenu}
                             estMarkdown={est_markdown}
+                            estModifie={est_modifie}
                             nombreLike={nombre_likes}
                             nombreDislike={nombre_dislikes}
                             nombrePartage={nombre_partages}

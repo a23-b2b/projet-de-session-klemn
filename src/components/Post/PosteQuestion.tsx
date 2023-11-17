@@ -12,6 +12,7 @@ export interface QuestionProp {
     titre: string;
     contenu: string;
     estMarkdown: Boolean;
+    estModifie: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -37,7 +38,9 @@ function PosteQuestion(props: QuestionProp) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur} 
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={false} />
+                isDeleted={false}
+                estModifie={props.estModifie} 
+                contenu={props.contenu}/>
 
             <PostContent
                 titre={props.titre}

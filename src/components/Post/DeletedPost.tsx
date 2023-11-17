@@ -11,6 +11,7 @@ export interface BlogueProp {
     titre: string;
     contenu: string;
     estMarkdown: Boolean;
+    estModifie: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -33,7 +34,9 @@ function PosteBlogue(props: BlogueProp) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={true} />
+                isDeleted={true} 
+                estModifie={props.estModifie}
+                contenu={props.contenu}/>
 
             <PostContent
                 titre={props.titre}
