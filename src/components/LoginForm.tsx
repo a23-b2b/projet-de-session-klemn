@@ -59,6 +59,8 @@ function LoginForm() {
                     console.log("User info: " + JSON.stringify(user))
                 }                  
                 
+                // si uid pas dans BD mysql il faut logout et redirect /authenticate
+
                 navigate('/')
             }).catch((error) => {
                 console.log(JSON.stringify(error))

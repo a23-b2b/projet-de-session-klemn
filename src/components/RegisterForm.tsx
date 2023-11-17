@@ -102,7 +102,7 @@ function RegisterForm() {
                 id_compte: info.id_compte
             }),
         }).then(response => response.json()).then(response => {
-            if (response.code) throw response
+            if (response.code) throw response            
 
             toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
             navigate(0)
@@ -203,6 +203,8 @@ function RegisterForm() {
                     }
                     */
                     console.log(JSON.stringify( additionalInfo))
+
+                    
                     
                     if (additionalInfo.profile && user) {
                         const profile = additionalInfo.profile
@@ -217,6 +219,7 @@ function RegisterForm() {
                             email: typeof(user.email) == 'string' ? user.email : "",
                             id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
                         }
+                        // ne pas faire si UID deja dans BD
                         creerNouveauCompteGithub(info)
                     }
                 }                            
