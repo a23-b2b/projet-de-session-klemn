@@ -59,13 +59,13 @@ function QuotePostModal(props: Props) {
 
     return (
         <Modal isModalOpen={props.isModalOpen} setIsModalOpen={props.setIsModalOpen}>
-            <div className={styles.conteneur}>
-                <h2 className={styles.titre}>Publication</h2>
+            <div className={'global_container_2'} id={styles["conteneurModal"]}>
+                <h2 className={'global_title'} id={styles["titre"]}>Publication</h2>
                 <div className={styles.form}>
 
 
 
-                    <textarea className={styles.textarea}
+                    <textarea className={'global_textarea'}
                         rows={10}
                         maxLength={4000}
                         placeholder="Exprimez-vous!"
@@ -78,7 +78,7 @@ function QuotePostModal(props: Props) {
                 <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
 
                     <span id={styles["span"]}>{nbCaracteres}/4000</span>
-                    <button className={'global_bouton'} onClick={() => publierBlogue()}>
+                    <button className={'global_selected_bouton'} onClick={() => publierBlogue()}>
                         Publier
                     </button>
                 </div>

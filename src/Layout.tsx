@@ -20,12 +20,18 @@ import README from "./pages/AProposReadMe";
 
 
 function Layout() {
+
+    // CODE REQUIS POUR MODIFIER LE THEME DE COULEURS:
+    // CELA OVERWRITE LES VALEURS CSS DANS LE FICHIER GLOBAL.
+    // document.documentElement.style.setProperty('--base_h', "30");
+    // document.documentElement.style.setProperty('--base_s', "30%");
+    // document.documentElement.style.setProperty('--accent_color', "#88bb00"); // valeur d'accent custom
+
     return (
         <>
             <BrowserRouter>
                 <Header />
                 <Toaster />
-
                 <body>
                     <Routes>
                         {/* Gestion des erreurs 404 */}
