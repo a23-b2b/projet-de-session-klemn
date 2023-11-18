@@ -42,6 +42,7 @@ app.use(express.urlencoded())
 app.use(cors());
 
 // app.set('trust proxy', true)
+app.set('trust proxy', 1)
 
 // Formatage et config de morgan !
 app.use(morgan('tiny', {
