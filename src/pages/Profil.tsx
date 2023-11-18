@@ -8,6 +8,9 @@ import FollowButton from '../components/FollowButton';
 import { useAnimate } from 'framer-motion';
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from 'react-router-dom';
+import UserReference from '../components/UserReference';
+import Modal from '../components/Modal';
+
 import BadgesContainer from '../components/Badges/_BadgesContainer';
 import Chargement from '../components/EcranChargement';
 
@@ -17,6 +20,7 @@ function Profil() {
 
     let { username } = useParams();
 
+
     const [userData, setUserData] = useState<any>('')
     const [loadingUserData, setLoadingUserData] = useState(true)
 
@@ -24,8 +28,15 @@ function Profil() {
     const [nombreAbonnes, setNombreAbonnes] = useState(0);
     const [nombreAbonnesBefore, setNombreAbonnesBefore] = useState(nombreAbonnes);
     const [visitorFollowsUser, setVisitorFollowsUser] = useState(false)
+    const [followerName, setFollowerName] = useState('');
+
 
     const [userPosts, setUserPosts] = useState<any[]>([])
+    const [userFollowers, setUserFollowers] = useState<any[]>([])
+    const [userFollowings, setUserFollowings] = useState<any[]>([])
+    const [followersOrFollowings, setFollowersOrFollowings] = useState('');
+
+
     const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
 
@@ -33,7 +44,16 @@ function Profil() {
 
 
     const [followerNumberScope, animateFollowerNumber] = useAnimate()
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+    useEffect(() => {
+        setIsModalOpen(false);
+        setFollowersOrFollowings('');
+        setUserFollowings([]);
+        setUserFollowers([]);
+        setDisplayName('');
+    }, [username]);
 
     useEffect(() => {
         // Unfollow
@@ -80,12 +100,17 @@ function Profil() {
     }, [nombreAbonnes])
 
     useEffect(() => {
-        getUserData()
+        getUserData();
+        // getProfileWithFollowers();
     }, [username])
 
     useEffect(() => {
         if (userData) getPosts()
     }, [userData])
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
 
 
     function getUserData() {
@@ -148,6 +173,7 @@ function Profil() {
         }
         )
 
+
     }
 
     if (loadingUserData) {
@@ -155,6 +181,64 @@ function Profil() {
             <Chargement />
         )
     }
+
+
+    function getFollowers() {
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/followers`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': user?.uid || ''
+                    },
+                });
+
+                if (response.ok) {
+                    const followersData = await response.json();
+                    console.log(followersData);
+
+                    const followers = followersData?.followers || [];
+                    setUserFollowers(followers);
+
+
+                } else {
+                    throw await response.json();
+                }
+            } catch (error) {
+                console.log('Erreur lors de la récupération des abonnés', error);
+            }
+        });
+    }
+
+    function getFollowings() {
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/followings`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': user?.uid || ''
+                    },
+                });
+
+                if (response.ok) {
+                    const followingsData = await response.json();
+
+
+                    const followings = followingsData?.followings || [];
+                    setUserFollowings(followings);
+                    console.log(followings);
+
+                } else {
+                    throw await response.json();
+                }
+            } catch (error) {
+                console.log('Erreur lors de la récupération des abonnements', error);
+            }
+        });
+    }
+
 
 
     return (
@@ -189,17 +273,51 @@ function Profil() {
                 </div>
 
                 <div className={styles.follows}>
-                    <div><p ref={followerNumberScope}>{nombreAbonnesBefore}</p> abonnés</div>
-                    <div><p>{userData.nombre_abonnements}</p> Abonnements</div>
+                    <div><p ref={followerNumberScope} onClick={() => { setFollowersOrFollowings('followers'); setIsModalOpen(true); getFollowers() }}>{nombreAbonnesBefore}</p> abonnés</div>
+                    <div><p onClick={() => { setFollowersOrFollowings('followings'); setIsModalOpen(true); getFollowings() }}>{userData.nombre_abonnements}</p> Abonnements</div>
                 </div>
 
                 <p className={styles.bio}>{userData.biographie}</p>
-            </div>
+
+                <Modal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                >
+                    <br />
+                    <br />
+                    <br />
+
+                    {followersOrFollowings === 'followers' && (
+                        userFollowers.map((follower) => (
+                            <div className={'follower-item'} key={follower.id_compte}>
+                                <UserReference
+                                    nomAffichage={follower.nom_affichage}
+                                    nomUtilisateur={follower.nom_utilisateur}
+                                    urlImageProfil={follower.url_image_profil}
+                                />
+                            </div>
+                        ))
+                    )}
+
+                    {followersOrFollowings === 'followings' && (
+                        userFollowings.map((following) => (
+                            <div className={'following-item'} key={following.id_compte}>
+
+                                <UserReference
+                                    nomAffichage={following.nom_affichage}
+                                    nomUtilisateur={following.nom_utilisateur}
+                                    urlImageProfil={following.url_image_profil}
+                                />
+                            </div>
+                        ))
+                    )}
+                </Modal>
+            </div >
 
             <InfiniteScroll
                 dataLength={userPosts.length}
                 next={() => getPosts()}
-                hasMore={!isEndOfFeed} // Replace with a condition based on your data source
+                hasMore={!isEndOfFeed}
                 loader={<Chargement />}
                 endMessage={<h1>Oh non! Vous avez terminé Klemn!</h1>}
             >
@@ -219,7 +337,8 @@ function Profil() {
                     nombre_reposts,
                     titre,
                     url_image_profil,
-                    vote
+                    vote,
+                    est_modifie
                 }) => {
                     return (
                         <Post
@@ -232,6 +351,7 @@ function Profil() {
                             titre={titre}
                             contenu={contenu}
                             estMarkdown={est_markdown}
+                            estModifie={est_modifie}
                             nombreLike={nombre_likes}
                             nombreDislike={nombre_dislikes}
                             nombrePartage={nombre_partages}

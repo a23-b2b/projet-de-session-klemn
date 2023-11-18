@@ -15,6 +15,7 @@ export interface CollabProp {
     titre: string;
     contenu: string;
     estMarkdown: Boolean;
+    estModifie: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -64,7 +65,7 @@ function PosteCollab(props: CollabProp) {
     
 
     return (
-        <div className={styles.container}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}
@@ -72,7 +73,9 @@ function PosteCollab(props: CollabProp) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={false} />
+                isDeleted={false}
+                estModifie={props.estModifie} 
+                contenu={props.contenu}/>
 
             <PostContent
                 titre={props.titre}
@@ -83,7 +86,7 @@ function PosteCollab(props: CollabProp) {
 
             
             {user && 
-                <button disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
+                <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
                     Demander à collaborer
                 </button> }
 

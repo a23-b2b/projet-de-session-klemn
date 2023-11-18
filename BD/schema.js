@@ -9,6 +9,7 @@ export const post = mysqlTable("post", {
     title: varchar("titre", { length: 255 }),
     content: varchar("contenu", { length: 4000 }),
     est_markdown: boolean('est_markdown').notNull().default(false),
+    isEdited: boolean('est_modifie').default(false),
     likes: int("nombre_likes").notNull(),
     dislikes: int("nombre_dislikes").notNull(),
     reposts: int("nombre_reposts").notNull(),
@@ -65,20 +66,20 @@ export const project = mysqlTable("projet", {
 
 export const collaboration = mysqlTable("post_collab", {
     id: varchar("id_collab", { length: 255 }).primaryKey(),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, { onDelete: 'cascade' }),
     postId: varchar("post_id_post", { length: 255 }).references(() => post.id),
 });
 
 export const collaborator = mysqlTable("collaborateur", {
     id: varchar("id_collaborateur", { length: 255 }).primaryKey(),
     userId: varchar("compte_id_compte", { length: 255 }).references(() => user.id),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, { onDelete: 'cascade' }),
 });
 
 export const collaborationRequest = mysqlTable("demande_collab", {
     id: varchar("id_demande_collab", { length: 255 }).primaryKey(),
     isAccepted: boolean("est_accepte").notNull().default(false),
-    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, {onDelete: 'cascade'}),
+    projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, { onDelete: 'cascade' }),
     userId: varchar("id_collaborateur", { length: 255 }).references(() => user.id),
 });
 
@@ -92,4 +93,10 @@ export const question = mysqlTable("post_question", {
 export const badge = mysqlTable("badge", {
     userId: varchar("id_compte", { length: 255 }).notNull().references(() => user.id),
     badges: int("badges")
+});
+
+export const postEdits = mysqlTable("post_edit", {
+    postId: varchar("id_post", { length: 255 }).notNull().references(() => post.id),
+    oldContent: varchar("ancien_contenu", { length: 4000 }).notNull(),
+    editedAt: datetime("date_modification"),
 });
