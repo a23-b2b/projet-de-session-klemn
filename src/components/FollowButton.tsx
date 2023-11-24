@@ -88,7 +88,7 @@ function FollowButton(props: Props) {
                 {props.userId != auth.currentUser?.uid && auth.currentUser && (
                     <button
                         ref={buttonScope}
-                        className={`${styles.bouton_follow} global_bouton`}
+                        className={`global_selected_bouton ${styles.bouton_follow} `}
                         onClick={props.visitorFollowsUser ? () => unfollowUser() : () => followUser()}
                         disabled={databaseLoading}>
 
