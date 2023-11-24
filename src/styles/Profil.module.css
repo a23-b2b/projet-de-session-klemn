@@ -17,7 +17,7 @@
 
     z-index: 10;
     transform: translateY(48px);
-    background-color: var(--auto_background);
+    background-color: var(--auto_container_color_2);
     backdrop-filter: blur(12px);
     border-radius: 8px;
     width: fit-content;
