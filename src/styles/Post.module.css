@@ -232,6 +232,7 @@ margin: 30px 0px 30px 0px;
 
 .share_menu,
 .tooltip {
+    z-index: 999;
     backdrop-filter: blur(12px) saturate(150%);
     list-style-type: none;
     padding: 6px;
