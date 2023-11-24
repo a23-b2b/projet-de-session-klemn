@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { auth } from '../firebase';
 import toast from 'react-hot-toast';
 import { AnimatePresence, motion, useAnimate } from 'framer-motion';
+import "../styles/global.css"
 
 interface Props {
     userId: string;
