@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Client } from "@passwordlessdev/passwordless-client";
+import { GoPasskeyFill } from "react-icons/go";
 
 function LoginForm() {
     const navigate = useNavigate()
@@ -60,7 +61,7 @@ function LoginForm() {
                 signInWithCustomToken(auth, customToken).then((user) => {
                     toast.success('Vous êtes connecté!')
                     navigate('/')
-                    
+
                 }).catch((error) => {
                     console.log(error)
                     toast.error(`Une erreur est survenue: (${error.code})`)
@@ -91,12 +92,14 @@ function LoginForm() {
                             Connexion
                         </button>
                     </div>
-
                 </div>
+
+                <br/>
+                <hr/>
 
                 <div className={styles.containerBouton}>
                     <button className={'global_selected_bouton'} onClick={() => loginWithPasskey()}>
-                        Se connecter avec Passkey
+                        <GoPasskeyFill style={{ marginLeft: '-10px', marginRight: '6px' }} /> Utiliser une clé d'accès
                     </button>
                 </div>
             </motion.div>
