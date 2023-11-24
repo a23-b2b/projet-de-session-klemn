@@ -1,8 +1,7 @@
 const express = require('express')
 const app = express()
-const { pool } = require('../serveur.js')
-const { admin } = require('../serveur.js')
-const logger = require('../logger.js')
+const { pool, admin } = require('../../serveur.js')
+const logger = require('../../logger.js')
 const dotenv = require('dotenv')
 dotenv.config();
 
@@ -14,7 +13,7 @@ module.exports = app.post('/new', (req, res) => {
         const userId = payload.uid;
         const email = payload.email;
 
-        const { token } = fetch(process.env.PASSWORDLESS_API_URL + '/register/token', {
+        fetch(process.env.PASSWORDLESS_API_URL + '/register/token', {
             method: 'POST',
             body: JSON.stringify({
                 userId: userId,
@@ -24,11 +23,8 @@ module.exports = app.post('/new', (req, res) => {
                 'ApiSecret': process.env.PASSWORDLESS_PRIVATE_KEY,
                 'Content-Type': 'application/json'
             }
-        }).then((r) => {
-            r.json()
-            console.log(r.json())
+        }).then((r) => r.json()).then(token => {
+            return res.send(token).status(201)
         });
-
-        console.log(token)
     });
 });

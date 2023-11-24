@@ -17,6 +17,7 @@ import GestionCollab from "./pages/GestionCollab";
 import ProjetForm from './pages/ProjetForm';
 
 import README from "./pages/AProposReadMe";
+import Securite from "./pages/settings/Securite";
 
 
 function Layout() {
@@ -44,6 +45,7 @@ function Layout() {
                         <Route path="/p/:postId" element={<PostFullScreen />} />
                         <Route path="/parametres" element={<Parametres />}>
                             <Route path="profil" element={<ModifierProfil />} />
+                            <Route path="securite" element={<Securite />} />
                             <Route path="interface" element={<Interface />} />
                         </Route>
                         <Route path="/gestion" element={<GestionCollab />} />
