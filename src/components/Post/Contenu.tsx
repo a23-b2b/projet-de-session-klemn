@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsArrowBarDown } from 'react-icons/bs'
 import { AnimatePresence, motion } from "framer-motion";
 import MarkdownCode from "../MarkdownCode";
+import "../../styles/global.css"
 
 interface ContentProps {
     titre: string;
@@ -57,9 +58,9 @@ const PostContent = (props: ContentProps) => {
 
 
             {displayShowMoreButton &&
-                <Link to={`/p/${props.idPost}`}>
-                    <button>
-                        <BsArrowBarDown /> Voir plus
+                <Link to={`/p/${props.idPost}`} style={{textDecoration: "none"}}>
+                    <button className={`global_selected_bouton ${styles.bouton_voir_plus}`}>
+                        <BsArrowBarDown style={{transform: "translateX(-10px)"}}/> Voir plus
                     </button>
                 </Link>
 
