@@ -1,10 +1,10 @@
 #Conteneur_Header {
-    backdrop-filter: blur(32px) saturate(200%);
+    backdrop-filter: blur(32px) saturate(150%);
     z-index: 100;
     position: fixed;
     top: 0;
     width: 100vw;
-    height: fit-content;
+    height: 72px;
 }
 
 #Conteneur_Interieur_Header {
@@ -24,8 +24,13 @@
     margin-block: auto;
 }
 
-
-
+.logo {
+    height: 56px;
+    fill: var(--auto_accent_color_1);
+    stroke: var(--auto_accent_color_1);
+    stroke-linejoin: bevel;
+    stroke-width: 2px;
+}
 
 /* Menu dropdown */
 #link {
