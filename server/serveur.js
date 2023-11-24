@@ -144,8 +144,11 @@ app.use('/user', get_followers)
 const get_followings = require('./user/[username]/GET_followings.js')
 app.use('/user', get_followings)
 
-const add_passkey = require('./user/passkeys/POST_this.js')
+const add_passkey = require('./user/passkeys/POST_new.js')
 app.use('/user/passkeys', add_passkey)
+
+const login_passkey = require('./user/passkeys/POST_login.js')
+app.use('/user/passkeys', login_passkey)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
