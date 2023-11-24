@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import { Client } from '@passwordlessdev/passwordless-client';
+import { GoPasskeyFill } from "react-icons/go";
 
 function Securite() {
     const passwordlessClient = new Client({
@@ -44,7 +45,12 @@ function Securite() {
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Sécurité</h1>
                 <div>
-                    <button onClick={() => addPasskey()}>Ajouter passkey</button>
+                    <h2>Clés d'accès (Passkeys)</h2>
+                    <p>Les clés d'accès sont plus sécuritaires et plus pratiques que les mots de passes traditionnels.</p>
+                    {
+                        passwordlessClient.isBrowserSupported() ? "" : <p>Votre navigateur ne supporte pas les clés d'accès.</p>
+                    }
+                    <button className='global_selected_bouton' disabled={!passwordlessClient.isBrowserSupported()} onClick={() => addPasskey()}><GoPasskeyFill style={{ marginLeft: '-10px', marginRight:'6px'}}/> Ajouter une clé d'accès</button>
                 </div>
             </motion.div>
         </div>
