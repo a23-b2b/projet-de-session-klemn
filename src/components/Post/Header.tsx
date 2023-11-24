@@ -242,7 +242,7 @@ const PostHeader = (props: HeaderProps) => {
                     <h2 className={styles.titre}>Publication</h2>
                     <div className={styles.form}>
                         <textarea
-                            className={styles.textarea}
+                            className={'global_textarea'}
                             rows={10}
                             maxLength={4000}
                             placeholder="Exprimez-vous!"
