@@ -98,8 +98,8 @@
     --on_background_light_accent_color_2: var(--light_40);
 
     /*Couleur header*/
-    --on_background_dark_header: var(--dark_50);
-    --on_background_light_header: var(--dark_9);
+    --on_background_dark_header: hsla(var(--base_h), var(--base_s), 13%, 75%);
+    --on_background_light_header: hsla(var(--base_h), var(--base_s), 87%, 75%);
 
     /*Couleur footer*/
     --on_background_dark_footer: var(--dark_40);
