@@ -213,7 +213,7 @@ input[type="file"] {
 .passkey_list_item {
     margin-top: 16px;
     background-color: var(--auto_container_color_3);
-    padding: 2px 24px;
+    padding: 2px 0px 2px 24px;
     border-radius: 12px;
     border: 0.5px solid var(--auto_border_color);
     box-shadow:
@@ -223,4 +223,26 @@ input[type="file"] {
         0px 16.3px 17.9px rgba(0, 0, 0, 0.018),
         0px 30.5px 33.4px rgba(0, 0, 0, 0.022),
         0px 73px 80px rgba(0, 0, 0, 0.03);
+}
+
+.titre_passkey_grid {
+    display: grid;
+    grid-template-columns: auto 60px;
+}
+
+.titre_passkey {
+    padding-right: 12px;
+    max-width: auto;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.bouton_supprimer {
+    margin-top: -2px;
+    width: 100%;
+}
+
+.icone_supprimer {
+    color: rgb(192, 0, 0);
+    font-size: 1.5rem;
 }

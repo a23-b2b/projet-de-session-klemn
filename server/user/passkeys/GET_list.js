@@ -6,9 +6,6 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 module.exports = app.get('/list', (req, res) => {
-
-    console.log("HELLO WORLD JE SUIS ICI")
-
     const userToken = req.headers.authorization;
 
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
@@ -24,7 +21,6 @@ module.exports = app.get('/list', (req, res) => {
                 'Content-Type': 'application/json'
             }
         }).then((response) => response.json()).then(json => {
-            console.log(json)
             return res.send(json).status(201)
         });
     });

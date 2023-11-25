@@ -7,6 +7,7 @@ import { Client } from '@passwordlessdev/passwordless-client';
 import { GoPasskeyFill } from "react-icons/go";
 import Timestamp from '../../components/Timestamp';
 import { onAuthStateChanged } from 'firebase/auth';
+import { MdDeleteForever } from 'react-icons/md';
 
 function Securite() {
     const passwordlessClient = new Client({
@@ -72,6 +73,30 @@ function Securite() {
         })
     }
 
+    function deletePasskey(credentialId: string) {
+        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+
+            const confirmation = window.confirm("Voulez vous vraiment supprimer la clé d'accès?")
+
+            if (confirmation) {
+                fetch(process.env.REACT_APP_API_URL + `/user/passkeys/${credentialId}/delete`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        toast.success("Clé d'accès supprimée avec succès.")
+                        getPasskeys(); 
+                    } else {
+                        toast.error(`Une erreur est survenue: (${response.json()})`)
+                    }                                       
+                })
+            }            
+        })
+    }
+
     return (
         <div className={styles.container_parametres}>
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
@@ -88,7 +113,12 @@ function Securite() {
 
                     {passkeysList.map((passkey) => (
                         <div key={passkey.descriptor.id} className={styles.passkey_list_item}>
-                            <h3>{passkey.nickname}</h3>
+                            <div className={styles.titre_passkey_grid}>
+                                <h3 className={styles.titre_passkey}>{passkey.nickname}</h3>
+                                <button className={styles.bouton_supprimer} onClick={() => deletePasskey(passkey.descriptor.id)}>
+                                    <MdDeleteForever className={styles.icone_supprimer}/>
+                                </button>
+                            </div>
                             <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt} /> sur {passkey.device}</p>
                         </div>
                     ))}
