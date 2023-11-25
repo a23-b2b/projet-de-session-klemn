@@ -26,7 +26,6 @@ module.exports = app.post('/new', (req, res) => {
                 'Content-Type': 'application/json'
             }
         }).then((r) => r.json()).then(token => {
-            logger.log("info", `[/user/passkeys/new] User ${userId} (${payload.email} has created a Passkey)`)
             return res.send(token).status(201)
         });
     });

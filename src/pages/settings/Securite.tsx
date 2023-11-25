@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion } from "framer-motion";
 import { auth } from '../../firebase';
@@ -8,6 +8,7 @@ import { GoPasskeyFill } from "react-icons/go";
 import Timestamp from '../../components/Timestamp';
 import { onAuthStateChanged } from 'firebase/auth';
 import { MdDeleteForever } from 'react-icons/md';
+import Modal from '../../components/Modal';
 
 function Securite() {
     const passwordlessClient = new Client({
@@ -15,6 +16,7 @@ function Securite() {
     });
 
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     useEffect(() => {
         getPasskeys();
@@ -35,7 +37,6 @@ function Securite() {
 
                     }).then(response => response.json()).then(response => {
                         setPasskeysList(response["values"])
-                        console.log(response["values"])
 
                     }).catch(error => console.log(error));
                 })
@@ -45,31 +46,32 @@ function Securite() {
 
     function addPasskey() {
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            fetch(process.env.REACT_APP_API_URL + '/user/passkeys/new', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': idToken
-                }
-            }).then(response => response.json()).then(response => {
-                const token = response['token'];
 
-                let keyNickname = prompt("Entrez le nom de la clé d'accès.")
+            let keyNickname = prompt("Entrez le nom de la clé d'accès.");
 
-                passwordlessClient.register(token, keyNickname ? keyNickname : auth.currentUser?.email || '')
-                    .then(verifyToken => {
+            if (keyNickname) {
+                fetch(process.env.REACT_APP_API_URL + '/user/passkeys/new', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    }
+                }).then(response => response.json()).then(response => {
+                    const token = response['token'];
+
+                    passwordlessClient.register(token, keyNickname || "Mon téléphone").then(verifyToken => {
+
                         if (verifyToken) {
-                            // Successfully registered!
-                            console.log("passkey ajoute");
                             getPasskeys();
+
                         } else {
                             console.log("erreur de passkey");
-                            // console.error(error);
                         }
                     })
-            }).catch((error) => {
-                toast.error(`Une erreur est survenue: (${error.code})`)
-            })
+                }).catch((error) => {
+                    toast.error(`Une erreur est survenue: (${error.code})`)
+                })
+            }
         })
     }
 
@@ -88,12 +90,12 @@ function Securite() {
                 }).then(response => {
                     if (response.ok) {
                         toast.success("Clé d'accès supprimée avec succès.")
-                        getPasskeys(); 
+                        getPasskeys();
                     } else {
                         toast.error(`Une erreur est survenue: (${response.json()})`)
-                    }                                       
+                    }
                 })
-            }            
+            }
         })
     }
 
@@ -116,7 +118,7 @@ function Securite() {
                             <div className={styles.titre_passkey_grid}>
                                 <h3 className={styles.titre_passkey}>{passkey.nickname}</h3>
                                 <button className={styles.bouton_supprimer} onClick={() => deletePasskey(passkey.descriptor.id)}>
-                                    <MdDeleteForever className={styles.icone_supprimer}/>
+                                    <MdDeleteForever className={styles.icone_supprimer} />
                                 </button>
                             </div>
                             <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt} /> sur {passkey.device}</p>
