@@ -13,6 +13,8 @@ module.exports = app.post('/:credentialId/delete', (req, res) => {
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;
 
+        logger.log("info", `[/user/passkeys/:credentialId/delete] User ${userId} (${payload.email}) wants to delete Passkey credential >>> ${credentialId})`)
+
         fetch(process.env.PASSWORDLESS_API_URL + '/credentials/list', {
             method: 'POST',
             body: JSON.stringify({
@@ -40,6 +42,7 @@ module.exports = app.post('/:credentialId/delete', (req, res) => {
                             'Content-Type': 'application/json'
                         }
                     }).then((response) => {
+                        if (response.ok) logger.log("info", `[/user/passkeys/:credentialId/delete] User ${userId} (${payload.email} has deleted Passkey credential >>> ${credentialId})`)
                         return res.sendStatus(response.status)
                     })
 

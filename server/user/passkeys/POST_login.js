@@ -23,6 +23,8 @@ module.exports = app.post('/login', (req, res) => {
         if (response.success === true) {
             // Generer le token Firebase et connecter l'utilisateur
 
+            logger.log("info", `[/user/passkeys/login] User ${response.userId} has logged in using a Passkey`)
+
             admin.auth().createCustomToken(response.userId).then((customToken) => {
                 res.send(JSON.stringify({ customToken })).status(200)
 

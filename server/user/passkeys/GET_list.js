@@ -11,6 +11,8 @@ module.exports = app.get('/list', (req, res) => {
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;
 
+        logger.log("info", `[/user/passkeys/list] User ${userId} (${payload.email}) wants to list their Passkeys`)
+
         fetch(process.env.PASSWORDLESS_API_URL + '/credentials/list', {
             method: 'POST',
             body: JSON.stringify({
