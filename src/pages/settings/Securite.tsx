@@ -9,7 +9,7 @@ import Timestamp from '../../components/Timestamp';
 
 function Securite() {
     const passwordlessClient = new Client({
-        apiKey: "klemn:public:8557b931c74a43ae8990c94bbb5aa62c"
+        apiKey: process.env.REACT_APP_PASSWORDLESS_PUBLIC_KEY || ""
     });
 
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
