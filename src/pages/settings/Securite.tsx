@@ -79,10 +79,9 @@ function Securite() {
                     </button>
 
                     {passkeysList.map((passkey) => (
-                        <div key={passkey.descriptor.id}>
-                            <h4>{passkey.device}</h4>
-                            <p>{passkey.nickname}</p>
-                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt}/></p>
+                        <div key={passkey.descriptor.id} className={styles.passkey_list_item}>
+                            <h3>{passkey.nickname}</h3>
+                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt}/> sur {passkey.device}</p>
                         </div>
                     ))}
                 </div>
