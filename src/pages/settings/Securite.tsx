@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { Client } from '@passwordlessdev/passwordless-client';
 import { GoPasskeyFill } from "react-icons/go";
 import Timestamp from '../../components/Timestamp';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function Securite() {
     const passwordlessClient = new Client({
@@ -15,23 +16,30 @@ function Securite() {
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
 
     useEffect(() => {
-        auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            getPasskeys(idToken);
-        })
-    }, []);
+        getPasskeys();
+    }, [])
 
-    function getPasskeys(idToken: string) {
-        fetch(process.env.REACT_APP_API_URL + '/user/passkeys/list', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': idToken
+    function getPasskeys() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+
+                    fetch(process.env.REACT_APP_API_URL + '/user/passkeys/list', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        }
+
+                    }).then(response => response.json()).then(response => {
+                        setPasskeysList(response["values"])
+                        console.log(response["values"])
+
+                    }).catch(error => console.log(error));
+                })
             }
-            
-        }).then(response => response.json()).then(response => {
-            setPasskeysList(response["values"])
-
-        }).catch(error => console.log(error));
+        })
     }
 
     function addPasskey() {
@@ -52,7 +60,7 @@ function Securite() {
                         if (verifyToken) {
                             // Successfully registered!
                             console.log("passkey ajoute");
-                            getPasskeys(idToken);
+                            getPasskeys();
                         } else {
                             console.log("erreur de passkey");
                             // console.error(error);
@@ -81,7 +89,7 @@ function Securite() {
                     {passkeysList.map((passkey) => (
                         <div key={passkey.descriptor.id} className={styles.passkey_list_item}>
                             <h3>{passkey.nickname}</h3>
-                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt}/> sur {passkey.device}</p>
+                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt} /> sur {passkey.device}</p>
                         </div>
                     ))}
                 </div>
