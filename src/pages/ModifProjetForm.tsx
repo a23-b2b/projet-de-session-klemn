@@ -2,11 +2,8 @@ import styles from '../styles/GestionCollab.module.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {useParams} from "react-router";
 import {auth} from "../firebase";
-import {response} from "express";
-
 
 
 function ModifProjetForm() {
@@ -21,62 +18,61 @@ function ModifProjetForm() {
     const [est_ouvert, set_est_ouvert] = useState(false)
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/projet/${projetId}`, {
-                    method: 'GET'
-                }).then(response => response.json())
-                    .then(response => {
-                        const data = response[0];
-                        if (data.compte_id_proprio != user.uid) {
-                            navigate('/');
-                        }
-                        set_titre_projet(data.titre_projet);
-                        set_description_projet(data.description_projet);
-                        set_url_repo_git(data.url_repo_git);
-                        set_est_ouvert(data.est_ouvert);
-                    })
-            } else {
-                navigate('/authenticate')
-            }
-        })
+        const user = auth.currentUser
+        if (user) {
+            fetch(`${process.env.REACT_APP_API_URL}/projet/${projetId}`, {
+                method: 'GET'
+            }).then(response => response.json())
+                .then(response => {
+                    const data = response[0];
+                    if (data.compte_id_proprio != user.uid) {
+                        navigate('/');
+                    }
+                    set_titre_projet(data.titre_projet);
+                    set_description_projet(data.description_projet);
+                    set_url_repo_git(data.url_repo_git);
+                    set_est_ouvert(data.est_ouvert);
+                })
+        } else {
+            navigate('/authenticate')
+        }
+
     }, [projetId])
 
 
     async function modifierProjet() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/projet/update/${projetId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                        body: JSON.stringify({
-                            titre_projet: titre_projet,
-                            description_projet: description_projet,
-                            url_repo_git: url_repo_git,
-                            est_ouvert: est_ouvert
-                        })
-                    }).then(response => {
-                            if (response.ok) {
-                                toast.success("Projet modifié")
-                                navigate('/gestion');
-                            } else {
-                                toast.error('Une erreur est survenue');
-                            }
-                        }).catch((error) => {
-                        toast(error.toString())
-                        toast.error('Une erreur est survenue');
+        const user = auth.currentUser
+        if (user) {
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/update/${projetId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    },
+                    body: JSON.stringify({
+                        titre_projet: titre_projet,
+                        description_projet: description_projet,
+                        url_repo_git: url_repo_git,
+                        est_ouvert: est_ouvert
                     })
+                }).then(response => {
+                    if (response.ok) {
+                        toast.success("Projet modifié")
+                        navigate('/gestion');
+                    } else {
+                        toast.error('Une erreur est survenue');
+                    }
+                }).catch((error) => {
+                    toast(error.toString())
+                    toast.error('Une erreur est survenue');
                 })
+            })
 
-            } else {
-                navigate("/authenticate")
-            }
-        })
+        } else {
+            navigate("/authenticate")
+        }
+
     }
 
     return (
@@ -122,7 +118,7 @@ function ModifProjetForm() {
 
 
                 <div className={styles.conteneurBoutons}>
-                    <button className={'global_bouton'} onClick={() => modifierProjet()}>Sauvegarder les changements</button>
+                    <button className={'global_bouton'} onClick={modifierProjet}>Sauvegarder les changements</button>
 
                 </div>
 
