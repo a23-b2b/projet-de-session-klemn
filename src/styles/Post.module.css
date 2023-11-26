@@ -275,7 +275,7 @@ margin: 30px 0px 30px 0px;
 .share_menu_item:hover {
     transition: 0.3s;
     background-color: var(--auto_accent_color_1);
-    color: var(--auto_accent_color_2);
+    color: var(--auto_selected_button_text_color);
     outline: none;
     cursor: pointer;
 }
