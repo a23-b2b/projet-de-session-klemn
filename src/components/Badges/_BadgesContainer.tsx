@@ -28,7 +28,7 @@ function BadgesContainer(props: Props) {
     }
 
     return (
-        <div>
+        <div className={styles.badges_container}>
             {userBadges?.map((badge) => {
                 if (badge === Badges.DevTeam) {
                     return <Badge icon={<FaComputer />} title={"Developpeur"} key={badge}/>
@@ -48,7 +48,7 @@ function BadgesContainer(props: Props) {
                 }
 
                 return (
-                    <>rien</>
+                    <></>
                 )
             })}
         </div>

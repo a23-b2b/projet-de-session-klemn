@@ -57,7 +57,9 @@ function Modal(props: Props) {
 
                     <button className={styles.bouton_fermer} onClick={closeModal}><GrFormClose className={styles.bouton_fermer_icone} /></button>
 
-                    {props.children}
+                    <div className={'global_container_2'} id={styles["conteneurModal"]}>
+                        {props.children}
+                    </div>
 
                 </motion.div>
             </motion.div>

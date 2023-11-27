@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.css';
-import logo from '../images/logo.png';
+import logo from '../images/logo-klemn.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import { CiCircleList } from 'react-icons/ci';
 import { RiTeamLine } from 'react-icons/ri';
-import { LuSettings } from 'react-icons/lu';
+import { LuMenu, LuSettings } from 'react-icons/lu';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { CgProfile } from 'react-icons/cg';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import Logo from './Logo';
 
 
 function Header() {
@@ -49,58 +49,49 @@ function Header() {
 
         <div id={styles["LogoSite"]}>
           <Link to={'/'}>
-            <img src={logo} width="80" height="80" alt="Logo" />
+            {/* <img src={logo} width="80" height="80" alt="Logo" /> */}
+            <Logo/>
           </Link>
         </div>
 
-
-
         <div>
-
           <Menu
             transition={true}
             menuClassName={styles.dropdown_menu}
             menuButton={
               <div className={styles.dropdown}>
-                <CiCircleList size="40px" id={styles["icone_list"]} />
+                <LuMenu size="40px" id={styles["icone_list"]} />
               </div>
-            }
-          >
-
+            }>
 
             <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate(`/u/${username}`)}>
-
-              <CgProfile />
+              <CgProfile className={styles.dropdown_menu_item_icon}/>
               <span id={styles["link"]}>
                 Profil
               </span>
-
             </MenuItem>
 
-
             <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/parametres/profil')}>
-              <LuSettings />
+              <LuSettings className={styles.dropdown_menu_item_icon}/>
               <span id={styles["link"]}>
                 Paramètres
               </span>
             </MenuItem>
 
             <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/gestion')}>
-              <RiTeamLine />
+              <RiTeamLine className={styles.dropdown_menu_item_icon}/>
               <span id={styles["link"]} >
                 Collaboration
               </span>
             </MenuItem>
 
             <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/authenticate')}>
-              <RiLogoutCircleRLine />
+              <RiLogoutCircleRLine className={styles.dropdown_menu_item_icon}/>
               <span id={styles["link"]}>
                 Déconnexion
               </span>
             </MenuItem>
-
           </Menu>
-
         </div>
       </div>
     </div>
