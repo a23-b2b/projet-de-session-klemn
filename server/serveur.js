@@ -30,7 +30,7 @@ exports.pool = pool;
 /* https://www.npmjs.com/package/express-rate-limit */
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 90, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    max: 512, // Limit each IP to x requests per `window`
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
