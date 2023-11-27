@@ -1,8 +1,16 @@
 #conteneur {
     display: inline-flex;
     margin: 20px;
-    width: 100%;
+    width: 93%;
 }
+
+@media only screen and (max-width: 520px) {
+    #conteneur {
+        width:90%;
+    }
+  }
+
+
 
 #conteneurTableMatieres {
     border-radius: 15px;
@@ -24,7 +32,7 @@
 }
 
 #conteneurPage {
-    width: 100%;
+    width: max-content;
     text-align: justify;
     margin: 0 40px;
 }
@@ -43,4 +51,3 @@
     margin: 5px 20px;
     opacity: .7;
 }
-

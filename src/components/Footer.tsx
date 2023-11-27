@@ -30,104 +30,10 @@ function Footer() {
                     </div>
                 </div>
 
-                <div id={styles["SectionDroite"]}>
-                    {/* Section Droite */}
-
-                    <div className={styles.column}>
-                        {/* Col 1 */}
-                        <div>
-                            {/* Titre col 1 */}
-                            <h2>Produits</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 1 */}
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>À propos</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Resources</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Projet</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Entreprise</h3>
-                                </Link>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className={styles.column}>
-                        {/* Col 2 */}
-                        <div>
-                            {/* Titre col 2 */}
-                            <h2>Platformes</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 2 */}
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>API</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Github</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>React</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Oracle</h3>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.column}>
-                        {/* Col 3 */}
-                        <div >
-                            {/* Titre col 3 */}
-                            <h2>Support</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 3 */}
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Documentation</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Forum</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Services</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/klemn'} className='link'>
-                                    <h3>Status</h3>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+               
+                   
+                    
+                    
             </div>
 
             <div id={styles["FooterBas"]}>
