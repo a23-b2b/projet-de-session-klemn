@@ -1,7 +1,7 @@
 #conteneur {
     display: inline-flex;
     margin: 20px;
-    width: 93%;
+    width: 95%;
 }
 
 @media only screen and (max-width: 520px) {
@@ -9,8 +9,6 @@
         width:90%;
     }
   }
-
-
 
 #conteneurTableMatieres {
     border-radius: 15px;
