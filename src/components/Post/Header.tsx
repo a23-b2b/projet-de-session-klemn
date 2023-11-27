@@ -10,6 +10,8 @@ import { FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useState } from 'react';
 import Modal from '../Modal';
+import modalStyles from '../../styles/Modal.module.css'
+
 
 interface HeaderProps {
     date: string;
@@ -242,7 +244,7 @@ const PostHeader = (props: HeaderProps) => {
                     <h2 className={styles.titre}>Publication</h2>
                     <div className={styles.form}>
                         <textarea
-                            className={styles.textarea}
+                            className={'global_textarea'}
                             rows={10}
                             maxLength={4000}
                             placeholder="Exprimez-vous!"
@@ -253,9 +255,9 @@ const PostHeader = (props: HeaderProps) => {
                             }} />
                     </div>
 
-                    <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
-                        <span id={styles["span"]}>{nbCaracteres}/4000</span>
-                        <button className={'global_bouton'} onClick={() => handleEditPost()}>
+                    <div className={modalStyles.conteneurDiv} id={modalStyles["conteneurDivFooter"]}>
+                        <span id={modalStyles["span"]}>{nbCaracteres}/4000</span>
+                        <button className={'global_selected_bouton'} onClick={() => handleEditPost()}>
                             Publier
                         </button>
                     </div>
