@@ -7,6 +7,7 @@ import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { PiLayoutFill } from 'react-icons/pi';
+import { GoShieldLock } from "react-icons/go";
 
 function Parametres() {
     const navigate = useNavigate()
@@ -47,9 +48,18 @@ function Parametres() {
                         </div>
                     </Link>
 
-                    <Link className={styles.link} to={'interface'} onClick={() => setSelectedSettingsItem(2)} >
+                    <Link className={styles.link} to={'securite'} onClick={() => setSelectedSettingsItem(2)} >
                         <div className={`${styles.settings_link} ${selectedSettingsItem === 2 ? styles.selected : ''}`}>
-                        <span>
+                            <span>
+                                <GoShieldLock className={styles.setting_icon} />
+                                <span className={styles.setting_link_title}>Sécurité</span>
+                            </span>
+                        </div>
+                    </Link>
+
+                    <Link className={styles.link} to={'interface'} onClick={() => setSelectedSettingsItem(3)} >
+                        <div className={`${styles.settings_link} ${selectedSettingsItem === 3 ? styles.selected : ''}`}>
+                            <span>
                                 <PiLayoutFill className={styles.setting_icon} />
                                 <span className={styles.setting_link_title}>Interface</span>
                             </span>
