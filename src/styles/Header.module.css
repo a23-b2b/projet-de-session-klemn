@@ -34,6 +34,14 @@
     margin-block: auto;
 }
 
+.logo {
+    height: 56px;
+    fill: var(--auto_accent_color_1);
+    stroke: var(--auto_accent_color_1);
+    stroke-linejoin: bevel;
+    stroke-width: 2px;
+}
+
 /* Menu dropdown */
 #link {
     margin: auto auto auto 10px;

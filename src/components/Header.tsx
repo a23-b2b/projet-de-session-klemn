@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.css';
-import logo from '../images/logo.png';
+import logo from '../images/logo-klemn.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { RiTeamLine } from 'react-icons/ri';
 import { LuMenu, LuSettings } from 'react-icons/lu';
@@ -10,6 +10,7 @@ import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import Logo from './Logo';
 
 
 function Header() {
@@ -48,7 +49,8 @@ function Header() {
 
         <div id={styles["LogoSite"]}>
           <Link to={'/'}>
-            <img src={logo} width="80" height="80" alt="Logo" />
+            {/* <img src={logo} width="80" height="80" alt="Logo" /> */}
+            <Logo/>
           </Link>
         </div>
 
