@@ -39,7 +39,7 @@ const PostContent = (props: ContentProps) => {
                 :
 
                 <Link to={`/p/${props.idPost}`} className={styles.titre}>
-                    <h2 className={'global_title'}>
+                    <h2>
                         {props.titre}
                     </h2>
                 </Link>
