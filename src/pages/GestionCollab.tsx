@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { auth } from '../firebase';
 import { RxCross2 } from 'react-icons/rx';
 import { RiAddCircleLine } from 'react-icons/ri';
+import {onAuthStateChanged} from "firebase/auth";
 
 export const METHODE = {
     EMAIL: "1",
@@ -282,44 +283,44 @@ function GestionCollab() {
     }
 
     async function getProjets() {
-        const user = auth.currentUser;
-        if (user) {
-            const uid = user.uid;
-            fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then(response => response.json())
-                .then(json => {
-                    console.log(json)
-                    setProjets(json)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
                 })
-                .catch(error => toast.error("Erreur"));
-        } else {
-            navigate("/authenticate")
-        }
+                    .then(response => response.json())
+                    .then(json => {
+                        setProjets(json)
+                    })
+                    .catch(error => toast.error("Erreur"));
+            } else {
+                navigate("/authenticate")
+            }
+        })
     }
 
 
     async function getDemandeCollab() {
-        const user = auth.currentUser;
-        if (user) {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
 
-            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': idToken
-                    },
-
-                }).then(response => response.json()).then(json => {
-                    setDemandesCollab(json)
-                }).catch(error => toast.error("Erreur"));
-            })
-        } else {
-            navigate("/authenticate")
-        }
+                    }).then(response => response.json()).then(json => {
+                        setDemandesCollab(json)
+                    }).catch(error => toast.error("Erreur"));
+                })
+            } else {
+                navigate("/authenticate")
+            }
+        })
     }
 
 
