@@ -94,7 +94,6 @@ margin: 30px 0px 30px 0px;
 .contenu {
     word-wrap: break-word;
     white-space: pre-wrap;
-    text-align: justify;
     /* opacity: .8; */
     color: var(--auto_text_secondary_color);
     margin-bottom: 40px;
