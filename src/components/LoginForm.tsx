@@ -40,10 +40,10 @@ function LoginForm() {
             });
     }
 
-    function credentialValide(uid: string): Boolean {
-        let estValide = true
+    function credentialValide(uid: string, ghid: string): Boolean {
+        let estValide = false
 
-        fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/validate`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/${ghid}/validate`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -126,28 +126,32 @@ function LoginForm() {
                     console.log("User info: " + JSON.stringify(user))
 
                     // check si UID firebase est dans BD sinon creer le compte
-                    if (credentialValide(user.uid) == false) {
-                        // IdP data available using getAdditionalUserInfo(result)
-                        const additionalInfo = getAdditionalUserInfo(result)
-                        if (additionalInfo) {
-                            if (additionalInfo.profile) {
-                                const profile = additionalInfo.profile
-                                var prenom = "UNKNOWN"
-                                var nom = "UNKNOWN"
 
-                                const info: infoCompte = {
-                                    id_compte: typeof (user.uid) == 'string' ? user.uid : undefined,
-                                    username: typeof (profile.login) == 'string' ? profile.login : "",
-                                    prenom: prenom,
-                                    nom: nom,
-                                    email: typeof (user.email) == 'string' ? user.email : "",
-                                    id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
-                                }
+                    // IdP data available using getAdditionalUserInfo(result)
+                    const additionalInfo = getAdditionalUserInfo(result)
+                    if (additionalInfo) {
+                        if (additionalInfo.profile) {
+                            const profile = additionalInfo.profile
+                            const id : string = typeof (profile.id) == 'number' ? profile.id.toString() : ""
 
-                                creerNouveauCompteGithub(info)
+                            if (credentialValide(user.uid, id) == false) {
+                            var prenom = "UNKNOWN"
+                            var nom = "UNKNOWN"
+
+                            const info: infoCompte = {
+                                id_compte: typeof (user.uid) == 'string' ? user.uid : undefined,
+                                username: typeof (profile.login) == 'string' ? profile.login : "",
+                                prenom: prenom,
+                                nom: nom,
+                                email: typeof (user.email) == 'string' ? user.email : "",
+                                id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
                             }
+
+                            creerNouveauCompteGithub(info)
+                        }
                         }
                     }
+
                 }
 
 

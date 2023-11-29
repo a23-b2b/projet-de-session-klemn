@@ -30,9 +30,6 @@ function RegisterForm() {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    // le post de creation de compte actuel valide les info et puis create user mais avec github cest different le service creeer le user par lui meme
-    // Il faut donc prendre en charge deux maniere de creation de compte
-    // Il y a aussi aucun mot de passe 
     function creerNouveauCompte(info: infoCompte) {
         fetch(`${process.env.REACT_APP_API_URL}/user/create`, {
             method: 'POST',
