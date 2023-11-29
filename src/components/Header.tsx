@@ -10,9 +10,10 @@ import { CgProfile } from 'react-icons/cg';
 import { AiFillGithub } from 'react-icons/ai';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
-import { onAuthStateChanged, unlink } from 'firebase/auth';
+import { onAuthStateChanged, signOut, unlink } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } from 'firebase/auth'
+import { FirebaseError } from 'firebase/app';
 
 function Header() {
   const navigate = useNavigate();
@@ -94,15 +95,27 @@ function Header() {
 
   async function dissocierCompteGithub() {
     const auth = getAuth();
-    unlink(auth.currentUser!, GithubAuthProvider.PROVIDER_ID).then(() => {      
+    unlink(auth.currentUser!, GithubAuthProvider.PROVIDER_ID).then(() => {
       toast.success("Votre compte a été dissocié avec sussès!")
       setGithubLinked(false)
     }).catch((error) => {
       toast.error(error)
       console.log(JSON.stringify(error))
     });
-    
 
+
+  }
+
+  function deco() {
+    const auth = getAuth();
+
+    signOut(auth).then(() => {
+      toast.success("Déco avec succès!")
+    }).catch((error) => {
+      toast.error(error)
+    })
+
+    navigate('/authenticate')
   }
 
   return (
@@ -144,7 +157,7 @@ function Header() {
                   Collaboration
                 </span>
               </MenuItem>
-              <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/authenticate')}>
+              <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
                 <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
                 <span id={styles["link"]} className={'link'}>
                   Déconnexion
