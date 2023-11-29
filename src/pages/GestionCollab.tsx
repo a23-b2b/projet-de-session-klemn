@@ -2,7 +2,6 @@ import styles from '../styles/GestionCollab.module.css';
 import GestionDemandeCollab, { PropDemandeCollab } from '../components/GestionDemandeCollab'
 import GestionProjetRapide from '../components/GestionProjetRapide'
 import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { auth } from '../firebase';
@@ -52,31 +51,29 @@ function GestionCollab() {
     }
 
     async function ajouterCollab() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user?.uid === idProprio) {
-                {/* Nous utilisons le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                        body: JSON.stringify({
-                            id_demande_collab: null,
-                            methode: methode
-                        })
+        const user = auth.currentUser
+        if (user?.uid === idProprio) {
+            {/* Nous utilisons le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    },
+                    body: JSON.stringify({
+                        id_demande_collab: null,
+                        methode: methode
                     })
-                }).catch(error => {
-                    if (error) {
-                        toast.error(error)
-                    }
-                });
-            } else {
-                navigate("/authenticate")
-            }
-        })
+                })
+            }).catch(error => {
+                if (error) {
+                    toast.error(error)
+                }
+            });
+        } else {
+            navigate("/authenticate")
+        }
     }
 
     const supprimerProjet = (projet: object) => {
@@ -165,12 +162,6 @@ function GestionCollab() {
                         </div>
 
                         <div  className={styles.conteneurFiltreAjout}>
-
-                            <div className={styles.conteneurFiltreId}>
-                                <div className={styles.conteneurFiltreId}>
-                                    <p className={styles.filtre}>ID Filtre: {idProjetFiltre}</p>
-                                </div>
-                            </div>
                             <div className={styles.conteneurBoutonAjouter}>
                                 <Link to={`/projet`}>
                                     <button id={styles["boutonNouveauProjet"]}  >
@@ -291,46 +282,44 @@ function GestionCollab() {
     }
 
     async function getProjets() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const uid = user.uid;
-                fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
+        const user = auth.currentUser;
+        if (user) {
+            const uid = user.uid;
+            fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json)
+                    setProjets(json)
                 })
-                    .then(response => response.json())
-                    .then(json => {
-                        console.log(json)
-                        setProjets(json)
-                    })
-                    .catch(error => toast.error("Erreur"));
-            } else {
-                navigate("/authenticate")
-            }
-        })
+                .catch(error => toast.error("Erreur"));
+        } else {
+            navigate("/authenticate")
+        }
     }
 
 
     async function getDemandeCollab() {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
+        const user = auth.currentUser;
+        if (user) {
 
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    },
 
-                    }).then(response => response.json()).then(json => {
-                        setDemandesCollab(json)
-                    }).catch(error => toast.error("Erreur"));
-                })
-            } else {
-                navigate("/authenticate")
-            }
-        })
+                }).then(response => response.json()).then(json => {
+                    setDemandesCollab(json)
+                }).catch(error => toast.error("Erreur"));
+            })
+        } else {
+            navigate("/authenticate")
+        }
     }
 
 
