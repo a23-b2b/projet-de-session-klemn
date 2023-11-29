@@ -53,13 +53,11 @@ function LoginForm() {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json()).then(response => {
-            console.log("Stringify crendent val" + JSON.stringify(response))
             return response.valide
         }).catch((err) => {
             console.log(JSON.stringify(err))
             throw err
         })
-        console.log("Stringify retour val" + JSON.stringify(retour))
 
         return retour
     }
