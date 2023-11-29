@@ -155,25 +155,12 @@ function RegisterForm() {
 
         const auth = getAuth();
         signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                const credential = GithubAuthProvider.credentialFromResult(result);
-                if (credential) {
-                    // Credentials: {"accessToken":"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","pendingToken":null,"providerId":"github.com","signInMethod":"github.com"}
-                    const token = credential.accessToken;
-                    console.log("Credentials: " + JSON.stringify(credential))
-                }
-
+            .then((result) => {                
                 // The signed-in user info.
-                const user = result.user;
-                if (user) {
-                    console.log(JSON.stringify(user))
-                }
+                const user = result.user;                
                 // IdP data available using getAdditionalUserInfo(result)
                 const additionalInfo = getAdditionalUserInfo(result)
-                if (additionalInfo) {                    
-                    console.log(JSON.stringify( additionalInfo))
-                    
+                if (additionalInfo) {                                        
                     if (additionalInfo.profile && user) {
                         const profile = additionalInfo.profile
                         var prenom = "UNKNOWN"
@@ -193,7 +180,7 @@ function RegisterForm() {
                     }
                 }                            
             }).catch((error) => {
-                console.log(JSON.stringify(error))                
+                toast.error(error)                
             });
     }    
 

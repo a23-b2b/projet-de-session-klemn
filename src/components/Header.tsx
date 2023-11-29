@@ -84,7 +84,6 @@ function Header() {
 
 
           }).catch((error) => {
-            console.log(JSON.stringify(error))
             toast.error(error)
           });
         })
@@ -100,7 +99,6 @@ function Header() {
       setGithubLinked(false)
     }).catch((error) => {
       toast.error(error)
-      console.log(JSON.stringify(error))
     });
 
 
