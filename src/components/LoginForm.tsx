@@ -41,7 +41,7 @@ function LoginForm() {
     }
 
     function credentialValide(uid: string): Boolean {
-        let estValide = false
+        let estValide = true
 
         fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/validate`, {
             method: 'GET',
@@ -49,7 +49,7 @@ function LoginForm() {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json()).then(response => {
-            estValide = response.valide
+            return response.valide
         }).catch((err) => {
             throw err
         })
@@ -108,7 +108,7 @@ function LoginForm() {
     }
 
 
-    function handleGithubLogin(): void {
+    function handleGithubLogin() {
         const provider = new GithubAuthProvider();
 
         signInWithPopup(auth, provider)

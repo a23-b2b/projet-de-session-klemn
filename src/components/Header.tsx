@@ -18,7 +18,7 @@ import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } fro
 function Header() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
-  
+
   const githubProvider = new GithubAuthProvider();
 
   useEffect(() => {
@@ -28,58 +28,60 @@ function Header() {
   async function getUsername() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-          user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-              fetch(`${process.env.REACT_APP_API_URL}/username/${user.uid}`, {
-                  method: 'GET',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'authorization': idToken
-                  },
-              }).then(response => response.json()).then(response => {
-                  
-                  setUsername(response[0].nom_utilisateur)
-              }).catch((error) => {
-                  toast.error(`Une erreur est survenue: ${error}`)
-              })
+        user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+          fetch(`${process.env.REACT_APP_API_URL}/username/${user.uid}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'authorization': idToken
+            },
+          }).then(response => response.json()).then(response => {
+
+            setUsername(response[0].nom_utilisateur)
+          }).catch((error) => {
+            toast.error(`Une erreur est survenue: ${error}`)
           })
+        })
       }
-  })
+    })
   }
 
   async function lierCompteGithub() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-          user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-            linkWithPopup(user, githubProvider).then((result) => {
-                toast("Compter lier avec success")
-                const credential = GithubAuthProvider.credentialFromResult(result);
-                const user = result.user;
-                const additionalInfo = getAdditionalUserInfo(result)
-                
-                return additionalInfo
-            }).then((additionalInfo) => {
-              // fetch to update github id
-              fetch(`${process.env.REACT_APP_API_URL}/user/sync-github`, {
-                method: 'POST',
-                headers: {
+        user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+          linkWithPopup(user, githubProvider).then((result) => {
+            toast("Compter lier avec success")
+            const credential = GithubAuthProvider.credentialFromResult(result);
+            const user = result.user;
+            const additionalInfo = getAdditionalUserInfo(result)!
+            if (additionalInfo) {
+              if (additionalInfo.profile) {
+                const profile = additionalInfo.profile
+                fetch(`${process.env.REACT_APP_API_URL}/user/sync-github`, {
+                  method: 'POST',
+                  headers: {
                     'Content-Type': 'application/json',
                     'authorization': idToken
-                },
-                body: JSON.stringify({
-                  id_github: additionalInfo?.providerId
-                })
-              }).catch((error) => {
-                toast.error(`Une erreur de BD est survenue:`, error)
-              })
+                  },
+                  body: JSON.stringify({
+                    id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
+                  })
 
-            }).catch((error) => {
-              console.log(error.toString())
-              toast.error('Erreur: ', error)
-            });
-          })
+                })
+
+              }
+            }
+
+
+          }).catch((error) => {
+            console.log(error.toString())
+            toast.error('Erreur: ', error)
+          });
+        })
       }
-  })
-    
+    })
+
   }
 
   return (

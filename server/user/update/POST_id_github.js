@@ -10,7 +10,7 @@ const { GithubAuthProvider, getAuth, linkWithPopup } = require('firebase/auth')
 module.exports = app.post('/sync-github', (req, res) => {
     const userToken = req.headers.authorization;
     const id_github = req.body.id_github;
-
+    
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;
 
