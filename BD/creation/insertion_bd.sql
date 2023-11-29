@@ -6,12 +6,6 @@ VALUES
     ('yjoI2WF3w4WVr3kD9L01shSjjnL2', NOW(), 'nom de louis', 'prenom de louis', 'usernameLouis', 'Louis Nom Affichage', 'louis@louis.com', '777-555-1234', 0, 0, 'Je viens d''arriver sur Klemn!', 2),
     ('vOArxLHmRBO5ixknQ1LUbwcopCp2', NOW(), 'nom de marie', 'prenom de marie', 'usernamemarie', 'marie Nom Affichage', 'marie@marie.com', '222-555-1234', 0, 0, 'Je suis Marie!', 2);
 
-INSERT INTO compte (id_compte, courriel, date_creation_compte, prenom, nom, nom_utilisateur, nom_affichage, biographie,
-                    url_image_profil, url_image_banniere, autorisation, telephone, nombre_abonnes, nombre_abonnements)
-VALUES ('deleted', 'deleted@email.com', '1970-01-01 00:00:00', 'Deleted', 'Deleted', 'deleted', '[DELETED]', null,
-        'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdeleted.svg?alt=media&token=81467bd4-3ce7-442e-b016-2d34d8d2d3c1',
-        null, 1, null, null, null);
-
 INSERT INTO post (
   id_post, id_compte, id_type_post, 
   titre, contenu, nombre_likes, nombre_dislikes, 
