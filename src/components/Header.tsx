@@ -92,15 +92,28 @@ function Header() {
 
   }
 
-  async function dissocierCompteGithub() {
-    const auth = getAuth();
-    unlink(auth.currentUser!, GithubAuthProvider.PROVIDER_ID).then(() => {
-      toast.success("Votre compte a été dissocié avec sussès!")
-      setGithubLinked(false)
-    }).catch((error) => {
-      toast.error(error)
-    });
+  async function dissocierCompteGithub() {    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        user.getIdToken(true).then((idToken) => {
+          unlink(user, GithubAuthProvider.PROVIDER_ID).then(() => {
+            toast.success("Votre compte a été dissocié avec sussès!")
+            
+            fetch(`${process.env.REACT_APP_API_URL}/user/unsync-github`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'authorization': idToken
+              }
+            })
 
+            setGithubLinked(false)
+          }).catch((error) => {
+            toast.error(error)
+          });
+        })
+      }
+    })
 
   }
 

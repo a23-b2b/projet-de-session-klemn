@@ -60,6 +60,9 @@ app.use('/user', get_profil);
 const valider_user = require('./user/[user_id]/GET_id_compte.js')
 app.use('/user', valider_user)
 
+const reset_idgh = require('./user/update/POST_id_github_reset.js')
+app.use('/user', reset_idgh)
+
 const get_username = require('./user/[username]/GET_username.js')
 app.use('/username', get_username);
 
