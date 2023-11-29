@@ -119,8 +119,6 @@ function Header() {
   }
 
   function deco() {
-    const auth = getAuth();
-
     signOut(auth).then(() => {
       toast.success("Déco avec succès!")
     }).catch((error) => {
