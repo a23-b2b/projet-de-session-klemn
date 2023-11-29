@@ -1,0 +1,51 @@
+#conteneur {
+    display: inline-flex;
+    margin: 20px;
+    width: 95%;
+}
+
+@media only screen and (max-width: 520px) {
+    #conteneur {
+        width:90%;
+    }
+  }
+
+#conteneurTableMatieres {
+    border-radius: 15px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    width: 400px;
+    height: fit-content;
+}
+
+#conteneurTableMatieres h2 {
+    margin-left: 10px;
+    opacity: .95;
+}
+
+#conteneurTableMatieres h3 {
+    margin-left: 15px;
+    opacity: .85;
+}
+
+#conteneurPage {
+    width: max-content;
+    text-align: justify;
+    margin: 0 40px;
+}
+
+#conteneurPage h1 {
+    text-align: center;
+}
+
+#conteneurPage h2 {
+    opacity: .8;
+    text-align: left;
+    margin-left: 20px;
+}
+
+#conteneurPage p {
+    margin: 5px 20px;
+    opacity: .7;
+}

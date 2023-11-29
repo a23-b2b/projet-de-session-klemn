@@ -18,118 +18,22 @@ function Footer() {
                 <div id={styles["SectionGauche"]}>
                     {/* Section Gauche */}
                     <h1>KLEMN</h1>
-
                     <div>
-
-                        <h3>Curabitur id vestibulum nulla.
-                            Phasellus vehicula sem odio, non posuere tortor porta at.
-                            Integer tempor rutrum lorem, sed sagittis lacus commodo ac.
-                            Nullam non ex a ligula ornare eleifend.
-                            In vestibulum mollis nulla sed semper.
-                            Sed bibendum, nunc sed tincidunt feugiat, nisl nisl bibendum diam,
-                            at imperdiet lacus lacus vitae lacus. Proin a porttitor dui. </h3>
+                        <h3>
+                            Explorez une multitude de possibilités sur KLEMN, 
+                            où chaque section est conçue pour enrichir votre expérience. 
+                            Découvrez nos produits innovants qui repoussent les limites de la collaboration en ligne.
+                            Plongez dans l'histoire et la mission de notre entreprise avec la section "À propos",
+                             et explorez les ressources qui vous aideront à maximiser votre utilisation de la plateforme.
+                        </h3>
 
                     </div>
                 </div>
 
-                <div id={styles["SectionDroite"]}>
-                    {/* Section Droite */}
-
-                    <div className={styles.column}>
-                        {/* Col 1 */}
-                        <div>
-                            {/* Titre col 1 */}
-                            <h2>Produits</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 1 */}
-                            <div>
-                                <Link to={'/apropos'} className='link'>
-                                    <h3>À propos</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Resources</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Projet</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Entreprise</h3>
-                                </Link>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className={styles.column}>
-                        {/* Col 2 */}
-                        <div>
-                            {/* Titre col 2 */}
-                            <h2>Platformes</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 2 */}
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>API</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Github</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>React</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Oracle</h3>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={styles.column}>
-                        {/* Col 3 */}
-                        <div >
-                            {/* Titre col 3 */}
-                            <h2>Support</h2>
-                        </div>
-                        <div>
-                            {/* Éléments col 3 */}
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Documentation</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Forum</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Services</h3>
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to={'/forum'} className='link'>
-                                    <h3>Status</h3>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+               
+                   
+                    
+                    
             </div>
 
             <div id={styles["FooterBas"]}>
@@ -142,18 +46,18 @@ function Footer() {
 
                 <div id={styles["FooterBasElements"]}>
 
-                    <Link to={'/forum'} className='link'>
+                    <Link to={'/klemn'} className='link'>
                         <h3>Termes d'utilisation</h3>
                     </Link>
 
 
-                    <Link to={'/forum'} className='link'>
+                    <Link to={'/klemn'} className='link'>
                         <h3>Confidentialité et sécurité</h3>
                     </Link>
 
 
-                    <Link to={'/forum'} className='link'>
-                        <h3>Qu'est-ce que KLEMN ?</h3>
+                    <Link to={'/klemn'} className='link'>
+                        <h3>Qu'est-ce que KLEMN?</h3>
                     </Link>
                 </div>
 
