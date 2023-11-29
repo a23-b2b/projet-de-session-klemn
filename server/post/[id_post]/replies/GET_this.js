@@ -9,10 +9,9 @@ module.exports = app.get('/:post_id/replies', (req, res) => {
 
     pool.query(`
         SELECT post_view.*,
-            vote.id_compte AS vote_user_id,
-            vote.score
+            vote.score as vote
         FROM post_view
-            LEFT JOIN vote ON post_view.id_post = vote.id_post AND post_view.id_compte = ?
+            LEFT JOIN vote ON post_view.id_post = vote.id_post AND vote.id_compte = ?
         where post_view.id_parent like ?
         and post_view.id_type_post != 7
         order by date_publication desc;`,
