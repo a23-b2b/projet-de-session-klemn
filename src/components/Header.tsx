@@ -14,18 +14,18 @@ import { onAuthStateChanged } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } from 'firebase/auth'
 
-
 function Header() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const [githubLinked, setGithubLinked] = useState(false)
 
   const githubProvider = new GithubAuthProvider();
 
   useEffect(() => {
-    getUsername();
+    getUser();
   }, []);
 
-  async function getUsername() {
+  async function getUser() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         user.getIdToken(/* forceRefresh */ true).then((idToken) => {
@@ -38,6 +38,12 @@ function Header() {
           }).then(response => response.json()).then(response => {
 
             setUsername(response[0].nom_utilisateur)
+            if (response[0].id_github == null) {
+              setGithubLinked(false)
+            } else {
+              setGithubLinked(true)
+            }
+            
           }).catch((error) => {
             toast.error(`Une erreur est survenue: ${error}`)
           })
@@ -45,6 +51,7 @@ function Header() {
       }
     })
   }
+
 
   async function lierCompteGithub() {
     onAuthStateChanged(auth, (user) => {
@@ -65,7 +72,7 @@ function Header() {
                     'authorization': idToken
                   },
                   body: JSON.stringify({
-                    id_github: typeof(profile.id) == 'number' ? profile.id.toString() : undefined,
+                    id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
                   })
 
                 })
@@ -75,8 +82,8 @@ function Header() {
 
 
           }).catch((error) => {
-            console.log(error.toString())
-            toast.error('Erreur: ', error)
+            console.log(JSON.stringify(error))
+            toast.error('Erreur: ', error.code)
           });
         })
       }
@@ -129,13 +136,14 @@ function Header() {
                   Déconnexion
                 </span>
               </MenuItem>
-              {/*TODO: Check si deja linked sinon propose
-              <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
-                <AiFillGithub className={styles.dropdown_menu_icon} />
-                  <span  id={styles["link"]} className={'link'}>
+              {!githubLinked &&
+                <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
+                  <AiFillGithub className={styles.dropdown_menu_icon} />
+                  <span id={styles["link"]} className={'link'}>
                     Lier Compte GitHub
                   </span>
-            </MenuItem>*/}
+                </MenuItem>
+              }
             </Menu>
           </div>
         </div>
