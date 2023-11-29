@@ -259,7 +259,7 @@ const PostHeader = (props: HeaderProps) => {
                     <h2 className={styles.titre}>Historique de modifications</h2>
                     <p>Récent ➝ ancien</p>
                     {!editHistory ? <Chargement /> :
-                        <div>
+                        <div className={styles.edit_history_container}>
                             {editHistory.map(version => {
                                 return (
                                     <div className={styles.edit_history_item}>
