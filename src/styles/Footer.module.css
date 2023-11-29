@@ -7,7 +7,7 @@
 /*Footer Top Part */
 
 #FooterHaut {
-    margin: auto 5% auto 5%;
+    margin: 10px 5% ;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
