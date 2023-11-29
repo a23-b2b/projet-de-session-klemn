@@ -51,6 +51,20 @@ function ProjetForm() {
         })
     }
 
+    /*Set Theme on Refresh*/
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
+     
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+
+    }
+
+    useEffect(() => {
+        changeTheme(hueLS, saturationLS);
+      }, []);
+
     return (
         <>
             <div id={styles["conteneurCreerProjet"]} className={'global_container_1'}>

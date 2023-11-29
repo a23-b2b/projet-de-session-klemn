@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import styles from '../styles/Landing.module.css'
 import RegisterForm from '../components/RegisterForm';
@@ -8,9 +8,23 @@ import { Client } from '@passwordlessdev/passwordless-client';
 function Landing() {
     const [formIsLogin, setFormIsLogin] = useState(true);
 
-    return (
+    /*Set Theme on Refresh*/
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
+     
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
 
-        <div className={styles.flexbox}>
+    }
+
+    useEffect(() => {
+        changeTheme(hueLS, saturationLS);
+      }, []);
+
+    return (
+        
+        <div className={styles.flexbox}  >
             <div className={styles.flex_child}>
 
                 {formIsLogin && (

@@ -78,14 +78,39 @@ function Interface() {
 
     const [selectedOption, setSelectedOption] = useState(0);
 
+    
 
-    const [hue, setData] = useState(0);
-    const [saturation, setSaturation] = useState(0);
+    /*Hue/Saturation */
+
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
+     
+    const [hue, setHue] = useState(hueLS || 0);
+    const [saturation, setSaturation] = useState(saturationLS || 0);
+
 
     function changeTheme(hue: number, saturation: number) {
         document.documentElement.style.setProperty('--base_h', hue.toString())
         document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+
     }
+
+
+    useEffect(() => {
+        if (typeof(Storage) !== "undefined") {
+            // Local storage is available
+            window.localStorage.setItem('hue', JSON.stringify(hue));
+            window.localStorage.setItem('saturation', JSON.stringify(saturation));
+        } else {
+            // Local storage is not supported
+            console.error("Local storage is not supported in this browser.");
+            
+        }
+
+      changeTheme(hueLS, saturationLS)
+    }, [hue || saturation])
+
+
 
     return (
         <div className={styles.container_parametres}>
@@ -147,7 +172,7 @@ function Interface() {
                         max="360"
                         value={hue}
                         onChange={(e) => {
-                            setData(parseInt(e.target.value));
+                            setHue(parseInt(e.target.value));
                             changeTheme(hue, saturation);
                         }} />
 
@@ -160,6 +185,8 @@ function Interface() {
                             setSaturation(parseInt(e.target.value));
                             changeTheme(hue, saturation);
                         }} />
+
+                    
                 </div>
 
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
 import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
@@ -225,6 +225,21 @@ function ModifierProfil() {
             }
         }
     }
+
+
+    /*Set Theme on Refresh*/
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
+     
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+
+    }
+
+    useEffect(() => {
+        changeTheme(hueLS, saturationLS);
+      }, []);
 
     return (
         <div className={styles.container_parametres}>

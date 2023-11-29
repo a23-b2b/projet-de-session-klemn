@@ -3,9 +3,23 @@ import styles from '../styles/klemn.module.css'
 import { Link } from 'react-router-dom';
 
 
+
+
 function klemn() {
 
+    /*Set Theme on Refresh
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
 
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+
+    }
+
+    useEffect(() => {
+        changeTheme(hueLS, saturationLS);
+    }, []);*/
 
     function handleClickScroll(id: any) {
         const element = document.getElementById(id);
@@ -16,6 +30,19 @@ function klemn() {
     }
 
 
+    /*Set Theme on Refresh
+    let hueLS = parseInt(window.localStorage.getItem('hue') || "");
+    let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
+     
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+
+    }
+
+    useEffect(() => {
+        changeTheme(hueLS, saturationLS);
+      }, []);*/
 
 
 
