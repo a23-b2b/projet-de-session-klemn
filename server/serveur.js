@@ -11,10 +11,9 @@ const rateLimit = require('express-rate-limit')
 
 dotenv.config();
 
-let firebaseKeyLocation = process.env.GOOGLE_APPLICATION_CREDENTIALS || "./firebaseServiceAccountKey.json"
-
+const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
 exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseKeyLocation),
+    credential: admin.credential.cert(firebaseServiceAccount),
     storageBucket: 'klemn-702af.appspot.com/'
 });
 
