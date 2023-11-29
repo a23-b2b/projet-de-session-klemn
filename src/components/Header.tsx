@@ -182,6 +182,7 @@ function Header() {
                   </span>
                 </MenuItem>
                 :
+                // faudrait check ici si un autre auth provider est dispo, sinon on devrait pas pouvoir le disso
                 <MenuItem className={styles.dropdown_menu_item} onClick={() => dissocierCompteGithub()}>
                   <AiFillGithub className={styles.dropdown_menu_icon} />
                   <span id={styles["link"]} className={'link'}>
