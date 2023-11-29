@@ -4,7 +4,7 @@ import poubelle from '../images/icn-delete.png';
 import ouvert from '../images/icn-open.png';
 import collaboration from '../images/icn-collaboration.png';
 import fermer from '../images/icn-closed.png';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import {Link, useNavigate} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ import { GoTrash } from 'react-icons/go';
 import {Tooltip} from "@chakra-ui/react";
 import {VscEdit} from "react-icons/vsc";
 import {response} from "express";
+import {auth} from "../firebase";
 
 
 
@@ -47,7 +48,6 @@ function GestionProjetRapide(props: PropsProjet) {
             "et les publications associées à ce projet seront supprimées.");
 
         if (confirmationDelete) {
-            const auth = getAuth();
             const user = auth.currentUser;
             if (user?.uid == props.compte_id_proprio) {
                 // https://builtin.com/software-engineering-perspectives/react-api
@@ -72,7 +72,6 @@ function GestionProjetRapide(props: PropsProjet) {
     }
 
     async function rendreProjetOuvertAuCollab() {
-        const auth = getAuth();
         const user = auth.currentUser
         if (user?.uid == props.compte_id_proprio) {
             user.getIdToken(/* forceRefresh */ true).then((idToken) => {

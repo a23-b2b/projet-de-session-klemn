@@ -3,9 +3,9 @@ import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
 import toast from 'react-hot-toast';
 import { useEffect, useState } from "react";
+import {auth} from "../../firebase";
 
 export interface CollabProp {
     idPost: string;
@@ -31,7 +31,6 @@ export interface CollabProp {
 }
 
 function PosteCollab(props: CollabProp) {
-    const auth = getAuth();
     const user = auth.currentUser;
 
     const [boutonActif, setBoutonActif] = useState(false)

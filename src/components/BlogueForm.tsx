@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { Divider } from '@chakra-ui/react';
 
 
@@ -29,8 +29,7 @@ function BlogueForm() {
         getProjets()
     }, []);
 
-    async function getProjets() {    
-        const auth = getAuth();
+    async function getProjets() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
