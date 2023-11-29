@@ -10,7 +10,7 @@ import { CgProfile } from 'react-icons/cg';
 import { AiFillGithub } from 'react-icons/ai';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, unlink } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } from 'firebase/auth'
 
@@ -43,7 +43,7 @@ function Header() {
             } else {
               setGithubLinked(true)
             }
-            
+
           }).catch((error) => {
             toast.error(`Une erreur est survenue: ${error}`)
           })
@@ -59,6 +59,7 @@ function Header() {
         user.getIdToken(/* forceRefresh */ true).then((idToken) => {
           linkWithPopup(user, githubProvider).then((result) => {
             toast("Compter lier avec success")
+            setGithubLinked(true)
             const credential = GithubAuthProvider.credentialFromResult(result);
             const user = result.user;
             const additionalInfo = getAdditionalUserInfo(result)!
@@ -83,11 +84,23 @@ function Header() {
 
           }).catch((error) => {
             console.log(JSON.stringify(error))
-            toast.error('Erreur: ', error.code)
+            toast.error(error)
           });
         })
       }
     })
+
+  }
+
+  async function dissocierCompteGithub() {
+    /*const auth = getAuth();
+    unlink(auth.currentUser!, auth.currentUser?.providerId!).then(() => {
+      toast.success("Votre compte a été dissocié avec sussès!")
+    }).catch((error) => {
+      toast.error(error)
+      console.log(JSON.stringify(error))
+    });
+    */
 
   }
 
@@ -136,14 +149,20 @@ function Header() {
                   Déconnexion
                 </span>
               </MenuItem>
-              {!githubLinked &&
+              {!githubLinked ?
                 <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
                   <AiFillGithub className={styles.dropdown_menu_icon} />
                   <span id={styles["link"]} className={'link'}>
                     Lier Compte GitHub
                   </span>
                 </MenuItem>
-              }
+                :
+                <MenuItem className={styles.dropdown_menu_item} onClick={() => dissocierCompteGithub()}>
+                  <AiFillGithub className={styles.dropdown_menu_icon} />
+                  <span id={styles["link"]} className={'link'}>
+                    Dissocier Compte GitHub
+                  </span>
+                </MenuItem>}
             </Menu>
           </div>
         </div>
