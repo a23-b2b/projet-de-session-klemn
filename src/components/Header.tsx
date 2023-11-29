@@ -93,14 +93,15 @@ function Header() {
   }
 
   async function dissocierCompteGithub() {
-    /*const auth = getAuth();
-    unlink(auth.currentUser!, auth.currentUser?.providerId!).then(() => {
+    const auth = getAuth();
+    unlink(auth.currentUser!, GithubAuthProvider.PROVIDER_ID).then(() => {      
       toast.success("Votre compte a été dissocié avec sussès!")
+      setGithubLinked(false)
     }).catch((error) => {
       toast.error(error)
       console.log(JSON.stringify(error))
     });
-    */
+    
 
   }
 
