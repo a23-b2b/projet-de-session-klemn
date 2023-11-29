@@ -5,9 +5,11 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Post from '../components/Post';
 import BlogueForm from '../components/BlogueForm';
+import NombrePersonnesPoster from '../components/NombrePersonnesPoster';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Chargement from '../components/EcranChargement';
 import { useNavigate } from 'react-router-dom';
+import { response } from 'express';
 
 function Home() {
     const navigate = useNavigate()
@@ -15,6 +17,8 @@ function Home() {
     const [cursor, setCursor] = useState(-1)
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
+    const [nombrePersonnes, setNombrePersonnes] = useState(0);
+
 
 
 
@@ -27,7 +31,7 @@ function Home() {
                     'authorization': idToken
                 },
             }).then(response => response.json()).then(response => {
-                let data = response["posts"]  
+                let data = response["posts"]
 
                 let newCursor = parseInt(response.newCursor)
 
@@ -89,6 +93,76 @@ function Home() {
         }
     }
 
+    async function getNombrePersonnes() {
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/post/participant`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': user?.uid || ''
+                    },
+                });
+
+                if (response.ok) {
+                    console.log("vous etes ici  kdshgfkjhsdbfhkjdsbfs")
+
+                    const data = await response.json();
+                    const nombreParticipant = data.nombrePersonnes;
+                    console.log(nombreParticipant);
+                    setNombrePersonnes(nombreParticipant);
+
+
+                } else {
+                    const errorMessage = await response.json();
+                    throw new Error(errorMessage);
+                }
+            } catch (error) {
+                console.log('Erreur lors de la récupération des participants', error);
+            }
+        });
+    }
+
+
+
+    //         then(response => response.json()).then(response => {
+    //             let data = response["posts"]
+
+    //             setNombrePersonnes(data)
+    //             console.log(nombrePersonnes)
+
+    //         }).catch((error) => {
+    //             toast.error(`Une erreur est survenue: ${error}`)
+    //         })
+    //     })
+    // }
+
+
+    //     try {
+    //         const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
+
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/post/nombre_personnes_poster`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'authorization': idToken,
+    //             },
+    //         });
+
+    //         const result = await response.json();
+    //         const nombrePersonnes = result.nombrePersonnes || 0;
+
+    //         setNombrePersonnes(nombrePersonnes);
+
+    //         toast.success(`Nombre de participants récupéré : ${nombrePersonnes}`);
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error(`Une erreur est survenue: ${error}`);
+    //     }
+    // }
+
+
+
     function changeFeedType(type: any) {
         console.info("Changing feed to", type)
         localStorage.setItem("feedType", type.toString())
@@ -103,21 +177,30 @@ function Home() {
         onAuthStateChanged(auth, (user) => {
             if (!user) navigate('/authenticate')
 
-            else getPosts()
+            else {
+
+                getPosts();
+                getNombrePersonnes();
+
+            }
         });
+
     }, [feedType]);
 
     return (
-        
+
         <div className={styles.body}>
+            <NombrePersonnesPoster nombrePersonnes={nombrePersonnes} />
+
+
             <BlogueForm />
 
             <div className={styles.conteneurBoutons}>
-                <button className={feedType === "global" ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e =>  {
-                  changeFeedType("global");
+                <button className={feedType === "global" ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e => {
+                    changeFeedType("global");
                 }}>Global</button>
-                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? 'global_selected_bouton' : 'global_unselected_bouton'}  onClick={e =>  {
-                  changeFeedType("followed");
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed" ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e => {
+                    changeFeedType("followed");
                 }}>Abonnements</button>
             </div>
 
@@ -150,10 +233,10 @@ function Home() {
                         vote,
                         id_shared_post,
                         is_quoted_post,
-                        
+
                         est_resolu,
                         post_meilleure_reponse,
-                        
+
                         projet_id_projet,
                         est_ouvert,
                         est_modifie
@@ -181,12 +264,12 @@ function Home() {
 
                                     sharedPostId={id_shared_post}
                                     isSharedPostQuote={is_quoted_post}
-                                    
+
                                     idProjet={projet_id_projet}
                                     estOuvert={est_ouvert}
-                                    
+
                                     statutReponse={est_resolu}
-                                    idMeilleureReponse={post_meilleure_reponse}/>
+                                    idMeilleureReponse={post_meilleure_reponse} />
                             </div>
 
                         )
