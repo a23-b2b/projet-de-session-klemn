@@ -298,3 +298,10 @@ margin: 30px 0px 30px 0px;
     background-color: var(--auto_container_color_2);
     padding: 8px 16px 8px 28px
 }
+
+.edit_history_item {
+    padding: 8px 12px;
+    background-color: var(--auto_container_color_3);
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
