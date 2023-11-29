@@ -133,7 +133,9 @@ function LoginForm() {
                         if (additionalInfo.profile) {
                             const profile = additionalInfo.profile
                             const id : string = typeof (profile.id) == 'number' ? profile.id.toString() : ""
-
+                            
+                            // Par valide, je veux dire existant dans la BD selon les infos retournés par firebase
+                            // Si pas valide, il faut le créer dans la BD mysql et puis sign in the user
                             if (credentialValide(user.uid, id) == false) {
                             var prenom = "UNKNOWN"
                             var nom = "UNKNOWN"
