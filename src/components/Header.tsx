@@ -93,13 +93,13 @@ function Header() {
 
   }
 
-  async function dissocierCompteGithub() {    
+  async function dissocierCompteGithub() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         user.getIdToken(true).then((idToken) => {
           unlink(user, GithubAuthProvider.PROVIDER_ID).then(() => {
             toast.success("Votre compte a été dissocié avec sussès!")
-            
+
             fetch(`${process.env.REACT_APP_API_URL}/user/unsync-github`, {
               method: 'POST',
               headers: {
@@ -138,7 +138,7 @@ function Header() {
         <div id={styles["LogoSite"]}>
           <Link to={'/'}>
             {/* <img src={logo} width="80" height="80" alt="Logo" /> */}
-            <Logo/>
+            <Logo />
           </Link>
         </div>
         <div id={styles["SectionDroite"]}>
@@ -172,27 +172,46 @@ function Header() {
                   Collaboration
                 </span>
               </MenuItem>
-              <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
-                <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
-                <span id={styles["link"]} className={'link'}>
-                  Déconnexion
-                </span>
-              </MenuItem>
-              {!githubLinked ?
-                <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
-                  <AiFillGithub className={styles.dropdown_menu_icon} />
-                  <span id={styles["link"]} className={'link'}>
-                    Lier Compte GitHub
-                  </span>
-                </MenuItem>
+
+              {!auth.currentUser ?
+                null
                 :
-                // faudrait check ici si un autre auth provider est dispo, sinon on devrait pas pouvoir le disso
-                <MenuItem className={styles.dropdown_menu_item} onClick={() => dissocierCompteGithub()}>
-                  <AiFillGithub className={styles.dropdown_menu_icon} />
-                  <span id={styles["link"]} className={'link'}>
-                    Dissocier Compte GitHub
-                  </span>
-                </MenuItem>}
+                <>
+                  {githubLinked == false ?
+                    <>
+                      <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
+                        <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
+                        <span id={styles["link"]} className={'link'}>
+                          Déconnexion
+                        </span>
+                      </MenuItem>
+
+                      <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
+                        <AiFillGithub className={styles.dropdown_menu_icon} />
+                        <span id={styles["link"]} className={'link'}>
+                          Lier Compte GitHub
+                        </span>
+                      </MenuItem>
+                    </>
+                    :
+                    <>
+                      <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
+                        <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
+                        <span id={styles["link"]} className={'link'}>
+                          Déconnexion
+                        </span>
+                      </MenuItem>
+
+                      <MenuItem className={styles.dropdown_menu_item} onClick={() => dissocierCompteGithub()}>
+                        <AiFillGithub className={styles.dropdown_menu_icon} />
+                        <span id={styles["link"]} className={'link'}>
+                          Dissocier Compte GitHub
+                        </span>
+                      </MenuItem>
+                    </>
+                  }
+                </>
+              }
             </Menu>
           </div>
         </div>

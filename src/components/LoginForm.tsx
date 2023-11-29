@@ -46,22 +46,20 @@ function LoginForm() {
             });
     }
 
-    function credentialValide(uid: string, ghid: string): Boolean {
-        let estValide = false
-
-        fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/${ghid}/validate`, {
+    async function credentialValide(uid: string, ghid: string): Promise<Boolean> {
+        const retour: boolean = await fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/${ghid}/validate`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json()).then(response => {
-            return response.valide
+            console.log(JSON.stringify(response))
+            return response[0]
         }).catch((err) => {
             throw err
         })
 
-        return estValide
-
+        return retour
     }
 
     function creerNouveauCompteGithub(info: infoCompte) {
@@ -114,11 +112,11 @@ function LoginForm() {
     }
 
 
-    function handleGithubLogin() {
+    async function handleGithubLogin() {
         const provider = new GithubAuthProvider();
 
         signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async (result) => {
                 // This gives you a GitHub Access Token. You can use it to access the GitHub API.
                 const credential = GithubAuthProvider.credentialFromResult(result);
                 if (credential) {
@@ -142,7 +140,7 @@ function LoginForm() {
 
                             // Par valide, je veux dire existant dans la BD selon les infos retournés par firebase
                             // Si pas valide, il faut le créer dans la BD mysql et puis sign in the user
-                            if (credentialValide(user.uid, id) == false) {
+                            if (await credentialValide(user.uid, id) == false) {
                                 var prenom = "UNKNOWN"
                                 var nom = "UNKNOWN"
 
