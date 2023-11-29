@@ -113,10 +113,10 @@ function Home() {
             <BlogueForm />
 
             <div className={styles.conteneurBoutons}>
-                <button className={feedType === "global" ? styles.boutonSelectionne : styles.boutonNonSelectionne} onClick={e =>  {
+                <button className={feedType === "global" ? 'global_selected_bouton' : 'global_unselected_bouton'} onClick={e =>  {
                   changeFeedType("global");
                 }}>Global</button>
-                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? styles.boutonSelectionne : styles.boutonNonSelectionne}  onClick={e =>  {
+                <button id={styles["boutonAbonnement"]} className={feedType === "followed"  ? 'global_selected_bouton' : 'global_unselected_bouton'}  onClick={e =>  {
                   changeFeedType("followed");
                 }}>Abonnements</button>
             </div>
@@ -155,7 +155,8 @@ function Home() {
                         post_meilleure_reponse,
                         
                         projet_id_projet,
-                        est_ouvert
+                        est_ouvert,
+                        est_modifie
                     }) => {
                         return (
                             <div key={id_post}>
@@ -167,6 +168,7 @@ function Home() {
                                     titre={titre}
                                     contenu={contenu}
                                     estMarkdown={est_markdown}
+                                    estModifie={est_modifie}
                                     idCompte={id_compte}
                                     nombreLike={nombre_likes}
                                     nombreDislike={nombre_dislikes}

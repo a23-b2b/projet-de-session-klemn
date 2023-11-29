@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from '../../styles/Post.module.css'
+import { Link, useNavigate } from "react-router-dom";
+import { BsArrowBarDown } from 'react-icons/bs'
 import { AnimatePresence, motion } from "framer-motion";
 import MarkdownCode from "../MarkdownCode";
-import { Link } from "react-router-dom";
+import "../../styles/global.css"
 
 interface ContentProps {
     titre: string;
@@ -13,94 +15,59 @@ interface ContentProps {
 }
 
 const PostContent = (props: ContentProps) => {
-    const [postContent, setPostContent] = useState('')
-    const [isPostExpanded, setIsPostExpanded] = useState(false);
+    const contentRef = useRef<HTMLInputElement>(null)
+    const [contentHeight, setContentHeight] = useState(0)
 
-    let truncatedPostContent = props.contenu.slice(0, 247)
-    if (props.contenu.length > 247 && !isPostExpanded) truncatedPostContent += '...'
+    const maxHeight = 150;
 
-    let contentAfterTruncatedPostContent = props.contenu.slice(247)
-
-    const postTruncated = props.contenu.length > 247
+    const showFullContent = contentHeight <= maxHeight || props.isPostFullScreen;
+    const displayShowMoreButton = !showFullContent && !props.isPostFullScreen
 
     useEffect(() => {
-        if (props.isPostFullScreen) setIsPostExpanded(true)
-        setPostContent(truncatedPostContent)
-    }, [])
-
-
-    function handleExpandContent() {
-        // if (!props.isPostFullScreen && postTruncated) {
-        //     setIsPostExpanded(!isPostExpanded)
-
-        //     if (isPostExpanded) {
-        //         setPostContent(props.contenu)
-        //     } else {
-        //         setPostContent(truncatedPostContent)
-        //     }
-        // }
-
-        if (!props.isPostFullScreen) {
-            if (postTruncated) {
-                setIsPostExpanded(!isPostExpanded);
-            }
+        if (contentRef.current) {
+            setContentHeight(contentRef.current.clientHeight)
         }
-    }
-    // if estMarkdown CodeMarkdown avec text sinon le reste
-    /*{props.estMarkdown && 
-           < MarkdownCode c={props.contenu}/>
-        }
-        {!props.estMarkdown && 
-            props.contenu
-        }*/
-    return (<>
-        
-        <div className={styles.contenu}>
+    }, [contentHeight]);
 
-            {
-                props.isPostFullScreen ?
+    return (
+        <div className={styles.contenu} ref={contentRef}>
+            {props.isPostFullScreen ?
+                <h2 className={styles.titre}>
+                    {props.titre}
+                </h2>
 
-                    <div className={styles.conteneurDiv}>
-                        <h2 className={'global_title'}>
-                            {props.titre}
-                        </h2>
-                        
-                    </div>
+                :
 
-                    :
-
-                    <div className={styles.conteneurDiv}>
-                        <Link to={`/p/${props.idPost}`} className={styles.titre}>
-                            <h2>
-                                {props.titre}
-                            </h2>
-                        </Link>
-                    </div>
-
+                <Link to={`/p/${props.idPost}`} className={styles.titre}>
+                    <h2>
+                        {props.titre}
+                    </h2>
+                </Link>
             }
 
-            <motion.div>   
-                <div className={styles.contenu} onClick={() => handleExpandContent()}>
-                    {!isPostExpanded &&  (       
-                            props.estMarkdown ? <MarkdownCode c= {truncatedPostContent}/> : <div>{truncatedPostContent}</div>                  
-                    )}
-                                    
-                    <AnimatePresence>
-                        {props.isPostFullScreen && (
-                            
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                {
-                                    props.estMarkdown ? <MarkdownCode c={props.contenu}/> : <div>{props.contenu}</div>
-                                }
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+            {showFullContent && !displayShowMoreButton &&
+
+                <MarkdownCode c={props.contenu} />
+            }
+
+            {!showFullContent &&
+                <div style={{ maxHeight: `${maxHeight}px`, overflow: "hidden" }}>
+                    <MarkdownCode c={props.contenu} />
                 </div>
-            </motion.div>
+            }
+
+
+            {displayShowMoreButton &&
+                <Link to={`/p/${props.idPost}`} style={{textDecoration: "none"}}>
+                    <button className={`global_selected_bouton ${styles.bouton_voir_plus}`}>
+                        <BsArrowBarDown style={{transform: "translateX(-10px)"}}/> Voir plus
+                    </button>
+                </Link>
+
+            }
         </div>
-        </>
     )
-    
+
 }
 
 export default PostContent;

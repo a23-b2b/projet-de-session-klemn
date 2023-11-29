@@ -17,6 +17,7 @@ interface Props {
     titre: string;
     contenu: string;
     estMarkdown: Boolean;
+    estModifie: Boolean;
     idCompte: string;
     nombreLike: number;
     nombreDislike: number;
@@ -61,7 +62,7 @@ function QuotePost(props: Props) {
 
 
     return (
-        <div id={styles["conteneur"]} className={'global_conteneur_post'}>
+        <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
                 date={props.date}
                 idPost={props.idPost}
@@ -69,7 +70,9 @@ function QuotePost(props: Props) {
                 nomAffichage={props.nomAffichage}
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
-                isDeleted={false} />
+                isDeleted={false}
+                estModifie={props.estModifie}
+                contenu={props.contenu} />
 
             <PostContent
                 titre = {props.titre}

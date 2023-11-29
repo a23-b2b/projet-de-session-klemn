@@ -229,10 +229,9 @@
 
 /*Création projet form*/
 
-.conteneurCreerProjet {
+#conteneurCreerProjet {
     margin: auto;
     padding: 25px;
-    background-color: var(--auto_container_color);
     border-radius: 20px;
     max-width: 500px;
 }

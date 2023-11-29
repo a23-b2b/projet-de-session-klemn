@@ -1,69 +1,75 @@
-#HeaderConnecte {
-    background: var(--auto_background_color_header);
+#Conteneur_Header::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     backdrop-filter: blur(32px) saturate(200%);
+    z-index: -1;
+}
+
+#Conteneur_Header {
     z-index: 100;
     position: fixed;
     top: 0;
     width: 100vw;
     height: fit-content;
-    font-size: 20px;
-    height: 80px;
+    background-color: var(--auto_header_color);
+}
+
+#Conteneur_Interieur_Header {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding-inline: 16px;
+    margin-inline: auto;
 }
 
 #LogoSite {
     margin-left: 15px;
 }
 
-#IconeUtilisateur {
-    margin: auto;
-}
-
-#HeaderHaut {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    padding-inline: 16px;
-    margin-inline: auto;
-    margin-top: 5px;
-}
-
-#HeaderHaut>div {
+#Conteneur_Interieur_Header>div {
     margin-block: auto;
 }
 
-
-.image_gestion {
-    width: 40px;
-    height: 40px;
-}
-
-.icone_list {
-    margin-left: 25px;
-    color: #ffffffd7;
-
-}
-
-#SectionDroite {
-    display: flex;
-
-}
-
-@media (prefers-color-scheme: light) {
-    #HeaderConnecte {
-        background: var(--gradient_light);
-    }
+.logo {
+    height: 56px;
+    fill: var(--auto_accent_color_1);
+    stroke: var(--auto_accent_color_1);
+    stroke-linejoin: bevel;
+    stroke-width: 2px;
 }
 
 /* Menu dropdown */
-
-
-#linkConteneur {
-    text-decoration: none;
-    color: var(--auto_text_color);
+#link {
+    margin: auto auto auto 10px;
+    font-size: 1.3rem;
 }
 
-.dropdown_menu {
+.dropdown_menu_item_icon {
+    font-size: 1.2rem;
+    margin-bottom: -2px;
+}
+
+.dropdown {
+    margin-right: 16px;
+}
+
+.dropdown_menu::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     backdrop-filter: blur(12px) saturate(150%);
+    z-index: -1;
+}
+
+
+.dropdown_menu {
     list-style-type: none;
     padding: 6px;
     margin: 0;
@@ -79,6 +85,9 @@
         0px 43px 80px rgba(0, 0, 0, 0.07);
 }
 
+.dropdown:hover {
+    cursor: pointer;
+}
 
 .dropdown_menu_item {
     transition: 0.3s;
@@ -100,19 +109,11 @@
 }
 
 .dropdown_menu_item:hover {
+    background-color: var(--auto_accent_color_1);
+    color: var(--auto_selected_button_text_color);
     transition: 0.3s;
-    background-color: var(--accent_color_light);
-    color: var(--text_color_dark);
     outline: none;
     cursor: pointer;
-    
 }
 
-#link {
-    margin: auto auto auto 10px;
-    font-size: 22px;
-}
-
-.dropdown_menu_item>.dropdown_menu_icon {
-    margin-bottom: -2px;
-}
+/* Menu dropdown */

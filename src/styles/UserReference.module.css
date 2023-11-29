@@ -1,0 +1,37 @@
+.container {
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex: 1;
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.068);
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.image_profil {
+    object-fit: cover;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.user_info {
+    padding-left: 15px;
+    line-height: 0.2;
+    text-decoration: none;
+    color: var(--auto_text_color)
+}
+
+.display_name {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+
+.username {
+    opacity: 70%;
+}

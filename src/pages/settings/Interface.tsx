@@ -3,6 +3,16 @@ import styles from '../../styles/SettingsPanel.module.css'
 import { motion } from "framer-motion";
 import VoteWidget from '../../components/Post/voteWidget';
 import { Menu, MenuItem } from '@szhsin/react-menu';
+import Select, { StylesConfig } from 'react-select';
+
+const options = [
+    { value: 'shake_slide', label: 'Shake + slide' },
+    { value: 'shake_fade', label: 'Shake + fade' },
+    { value: 'same_slide', label: 'Same + slide' },
+    { value: 'same_fade', label: 'Same + fade' },
+];
+
+
 
 function Interface() {
     const [voteAnimationType, setVoteAnimationType] = useState("");
@@ -65,6 +75,18 @@ function Interface() {
 
 
 
+
+    const [selectedOption, setSelectedOption] = useState(0);
+
+
+    const [hue, setData] = useState(0);
+    const [saturation, setSaturation] = useState(0);
+
+    function changeTheme(hue: number, saturation: number) {
+        document.documentElement.style.setProperty('--base_h', hue.toString())
+        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+    }
+
     return (
         <div className={styles.container_parametres}>
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
@@ -75,9 +97,19 @@ function Interface() {
                 <div className={styles.form}>
                     <div className={styles.containerDiv}>
                         <div>
-                            <label className={'global_input_field_label'} >Animation d'interraction avec une publication (like, dislike)</label>
+                            <label className={'global_label'} >Animation d'interraction avec une publication (like, dislike)</label>
 
                         </div>
+
+                        {/*
+                        <Select
+                            defaultValue={selectedOption}
+                            onChange={e => changeLikeAnimationSetting("sss")}
+                            options={options}
+                        />
+                        
+                        */}
+
 
                         <select className={styles.selectInterface} value={voteAnimationType} onChange={e => changeLikeAnimationSetting(e.target.value)}>
                             <option value="shake_slide">Shake + slide</option>
@@ -94,9 +126,48 @@ function Interface() {
 
                 </div>
                 <br />
+
+                <hr className={styles.hr}></hr>
+
+                <h3 className={'global_subtitle'}>Thème du site</h3>
+
+                <div>
+
+                    <div id={styles["descriptionsTheme"]}>
+                        <p>Glisser le slider pour changer la couleur!</p>
+                    </div>
+
+                    <div className={styles.conteneurCouleur} id={styles["descriptionsTheme"]}>
+                        <p>NOUVELLE COULEUR!</p>
+                    </div>
+
+                    <input className={styles.slider}
+                        type="range"
+                        min="0"
+                        max="360"
+                        value={hue}
+                        onChange={(e) => {
+                            setData(parseInt(e.target.value));
+                            changeTheme(hue, saturation);
+                        }} />
+
+                    <input className={styles.slider}
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={saturation}
+                        onChange={(e) => {
+                            setSaturation(parseInt(e.target.value));
+                            changeTheme(hue, saturation);
+                        }} />
+                </div>
+
+
             </motion.div>
         </div>
     );
+
+
 }
 
 export default Interface;

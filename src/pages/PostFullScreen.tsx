@@ -16,6 +16,10 @@ function PostFullScreen() {
     const [postData, setPostData] = useState<any>();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    });
+
+    useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             fetch(`${process.env.REACT_APP_API_URL}/post/${postId}`, {
                 method: 'GET',
@@ -38,8 +42,6 @@ function PostFullScreen() {
                     console.log(error)
                 })
         });
-
-
     }, [postId]);
 
     if (postData) {
@@ -54,6 +56,7 @@ function PostFullScreen() {
                     titre={postData.titre}
                     contenu={postData.contenu}
                     estMarkdown={postData.est_markdown}
+                    estModifie={postData.est_modifie}
                     nombreLike={postData.nombre_likes}
                     nombreDislike={postData.nombre_dislikes}
                     nombrePartage={postData.nombre_partages}

@@ -3,19 +3,21 @@
     max-width: 600px;
     margin: 0 auto;
     /* background-color: white; */
+    margin-top: -36px;
 }
 
 .header {
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .badge_container {
     display: block;
+    position: absolute;
 
     z-index: 10;
-    transform: translateY(48px);
-    background-color: var(--auto_background);
+    background-color: var(--auto_container_color_2);
     backdrop-filter: blur(12px);
     border-radius: 8px;
     width: fit-content;
@@ -23,8 +25,8 @@
     padding: 6px 8px;
     padding-top: 10px;
 
-    margin-left: auto;
-    margin-right: 12px;
+    right: 8px;
+    top: 8px;
 }
 
 .photo_banniere {

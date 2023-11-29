@@ -53,7 +53,7 @@ function ProjetForm() {
 
     return (
         <>
-            <div className={styles.conteneurCreerProjet}>
+            <div id={styles["conteneurCreerProjet"]} className={'global_container_1'}>
 
                 <div>
                     <p id={styles["titre"]} className={'global_title'}>Créér un nouveau projet</p>
@@ -94,7 +94,7 @@ function ProjetForm() {
 
 
                 <div className={styles.conteneurBoutons}>
-                    <button className={'global_bouton'} onClick={() => creerProjet()}>Créer le projet</button>
+                    <button className={'global_selected_bouton'} onClick={() => creerProjet()}>Créer le projet</button>
 
                 </div>
 

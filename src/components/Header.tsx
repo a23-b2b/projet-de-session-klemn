@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.css';
 import logo from '../images/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { CiCircleList } from 'react-icons/ci';
 import { RiTeamLine } from 'react-icons/ri';
-import { LuSettings } from 'react-icons/lu';
+import { LuMenu, LuSettings } from 'react-icons/lu';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { CgProfile } from 'react-icons/cg';
+import { CiCircleList } from 'react-icons/ci';
 import { AiFillGithub } from 'react-icons/ai';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { auth } from '../../src/firebase';
 import { onAuthStateChanged, signOut, unlink } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { GithubAuthProvider, getAuth, linkWithPopup, getAdditionalUserInfo } from 'firebase/auth'
-import { FirebaseError } from 'firebase/app';
+import Logo from './Logo';
+
 
 function Header() {
   const navigate = useNavigate();
@@ -130,11 +131,14 @@ function Header() {
   }
 
   return (
-    <div id={styles["HeaderConnecte"]}>
-      <div id={styles["HeaderHaut"]}>
+    <div id={styles["Conteneur_Header"]}>
+
+      <div id={styles["Conteneur_Interieur_Header"]}>
+
         <div id={styles["LogoSite"]}>
           <Link to={'/'}>
-            <img src={logo} width="80" height="80" alt="Logo" />
+            {/* <img src={logo} width="80" height="80" alt="Logo" /> */}
+            <Logo/>
           </Link>
         </div>
         <div id={styles["SectionDroite"]}>
@@ -194,6 +198,7 @@ function Header() {
         </div>
       </div>
     </div>
+
   );
 }
 
