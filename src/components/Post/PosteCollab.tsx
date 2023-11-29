@@ -85,7 +85,7 @@ function PosteCollab(props: CollabProp) {
                 isPostFullScreen={props.isPostFullScreen} />
 
             
-            {user && 
+            {user && user.uid != props.idCompte &&
                 <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
                     Demander à collaborer
                 </button> }

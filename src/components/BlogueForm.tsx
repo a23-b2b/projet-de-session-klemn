@@ -107,6 +107,7 @@ function BlogueForm() {
         setBlogueIsSelected(false)
         setQuestionIsSelected(false)
         setCollabIsSelected(true)
+        setIdChoixDeProjet(projets.length > 0 ? projets[0].id_projet : '')
     }
 
     return (

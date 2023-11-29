@@ -43,10 +43,14 @@ function GestionProjetRapide(props: PropsProjet) {
     const [estOuvert, setEstOuvert] = useState(props.est_ouvert)
 
     async function supprimerProjet() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        const confirmationDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet? Cette action est irréversible " +
+            "et les publications associées à ce projet seront supprimées.");
+
+        if (confirmationDelete) {
+            const auth = getAuth();
+            const user = auth.currentUser;
             if (user?.uid == props.compte_id_proprio) {
-                // https://builtin.com/software-engineering-perspectives/react-api 
+                // https://builtin.com/software-engineering-perspectives/react-api
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
                         method: 'POST',
@@ -64,37 +68,36 @@ function GestionProjetRapide(props: PropsProjet) {
             } else {
                 navigate("/authenticate")
             }
-        })
+        }
     }
 
     async function rendreProjetOuvertAuCollab() {
         const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user?.uid == props.compte_id_proprio) {
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        }
-                    })
-                        .then(() => {
-                            if (!estOuvert) {
-                                toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
-                            }
-                            setEstOuvert(!estOuvert)
-                        })
-                        .catch(error => {
-                            if (error) {
-                                toast.error(error)
-                            }
-                        });
+        const user = auth.currentUser
+        if (user?.uid == props.compte_id_proprio) {
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    }
                 })
-            } else {
-                navigate("/authenticate")
-            }
-        })
+                    .then(() => {
+                        if (!estOuvert) {
+                            toast.success(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
+                        }
+                        setEstOuvert(!estOuvert)
+                    })
+                    .catch(error => {
+                        if (error) {
+                            toast.error(error)
+                        }
+                    });
+            })
+        } else {
+            navigate("/authenticate")
+        }
     }
 
 
