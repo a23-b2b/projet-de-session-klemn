@@ -262,7 +262,7 @@ const PostHeader = (props: HeaderProps) => {
             <Modal isModalOpen={isEditHistoryModalOpen} setIsModalOpen={setIsEditHistoryModalOpen}>
                 <div className={styles.conteneur}>
                     <h2 className={styles.titre}>Historique de modifications</h2>
-                    <p style={{marginTop: "-16px"}}>Récent ➝ ancien</p>
+                    <p style={{ marginTop: "-16px" }}>Récent ➝ ancien</p>
                     {!editHistory ? <Chargement /> :
                         <div className={styles.edit_history_container}>
                             {editHistory.map(version => {
