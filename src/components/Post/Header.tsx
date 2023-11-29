@@ -91,6 +91,11 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     function handleEditPost() {
+        if (contenu === props.contenu) {
+            setIsEditModalOpen(false);
+            return '';
+        }
+
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
