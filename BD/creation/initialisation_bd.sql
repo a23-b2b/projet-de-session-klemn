@@ -70,5 +70,10 @@ FROM post
          LEFT JOIN badge b on c.id_compte = b.id_compte
 ORDER BY post.date_publication DESC;
 
+INSERT INTO compte (id_compte, courriel, date_creation_compte, prenom, nom, nom_utilisateur, nom_affichage, biographie,
+                    url_image_profil, url_image_banniere, autorisation, telephone, nombre_abonnes, nombre_abonnements)
+VALUES ('deleted', 'deleted@email.com', '1970-01-01 00:00:00', 'Deleted', 'Deleted', 'deleted', '[DELETED]', null,
+        'https://firebasestorage.googleapis.com/v0/b/klemn-702af.appspot.com/o/profil%2Fdeleted.svg?alt=media&token=81467bd4-3ce7-442e-b016-2d34d8d2d3c1',
+        null, 1, null, null, null);
 
 COMMIT;
