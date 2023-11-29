@@ -59,30 +59,24 @@ function QuotePostModal(props: Props) {
 
     return (
         <Modal isModalOpen={props.isModalOpen} setIsModalOpen={props.setIsModalOpen}>
-            <div className={'global_container_2'} id={styles["conteneurModal"]}>
-                <h2 className={'global_title'} id={styles["titre"]}>Publication</h2>
-                <div className={styles.form}>
+            <h2 className={'global_title'} id={styles["titre"]}>Publication</h2>
+            <div className={styles.form}>
+                <textarea className={'global_textarea'}
+                    rows={10}
+                    maxLength={4000}
+                    placeholder="Exprimez-vous!"
+                    value={contenu}
+                    onChange={e => {
+                        setContenu(e.target.value)
+                        setNbCaracteres(e.target.textLength)
+                    }}></textarea>
+            </div>
+            <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
 
-
-
-                    <textarea className={'global_textarea'}
-                        rows={10}
-                        maxLength={4000}
-                        placeholder="Exprimez-vous!"
-                        value={contenu}
-                        onChange={e => {
-                            setContenu(e.target.value)
-                            setNbCaracteres(e.target.textLength)
-                        }}></textarea>
-                </div>
-                <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
-
-                    <span id={styles["span"]}>{nbCaracteres}/4000</span>
-                    <button className={'global_selected_bouton'} onClick={() => publierBlogue()}>
-                        Publier
-                    </button>
-                </div>
-
+                <span id={styles["span"]}>{nbCaracteres}/4000</span>
+                <button className={'global_selected_bouton'} onClick={() => publierBlogue()}>
+                    Publier
+                </button>
             </div>
         </Modal>
 

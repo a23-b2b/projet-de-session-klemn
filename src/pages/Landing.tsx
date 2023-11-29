@@ -2,8 +2,8 @@ import { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import styles from '../styles/Landing.module.css'
 import RegisterForm from '../components/RegisterForm';
-import { Link, useNavigate } from 'react-router-dom';
-import { animate, motion } from 'framer-motion';
+import { Client } from '@passwordlessdev/passwordless-client';
+
 
 function Landing() {
     const [formIsLogin, setFormIsLogin] = useState(true);

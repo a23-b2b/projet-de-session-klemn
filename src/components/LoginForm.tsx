@@ -1,16 +1,22 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithCustomToken, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Client } from "@passwordlessdev/passwordless-client";
+import { GoPasskeyFill } from "react-icons/go";
 
 function LoginForm() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
+
+    const passwordlessClient = new Client({
+        apiKey: "klemn:public:8557b931c74a43ae8990c94bbb5aa62c"
+    });
 
     function loginWithEmailAndPassword(email: string, password: string) {
         signInWithEmailAndPassword(auth, email, password)
@@ -39,11 +45,36 @@ function LoginForm() {
             });
     }
 
+    function loginWithPasskey() {
+        passwordlessClient.signinWithDiscoverable().then(token => {
+            fetch(process.env.REACT_APP_API_URL + '/user/passkeys/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: token["token"]
+                })
+            }).then(response => response.json()).then(json => {
+                const customToken = json["customToken"];
+
+                signInWithCustomToken(auth, customToken).then((user) => {
+                    toast.success('Vous êtes connecté!')
+                    navigate('/')
+
+                }).catch((error) => {
+                    console.log(error)
+                    toast.error(`Une erreur est survenue: (${error.code})`)
+                })
+            })
+        })
+    }
+
     return (
 
         <div className={'global_container_1'}>
             <h2 className={'global_title'}>Connexion</h2>
-            <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto"}}>
+            <motion.div initial={{ opacity: 0, height: 660 }} animate={{ opacity: 1, height: "auto" }}>
                 <div className={styles.form}>
                     <label className={'global_label'}>Courriel</label>
                     <input
@@ -61,7 +92,15 @@ function LoginForm() {
                             Connexion
                         </button>
                     </div>
+                </div>
 
+                <br/>
+                <hr/>
+
+                <div className={styles.containerBouton}>
+                    <button className={'global_selected_bouton'} onClick={() => loginWithPasskey()}>
+                        <GoPasskeyFill style={{ marginLeft: '-10px', marginRight: '6px' }} /> Utiliser une clé d'accès
+                    </button>
                 </div>
             </motion.div>
         </div>

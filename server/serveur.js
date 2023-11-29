@@ -11,9 +11,10 @@ const rateLimit = require('express-rate-limit')
 
 dotenv.config();
 
-const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
+let firebaseKeyLocation = process.env.GOOGLE_APPLICATION_CREDENTIALS
+
 exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseServiceAccount),
+    credential: admin.credential.cert(firebaseKeyLocation),
     storageBucket: 'klemn-702af.appspot.com/'
 });
 
@@ -30,7 +31,7 @@ exports.pool = pool;
 /* https://www.npmjs.com/package/express-rate-limit */
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 90, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    max: 512, // Limit each IP to x requests per `window`
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -149,6 +150,18 @@ app.use('/user', get_followers)
 
 const get_followings = require('./user/[username]/GET_followings.js')
 app.use('/user', get_followings)
+
+const add_passkey = require('./user/passkeys/POST_new.js')
+app.use('/user/passkeys', add_passkey)
+
+const login_passkey = require('./user/passkeys/POST_login.js')
+app.use('/user/passkeys', login_passkey)
+
+const get_passkeys = require('./user/passkeys/GET_list.js')
+app.use('/user/passkeys', get_passkeys)
+
+const delete_passkey = require('./user/passkeys/POST_delete.js')
+app.use('/user/passkeys', delete_passkey)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

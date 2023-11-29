@@ -9,7 +9,7 @@ interface Props {
 function Badge(props: Props) {
     return (
         <span className={styles.badge}>
-            <Tooltip className={styles.tooltip} label={props.title} placement='top'>
+            <Tooltip className={styles.tooltip} label={props.title} placement='bottom'>
                 <span>{props.icon}</span>
             </Tooltip>
         </span>

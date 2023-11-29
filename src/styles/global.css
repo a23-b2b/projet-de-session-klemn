@@ -98,8 +98,8 @@
     --on_background_light_accent_color_2: var(--light_40);
 
     /*Couleur header*/
-    --on_background_dark_header: var(--dark_50);
-    --on_background_light_header: var(--dark_9);
+    --on_background_dark_header: hsla(var(--base_h), var(--base_s), 13%, 75%);
+    --on_background_light_header: hsla(var(--base_h), var(--base_s), 87%, 75%);
 
     /*Couleur footer*/
     --on_background_dark_footer: var(--dark_40);
@@ -154,8 +154,8 @@
     --on_background_light_input_field: var(--light_20);
 
     /*Couleur des du text placeholder dans les champs texte*/
-    --on_background_dark_placeholder_text: var(--dark_0);
-    --on_background_light_placeholder_text: var(--light_0);
+    --on_background_dark_placeholder_text: var(--dark_70);
+    --on_background_light_placeholder_text: var(--light_70);
 
     /* Couleur des zones texte */
     --on_background_dark_textarea: var(--on_background_dark_input_field);

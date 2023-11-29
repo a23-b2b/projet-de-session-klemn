@@ -42,8 +42,6 @@ function PostFullScreen() {
                     console.log(error)
                 })
         });
-
-
     }, [postId]);
 
     if (postData) {
