@@ -35,10 +35,8 @@ module.exports = app.post('/create-github',
             const email = req.body.email;
             const id_github = req.body.github_id
             const id_compte = req.body.id_compte
-            const username = req.body.username + req.body.id_github;
+            const username = req.body.username + id_github;
             const nom_affichage = req.body.username;
-            logger.info(JSON.stringify(req.body))
-
 
             pool.query(
                 `INSERT INTO compte (

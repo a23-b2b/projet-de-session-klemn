@@ -14,7 +14,6 @@ module.exports = app.get('/:user_id/:github_id/validate', (req, res) => {
         SELECT EXISTS(SELECT * FROM compte WHERE id_compte=? OR id_github=?) AS existe;`,
         [userId, githubId],
         function (err, results, fields) {
-            console.log(JSON.stringify(results))
             if (err) {
                 console.log(err)
                 res.status(500).send("ERREUR: " + err.code)

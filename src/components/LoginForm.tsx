@@ -46,18 +46,20 @@ function LoginForm() {
             });
     }
 
-    async function credentialValide(uid: string, ghid: string): Promise<Boolean> {
+    async function credentialValide(uid: string, ghid: string): Promise<boolean> {
         const retour: boolean = await fetch(`${process.env.REACT_APP_API_URL}/user/${uid}/${ghid}/validate`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(response => response.json()).then(response => {
-            console.log(JSON.stringify(response))
-            return response[0]
+            console.log("Stringify crendent val" + JSON.stringify(response))
+            return response.valide
         }).catch((err) => {
+            console.log(JSON.stringify(err))
             throw err
         })
+        console.log("Stringify retour val" + JSON.stringify(retour))
 
         return retour
     }
@@ -96,6 +98,7 @@ function LoginForm() {
 
             const auth = getAuth();
             signOut(auth)
+            navigate("/authenticate")
         })
     }
 
@@ -125,10 +128,10 @@ function LoginForm() {
                         if (additionalInfo.profile) {
                             const profile = additionalInfo.profile
                             const id: string = typeof (profile.id) == 'number' ? profile.id.toString() : ""
-
+                            const estValide: boolean = await credentialValide(user.uid, id)
                             // Par valide, je veux dire existant dans la BD selon les infos retournés par firebase
                             // Si pas valide, il faut le créer dans la BD mysql et puis sign in the user
-                            if (await credentialValide(user.uid, id) == false) {
+                            if (estValide == false) {
                                 var prenom = "UNKNOWN"
                                 var nom = "UNKNOWN"
 
