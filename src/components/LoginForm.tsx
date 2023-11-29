@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styles from '../styles/LoginRegisterForm.module.css'
-import { GithubAuthProvider, deleteUser, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import { GithubAuthProvider, deleteUser, getAdditionalUserInfo, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
 import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiFillGithub } from 'react-icons/ai';
+import { infoCompte } from './RegisterForm'
 
 function LoginForm() {
     const navigate = useNavigate()
@@ -57,6 +58,56 @@ function LoginForm() {
 
     }
 
+    function creerNouveauCompteGithub(info: infoCompte) {
+        fetch(`${process.env.REACT_APP_API_URL}/user/create-github`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                github_id: info.id_github,
+                username: info.username,
+                prenom: info.prenom,
+                nom: info.nom,
+                email: info.email,
+                id_compte: info.id_compte
+            }),
+        }).then(response => response.json()).then(response => {
+            if (response.code) throw response
+
+            toast.success('Votre profil à été créé! Vous pouvez maintenant vous connecter.');
+            navigate(0)
+        }).catch((error) => {
+            switch (error.code) {
+                case 'auth/account-exists-with-different-credential':
+                    toast.error('Ce compte existe avec informations différente')
+                    break;
+                case 'auth/email-already-exists':
+                    toast.error('Le courriel est déjà inscrit.');
+                    break;
+                case 'ER_DUP_ENTRY':
+                    if (error.sqlMessage.includes("courriel")) {
+                        toast.error('Le courriel est déjà inscrit.');
+                    }
+                    if (error.sqlMessage.includes("nom_utilisateur")) {
+                        toast.error('Le nom d\'utilisateur est déjà pris.');
+                    }
+                    if (error.sqlMessage.includes("PRIMARY")) {
+                        toast.error('Ce compte existe deja');
+                    }
+                    break;
+            }
+
+            const auth = getAuth();
+
+            signOut(auth).then(() => {
+                toast.error("Erreur lors de l'inscription" + error.code)
+            })
+
+        })
+    }
+
+
     function handleGithubLogin(): void {
         const provider = new GithubAuthProvider();
 
@@ -73,9 +124,34 @@ function LoginForm() {
                 const user = result.user;
                 if (user) {
                     console.log("User info: " + JSON.stringify(user))
+
+                    // check si UID firebase est dans BD sinon creer le compte
+                    if (credentialValide(user.uid) == false) {
+                        // IdP data available using getAdditionalUserInfo(result)
+                        const additionalInfo = getAdditionalUserInfo(result)
+                        if (additionalInfo) {
+                            if (additionalInfo.profile) {
+                                const profile = additionalInfo.profile
+                                var prenom = "UNKNOWN"
+                                var nom = "UNKNOWN"
+
+                                const info: infoCompte = {
+                                    id_compte: typeof (user.uid) == 'string' ? user.uid : undefined,
+                                    username: typeof (profile.login) == 'string' ? profile.login : "",
+                                    prenom: prenom,
+                                    nom: nom,
+                                    email: typeof (user.email) == 'string' ? user.email : "",
+                                    id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
+                                }
+
+                                creerNouveauCompteGithub(info)
+                            }
+                        }
+                    }
                 }
 
-                
+
+
                 navigate('/')
             }).catch((error) => {
                 console.log(JSON.stringify(error))

@@ -9,7 +9,7 @@ import { AiFillGithub } from 'react-icons/ai';
 import { GithubAuthProvider } from "firebase/auth";
 import { type } from "os";
 
-interface infoCompte {
+export interface infoCompte {
      
     username: string,
     prenom: string,
