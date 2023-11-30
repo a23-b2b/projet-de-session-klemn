@@ -111,7 +111,12 @@ function GestionProjetRapide(props: PropsProjet) {
             {/* Rang/e du haut */}
 
             <div className={styles.conteneur_info_projet}>
-                <p className={styles.titre_projet}>Titre: {props.titre}</p>
+                <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
+                <p className={styles.titre_projet} >
+                    Titre: {props.titre}
+                </p>
+                </button>
+                
                 <p className={styles.description_projet}>Description: {props.description}</p>
                 <p className={styles.description_projet}>URL Git: {props.url_repo_git.trim() ? props.url_repo_git : "Aucun dépôt associé"}</p>
             </div>
