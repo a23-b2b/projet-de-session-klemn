@@ -19,8 +19,8 @@ module.exports = app.post('/:id_projet/:statut', (req, res) => {
         UPDATE projet 
             SET projet.est_ouvert = ? 
             WHERE projet.id_projet = ? 
-            AND compte_id_proprio = ?;`,
-            [est_ouvert, id_projet, userId],
+            AND WHERE compte_id_proprio = ?;`,
+            [est_ouvert, id_projet], userId,
             function (err) {
                 if (err) {
                     const errJSON = JSON.stringify(err)

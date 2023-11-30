@@ -14,7 +14,7 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 84px;
+    height: fit-content;
     background-color: var(--auto_header_color);
 }
 

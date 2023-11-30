@@ -19,7 +19,6 @@ import PageKlemn from './pages/klemn';
 
 import README from "./pages/AProposReadMe";
 import Securite from "./pages/settings/Securite";
-import ModifProjetForm from "./pages/ModifProjetForm";
 
 
 function Layout() {
@@ -40,6 +39,9 @@ function Layout() {
                         {/* Gestion des erreurs 404 */}
                         <Route path="/404" element={<Erreur404 />} />
                         <Route path="*" element={<Navigate to="/404" />} />
+
+                        
+
                         <Route path="/" element={<Home />} />
                         <Route path="/authenticate" element={<Landing />} />
                         <Route path="/u/:username" element={<Profil />} />
@@ -51,7 +53,6 @@ function Layout() {
                         </Route>
                         <Route path="/gestion" element={<GestionCollab />} />
                         <Route path="/projet" element={<ProjetForm />} />
-                        <Route path="/projet/:projetId" element={<ModifProjetForm />} />
                         <Route path="/klemn" element={<PageKlemn/>} />
                         <Route path="/apropos" element={<README />} />
                     </Routes>

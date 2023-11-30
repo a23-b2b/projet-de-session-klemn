@@ -246,20 +246,3 @@ input[type="file"] {
     color: rgb(192, 0, 0);
     font-size: 1.5rem;
 }
-
-.bouton_github {
-    padding: 6px;
-    margin: 0 auto;
-    width: max-content;
-    border-radius: 12px;
-    background-color: #ffffff18;
-}
-.github_icon{
-    padding-right: 2px;
-    width: max-content;
-    height: max-content;
-}
-
-.div_github {
-    text-align: center;
-}

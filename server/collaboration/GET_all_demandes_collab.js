@@ -21,7 +21,7 @@ module.exports = app.get('/', (req, res) => {
                 id_demande_collab
             FROM demande_collab
                 INNER JOIN compte c ON demande_collab.id_collaborateur = c.id_compte
-                INNER JOIN projet p ON demande_collab.projet_id_projet = p.id_projet
+                INNER JOIN projet p ON demande_collab.id_demande_collab = p.id_projet
                 WHERE p.compte_id_proprio = ? 
                 AND demande_collab.est_accepte IS NULL;`, 
             [userId],

@@ -9,8 +9,7 @@ module.exports = app.get('/:id_compte', (req, res) => {
 
     pool.query(`
         SELECT 
-            nom_utilisateur,
-            id_github
+            nom_utilisateur
         FROM compte 
         WHERE  id_compte = ?;`,
         [id],

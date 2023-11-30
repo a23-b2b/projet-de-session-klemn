@@ -30,7 +30,8 @@
 }
 
 .icone {
-    height: fit-content;
+    margin: auto;
+    height: 100%;
 }
 
 .titre_projet {
@@ -124,8 +125,6 @@
 /*Popup Ajout Collaborateur*/
 
 #coteneurAjoutCollaborateur {
-    display: flex;
-    flex-direction: column;
     margin: auto;
     padding: 25px;
     margin-bottom: 30px;
@@ -133,14 +132,8 @@
 }
 
 .conteneurBoutonX {
-    align-self: end;
-    border-radius: 50%;
-    padding: 5px;
+    text-align: right;
     margin-bottom: 10px;
-}
-
-.conteneurBoutonX:hover {
-    background-color: var(--auto_container_post_color);
 }
 
 #titre {
