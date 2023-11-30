@@ -49,7 +49,6 @@ function PosteCollab(props: CollabProp) {
                     body: JSON.stringify({
                         firebase_id_token: idToken
                     })
-
                 }).then(() => {
                     setBoutonActif(false)
                     toast.success('Votre demande de collab a été envoyé');
