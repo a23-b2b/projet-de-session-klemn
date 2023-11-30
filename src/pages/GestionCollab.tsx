@@ -2,12 +2,12 @@ import styles from '../styles/GestionCollab.module.css';
 import GestionDemandeCollab, { PropDemandeCollab } from '../components/GestionDemandeCollab'
 import GestionProjetRapide from '../components/GestionProjetRapide'
 import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { auth } from '../firebase';
 import { RxCross2 } from 'react-icons/rx';
 import { RiAddCircleLine } from 'react-icons/ri';
+import {onAuthStateChanged} from "firebase/auth";
 
 export const METHODE = {
     EMAIL: "1",
@@ -52,31 +52,36 @@ function GestionCollab() {
     }
 
     async function ajouterCollab() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user?.uid === idProprio) {
-                {/* Nous utilison le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
-                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                        body: JSON.stringify({
-                            id_demande_collab: null,
-                            methode: methode
-                        })
+        const user = auth.currentUser
+        if (user?.uid === idProprio) {
+            {/* Nous utilisons le meme code de serveur que pour la reponse au demande de collab, id_demande_collab donne le context*/ }
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${idProjet}/${informationIdentifianteCollaborateur}/true`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    },
+                    body: JSON.stringify({
+                        id_demande_collab: null,
+                        methode: methode
                     })
-                }).catch(error => {
-                    if (error) {
-                        toast.error(error)
-                    }
-                });
-            } else {
-                navigate("/authenticate")
-            }
-        })
+                })
+            }).catch(error => {
+                if (error) {
+                    toast.error(error)
+                }
+            });
+        } else {
+            navigate("/authenticate")
+        }
+    }
+
+    const supprimerProjet = (projet: object) => {
+        const nouvTabProjets = [...projets];
+        const positionProjet = nouvTabProjets.indexOf(projet);
+        nouvTabProjets.splice(positionProjet, 1);
+        setProjets(nouvTabProjets)
     }
 
     return (
@@ -158,12 +163,6 @@ function GestionCollab() {
                         </div>
 
                         <div  className={styles.conteneurFiltreAjout}>
-
-                            <div className={styles.conteneurFiltreId}>
-                                <div className={styles.conteneurFiltreId}>
-                                    <p className={styles.filtre}>ID Filtre: {idProjetFiltre}</p>
-                                </div>
-                            </div>
                             <div className={styles.conteneurBoutonAjouter}>
                                 <Link to={`/projet`}>
                                     <button id={styles["boutonNouveauProjet"]}  >
@@ -180,13 +179,15 @@ function GestionCollab() {
 
 
 
-                        {projets && projets?.map(({
-                            compte_id_proprio,
-                            id_projet,
-                            titre_projet,
-                            description_projet,
-                            est_ouvert
-                        }) => {
+                        {projets && projets?.map(projet => {
+                            const {
+                                compte_id_proprio,
+                                id_projet,
+                                titre_projet,
+                                description_projet,
+                                url_repo_git,
+                                est_ouvert
+                            } = projet;
                             return (<>
 
                                 <div key={id_projet}>
@@ -197,8 +198,11 @@ function GestionCollab() {
                                         id_projet={id_projet}
                                         titre={titre_projet}
                                         description={description_projet}
+                                        url_repo_git={url_repo_git}
                                         compte_id_proprio={compte_id_proprio}
                                         est_ouvert={est_ouvert}
+
+                                        supprimerProjetDeListe={() => supprimerProjet(projet)}
                                     />
                                 </div>
                             </>)
@@ -301,7 +305,6 @@ function GestionCollab() {
     async function getDemandeCollab() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/get-all-demande-collab`, {
                         method: 'GET',

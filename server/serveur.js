@@ -139,6 +139,12 @@ app.use('/get-all-demande-collab', get_all_demande_collab)
 const get_all_projet = require('./collaboration/GET_all_projet.js')
 app.use('/get-all-projets', get_all_projet)
 
+const get_projet = require('./collaboration/[id_projet]/GET_this')
+app.use('/projet', get_projet)
+
+const update_projet = require('./collaboration/[id_projet]/update/POST_this')
+app.use('/projet/update', update_projet)
+
 const delete_project = require('./collaboration/POST_delete_project.js')
 app.use('/projet/delete', delete_project)
 
