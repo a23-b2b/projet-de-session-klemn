@@ -52,8 +52,17 @@ app.use(morgan('tiny', {
 const inscription = require('./user/POST_create.js')
 app.use('/user', inscription);
 
+const inscription_github = require('./user/POST_create_github.js')
+app.use('/user', inscription_github)
+
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
+
+const valider_user = require('./user/[user_id]/GET_id_compte.js')
+app.use('/user', valider_user)
+
+const reset_idgh = require('./user/update/POST_id_github_reset.js')
+app.use('/user', reset_idgh)
 
 const get_username = require('./user/[username]/GET_username.js')
 app.use('/username', get_username);
@@ -84,6 +93,9 @@ app.use('/user', changer_image_profil)
 
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
+
+const sync_id_github = require('./user/update/POST_id_github.js')
+app.use('/user', sync_id_github);
 
 const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
