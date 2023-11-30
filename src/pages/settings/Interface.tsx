@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import VoteWidget from '../../components/Post/voteWidget';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import Select, { StylesConfig } from 'react-select';
-import { HslColorPicker } from "react-colorful";
+import { HslStringColorPicker } from "react-colorful";
 
 const options = [
     { value: 'shake_slide', label: 'Shake + slide' },
@@ -86,13 +86,17 @@ function Interface() {
     let hueLS = parseInt(window.localStorage.getItem('hue') || "");
     let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
 
-    const [hue, setHue] = useState(hueLS || 0);
-    const [saturation, setSaturation] = useState(saturationLS || 0);
+    //let colorThemeLS = window.localStorage.getItem('colorTheme') || "";
+
+    const [hue, setHue] = useState(hueLS || 270);
+    const [saturation, setSaturation] = useState(saturationLS || 30);
+
+    //const [colorTheme] = useState(colorThemeLS || "hsl(270, 30%, 50%)");
 
 
     function changeTheme(hue: number, saturation: number) {
-        document.documentElement.style.setProperty('--base_h', hue.toString())
-        document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+       document.documentElement.style.setProperty('--base_h', hue.toString())
+       document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
 
     }
 
@@ -102,21 +106,25 @@ function Interface() {
             // Local storage is available
             window.localStorage.setItem('hue', JSON.stringify(hue));
             window.localStorage.setItem('saturation', JSON.stringify(saturation));
+            //window.localStorage.setItem('colorTheme', JSON.stringify(colorTheme));
         } else {
             // Local storage is not supported
             console.error("Local storage is not supported in this browser.");
 
         }
 
-        changeTheme(hueLS, saturationLS)
-    }, [hue || saturation])
+        //changeTheme(hueLS, saturationLS)
+    }, [hue || saturation ])
 
     useEffect(() => {
-        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null ) {
+        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null) {
             window.localStorage.setItem('hue', JSON.stringify(270));
             window.localStorage.setItem('saturation', JSON.stringify(30));
+
+            //window.localStorage.setItem('colorTheme', JSON.stringify("hsl(270, 30%, 50%)"));
+            
         }
-      }, []);
+    }, []);
 
 
 
@@ -194,8 +202,14 @@ function Interface() {
                             changeTheme(hue, saturation);
                         }} />
 
+                    
+                   
+
 
                 </div>
+
+
+
 
 
 

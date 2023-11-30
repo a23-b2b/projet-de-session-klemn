@@ -188,6 +188,20 @@ input[type="file"] {
     padding: 0 3px;
 }
 
+/* Color Picker */
+
+.colorPickerDiv  {
+    width: 100%;
+}
+
+.colorPicker {
+    margin: auto;
+    padding: 10px;
+}
+
+
+
+
 /* Mouse-over effects */
 .slider:hover {
     opacity: 1;
