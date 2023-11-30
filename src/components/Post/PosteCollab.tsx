@@ -42,21 +42,21 @@ function PosteCollab(props: CollabProp) {
     function demanderCollabortion(props: CollabProp) {
         if (user) {
             const uid = user.uid;
-            user.getIdToken(true)
-                .then((idToken) => {
-                    console.log("Id Projet: (demanderCollaboration) " + props.idProjet)
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            firebase_id_token: idToken
-                        })
-                    }).then(() => {
-                        toast.success('Votre demande de collab a été envoyé');
-                    }).catch((error) => {
-                        toast.error(error.code);
+            user.getIdToken(true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firebase_id_token: idToken
                     })
+
+                }).then(() => {
+                    setBoutonActif(false)
+                    toast.success('Votre demande de collab a été envoyé');
+                }).catch((error) => {
+                    toast.error(error.code);
                 })
+            })
         }
     }
 
