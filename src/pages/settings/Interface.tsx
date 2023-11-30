@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import VoteWidget from '../../components/Post/voteWidget';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import Select, { StylesConfig } from 'react-select';
+import { HslColorPicker } from "react-colorful";
 
 const options = [
     { value: 'shake_slide', label: 'Shake + slide' },
@@ -78,13 +79,13 @@ function Interface() {
 
     const [selectedOption, setSelectedOption] = useState(0);
 
-    
+
 
     /*Hue/Saturation */
 
     let hueLS = parseInt(window.localStorage.getItem('hue') || "");
     let saturationLS = parseInt(window.localStorage.getItem('saturation') || "");
-     
+
     const [hue, setHue] = useState(hueLS || 0);
     const [saturation, setSaturation] = useState(saturationLS || 0);
 
@@ -97,18 +98,25 @@ function Interface() {
 
 
     useEffect(() => {
-        if (typeof(Storage) !== "undefined") {
+        if (typeof (Storage) !== "undefined") {
             // Local storage is available
             window.localStorage.setItem('hue', JSON.stringify(hue));
             window.localStorage.setItem('saturation', JSON.stringify(saturation));
         } else {
             // Local storage is not supported
             console.error("Local storage is not supported in this browser.");
-            
+
         }
 
-      changeTheme(hueLS, saturationLS)
+        changeTheme(hueLS, saturationLS)
     }, [hue || saturation])
+
+    useEffect(() => {
+        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null ) {
+            window.localStorage.setItem('hue', JSON.stringify(270));
+            window.localStorage.setItem('saturation', JSON.stringify(30));
+        }
+      }, []);
 
 
 
@@ -186,8 +194,10 @@ function Interface() {
                             changeTheme(hue, saturation);
                         }} />
 
-                    
+
                 </div>
+
+
 
 
             </motion.div>

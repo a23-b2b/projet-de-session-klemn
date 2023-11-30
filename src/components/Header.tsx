@@ -42,6 +42,13 @@ function Header() {
     })
   }
 
+  function clearLocalValues() {
+    window.localStorage.removeItem('hue');
+    window.localStorage.removeItem('saturation');
+    window.location.reload();
+  }
+
+
   return (
     <div id={styles["Conteneur_Header"]}>
 
@@ -85,7 +92,7 @@ function Header() {
               </span>
             </MenuItem>
 
-            <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/authenticate')}>
+            <MenuItem className={styles.dropdown_menu_item} onClick={() => { navigate('/authenticate'); clearLocalValues();}}>
               <RiLogoutCircleRLine className={styles.dropdown_menu_item_icon}/>
               <span id={styles["link"]}>
                 Déconnexion

@@ -1,0 +1,6 @@
+2023-11-30 17:06 info: [server]: Server is running at http://localhost:1111
+2023-11-30 17:07 info: IP ::ffff:127.0.0.1: Erreur lors de la création du compte Firebase: Error: The email address is improperly formatted.
+2023-11-30 17:08 info: IP ::ffff:127.0.0.1: compte créé avec succès: EG4ftWSHZyVN2iXa3RzJ5xhdNg72
+2023-11-30 17:11 info: [server]: Server is running at http://localhost:1111
+2023-11-30 17:29 info: [/user/passkeys/list] User EG4ftWSHZyVN2iXa3RzJ5xhdNg72 (skjsjsjsn@gmail.com) wants to list their Passkeys
+2023-11-30 17:36 info: [server]: Server is running at http://localhost:1111

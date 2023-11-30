@@ -56,7 +56,11 @@ function Securite() {
     }
 
     useEffect(() => {
-        changeTheme(hueLS, saturationLS);
+        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null ) {
+            changeTheme(270, 30);
+        } else {
+            changeTheme(hueLS, saturationLS);
+        }
       }, []);
 
     function addPasskey() {

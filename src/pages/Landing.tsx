@@ -19,7 +19,16 @@ function Landing() {
     }
 
     useEffect(() => {
-        changeTheme(hueLS, saturationLS);
+        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null ) {
+            window.localStorage.setItem('hue', JSON.stringify(270));
+            window.localStorage.setItem('saturation', JSON.stringify(30));
+        }
+
+        if (!localStorage.getItem("hue") === null && !localStorage.getItem("saturation") === null ) {
+            changeTheme(hueLS, saturationLS);
+        }
+            
+        
       }, []);
 
     return (

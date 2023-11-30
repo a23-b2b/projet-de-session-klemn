@@ -14,8 +14,13 @@ function Erreur404() {
     }
 
     useEffect(() => {
-        changeTheme(hueLS, saturationLS);
+        if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null ) {
+            changeTheme(270, 30);
+        } else {
+            changeTheme(hueLS, saturationLS);
+        }
       }, []);
+    
     return (
         <div style={{ margin: "auto", minHeight: "100vh", textAlign: "center" }}>
             <h1 style={{fontSize:"5rem"}}>404</h1>
