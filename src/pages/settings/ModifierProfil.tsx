@@ -330,7 +330,7 @@ function ModifierProfil() {
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Modifier Profil</h1>
 
                 <div >
-                    <h3 className={'global_subtitle'}>GitHub Compat</h3>
+                    <h3 className={'global_subtitle'}>Compatibilité GitHub</h3>
 
 
                     {githubLinked == false ?
