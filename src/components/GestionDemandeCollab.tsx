@@ -53,7 +53,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                         body: JSON.stringify({
                             id_demande_collab: props.id_demande_collab,
                         })
-                    }).then(response => response.json())
+                    })
                     .catch(error => toast(error.toString()));
                 })
             } else {
