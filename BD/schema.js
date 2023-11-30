@@ -20,6 +20,7 @@ export const post = mysqlTable("post", {
 
 export const user = mysqlTable("compte", {
     id: varchar("id_compte", { length: 255 }).notNull().primaryKey(),
+    idGithub: varchar("id_github", {length: 255}).unique(), // Permet d'identifier un utilisateur auprès de l'API REST GitHub
     email: varchar("courriel", { length: 255 }).notNull().unique(),
     createdAt: datetime("date_creation_compte").notNull(),
     firstName: varchar("prenom", { length: 255 }).notNull(),
@@ -78,7 +79,7 @@ export const collaborator = mysqlTable("collaborateur", {
 
 export const collaborationRequest = mysqlTable("demande_collab", {
     id: varchar("id_demande_collab", { length: 255 }).primaryKey(),
-    isAccepted: boolean("est_accepte").notNull().default(false),
+    isAccepted: boolean("est_accepte"),
     projectId: varchar("projet_id_projet", { length: 255 }).references(() => project.id, { onDelete: 'cascade' }),
     userId: varchar("id_collaborateur", { length: 255 }).references(() => user.id),
 });

@@ -52,8 +52,17 @@ app.use(morgan('tiny', {
 const inscription = require('./user/POST_create.js')
 app.use('/user', inscription);
 
+const inscription_github = require('./user/POST_create_github.js')
+app.use('/user', inscription_github)
+
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
+
+const valider_user = require('./user/[user_id]/GET_id_compte.js')
+app.use('/user', valider_user)
+
+const reset_idgh = require('./user/update/POST_id_github_reset.js')
+app.use('/user', reset_idgh)
 
 const get_username = require('./user/[username]/GET_username.js')
 app.use('/username', get_username);
@@ -84,6 +93,9 @@ app.use('/user', changer_image_profil)
 
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
+
+const sync_id_github = require('./user/update/POST_id_github.js')
+app.use('/user', sync_id_github);
 
 const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
@@ -126,6 +138,12 @@ app.use('/get-all-demande-collab', get_all_demande_collab)
 
 const get_all_projet = require('./collaboration/GET_all_projet.js')
 app.use('/get-all-projets', get_all_projet)
+
+const get_projet = require('./collaboration/[id_projet]/GET_this')
+app.use('/projet', get_projet)
+
+const update_projet = require('./collaboration/[id_projet]/update/POST_this')
+app.use('/projet/update', update_projet)
 
 const delete_project = require('./collaboration/POST_delete_project.js')
 app.use('/projet/delete', delete_project)

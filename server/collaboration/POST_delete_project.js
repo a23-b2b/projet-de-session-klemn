@@ -1,7 +1,7 @@
 const express = require('express')
 const logger = require('../logger.js')
 const app = express()
-const { pool, admin } = require('../serveur.js')
+const {pool, admin} = require('../serveur.js')
 
 module.exports = app.post('/:id_projet', (req, res) => {
     const id_projet = req.params.id_projet
@@ -11,15 +11,31 @@ module.exports = app.post('/:id_projet', (req, res) => {
         const userId = payload.uid;
 
         pool.query(`
-        DELETE FROM projet WHERE projet.id_projet = ? AND WHERE compte_id_proprio = ?;`,
-            [id_projet, userId],
+        CALL verifier_autorisation_projet(?, ?);
+
+        UPDATE post
+        SET id_compte    = 'deleted',
+            id_type_post = 7,
+            titre        = NULL,
+            contenu      = 'Cette publication a été supprimée',
+            est_markdown = FALSE
+        WHERE id_post IN (SELECT post_id_post FROM post_collab WHERE projet_id_projet = ?);
+        
+        DELETE
+        FROM post_collab
+        WHERE projet_id_projet = ?;
+        
+        DELETE
+        FROM projet
+        WHERE id_projet = ?;`,
+            [userId, id_projet, id_projet, id_projet, id_projet],
             function (err) {
                 if (err) {
                     const errJSON = JSON.stringify(err)
                     res.status(500).send()
                     logger.info(JSON.stringify(errJSON))
                 } else {
-                    res.status(200)
+                    res.sendStatus(200)
                 }
             })
     }).catch((error) => {

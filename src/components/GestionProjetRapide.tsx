@@ -4,8 +4,8 @@ import poubelle from '../images/icn-delete.png';
 import ouvert from '../images/icn-open.png';
 import collaboration from '../images/icn-collaboration.png';
 import fermer from '../images/icn-closed.png';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from "firebase/auth";
+import {Link, useNavigate} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ChangeEvent, EventHandler, useEffect, useState } from 'react';
 import { ExceptionHandler } from 'winston';
@@ -15,6 +15,10 @@ import { HiLockOpen } from 'react-icons/hi';
 import { HiLockClosed } from 'react-icons/hi';
 import { HiFunnel } from 'react-icons/hi2';
 import { GoTrash } from 'react-icons/go';
+import {Tooltip} from "@chakra-ui/react";
+import {VscEdit} from "react-icons/vsc";
+import {response} from "express";
+import {auth} from "../firebase";
 
 
 
@@ -23,12 +27,14 @@ export interface PropsProjet {
     id_projet: String,
     titre: String,
     description: String,
+    url_repo_git: String,
     compte_id_proprio: String,
     est_ouvert: Boolean
 
     /* https://upmostly.com/tutorials/how-to-pass-a-function-as-a-prop-in-react */
     filtrerDemandeParIdProjet: Function
     montrerFormulaireAjoutCollaborateur: Function
+    supprimerProjetDeListe: () => void
 }
 
 
@@ -38,10 +44,13 @@ function GestionProjetRapide(props: PropsProjet) {
     const [estOuvert, setEstOuvert] = useState(props.est_ouvert)
 
     async function supprimerProjet() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        const confirmationDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet? Cette action est irréversible " +
+            "et les publications associées à ce projet seront supprimées.");
+
+        if (confirmationDelete) {
+            const user = auth.currentUser;
             if (user?.uid == props.compte_id_proprio) {
-                // https://builtin.com/software-engineering-perspectives/react-api 
+                // https://builtin.com/software-engineering-perspectives/react-api
                 user.getIdToken(/* forceRefresh */ true).then((idToken) => {
                     fetch(`${process.env.REACT_APP_API_URL}/projet/delete/${props.id_projet}`, {
                         method: 'POST',
@@ -49,37 +58,45 @@ function GestionProjetRapide(props: PropsProjet) {
                             'Content-Type': 'application/json',
                             'authorization': idToken
                         }
+                    }).then(response => {
+                        if (response.ok) {
+                            toast.success("Projet supprimé")
+                            props.supprimerProjetDeListe()
+                        }
                     })
                 }).catch(error => toast.error(JSON.stringify(error)));
             } else {
                 navigate("/authenticate")
             }
-        })
+        }
     }
 
     async function rendreProjetOuvertAuCollab() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user?.uid == props.compte_id_proprio) {
-                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!(props.est_ouvert)}`, {
+        const user = auth.currentUser
+        if (user?.uid == props.compte_id_proprio) {
+            user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/projet/open/${props.id_projet}/${!estOuvert}`, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    }
                 })
                     .then(() => {
-                        setEstOuvert(!estOuvert)
                         if (!estOuvert) {
-                            toast(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
+                            toast.success(`Projet: ${props.titre} est maintenant ouvert au demande de collaboration!`)
                         }
-
+                        setEstOuvert(!estOuvert)
                     })
                     .catch(error => {
                         if (error) {
                             toast.error(error)
                         }
                     });
-            } else {
-                navigate("/authenticate")
-            }
-        })
+            })
+        } else {
+            navigate("/authenticate")
+        }
     }
 
 
@@ -94,35 +111,39 @@ function GestionProjetRapide(props: PropsProjet) {
             {/* Rang/e du haut */}
 
             <div className={styles.conteneur_info_projet}>
-                <div>
-                    <p className={styles.titre_projet}>Titre: {props.titre}</p>
-                </div>
-
-                <div>
-                    <p className={styles.description_projet}>Description: {props.description}</p>
-                </div>
-
+                <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
+                <p className={styles.titre_projet} >
+                    Titre: {props.titre}
+                </p>
+                </button>
+                
+                <p className={styles.description_projet}>Description: {props.description}</p>
+                <p className={styles.description_projet}>URL Git: {props.url_repo_git.trim() ? props.url_repo_git : "Aucun dépôt associé"}</p>
             </div>
 
             <div className={styles.conteneur_action_projet}>
 
 
                 <div className={styles.ligne1}>
+                    <Tooltip className={styles.tooltip} label={"Ajouter Collaborateur"} placement={"top"}>
+                        <div className={styles.conteneurIcone}>
+                            <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
+                                <RiTeamLine size={50} className={styles.icone} />
+                            </button>
+                        </div>
+                    </Tooltip>
+
                     <div className={styles.conteneurIcone}>
-                        <button onClick={() => props.montrerFormulaireAjoutCollaborateur(props.id_projet, props.compte_id_proprio)}>
-                            <RiTeamLine size={50} className={styles.icone} />
-                        </button>
-                    </div>
-                    <div className={styles.conteneurIcone}>
 
-                        <button onClick={rendreProjetOuvertAuCollab}>
+                        <Tooltip className={styles.tooltip} label={estOuvert ? "Verrouiller" : "Déverrouiller"} placement={"top"}>
+                            <button onClick={rendreProjetOuvertAuCollab}>
 
-                            {Boolean(estOuvert) && <HiLockOpen size={55} className={styles.icone} />}
+                                {Boolean(estOuvert) && <HiLockOpen size={55} className={styles.icone} />}
 
-                            {Boolean(!estOuvert) && <HiLockClosed size={55} className={styles.icone} />}
-                            
-                        </button>
+                                {Boolean(!estOuvert) && <HiLockClosed size={55} className={styles.icone} />}
 
+                            </button>
+                        </Tooltip>
                     </div>
 
                 </div>
@@ -130,14 +151,21 @@ function GestionProjetRapide(props: PropsProjet) {
 
                 <div className={styles.ligne2}>
                     <div className={styles.conteneurIcone}>
-                        <button onClick={() => props.filtrerDemandeParIdProjet(props.id_projet)}>
-                            <HiFunnel size={50} className={styles.icone} />
-                        </button>
+                        <Tooltip className={styles.tooltip} label={"Modifier"} placement={"bottom"}>
+                            <Link to={`/projet/${props.id_projet}`}>
+                                <button>
+                                    <VscEdit size={50} className={styles.icone} />
+                                </button>
+                            </Link>
+                        </Tooltip>
                     </div>
                     <div className={styles.conteneurIcone}>
-                        <button onClick={supprimerProjet}>
-                            <GoTrash size={55} className={styles.icone} />
-                        </button>
+                        <Tooltip className={styles.tooltip} label={"Supprimer"} placement={"bottom"}>
+                            <button onClick={supprimerProjet}>
+                                <GoTrash size={55} className={styles.icone} />
+                            </button>
+                        </Tooltip>
+
                     </div>
 
 
