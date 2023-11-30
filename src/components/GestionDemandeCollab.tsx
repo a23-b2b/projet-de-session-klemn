@@ -31,7 +31,6 @@ export interface PropDemandeCollab {
 /*
 Si la demande est accepter, on fait un insert dans la table collaborateur et update pour vrai
 Sinon on change le statut de la demande a refusé
-TODO: Dans tout les cas il faut supprimer la demande refusé apres un certain temps
 */
 
 function GestionDemandeCollab(props: PropDemandeCollab) {
