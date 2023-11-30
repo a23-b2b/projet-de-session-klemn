@@ -175,39 +175,12 @@ function Header() {
                 null
                 :
                 <>
-                  {githubLinked == false ?
-                    <>
-                      <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
-                        <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
-                        <span id={styles["link"]} className={'link'}>
-                          Déconnexion
-                        </span>
-                      </MenuItem>
-
-                      <MenuItem className={styles.dropdown_menu_item} onClick={() => lierCompteGithub()}>
-                        <AiFillGithub className={styles.dropdown_menu_icon} />
-                        <span id={styles["link"]} className={'link'}>
-                          Lier Compte GitHub
-                        </span>
-                      </MenuItem>
-                    </>
-                    :
-                    <>
-                      <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
-                        <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
-                        <span id={styles["link"]} className={'link'}>
-                          Déconnexion
-                        </span>
-                      </MenuItem>
-
-                      <MenuItem className={styles.dropdown_menu_item} onClick={() => dissocierCompteGithub()}>
-                        <AiFillGithub className={styles.dropdown_menu_icon} />
-                        <span id={styles["link"]} className={'link'}>
-                          Dissocier Compte GitHub
-                        </span>
-                      </MenuItem>
-                    </>
-                  }
+                  <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
+                    <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
+                    <span id={styles["link"]} className={'link'}>
+                      Déconnexion
+                    </span>
+                  </MenuItem>
                 </>
               }
             </Menu>
