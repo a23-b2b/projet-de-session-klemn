@@ -108,6 +108,6 @@
 
 
 #conteneurModal {
-
     width: 450px;
+    max-width: 90vw;
 }

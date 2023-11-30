@@ -119,70 +119,80 @@ const PostHeader = (props: HeaderProps) => {
 
     return (
         <div className={styles.header}>
-            {!props.isDeleted && (
-                <>
-                    <Link to={`/u/${props.nomUtilisateur}`}>
-                        <img className={styles.image_profil} src={props.urlImageProfil} />
-                    </Link>
 
-                    <div id={styles["inner_droit_nom_utilisateur"]}>
-                        <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
-                            <p className={styles.display_name}>{props.nomAffichage}</p>
-                            {/* <BadgesContainer badgesInt={15}/> */}
-                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+            <div className={styles.grid_container}>
+
+                {!props.isDeleted && (
+                    <div className={styles.grid_item} id={styles.infos_utilisateur}>
+                        <Link to={`/u/${props.nomUtilisateur}`}>
+                            <img className={styles.image_profil} src={props.urlImageProfil} />
                         </Link>
-                    </div>
-                </>
-            )}
 
-            {props.estModifie ? <MdEdit /> : ''}
-
-            {props.isDeleted && (
-                <>
-                    <img className={styles.image_profil} src={props.urlImageProfil} />
-                    <div id={styles["inner_droit_nom_utilisateur"]}>
-                        <div className={styles.user_info}>
-                            <p className={styles.display_name}>{props.nomAffichage}</p>
-                            {/* <BadgesContainer badgesInt={15}/> */}
-                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+                        <div id={styles["inner_droit_nom_utilisateur"]}>
+                            <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
+                                <p className={styles.display_name}>{props.nomAffichage}</p>
+                                {/* <BadgesContainer badgesInt={15}/> */}
+                                <p className={styles.username}>@{props.nomUtilisateur}</p>
+                            </Link>
                         </div>
                     </div>
-                </>
-            )}
+                )}
 
-            <p className={styles.date}>
-                <Timestamp date={props.date} />
-            </p>
+                {props.estModifie ? <MdEdit /> : ''}
 
-            {!props.isDeleted && (
-                <Menu menuButton={
-                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
-                        <SlOptionsVertical className={styles.icone} id={styles.icone_options} />
+                {props.isDeleted && (
+                    <div className={styles.grid_item} id={styles.infos_utilisateur}>
+                        <img className={styles.image_profil} src={props.urlImageProfil} />
+                        <div id={styles["inner_droit_nom_utilisateur"]}>
+                            <div className={styles.user_info}>
+                                <p className={styles.display_name}>{props.nomAffichage}</p>
+                                {/* <BadgesContainer badgesInt={15}/> */}
+                                <p className={styles.username}>@{props.nomUtilisateur}</p>
+                            </div>
+                        </div>
                     </div>
-                }
-                    transition={true}
-                    menuClassName={styles.share_menu}
-                    onItemClick={(e) => handleOptionsItemClick(e.value)}>
+                )}
 
-                    {estProprietaire && (
-                        <>
-                            <MenuItem value={'delete'} className={styles.share_menu_item}>
-                                <MdDeleteForever
-                                    className={styles.share_menu_icon}
-                                    id={styles.icone_supprimer} />
-                                <span>Supprimer</span>
-                            </MenuItem>
+                <div className={styles.grid_item}>
+                    <p className={styles.date}>
+                        <Timestamp date={props.date} />
+                    </p>
+                </div>
 
-                            <MenuItem value={'edit'} className={styles.share_menu_item}>
-                                <FaEdit className={styles.share_menu_icon} />
-                                <span>Modifier</span>
-                            </MenuItem>
-                        </>
-                    )}
-                    <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+                {!props.isDeleted && (
+                    <div className={styles.grid_item}>
+                        <Menu menuButton={
+                            <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
+                                <SlOptionsVertical className={styles.icone} id={styles.icone_options} />
+                            </div>
+                        }
+                            transition={true}
+                            menuClassName={styles.share_menu}
+                            onItemClick={(e) => handleOptionsItemClick(e.value)}>
 
-                </Menu>
-            )}
+                            {estProprietaire && (
+                                <>
+                                    <MenuItem value={'delete'} className={styles.share_menu_item}>
+                                        <MdDeleteForever
+                                            className={styles.share_menu_icon}
+                                            id={styles.icone_supprimer} />
+                                        <span>Supprimer</span>
+                                    </MenuItem>
+
+                                    <MenuItem value={'edit'} className={styles.share_menu_item}>
+                                        <FaEdit className={styles.share_menu_icon} />
+                                        <span>Modifier</span>
+                                    </MenuItem>
+                                </>
+                            )}
+                            <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+
+                        </Menu>
+                    </div>
+                )}
+
+            </div>
+
 
             <Modal isModalOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen}>
                 <div className={styles.conteneur}>
