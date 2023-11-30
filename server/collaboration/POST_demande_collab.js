@@ -1,9 +1,6 @@
 const express = require('express')
 const app = express()
-const { admin } = require('../serveur.js')
-const logger = require('../logger.js');
-const { pool } = require('../../serveur.js')
-
+const { admin, pool} = require('../serveur.js')
 
 module.exports = app.post('/p/:id_projet', (req, res) => {
     const idToken = req.body.firebase_id_token;
