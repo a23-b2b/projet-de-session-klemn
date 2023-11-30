@@ -41,7 +41,6 @@ function PosteCollab(props: CollabProp) {
 
     function demanderCollabortion(props: CollabProp) {
         if (user) {
-            const uid = user.uid;
             user.getIdToken(true).then((idToken) => {
                 fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}`, {
                     method: 'POST',

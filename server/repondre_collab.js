@@ -3,6 +3,11 @@ const app = express()
 const logger = require('./logger.js')
 const { pool } = require('./serveur.js')
 
+const { Octokit } = require("@octokit/core");
+const { appOctokit } = require('./octokit.js')
+const { createOAuthUserAuth } = require("@octokit/auth-oauth-app");
+const { send } = require('process');
+
 const METHODE = {
     EMAIL: "1",
     ID: "2",
@@ -18,7 +23,7 @@ const queryUpdateSelonIdCompte = `
             ;
     `;
 
-    const queryUpdateSelonCourriel = `
+const queryUpdateSelonCourriel = `
         UPDATE demande_collab 
             SET est_accepte = ?
             WHERE id_collaborateur = (SELECT id_compte FROM compte WHERE courriel = ?) 
@@ -26,7 +31,7 @@ const queryUpdateSelonIdCompte = `
             ;
     `;
 
-    const queryUpdateSelonUsername = `
+const queryUpdateSelonUsername = `
         UPDATE demande_collab 
             SET est_accepte = ?
             WHERE id_collaborateur = (SELECT id_compte FROM compte WHERE nom_utilisateur = ?)
@@ -34,7 +39,7 @@ const queryUpdateSelonIdCompte = `
             ;
     `;
 
-    const queryInsertSelonCourriel = `
+const queryInsertSelonCourriel = `
     INSERT INTO collaborateur (
         id_collaborateur,
         compte_id_compte,
@@ -45,7 +50,7 @@ const queryUpdateSelonIdCompte = `
         ? );     
     `;
 
-    const queryInsertSelonUsername = `
+const queryInsertSelonUsername = `
     INSERT INTO collaborateur (
         id_collaborateur,
         compte_id_compte,
@@ -56,7 +61,7 @@ const queryUpdateSelonIdCompte = `
         ? );     
     `;
 
-    const queryInsertSelonIdCompte = `
+const queryInsertSelonIdCompte = `
     INSERT INTO collaborateur (
         id_collaborateur,
         compte_id_compte,
@@ -73,9 +78,10 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
     const id_projet = req.params.id_projet
     const reponse = req.params.reponse
 
-    const est_accepte = (reponse == DEMANDE_ACCEPTEE)      
-    
+    const est_accepte = (reponse == DEMANDE_ACCEPTEE)
+
     const methode = req.body.methode
+    const idToken = req.body.firebase_id_token;
 
     var queryInsert = ""
     var queryUpdate = ""
@@ -84,48 +90,74 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
         case METHODE.EMAIL:
             queryInsert = queryInsertSelonCourriel
             queryUpdate = queryUpdateSelonCourriel
-          break;
+            break;
         case METHODE.ID:
             queryUpdate = queryUpdateSelonIdCompte
             queryInsert = queryInsertSelonIdCompte
-          break;
+            break;
         case METHODE.USERNAME:
             queryUpdate = queryUpdateSelonUsername
             queryInsert = queryInsertSelonUsername
             break;
         default:
             queryUpdate = queryUpdateSelonIdCompte
-            queryInsert = queryInsertSelonIdCompte 
+            queryInsert = queryInsertSelonIdCompte
             break;
-            
+
     }
 
     // Si accepted, faire update true + insert collaborateur
     // Sinon, faire update false
-    // Si a id_demande_collab, est une reponse a une demande, sinon cest manuel dans le menu
-    
-    pool.query(
-    queryUpdate, 
-    [est_accepte, identity, id_projet],
-    function(err) {
-        if (err) {
-            logger.info(JSON.stringify(err))
-            res.status(500).send()
-        } else {
-            ajouterCollaborateur()
-        }
+    // Si a id_demande_collab, est une reponse a une demande, sinon cest manuel dans le menu    
+    admin.auth().verifyIdToken(idToken, true).then((payload) => {
+        const userId = payload.uid;
+
+        pool.query(
+            queryUpdate,
+            [est_accepte, identity, id_projet],
+            function (err) {
+                if (err) {
+                    logger.info(JSON.stringify(err))
+                    res.status(500).send()
+                } else {
+                    ajouterCollaborateur()
+                }
+            }
+        )
+    }).catch((error) => {
+        res.status(500).send("ERREUR: " + error.code)
     })
+
+    async function sendCollabGithub() {
+        // Send requests as app
+        const code = await appOctokit.request("GET https://github.com/login/oauth/authorize", {
+            client_id: process.env.clientId            
+        });
+
+        // create a new octokit instance that is authenticated as the user
+        const userOctokit = await appOctokit.auth({
+            type: "oauth-user",
+            code: code,
+            factory: (options) => {
+                return new Octokit({
+                    authStrategy: createOAuthUserAuth,
+                    auth: options,
+                });
+            },
+        });
+    }
 
     async function ajouterCollaborateur() {
         if (est_accepte) {
             pool.query(
                 queryInsert,
                 [identity, id_projet],
-                function(err) {
+                function (err) {
                     if (err) {
                         res.status(500).send()
-                    }   
-                    res.status(200).send()
+                    } else {
+                        res.status(200).send()
+                    }
                 }
             )
         }
