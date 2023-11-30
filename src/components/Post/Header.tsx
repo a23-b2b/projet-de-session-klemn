@@ -193,7 +193,9 @@ const PostHeader = (props: HeaderProps) => {
                     </div>
                 )}
 
-                {props.estModifie ? <p style={{ marginRight: "8px" }}><MdEdit /></p> : ''}
+                <div>
+                    {props.estModifie ? <p style={{ marginRight: "8px" }}><MdEdit /></p> : ''}
+                </div>
 
                 <div className={styles.grid_item}>
                     <p className={styles.date}>

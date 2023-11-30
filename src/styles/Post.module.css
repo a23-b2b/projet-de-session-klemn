@@ -34,7 +34,7 @@ margin: 30px 0px 30px 0px;
 /* HEADER - grid */
 .grid_container {
     display: grid;
-    grid-template-columns: auto max-content 36px;
+    grid-template-columns: auto min-content max-content 36px;
 }
 
 #infos_utilisateur {
