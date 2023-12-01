@@ -82,6 +82,9 @@ app.use('/user', changer_nom)
 const repondre_demande_collab = require('./repondre_collab')
 app.use('/collab', repondre_demande_collab)
 
+const demander_collab = require('./collaboration/POST_demande_collab.js')
+app.use('/collab', demander_collab)
+
 const changer_prenom = require('./user/update/POST_prenom.js')
 app.use('/user', changer_prenom)
 
