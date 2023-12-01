@@ -3,7 +3,7 @@ import styles from '../styles/klemn.module.css'
 import { Link } from 'react-router-dom';
 
 
-function klemn() {
+function Klemn() {
 
 
 
@@ -218,4 +218,4 @@ function klemn() {
     </>)
 }
 
-export default klemn;
+export default Klemn;
