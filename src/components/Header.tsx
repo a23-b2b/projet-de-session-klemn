@@ -146,42 +146,46 @@ function Header() {
               menuClassName={styles.dropdown_menu}
               menuButton={
                 <div className={styles.dropdown}>
-                  <CiCircleList size="40px" className={styles.icone_list} />
+                  <LuMenu size="40px" className={styles.icone_list} />
                 </div>
-              }
-            >
+              }>
+
               <Link to={`/u/${username}`} id={styles["linkConteneur"]}>
-                <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate(`/u/${username}`)}>
-                  <CgProfile id={styles["linkConteneur"]} className={styles.dropdown_menu_icon} />
-                  <span id={styles["link"]} className={'link'}>
+                <MenuItem className={styles.dropdown_menu_item} id={styles.premier_item_dropdown}>
+                  <CgProfile className={styles.dropdown_menu_icon} />
+                  <span>
                     Profil
                   </span>
                 </MenuItem>
               </Link>
-              <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/parametres/profil')}>
-                <LuSettings className={styles.dropdown_menu_icon} />
-                <span id={styles["link"]} className={'link'}>
-                  Paramètres
-                </span>
-              </MenuItem>
-              <MenuItem className={styles.dropdown_menu_item} onClick={() => navigate('/gestion')}>
-                <RiTeamLine className={styles.dropdown_menu_icon} />
-                <span id={styles["link"]} className={'link'}>
-                  Collaboration
-                </span>
-              </MenuItem>
+
+              <Link to={`/parametres/profil`} id={styles["linkConteneur"]}>
+                <MenuItem className={styles.dropdown_menu_item}>
+                  <LuSettings className={styles.dropdown_menu_icon} />
+                  <span>
+                    Paramètres
+                  </span>
+                </MenuItem>
+              </Link>
+
+              <Link to={`/gestion`} id={styles["linkConteneur"]}>
+                <MenuItem className={styles.dropdown_menu_item}>
+                  <RiTeamLine className={styles.dropdown_menu_icon} />
+                  <span>
+                    Collaboration
+                  </span>
+                </MenuItem>
+              </Link>
 
               {!auth.currentUser ?
                 null
                 :
-                <>
-                  <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()}>
+                  <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()} id={styles.dernier_item_dropdown}>
                     <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
-                    <span id={styles["link"]} className={'link'}>
+                    <span>
                       Déconnexion
                     </span>
                   </MenuItem>
-                </>
               }
             </Menu>
           </div>

@@ -5,7 +5,7 @@ import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from "react";
-import {auth} from "../../firebase";
+import { auth } from "../../firebase";
 
 export interface CollabProp {
     idPost: string;
@@ -39,29 +39,26 @@ function PosteCollab(props: CollabProp) {
         setBoutonActif(user?.uid != props.idCompte)
     }, [])
 
-    function demanderCollabortion(props: CollabProp){        
+    function demanderCollabortion(props: CollabProp) {
         if (user) {
-            const uid = user.uid;
-            user.getIdToken(true)
-                .then((idToken) => {
-                    console.log("Id Projet: (demanderCollaboration) "+ props.idProjet)
-                    fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}/${uid}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            firebase_id_token: idToken
-                        })             
-                    }).then(response => response.json())
-                        .then(response => {
-                            toast.success('Votre demande de collab a été envoyé');
-                        }).catch((error) => {
-                            toast.error('Une erreur est survenue');
+            user.getIdToken(true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firebase_id_token: idToken
                     })
+                }).then(() => {
+                    setBoutonActif(false)
+                    toast.success('Votre demande de collab a été envoyé');
+                }).catch((error) => {
+                    toast.error(error.code);
                 })
-        } 
+            })
+        }
     }
 
-    
+
 
     return (
         <div className={'global_container_3'} id={styles["conteneur_post"]}>
@@ -73,8 +70,8 @@ function PosteCollab(props: CollabProp) {
                 nomUtilisateur={props.nomUtilisateur}
                 urlImageProfil={props.urlImageProfil}
                 isDeleted={false}
-                estModifie={props.estModifie} 
-                contenu={props.contenu}/>
+                estModifie={props.estModifie}
+                contenu={props.contenu} />
 
             <PostContent
                 titre={props.titre}
@@ -83,11 +80,11 @@ function PosteCollab(props: CollabProp) {
                 estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            
+
             {user && user.uid != props.idCompte &&
                 <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
                     Demander à collaborer
-                </button> }
+                </button>}
 
             <PostFooter
                 idPost={props.idPost}

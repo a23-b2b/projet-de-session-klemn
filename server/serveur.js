@@ -73,6 +73,9 @@ app.use('/user', follow_user);
 const unfollow_user = require('./user/[user_id]/POST_unfollow.js');
 app.use('/user', unfollow_user);
 
+const changer_courriel = require('./user/update/POST_courriel');
+app.use('/user', changer_courriel)
+
 const changer_nom_affichage = require('./user/update/POST_display_name.js')
 app.use('/user', changer_nom_affichage)
 
@@ -81,6 +84,9 @@ app.use('/user', changer_nom)
 
 const repondre_demande_collab = require('./repondre_collab')
 app.use('/collab', repondre_demande_collab)
+
+const demander_collab = require('./collaboration/POST_demande_collab.js')
+app.use('/collab', demander_collab)
 
 const changer_prenom = require('./user/update/POST_prenom.js')
 app.use('/user', changer_prenom)
