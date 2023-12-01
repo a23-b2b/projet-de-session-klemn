@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const logger = require('./logger.js')
-const { pool } = require('./serveur.js')
+const { pool, admin } = require('./serveur.js')
 
 const { Octokit } = require("@octokit/core");
 const { appOctokit } = require('./octokit.js')
@@ -81,7 +81,7 @@ module.exports = app.post('/p/:id_projet/:id_collaborateur/:reponse', (req, res)
     const est_accepte = (reponse == DEMANDE_ACCEPTEE)
 
     const methode = req.body.methode
-    const idToken = req.body.firebase_id_token;
+    const idToken = req.headers.authorization;
 
     var queryInsert = ""
     var queryUpdate = ""
