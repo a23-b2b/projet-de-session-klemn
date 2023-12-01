@@ -14,7 +14,7 @@ export const TYPE_QUOTE_POST = 5;
 export const TYPE_BOOST = 6 // boost est quand qqun partage et donc "insere" le post dans le feed des autres
 export const TYPE_DELETED = 7; // un post qui a ete supprime, l'affichage sera different
 
-interface Props {
+export interface Props {
     idPost: string;
     date: string;
     nomAffichage: string,
@@ -29,7 +29,6 @@ interface Props {
     nombrePartage: number;
     nombreCommentaire: number;
     userVote: number;
-
     isPostFullScreen: Boolean;
     idCompte: string;
     type: number;
@@ -39,7 +38,7 @@ interface Props {
     idMeilleureReponse?: string;
 
     // props collab optionnels
-    idProjet?: string; 
+    idProjet?: string;
     estOuvert?: Boolean; // va dependre du projet
 
 
@@ -47,148 +46,79 @@ interface Props {
     isSharedPostQuote?: boolean;
 }
 
+export interface IPost {
+    idPost: string;
+    date: string;
+    nomAffichage: string,
+    nomUtilisateur: string;
+    urlImageProfil: string;
+    titre: string;
+    contenu: string;
+    estMarkdown: Boolean;
+    estModifie: Boolean;
+    nombreLike: number;
+    nombreDislike: number;
+    nombrePartage: number;
+    nombreCommentaire: number;
+    userVote: number;
+    isPostFullScreen: Boolean;
+    idCompte: string;
+    type: number;
+}
+
 function Post(props: Props) {
 
+    const post: IPost = {
+        idPost: props.idPost,
+        date: props.date,
+        nomAffichage: props.nomAffichage,
+        nomUtilisateur: props.nomUtilisateur,
+        contenu: props.contenu,
+        estMarkdown: props.estMarkdown,
+        estModifie: props.estModifie,
+        idCompte: props.idCompte,
+        nombreLike: props.nombreLike,
+        nombreDislike: props.nombreDislike,
+        nombrePartage: props.nombrePartage,
+        nombreCommentaire: props.nombreCommentaire,
+        urlImageProfil: props.urlImageProfil,
+        userVote: props.userVote,
+        titre: props.titre,
+        isPostFullScreen: props.isPostFullScreen,
+        type: props.type
+    }
     return (
         <>
-            {props.type == TYPE_BLOGUE && (
-                <PosteBlogue
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    titre={props.titre}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} />
+            {post.type == TYPE_BLOGUE && (
+                <PosteBlogue post={post} />
             )}
-            {props.type == TYPE_REPONSE && (
-                <Reponse idPost={props.idPost}
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} />
+            {post.type == TYPE_REPONSE && (
+                <Reponse post={post} />
             )}
-            {props.type === TYPE_QUESTION && (
-                <PosteQuestion
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    titre={props.titre}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote}
-
-                    // Question Prop
-                    idMeilleureReponse={props.idMeilleureReponse}
-                    statutReponse={props.statutReponse} />
+            {post.type === TYPE_QUESTION && (
+                <PosteQuestion post={post} idMeilleureReponse={props.idMeilleureReponse} statutReponse={props.statutReponse} />
             )}
-            {props.type === TYPE_COLLABORATION && (
+            {post.type === TYPE_COLLABORATION && (
                 <PosteCollab
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    titre={props.titre}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote}
-
-                    // Collab Prop
+                    post={post}
                     estOuvert={props.estOuvert}
                     idProjet={props.idProjet}
                 />
             )}
 
-            {props.type === TYPE_QUOTE_POST && props.sharedPostId && props.isSharedPostQuote && (
-                <QuotePost
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    titre={props.titre}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} 
-
-                    quotedPostId={props.sharedPostId}
-                />
+            {post.type === TYPE_QUOTE_POST && props.sharedPostId && props.isSharedPostQuote && (
+                <QuotePost post={post} quotedPostId={props.sharedPostId} />
             )}
 
-            {props.type === TYPE_BOOST && props.sharedPostId && !props.isSharedPostQuote && (
+            {post.type === TYPE_BOOST && props.sharedPostId && !props.isSharedPostQuote && (
                 <BoostPost
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    idCompte={props.idCompte}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-
+                    post={post}
                     boostedPostId={props.sharedPostId}
                 />
             )}
 
-            {props.type === TYPE_DELETED && (
-                <DeletedPost
-                    date={props.date}
-                    nomAffichage={props.nomAffichage}
-                    nomUtilisateur={props.nomUtilisateur}
-                    titre={props.titre}
-                    contenu={props.contenu}
-                    estMarkdown={props.estMarkdown}
-                    estModifie={props.estModifie}
-                    idCompte={props.idCompte}
-                    nombreLike={props.nombreLike}
-                    nombreDislike={props.nombreDislike}
-                    nombrePartage={props.nombrePartage}
-                    nombreCommentaire={props.nombreCommentaire}
-                    isPostFullScreen={props.isPostFullScreen}
-                    idPost={props.idPost}
-                    urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} />
+            {post.type === TYPE_DELETED && (
+                <DeletedPost post={post} />
             )}
         </>
     );
