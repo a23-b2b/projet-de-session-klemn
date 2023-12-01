@@ -11,24 +11,25 @@ const query =
         titre_projet, 
         description_projet, 
         url_repo_git, 
-        compte_id_proprio, 
-        est_ouvert)
+        est_ouvert,
+        compte_id_proprio)
     VALUES
         (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), 
         ?, 
         ?,
         ?, 
         ?, 
-        false)
+        ?)
     ;`
 
 // TODO: chaine de validation avec const { body, validationResult } = require('express-validator');
 module.exports = app.post('/add/', 
     [body('titre_projet').notEmpty().isLength({ max: 4000 })], (req, res) => { 
         
-        const titre_projet = req.body.titre_projet
-        const description_projet = req.body.description_projet
-        const url_repo_git = req.body.url_repo_git
+        const titre_projet = req.body.titre_projet;
+        const description_projet = req.body.description_projet;
+        const url_repo_git = req.body.url_repo_git;
+        const est_ouvert = req.body.est_ouvert;
 
         const idToken = req.headers.authorization;
 
@@ -41,6 +42,7 @@ module.exports = app.post('/add/',
                 [titre_projet,
                 description_projet,
                 url_repo_git,
+                est_ouvert,
                 userId],
                 function(err) {
                     if (err) {

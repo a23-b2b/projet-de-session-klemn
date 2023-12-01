@@ -1,12 +1,14 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
-import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
+import { EmailAuthProvider, GithubAuthProvider, getAdditionalUserInfo, linkWithPopup, onAuthStateChanged, reauthenticateWithCredential, unlink, updateEmail, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
 import { FaRegFolderOpen } from 'react-icons/fa6';
+import { Button } from '@chakra-ui/button';
+import { AiFillGithub } from 'react-icons/ai';
 
 
 
@@ -25,6 +27,14 @@ function ModifierProfil() {
     const [cropProfil, setCropProfil] = useState<Crop>()
     const [urlImageProfil, setUrlImageProfil] = useState('')
     const imgProfilRef = useRef<HTMLImageElement>()
+
+    const [githubLinked, setGithubLinked] = useState(false)
+
+    const githubProvider = new GithubAuthProvider();
+
+    useEffect(() => {
+        getUser();
+    }, []);
 
     const changeEmail = () => {
 
@@ -129,6 +139,32 @@ function ModifierProfil() {
         })
     }
 
+    async function getUser() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/username/${user.uid}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
+
+                        if (response[0].id_github == null) {
+                            setGithubLinked(false)
+                        } else {
+                            setGithubLinked(true)
+                        }
+
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
+                })
+            }
+        })
+    }
+
     function onImageProfilLoad(e: React.SyntheticEvent<HTMLImageElement, Event>) {
         // Reference: https://www.npmjs.com/package/react-image-crop
         const { width, height } = e.currentTarget;
@@ -226,12 +262,100 @@ function ModifierProfil() {
         }
     }
 
+    async function lierCompteGithub() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    linkWithPopup(user, githubProvider).then((result) => {
+                        toast("Compter lier avec success")
+                        setGithubLinked(true)
+
+                        const additionalInfo = getAdditionalUserInfo(result)!
+                        if (additionalInfo) {
+                            if (additionalInfo.profile) {
+                                const profile = additionalInfo.profile
+                                fetch(`${process.env.REACT_APP_API_URL}/user/sync-github`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'authorization': idToken
+                                    },
+                                    body: JSON.stringify({
+                                        id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
+                                    })
+
+                                })
+
+                            }
+                        }
+
+
+                    }).catch((error) => {
+                        toast.error(error)
+                    });
+                })
+            }
+        })
+
+    }
+
+    async function dissocierCompteGithub() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(true).then((idToken) => {
+                    unlink(user, GithubAuthProvider.PROVIDER_ID).then(() => {
+                        toast.success("Votre compte a été dissocié avec sussès!")
+
+                        fetch(`${process.env.REACT_APP_API_URL}/user/unsync-github`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            }
+                        })
+
+                        setGithubLinked(false)
+                    }).catch((error) => {
+                        toast.error(error)
+                    });
+                })
+            }
+        })
+
+    }
+
     return (
         <div className={styles.container_parametres}>
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Modifier Profil</h1>
 
+                <div >
+                    <h3 className={'global_subtitle'}>Compatibilité GitHub</h3>
 
+
+                    {githubLinked == false ?
+                        <div className={styles.div_github}>
+                            <Button className={styles.bouton_github} onClick={() => lierCompteGithub()}>
+                                <AiFillGithub className={styles.github_icon} />
+                                <span id={styles["link"]} className={'link'}>
+                                    Lier Compte GitHub
+                                </span>
+                            </Button>
+                        </div>
+                        :
+                        <div className={styles.div_github}>
+                            <Button className={styles.bouton_github} onClick={() => dissocierCompteGithub()}>
+                                <AiFillGithub className={styles.github_icon} />
+                                <span id={styles["link"]} className={'link'}>
+                                    Dissocier Compte GitHub
+                                </span>
+                            </Button>
+                        </div>
+
+
+                    }
+
+                </div>
 
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le courriel</h3>

@@ -9,9 +9,10 @@ module.exports = app.get('/:compte_id_proprio', (req, res) => {
     // Si accepted, faire update true + insert collaborateur
     // Sinon, faire update false
     pool.query(`
-        SELECT compte_id_proprio, id_projet, titre_projet, description_projet, est_ouvert
+        SELECT compte_id_proprio, id_projet, titre_projet, description_projet, url_repo_git, est_ouvert
             FROM projet
-            WHERE compte_id_proprio = ?;`,
+            WHERE compte_id_proprio = ?
+            ORDER BY titre_projet;`,
         [id_proprio],
         function (err, results) {
             if (err) {

@@ -10,7 +10,7 @@ function klemn() {
     function handleClickScroll(id: any) {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            element.scrollIntoView({ behavior: 'smooth', block: "center"});
 
         }
     }
@@ -21,7 +21,6 @@ function klemn() {
 
     return (<>
         <div id={styles["conteneur"]}>
-
 
             <div id={styles["conteneurTableMatieres"]} className={'global_container_4'}>
 
