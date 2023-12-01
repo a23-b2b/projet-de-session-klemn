@@ -1,31 +1,19 @@
 import PostHeader from "./Post/Header";
 import PostContent from "./Post/Contenu";
 import PostFooter from "./Post/Footer";
+import { IPost } from "./Post";
 
-export interface ReponseProps {
-    idPost: string;
-    date: string;
-    nomAffichage: string,
-    nomUtilisateur: string;
-    contenu: string;
-    idCompte: string;
-    estMarkdown: Boolean;
-    estModifie: Boolean;
-    nombreLike: number;
-    nombreDislike: number;
-    nombrePartage: number;
-    nombreCommentaire: number;
-    urlImageProfil: string;
-    userVote: number;
+interface ReponseProps {
+    post: IPost
 }
 
 function Reponse(props: ReponseProps) {
     return (
         <div>
-            <PostHeader date={props.date} idPost={props.idPost} idCompte={props.idCompte} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} isDeleted={false} estModifie={props.estModifie} contenu={props.contenu}/>
-            <PostContent titre={""} contenu={props.contenu} estMarkdown={props.estMarkdown} idPost={props.idPost} isPostFullScreen={false} />
-            <PostFooter idPost={props.idPost} nombreLike={props.nombreLike} nombreDislike={props.nombreDislike}
-                nombrePartage={props.nombrePartage} nombreCommentaire={props.nombreCommentaire} isPostFullScreen={false} userVote={props.userVote} />
+            <PostHeader date={props.post.date} idPost={props.post.idPost} idCompte={props.post.idCompte} nomAffichage={props.post.nomAffichage} nomUtilisateur={props.post.nomUtilisateur} urlImageProfil={props.post.urlImageProfil} isDeleted={false} estModifie={props.post.estModifie} contenu={props.post.contenu}/>
+            <PostContent titre={""} contenu={props.post.contenu} estMarkdown={props.post.estMarkdown} idPost={props.post.idPost} isPostFullScreen={false} />
+            <PostFooter idPost={props.post.idPost} nombreLike={props.post.nombreLike} nombreDislike={props.post.nombreDislike}
+                nombrePartage={props.post.nombrePartage} nombreCommentaire={props.post.nombreCommentaire} isPostFullScreen={false} userVote={props.post.userVote} />
         </div>
     );
 }
