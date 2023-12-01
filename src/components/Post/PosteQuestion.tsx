@@ -3,6 +3,7 @@ import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
+import { ReactNode } from 'react';
 
 export interface QuestionProp {
     idPost: string;
@@ -22,7 +23,7 @@ export interface QuestionProp {
     userVote: number;
 
     idMeilleureReponse?: string;
-    statutReponse?: Boolean;
+    statutReponse?: boolean;
 
     isPostFullScreen: Boolean;
 }
@@ -49,7 +50,7 @@ function PosteQuestion(props: QuestionProp) {
                 estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            { props.statutReponse ? <p>Résolu: {props.statutReponse.toString()}</p> : null }
+            { props.statutReponse !== undefined ? <p>Résolu: {props.statutReponse.toString()}</p> : null }
 
             { props.idMeilleureReponse ? (
                 <Link to={`/p/${props.idMeilleureReponse}`}>

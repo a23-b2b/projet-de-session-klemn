@@ -35,7 +35,7 @@ interface Props {
     type: number;
 
     // props optionnels
-    statutReponse?: Boolean;
+    statutReponse?: boolean;
     idMeilleureReponse?: string;
 
     // props collab optionnels
