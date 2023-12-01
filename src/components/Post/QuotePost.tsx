@@ -7,27 +7,10 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PostContent from './Contenu';
 import toast from 'react-hot-toast';
-import {TYPE_DELETED} from "../Post";
+import { IPost, TYPE_DELETED } from "../Post";
 
 interface Props {
-    idPost: string;
-    date: string;
-    nomAffichage: string,
-    nomUtilisateur: string;
-    titre: string;
-    contenu: string;
-    estMarkdown: Boolean;
-    estModifie: Boolean;
-    idCompte: string;
-    nombreLike: number;
-    nombreDislike: number;
-    nombrePartage: number;
-    nombreCommentaire: number;
-    urlImageProfil: string;
-    userVote: number;
-
-    isPostFullScreen: Boolean;
-
+    post: IPost;
     quotedPostId: string;
 }
 
@@ -64,22 +47,22 @@ function QuotePost(props: Props) {
     return (
         <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
-                date={props.date}
-                idPost={props.idPost}
-                idCompte={props.idCompte}
-                nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil}
+                date={props.post.date}
+                idPost={props.post.idPost}
+                idCompte={props.post.idCompte}
+                nomAffichage={props.post.nomAffichage}
+                nomUtilisateur={props.post.nomUtilisateur}
+                urlImageProfil={props.post.urlImageProfil}
                 isDeleted={false}
-                estModifie={props.estModifie}
-                contenu={props.contenu} />
+                estModifie={props.post.estModifie}
+                contenu={props.post.contenu} />
 
             <PostContent
-                titre = {props.titre}
-                estMarkdown={props.estMarkdown}
-                contenu={props.contenu}
-                idPost={props.idPost}
-                isPostFullScreen={props.isPostFullScreen} />
+                titre={props.post.titre}
+                estMarkdown={props.post.estMarkdown}
+                contenu={props.post.contenu}
+                idPost={props.post.idPost}
+                isPostFullScreen={props.post.isPostFullScreen} />
 
             {quotedPostData && (
                 <Link to={`/p/${quotedPostData.id_post}`} style={{ textDecoration: 'none' }}>
@@ -98,13 +81,13 @@ function QuotePost(props: Props) {
 
 
             <PostFooter
-                idPost={props.idPost}
-                nombreLike={props.nombreLike}
-                nombreDislike={props.nombreDislike}
-                nombrePartage={props.nombrePartage}
-                nombreCommentaire={props.nombreCommentaire}
-                isPostFullScreen={props.isPostFullScreen}
-                userVote={props.userVote} />
+                idPost={props.post.idPost}
+                nombreLike={props.post.nombreLike}
+                nombreDislike={props.post.nombreDislike}
+                nombrePartage={props.post.nombrePartage}
+                nombreCommentaire={props.post.nombreCommentaire}
+                isPostFullScreen={props.post.isPostFullScreen}
+                userVote={props.post.userVote} />
         </div>
     );
 }
