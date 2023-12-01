@@ -108,7 +108,7 @@ module.exports = app.post('/', [
                 pool.query(
                     `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                         nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
                      INSERT INTO post_question 
                         (id_question, est_resolu, post_id_post, post_meilleure_reponse)
