@@ -49,13 +49,16 @@ function PosteQuestion(props: QuestionProp) {
                 estMarkdown={props.estMarkdown}
                 isPostFullScreen={props.isPostFullScreen} />
 
-            {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
+            { props.statutReponse ? <p>Résolu: {props.statutReponse.toString()}</p> : null }
 
-            { props.idMeilleureReponse && (
+            { props.idMeilleureReponse ? (
                 <Link to={`/p/${props.idMeilleureReponse}`}>
-                <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
+                    <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
                 </Link>
-            )}
+            )
+            :
+                null
+            }
 
             <PostFooter
                 idPost={props.idPost}
