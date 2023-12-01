@@ -335,34 +335,29 @@ function ModifierProfil() {
 
                     {githubLinked == false ?
                         <div className={styles.div_github}>
-                            <Button className={styles.bouton_github} onClick={() => lierCompteGithub()}>
+                            <Button className={'global_selected_bouton'} onClick={() => lierCompteGithub()}>
                                 <AiFillGithub className={styles.github_icon} />
-                                <span id={styles["link"]} className={'link'}>
+                                <span>
                                     Lier Compte GitHub
                                 </span>
                             </Button>
                         </div>
                         :
                         <div className={styles.div_github}>
-                            <Button className={styles.bouton_github} onClick={() => dissocierCompteGithub()}>
+                            <Button className={'global_selected_bouton'} onClick={() => dissocierCompteGithub()}>
                                 <AiFillGithub className={styles.github_icon} />
-                                <span id={styles["link"]} className={'link'}>
+                                <span>
                                     Dissocier Compte GitHub
                                 </span>
                             </Button>
                         </div>
-
-
                     }
-
                 </div>
 
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le courriel</h3>
 
-
                     <label className={'global_label'}>Nouveau courriel</label>
-
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
@@ -371,14 +366,13 @@ function ModifierProfil() {
                     />
 
                     <label className={'global_label'}>Confirmez le courriel</label>
-
-
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="email"
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
+
                     <div id={styles["containerDiv"]}>
                         <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
                             Modifier

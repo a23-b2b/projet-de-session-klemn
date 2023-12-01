@@ -89,8 +89,8 @@ function LoginForm() {
                 case 'auth/email-already-exists':
                     toast.error('Le courriel est déjà inscrit.');
                     break;
-                case 'ER_DUP_ENTRY':                    
-                    toast.error('Ce compte existe deja');                    
+                case 'ER_DUP_ENTRY':
+                    toast.error('Ce compte existe deja');
                     break;
             }
 
@@ -203,19 +203,18 @@ function LoginForm() {
                         <button className={'global_selected_bouton'} onClick={() => loginWithEmailAndPassword(email, password)}>
                             Connexion
                         </button>
-
-                        <button className={'global_bouton'} style={{ margin: '10px' }} onClick={() => handleGithubLogin()}>
-                            Connexion avec GitHub <AiFillGithub />
-                        </button>
                     </div>
                 </div>
 
-                <br/>
-                <hr/>
+                <br />
+                <hr />
 
-                <div className={styles.containerBouton}>
+                <div className={styles.containerBouton} id={styles.passwordless_login_providers}>
                     <button className={'global_selected_bouton'} onClick={() => loginWithPasskey()}>
                         <GoPasskeyFill style={{ marginLeft: '-10px', marginRight: '6px' }} /> Utiliser une clé d'accès
+                    </button>
+                    <button className={'global_selected_bouton'} onClick={() => handleGithubLogin()}>
+                        <AiFillGithub style={{ marginLeft: '-10px', marginRight: '6px' }} />Connexion avec GitHub
                     </button>
                 </div>
             </motion.div>
