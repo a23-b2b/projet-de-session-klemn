@@ -10,6 +10,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import Chargement from '../components/EcranChargement';
 import { useNavigate } from 'react-router-dom';
 import { response } from 'express';
+import { useParams } from 'react-router';
+
 
 function Home() {
     const navigate = useNavigate()
@@ -19,6 +21,7 @@ function Home() {
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
     const [nombrePersonnes, setNombrePersonnes] = useState(0);
 
+    let { username } = useParams();
 
 
 
@@ -92,11 +95,10 @@ function Home() {
                 break;
         }
     }
-
     async function getNombrePersonnes() {
         onAuthStateChanged(auth, async (user) => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/post/participant`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/user/${username}/participant`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -104,15 +106,14 @@ function Home() {
                     },
                 });
 
-                if (response.ok) {
-                    console.log("vous etes ici  kdshgfkjhsdbfhkjdsbfs")
-
+                if (response.status === 200) {
                     const data = await response.json();
-                    const nombreParticipant = data.nombrePersonnes;
-                    console.log(nombreParticipant);
+                    // console.log("Réponse complète :", data);
+
+                    const nombreParticipant = data.nombrePersonnes || 0;
+                    console.log("Nombre de participants :", nombreParticipant);
+
                     setNombrePersonnes(nombreParticipant);
-
-
                 } else {
                     const errorMessage = await response.json();
                     throw new Error(errorMessage);
@@ -122,44 +123,6 @@ function Home() {
             }
         });
     }
-
-
-
-    //         then(response => response.json()).then(response => {
-    //             let data = response["posts"]
-
-    //             setNombrePersonnes(data)
-    //             console.log(nombrePersonnes)
-
-    //         }).catch((error) => {
-    //             toast.error(`Une erreur est survenue: ${error}`)
-    //         })
-    //     })
-    // }
-
-
-    //     try {
-    //         const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true);
-
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/post/nombre_personnes_poster`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'authorization': idToken,
-    //             },
-    //         });
-
-    //         const result = await response.json();
-    //         const nombrePersonnes = result.nombrePersonnes || 0;
-
-    //         setNombrePersonnes(nombrePersonnes);
-
-    //         toast.success(`Nombre de participants récupéré : ${nombrePersonnes}`);
-    //     } catch (error) {
-    //         console.error(error);
-    //         toast.error(`Une erreur est survenue: ${error}`);
-    //     }
-    // }
 
 
 
@@ -180,6 +143,7 @@ function Home() {
             else {
 
                 getPosts();
+
                 getNombrePersonnes();
 
             }
@@ -190,7 +154,10 @@ function Home() {
     return (
 
         <div className={styles.body}>
+
             <NombrePersonnesPoster nombrePersonnes={nombrePersonnes} />
+
+
 
 
             <BlogueForm />
@@ -277,7 +244,7 @@ function Home() {
                 </div>
 
             </InfiniteScroll>
-        </div>
+        </div >
     );
 
 }

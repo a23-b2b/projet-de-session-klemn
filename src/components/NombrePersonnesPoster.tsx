@@ -10,11 +10,14 @@ interface NombrePersonnesPosterProps {
 }
 
 const NombrePersonnesPoster: React.FC<NombrePersonnesPosterProps> = ({ nombrePersonnes }) => {
+    console.log("Valeur de nombrePersonnes :", nombrePersonnes);
+
     return (
         <div>
             <h1>Nombre de participants : {nombrePersonnes}</h1>
         </div>
     );
 };
+
 
 export default NombrePersonnesPoster;

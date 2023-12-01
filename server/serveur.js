@@ -156,8 +156,8 @@ app.use('/user/passkeys', get_passkeys)
 const delete_passkey = require('./user/passkeys/POST_delete.js')
 app.use('/user/passkeys', delete_passkey)
 
-const get_participant = require('./post/GET_participant.js')
-app.use('/post', get_participant)
+const get_participant = require('./user/[username]/GET_participant.js')
+app.use('/user', get_participant)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
