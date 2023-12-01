@@ -48,6 +48,9 @@ function ModifierProfil() {
     }, []);
 
     const changeEmail = () => {
+        setNewEmailConfirmation('')
+        setPassword('')
+
         const user = auth.currentUser;
 
         if (user && user.email && password) {
@@ -66,20 +69,26 @@ function ModifierProfil() {
                             'authorization': idToken
                         },
                         body: JSON.stringify({
-                            new_email: newEmail,
+                            new_email: newEmail.trim(),
                         }),
-                    }).then(response => response.json()).then(response => {
-                        signInWithCustomToken(auth, response).then(() => {
-                            toast.success('Courriel modifié.');
-                            setNewEmail('')
-                            setNewEmailConfirmation('')
-                            setPassword('')
-                        }).catch((error) => {
-                            toast.error(`Une erreur est : (${error.code})`)
-                        })
+                    }).then(response => {
+                        if (response.ok) {
+                            response.json().then(response => {
+                                signInWithCustomToken(auth, response).then(() => {
+                                    toast.success('Courriel modifié.');
+                                    setNewEmail('')
+                                }).catch((error) => {
+                                    toast.error(`Une erreur est survenue: (${error.code})`)
+                                })
+                            }).catch((error) => {
+                                toast.error(`Une erreur est survenue: (${error.code})`)
+                            })
+                        } else {
+                            response.json().then(response => {
+                                toast.error(`Une erreur est survenue: (${response})`)
+                            })
+                        }
 
-                    }).catch((error) => {
-                        toast.error(`Une erreur est survenue: (${error.code})`)
                     })
                 })
             }).catch((error) => {
@@ -90,6 +99,8 @@ function ModifierProfil() {
     }
 
     const changeNameAffichage = () => {
+        setNewNameAffichageConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/display_name', {
                 method: 'POST',
@@ -98,12 +109,11 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_name_affichage: newNameAffichage,
+                    new_name_affichage: newNameAffichage.trim(),
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Nom d\'affichage modifié.')
                 setNewNameAffichage('')
-                setNewNameAffichageConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -111,6 +121,8 @@ function ModifierProfil() {
     }
 
     const changeName = () => {
+        setNewNameConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/nom', {
                 method: 'POST',
@@ -119,12 +131,11 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_name: newName,
+                    new_name: newName.trim(),
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Nom modifié.');
                 setNewName('')
-                setNewNameConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -132,6 +143,8 @@ function ModifierProfil() {
     }
 
     const changePrenom = () => {
+        setNewPrenomConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/prenom', {
                 method: 'POST',
@@ -140,12 +153,11 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_prenom: newPrenom,
+                    new_prenom: newPrenom.trim(),
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Prénom modifié.');
                 setNewPrenom('')
-                setNewPrenomConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -153,6 +165,7 @@ function ModifierProfil() {
     }
 
     const changeBio = () => {
+        setNewBio('');
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/bio', {
                 method: 'POST',
@@ -161,11 +174,10 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_bio: newBio,
+                    new_bio: newBio.trim(),
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Bio modifiée.');
-                setNewBio('');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })

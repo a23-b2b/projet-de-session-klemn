@@ -27,14 +27,16 @@ module.exports = app.post('/update/courriel', (req, res) => {
                         if (results) {
                             admin.auth().createCustomToken(userId).then((token) => {
                                 res.status(200).json(token)
-                            }).catch(() => {
-                                res.status(500).send('Erreur de base de données')
+                            }).catch((error) => {
+                                res.status(500).json(error.code)
                             })
                         }
                     });
+            }).catch((error) => {
+                res.status(500).json(error.code)
             })
         })
     }).catch((error) => {
-        res.status(500).send('Erreur de base de données')
+        res.status(500).send('Erreur du serveur')
     })
 });
