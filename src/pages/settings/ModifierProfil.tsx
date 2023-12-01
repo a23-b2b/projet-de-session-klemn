@@ -47,6 +47,7 @@ function ModifierProfil() {
     }, []);
 
     const changeEmail = () => {
+        setNewEmail('')
         setNewEmailConfirmation('')
         setPassword('')
 
@@ -75,7 +76,6 @@ function ModifierProfil() {
                             response.json().then(response => {
                                 signInWithCustomToken(auth, response).then(() => {
                                     toast.success('Courriel modifié.');
-                                    setNewEmail('')
                                 }).catch((error) => {
                                     toast.error(`Une erreur est survenue: (${error.code})`)
                                 })
@@ -98,6 +98,7 @@ function ModifierProfil() {
     }
 
     const changeNameAffichage = () => {
+        setNewNameAffichage('')
         setNewNameAffichageConfirmation('')
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
@@ -112,7 +113,6 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Nom d\'affichage modifié.')
-                setNewNameAffichage('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -120,6 +120,7 @@ function ModifierProfil() {
     }
 
     const changeName = () => {
+        setNewName('')
         setNewNameConfirmation('')
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
@@ -134,7 +135,6 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Nom modifié.');
-                setNewName('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -142,6 +142,7 @@ function ModifierProfil() {
     }
 
     const changePrenom = () => {
+        setNewPrenom('')
         setNewPrenomConfirmation('')
 
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
@@ -156,7 +157,6 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Prénom modifié.');
-                setNewPrenom('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
