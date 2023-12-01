@@ -58,6 +58,7 @@ function ModifierProfil() {
 
             reauthenticateWithCredential(user, credential).then(() => {
                 user?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+
                     fetch(`${process.env.REACT_APP_API_URL}/user/update/courriel`, {
                         method: 'POST',
                         headers: {
@@ -70,6 +71,9 @@ function ModifierProfil() {
                     }).then(response => response.json()).then(response => {
                         signInWithCustomToken(auth, response).then(() => {
                             toast.success('Courriel modifié.');
+                            setNewEmail('')
+                            setNewEmailConfirmation('')
+                            setPassword('')
                         }).catch((error) => {
                             toast.error(`Une erreur est : (${error.code})`)
                         })
@@ -97,7 +101,9 @@ function ModifierProfil() {
                     new_name_affichage: newNameAffichage,
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Nom d\'affichage modifié.');
+                toast.success('Nom d\'affichage modifié.')
+                setNewNameAffichage('')
+                setNewNameAffichageConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -117,6 +123,8 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Nom modifié.');
+                setNewName('')
+                setNewNameConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -136,6 +144,8 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Prénom modifié.');
+                setNewPrenom('')
+                setNewPrenomConfirmation('')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -155,6 +165,7 @@ function ModifierProfil() {
                 }),
             }).then(response => response.json()).then(response => {
                 toast.success('Bio modifiée.');
+                setNewBio('');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -389,6 +400,7 @@ function ModifierProfil() {
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="email"
+                        value={newEmail}
                         onChange={(e) => setNewEmail(e.target.value)}
                     />
 
@@ -398,6 +410,7 @@ function ModifierProfil() {
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="email"
+                        value={newEmailConfirmation}
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
 
@@ -407,11 +420,12 @@ function ModifierProfil() {
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="password"
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation || !newEmail.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -427,6 +441,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameAffichage}
                         onChange={(e) => setNewNameAffichage(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le nom d'affichage</label>
@@ -434,10 +449,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameAffichageConfirmation}
                         onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation || !newNameAffichage.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -455,6 +471,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newName}
                         onChange={(e) => setNewName(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le nom </label>
@@ -462,11 +479,12 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameConfirmation}
                         onChange={(e) => setNewNameConfirmation(e.target.value)}
                     />
 
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation || !newName.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -484,6 +502,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newPrenom}
                         onChange={(e) => setNewPrenom(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le prenom </label>
@@ -491,10 +510,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newPrenomConfirmation}
                         onChange={(e) => setNewPrenomConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation || !newPrenom.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -511,10 +531,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newBio}
                         onChange={(e) => setNewBio(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={!newBio.trim()}>
                             Modifier
                         </button>
                     </div>
