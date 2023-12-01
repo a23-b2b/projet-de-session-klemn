@@ -6,40 +6,24 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from "react";
 import { auth } from "../../firebase";
+import { IPost } from '../Post';
 
-export interface CollabProp {
-    idPost: string;
-    date: string;
-    nomAffichage: string;
-    nomUtilisateur: string;
-    titre: string;
-    contenu: string;
-    estMarkdown: Boolean;
-    estModifie: Boolean;
-    idCompte: string;
-    nombreLike: number;
-    nombreDislike: number;
-    nombrePartage: number;
-    nombreCommentaire: number;
-    urlImageProfil: string;
-    userVote: number;
-
+export interface PostCollab {
+    post: IPost;
     estOuvert?: Boolean;
     idProjet?: string;
-
-    isPostFullScreen: Boolean;
 }
 
-function PosteCollab(props: CollabProp) {
+function PosteCollab(props: PostCollab) {
     const user = auth.currentUser;
 
     const [boutonActif, setBoutonActif] = useState(false)
 
     useEffect(() => {
-        setBoutonActif(user?.uid != props.idCompte)
+        setBoutonActif(user?.uid != props.post.idCompte)
     }, [])
 
-    function demanderCollabortion(props: CollabProp) {
+    function demanderCollabortion() {
         if (user) {
             user.getIdToken(true).then((idToken) => {
                 fetch(`${process.env.REACT_APP_API_URL}/collab/p/${props.idProjet}`, {
@@ -63,37 +47,37 @@ function PosteCollab(props: CollabProp) {
     return (
         <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
-                date={props.date}
-                idPost={props.idPost}
-                idCompte={props.idCompte}
-                nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur}
-                urlImageProfil={props.urlImageProfil}
+                date={props.post.date}
+                idPost={props.post.idPost}
+                idCompte={props.post.idCompte}
+                nomAffichage={props.post.nomAffichage}
+                nomUtilisateur={props.post.nomUtilisateur}
+                urlImageProfil={props.post.urlImageProfil}
                 isDeleted={false}
-                estModifie={props.estModifie}
-                contenu={props.contenu} />
+                estModifie={props.post.estModifie}
+                contenu={props.post.contenu} />
 
             <PostContent
-                titre={props.titre}
-                idPost={props.idPost}
-                contenu={props.contenu}
-                estMarkdown={props.estMarkdown}
-                isPostFullScreen={props.isPostFullScreen} />
+                titre={props.post.titre}
+                idPost={props.post.idPost}
+                contenu={props.post.contenu}
+                estMarkdown={props.post.estMarkdown}
+                isPostFullScreen={props.post.isPostFullScreen} />
 
 
-            {user && user.uid != props.idCompte &&
-                <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion(props)}>
+            {user && user.uid != props.post.idCompte &&
+                <button className={'global_selected_bouton'} disabled={!boutonActif} onClick={() => demanderCollabortion()}>
                     Demander à collaborer
                 </button>}
 
             <PostFooter
-                idPost={props.idPost}
-                nombreLike={props.nombreLike}
-                nombreDislike={props.nombreDislike}
-                nombrePartage={props.nombrePartage}
-                nombreCommentaire={props.nombreCommentaire}
-                isPostFullScreen={props.isPostFullScreen}
-                userVote={props.userVote}
+                idPost={props.post.idPost}
+                nombreLike={props.post.nombreLike}
+                nombreDislike={props.post.nombreDislike}
+                nombrePartage={props.post.nombrePartage}
+                nombreCommentaire={props.post.nombreCommentaire}
+                isPostFullScreen={props.post.isPostFullScreen}
+                userVote={props.post.userVote}
             />
         </div>
     );
