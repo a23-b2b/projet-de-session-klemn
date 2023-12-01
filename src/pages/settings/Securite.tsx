@@ -114,6 +114,7 @@ function Securite() {
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="password"
+                        value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                     />
 
@@ -123,7 +124,18 @@ function Securite() {
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="password"
+                        value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
+                    />
+
+                    <label className={'global_label'}>Confirmez le nouveau mot de passe</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        value={newPasswordConfirmation}
+                        onChange={(e) => setNewPasswordConfirmation(e.target.value)}
                     />
                 </div>
                 <div>
