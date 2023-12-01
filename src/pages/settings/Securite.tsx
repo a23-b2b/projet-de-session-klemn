@@ -18,8 +18,6 @@ function Securite() {
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
     useEffect(() => {
         getPasskeys();
@@ -106,38 +104,6 @@ function Securite() {
         <div className={styles.container_parametres}>
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Sécurité</h1>
-                <div>
-                    <h2>Modifer le mot de passe</h2>
-                    <label className={'global_label'}>Mot de passe actuel</label>
-
-                    <input
-                        id={styles["input"]}
-                        className={'global_input_field'}
-                        type="password"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                    />
-
-                    <label className={'global_label'}>Nouveau mot de passe</label>
-
-                    <input
-                        id={styles["input"]}
-                        className={'global_input_field'}
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                    />
-
-                    <label className={'global_label'}>Confirmez le nouveau mot de passe</label>
-
-                    <input
-                        id={styles["input"]}
-                        className={'global_input_field'}
-                        type="password"
-                        value={newPasswordConfirmation}
-                        onChange={(e) => setNewPasswordConfirmation(e.target.value)}
-                    />
-                </div>
                 <div>
                     <h2>Clés d'accès (Passkeys)</h2>
                     <p>Les clés d'accès sont plus sécuritaires et plus pratiques que les mots de passes traditionnels.</p>
