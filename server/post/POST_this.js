@@ -16,7 +16,10 @@ const TypesDePost = {
     Boost: "boost"
 }
 
-module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
+module.exports = app.post('/', [
+    body('contenu').notEmpty().isLength({ max: 4000 }).withMessage("La publication ne doit pas dépasser 4000 caractères."),
+    body('titre').notEmpty().isLength({ max: 255 }).withMessage("Le titre ne doit pas dépasser 255 caractères.")
+], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 

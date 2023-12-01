@@ -5,13 +5,14 @@ import { getAuth } from "firebase/auth";
 import BadgesContainer from '../Badges/_BadgesContainer';
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import { SlOptionsVertical } from "react-icons/sl";
-import { MdDeleteForever, MdEdit } from "react-icons/md";
+import { MdDeleteForever, MdEdit, MdHistoryEdu } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import Modal from '../Modal';
 import Timestamp from '../Timestamp';
 import modalStyles from '../../styles/Modal.module.css'
+import Chargement from '../EcranChargement';
 
 interface HeaderProps {
     date: string;
@@ -35,6 +36,9 @@ const PostHeader = (props: HeaderProps) => {
     const [contenu, setContenu] = useState(props.contenu);
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
+    const [isEditHistoryModalOpen, setIsEditHistoryModalOpen] = useState(false);
+    const [editHistory, setEditHistory] = useState<any[]>([])
+
     const estProprietaire = auth.currentUser ? auth.currentUser.uid === props.idCompte : false
 
 
@@ -49,6 +53,10 @@ const PostHeader = (props: HeaderProps) => {
             case 'edit':
                 setIsEditModalOpen(true);
                 // setContenu(props.idPost);
+                break;
+            case 'edit_history':
+                handleGetEditHistory()
+                setIsEditHistoryModalOpen(true);
                 break;
             default:
                 break;
@@ -83,6 +91,11 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     function handleEditPost() {
+        if (contenu === props.contenu) {
+            setIsEditModalOpen(false);
+            return '';
+        }
+
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
@@ -117,6 +130,35 @@ const PostHeader = (props: HeaderProps) => {
         }
     }
 
+    function handleGetEditHistory() {
+        const utilisateur = auth.currentUser;
+        if (utilisateur) {
+            if (contenu) {
+                utilisateur.getIdToken(/* forceRefresh */ true)
+                    .then((idToken) => {
+                        fetch(`${process.env.REACT_APP_API_URL}/post/${props.idPost}/edit/history`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            }
+                        }).then(response => response.json())
+                            .then(response => {
+                                setEditHistory(response)
+                            }).catch((error) => {
+                                toast.error('Une erreur est survenue');
+                            })
+                    })
+
+            } else {
+                toast.error('Le contenu de la publication ne peut pas être vide.')
+            }
+        } else {
+            toast.error('Veuillez vous connecter avant de publier.');
+            navigate('/');
+        }
+    }
+
     return (
         <div className={styles.header}>
 
@@ -138,8 +180,6 @@ const PostHeader = (props: HeaderProps) => {
                     </div>
                 )}
 
-                {props.estModifie ? <MdEdit /> : ''}
-
                 {props.isDeleted && (
                     <div className={styles.grid_item} id={styles.infos_utilisateur}>
                         <img className={styles.image_profil} src={props.urlImageProfil} />
@@ -152,6 +192,10 @@ const PostHeader = (props: HeaderProps) => {
                         </div>
                     </div>
                 )}
+
+                <div>
+                    {props.estModifie ? <p style={{ marginRight: "8px" }}><MdEdit /></p> : ''}
+                </div>
 
                 <div className={styles.grid_item}>
                     <p className={styles.date}>
@@ -185,6 +229,13 @@ const PostHeader = (props: HeaderProps) => {
                                     </MenuItem>
                                 </>
                             )}
+
+                            {props.estModifie ? (
+                                <MenuItem value={'edit_history'} className={styles.share_menu_item}>
+                                    <MdHistoryEdu className={styles.share_menu_icon} />
+                                    <span>Modifications</span>
+                                </MenuItem>
+                            ) : ''}
                             <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
 
                         </Menu>
@@ -220,6 +271,23 @@ const PostHeader = (props: HeaderProps) => {
                 </div>
             </Modal>
 
+            <Modal isModalOpen={isEditHistoryModalOpen} setIsModalOpen={setIsEditHistoryModalOpen}>
+                <div className={styles.conteneur}>
+                    <h2 className={styles.titre}>Historique de modifications</h2>
+                    <p style={{ marginTop: "-16px" }}>Récent ➝ ancien</p>
+                    {!editHistory ? <Chargement /> :
+                        <div className={styles.edit_history_container}>
+                            {editHistory.map(version => {
+                                return (
+                                    <div className={styles.edit_history_item}>
+                                        {version.ancien_contenu}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    }
+                </div>
+            </Modal>
         </div>
     )
 }

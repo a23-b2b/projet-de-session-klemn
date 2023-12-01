@@ -136,6 +136,9 @@ app.use('/post', delete_post)
 const edit_post = require('./post/[id_post]/edit/POST_this.js')
 app.use('/post', edit_post)
 
+const get_edit_history = require('./post/[id_post]/edit/GET_history.js')
+app.use('/post', get_edit_history)
+
 const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
@@ -177,6 +180,9 @@ app.use('/user/passkeys', get_passkeys)
 
 const delete_passkey = require('./user/passkeys/POST_delete.js')
 app.use('/user/passkeys', delete_passkey)
+
+const get_participant = require('./user/[username]/GET_participant.js')
+app.use('/user', get_participant)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);
