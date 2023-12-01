@@ -83,7 +83,7 @@ function ModifierProfil() {
                     new_name_affichage: newNameAffichage,
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Nom d\'affichage modifié.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -102,7 +102,7 @@ function ModifierProfil() {
                     new_name: newName,
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Nom modifié.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -121,7 +121,7 @@ function ModifierProfil() {
                     new_prenom: newPrenom,
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Prénom modifié.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -140,7 +140,7 @@ function ModifierProfil() {
                     new_bio: newBio,
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Bio modifiée.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })

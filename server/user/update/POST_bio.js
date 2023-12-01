@@ -11,7 +11,7 @@ module.exports = app.post('/update/bio', [], (req, res) => {
     const resultatValidation = validationResult(req);
 
     const userToken = req.headers.authorization;
-    const newBio = req.body.new_prenom;
+    const newBio = req.body.new_bio;
 
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;

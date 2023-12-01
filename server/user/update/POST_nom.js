@@ -7,7 +7,7 @@ const { logger } = require('../../logger.js')
 const { pool } = require('../../serveur.js')
 
 
-module.exports = app.post('/nom', [], (req, res) => {
+module.exports = app.post('/update/nom', [], (req, res) => {
     const resultatValidation = validationResult(req);
 
     const userToken = req.headers.authorization;
