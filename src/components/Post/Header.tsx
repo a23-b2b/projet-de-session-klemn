@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import BadgesContainer from '../Badges/_BadgesContainer';
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import { SlOptionsVertical } from "react-icons/sl";
 import { MdDeleteForever, MdEdit, MdHistoryEdu } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaCrown } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { SetStateAction, useState } from 'react';
 import Modal from '../Modal';
@@ -24,6 +24,10 @@ interface HeaderProps {
     isDeleted: boolean;
     estModifie: Boolean;
     contenu: string;
+
+    // Est un commentaire sur un post question qui nous appartient et qui n'est pas encore resolu
+    meilleureReponseMayBeSet?: boolean;
+    idQuestion?: string;
 }
 
 const PostHeader = (props: HeaderProps) => {
@@ -58,9 +62,37 @@ const PostHeader = (props: HeaderProps) => {
                 handleGetEditHistory()
                 setIsEditHistoryModalOpen(true);
                 break;
+            case 'set_best':
+                setIsBest()
+                break;
             default:
                 break;
         }
+    }
+
+    function setIsBest() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/question/${props.idQuestion}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: idToken
+                        },
+                        body: JSON.stringify({
+                            id_reply: props.idPost
+                        })
+                    }).then(response => {
+                        console.log(JSON.stringify(response))
+                    }).catch((error) => {
+                        console.log(error.toString())
+                    })
+                })
+            } else {
+                navigate("/authenticate")
+            }
+        });
     }
 
     function handleDeletePost() {
@@ -214,6 +246,16 @@ const PostHeader = (props: HeaderProps) => {
                             menuClassName={styles.share_menu}
                             onItemClick={(e) => handleOptionsItemClick(e.value)}>
 
+                            {props.meilleureReponseMayBeSet &&
+                                <>
+                                    <MenuItem value={'set_best'} className={styles.share_menu_item}>
+                                        <FaCrown
+                                            className={styles.share_menu_icon} />
+                                        <span>Set comme meilleure réponse</span>
+                                    </MenuItem>
+                                </>
+                            }
+
                             {estProprietaire && (
                                 <>
                                     <MenuItem value={'delete'} className={styles.share_menu_item}>
@@ -293,3 +335,5 @@ const PostHeader = (props: HeaderProps) => {
 }
 
 export default PostHeader;
+
+

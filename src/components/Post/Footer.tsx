@@ -14,6 +14,9 @@ import QuotePostModal from './QuotePostModal';
 import { auth } from '../../firebase';
 
 interface FooterProps {
+    id_compte?: string;
+    parent_est_resolu?: boolean;
+
     idPost: string;
     nombreLike: number;
     nombreDislike: number;
@@ -118,7 +121,13 @@ const PostFooter = (props: FooterProps) => {
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses} /> : ''}
+                    
+                    {isReponsesOpen ? 
+                        <SectionReponses 
+                            idAuteurQuestion={props.id_compte}
+                            idParent={props.idPost} 
+                            question_parente_est_resolue={props.parent_est_resolu} 
+                            setNombreCommentaire={setNombreReponses} /> : ''}
                 </AnimatePresence>)}
         </div>
     )

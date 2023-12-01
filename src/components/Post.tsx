@@ -5,6 +5,7 @@ import Reponse from "./Reponse";
 import QuotePost from './Post/QuotePost';
 import BoostPost from './Post/BoostPost';
 import DeletedPost from "./Post/DeletedPost";
+import { auth } from '../firebase';
 
 export const TYPE_BLOGUE = 1;
 export const TYPE_QUESTION = 2;
@@ -35,20 +36,24 @@ interface Props {
     type: number;
 
     // props optionnels
-    statutReponse?: Boolean;
+    statutReponse?: boolean;
     idMeilleureReponse?: string;
+    idQuestion?: string;
+    idAuteurQuestion?: string
 
     // props collab optionnels
     idProjet?: string; 
     estOuvert?: Boolean; // va dependre du projet
 
+    // Reponse
+    question_parente_est_resolue?: boolean;
 
     sharedPostId?: string;
     isSharedPostQuote?: boolean;
 }
 
 function Post(props: Props) {
-
+    
     return (
         <>
             {props.type == TYPE_BLOGUE && (
@@ -84,7 +89,11 @@ function Post(props: Props) {
                     nombrePartage={props.nombrePartage}
                     nombreCommentaire={props.nombreCommentaire}
                     urlImageProfil={props.urlImageProfil}
-                    userVote={props.userVote} />
+                    userVote={props.userVote} 
+
+                    meilleureReponseMayBeSet={props.question_parente_est_resolue == false && auth.currentUser?.uid == props.idAuteurQuestion}
+                    idQuestion={props.idQuestion}
+                    />
             )}
             {props.type === TYPE_QUESTION && (
                 <PosteQuestion
