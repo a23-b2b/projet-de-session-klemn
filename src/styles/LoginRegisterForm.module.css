@@ -15,6 +15,14 @@
     text-align: center;
 }
 
+#passwordless_login_providers {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 auto;
+    margin-top: 32px;
+}
 
 /* Ordinateur */
 @media only screen and (min-width: 601px) {

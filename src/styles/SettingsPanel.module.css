@@ -255,9 +255,11 @@ input[type="file"] {
     background-color: #ffffff18;
 }
 .github_icon{
-    padding-right: 2px;
+    font-size: 1.2rem;
     width: max-content;
     height: max-content;
+    margin-left: -10px;
+    margin-right: 10px;
 }
 
 .div_github {

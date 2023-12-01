@@ -41,6 +41,7 @@
 
 .settings_link:hover {
     background-color: var(--auto_accent_color_1);
+    color: var(--auto_selected_button_text_color);
     transition: 0.2s;
 }
 
