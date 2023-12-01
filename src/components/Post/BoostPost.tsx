@@ -2,21 +2,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Post from '../Post';
+import Post, { IPost } from '../Post';
 import { FaRetweet } from 'react-icons/fa6';
 import styles from '../../styles/BoostedPost.module.css'
 import toast from 'react-hot-toast';
 
 interface Props {
-    idPost: string;
-    date: string;
-    nomAffichage: string,
-    nomUtilisateur: string;
-    idCompte: string;
-    urlImageProfil: string;
-
-    isPostFullScreen: Boolean;
-
+    post: IPost;
     boostedPostId: string;
 }
 
@@ -55,7 +47,7 @@ function BoostPost(props: Props) {
             <div>
                 <span>
                     <FaRetweet className={styles.icone_boost} />
-                    <Link to={`/u/${props.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.nomAffichage}</Link> a partagé
+                    <Link to={`/u/${props.post.nomUtilisateur}`} className={styles.lien_utilisateur}>{props.post.nomAffichage}</Link> a partagé
                 </span>
                 <Post
                     idPost={boostedPostData.id_post}
