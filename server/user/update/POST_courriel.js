@@ -25,7 +25,11 @@ module.exports = app.post('/update/courriel', (req, res) => {
                             res.status(500).send('Erreur de base de données')
                         }
                         if (results) {
-                            res.status(200).send("Courriel modifié avec succès")
+                            admin.auth().createCustomToken(userId).then((token) => {
+                                res.status(200).json(token)
+                            }).catch(() => {
+                                res.status(500).send('Erreur de base de données')
+                            })
                         }
                     });
             })

@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
-import { EmailAuthProvider, GithubAuthProvider, getAdditionalUserInfo, linkWithPopup, onAuthStateChanged, reauthenticateWithCredential, unlink, updateEmail, updateProfile } from 'firebase/auth';
+import {
+    EmailAuthProvider,
+    GithubAuthProvider,
+    getAdditionalUserInfo,
+    linkWithPopup,
+    onAuthStateChanged,
+    reauthenticateWithCredential,
+    unlink,
+    signInWithCustomToken
+} from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
@@ -9,6 +18,7 @@ import 'react-image-crop/dist/ReactCrop.css'
 import { FaRegFolderOpen } from 'react-icons/fa6';
 import { Button } from '@chakra-ui/button';
 import { AiFillGithub } from 'react-icons/ai';
+import {response} from "express";
 
 
 
@@ -58,8 +68,12 @@ function ModifierProfil() {
                             new_email: newEmail,
                         }),
                     }).then(response => response.json()).then(response => {
+                        signInWithCustomToken(auth, response).then(() => {
+                            toast.success('Courriel modifié.');
+                        }).catch((error) => {
+                            toast.error(`Une erreur est : (${error.code})`)
+                        })
 
-                        toast.success('Courriel modifié.');
                     }).catch((error) => {
                         toast.error(`Une erreur est survenue: (${error.code})`)
                     })
@@ -379,7 +393,6 @@ function ModifierProfil() {
                     />
 
                     <label className={'global_label'}>Confirmez le courriel</label>
-
 
                     <input
                         id={styles["input"]}
