@@ -3,68 +3,52 @@ import PostHeader from './Header';
 import PostContent from './Contenu';
 import PostFooter from './Footer';
 import { Link } from 'react-router-dom';
+import { IPost } from '../Post';
 
-export interface QuestionProp {
-    idPost: string;
-    date: string;
-    nomAffichage: string;
-    nomUtilisateur: string;
-    titre: string;
-    contenu: string;
-    estMarkdown: Boolean;
-    estModifie: Boolean;
-    idCompte: string;
-    nombreLike: number;
-    nombreDislike: number;
-    nombrePartage: number;
-    nombreCommentaire: number;
-    urlImageProfil: string;
-    userVote: number;
-
+export interface PostQuestion {
+    post: IPost;
     idMeilleureReponse?: string;
     statutReponse?: Boolean;
-
-    isPostFullScreen: Boolean;
 }
 
-function PosteQuestion(props: QuestionProp) {
+function PosteQuestion(props: PostQuestion) {
 
     return (
         <div className={'global_container_3'} id={styles["conteneur_post"]}>
             <PostHeader
-                date={props.date}
-                idPost={props.idPost}
-                idCompte={props.idCompte}
-                nomAffichage={props.nomAffichage}
-                nomUtilisateur={props.nomUtilisateur} 
-                urlImageProfil={props.urlImageProfil}
+                date={props.post.date}
+                idPost={props.post.idPost}
+                idCompte={props.post.idCompte}
+                nomAffichage={props.post.nomAffichage}
+                nomUtilisateur={props.post.nomUtilisateur}
+                urlImageProfil={props.post.urlImageProfil}
                 isDeleted={false}
-                estModifie={props.estModifie} 
-                contenu={props.contenu}/>
+                estModifie={props.post.estModifie}
+                contenu={props.post.contenu} />
 
             <PostContent
-                titre={props.titre}
-                idPost={props.idPost}
-                contenu={props.contenu}
-                estMarkdown={props.estMarkdown}
-                isPostFullScreen={props.isPostFullScreen} />
+                titre={props.post.titre}
+                idPost={props.post.idPost}
+                contenu={props.post.contenu}
+                estMarkdown={props.post.estMarkdown}
+                isPostFullScreen={props.post.isPostFullScreen} />
 
             {props.statutReponse && (<p>Résolu: {props.statutReponse.toString()}</p>)}
 
-            { props.idMeilleureReponse && (
+            {props.idMeilleureReponse && (
                 <Link to={`/p/${props.idMeilleureReponse}`}>
-                <p>Meilleure Réponse: {props.idMeilleureReponse}</p>            
+                    <p>Meilleure Réponse: {props.idMeilleureReponse}</p>
                 </Link>
             )}
 
             <PostFooter
-                idPost={props.idPost}
-                nombreLike={props.nombreLike}
-                nombreDislike={props.nombreDislike}
-                nombrePartage={props.nombrePartage}
-                nombreCommentaire={props.nombreCommentaire}
-                isPostFullScreen={props.isPostFullScreen}
-                userVote={props.userVote}
+                idPost={props.post.idPost}
+                nombreLike={props.post.nombreLike}
+                nombreDislike={props.post.nombreDislike}
+                nombrePartage={props.post.nombrePartage}
+                nombreCommentaire={props.post.nombreCommentaire}
+                isPostFullScreen={props.post.isPostFullScreen}
+                userVote={props.post.userVote}
             />
         </div>
     );
