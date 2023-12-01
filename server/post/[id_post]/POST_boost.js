@@ -77,27 +77,7 @@ module.exports = app.post('/:id_post/boost', [body('contenu').notEmpty().isLengt
                             post: results[2][1],
                             nombrePartages: results[3][0].nombre_partages
                         };
-
-                        // id_post = response.post;
-                        // nombre_partages = response.nombrePartages;
-
-                        // // Mettre à jour le post ici, après l'insertion
-                        // pool.query(
-                        //     `UPDATE post
-                        //     SET nombre_partages = ? 
-                        //     WHERE id_post = ?`,
-                        //     [nombre_partages, id_post],
-                        //     (updateErr, updateResults) => {
-                        //         if (updateErr) {
-                        //             console.log(updateErr);
-                        //             res.status(500).send("ERREUR: " + updateErr.code);
-                        //         } else {
-                        //             res.send(JSON.stringify(response));
-                        //         }
-                        //     }
-                        // );
-
-                        res.send(JSON.stringify(response));
+                       res.send(JSON.stringify(response));
                     }
                 }
             );
