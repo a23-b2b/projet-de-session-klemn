@@ -128,6 +128,13 @@ function Header() {
     navigate('/authenticate')
   }
 
+
+  function clearLocalValues() {
+    window.localStorage.removeItem('hue');
+    window.localStorage.removeItem('saturation');
+    window.location.reload();
+  }
+
   return (
     <div id={styles["Conteneur_Header"]}>
 
@@ -180,7 +187,7 @@ function Header() {
               {!auth.currentUser ?
                 null
                 :
-                  <MenuItem className={styles.dropdown_menu_item} onClick={() => deco()} id={styles.dernier_item_dropdown}>
+                  <MenuItem className={styles.dropdown_menu_item} onClick={() => { deco(); clearLocalValues();}} id={styles.dernier_item_dropdown}>
                     <RiLogoutCircleRLine className={styles.dropdown_menu_icon} />
                     <span>
                       Déconnexion
