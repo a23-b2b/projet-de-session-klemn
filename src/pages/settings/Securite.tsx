@@ -17,6 +17,7 @@ function Securite() {
 
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState('');
 
     useEffect(() => {
         getPasskeys();
