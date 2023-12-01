@@ -10,7 +10,7 @@ function klemn() {
     function handleClickScroll(id: any) {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: "center"});
+            element.scrollIntoView({ behavior: 'smooth', block: "center" });
 
         }
     }
@@ -99,12 +99,20 @@ function klemn() {
 
 
                 <h2 id="aPropos">À Propos</h2>
-                <p>
-                    Explorez une multitude de possibilités sur KLEMN,
-                    où chaque section est conçue pour enrichir votre expérience.
-                    Découvrez nos produits innovants qui repoussent les limites de la collaboration en ligne.
-                    Plongez dans l'histoire et la mission de notre entreprise avec la section "À propos",
-                    et explorez les ressources qui vous aideront à maximiser votre utilisation de la plateforme.
+                <p className={styles.paragraphe}>
+                    KLEMN est bien plus qu'un simple site, c'est une plateforme dynamique qui révolutionne la manière dont nous interagissons en ligne.
+                    Conçu pour favoriser la collaboration et le partage de connaissances, KLEMN offre un espace polyvalent où les utilisateurs peuvent poser des questions,
+                    collaborer sur des projets passionnants, écrire des blogs captivants et élargir leur réseau en suivant des abonnés partageant les mêmes idées.
+                    <br/>
+                    <br/>
+                    Que vous soyez un professionnel cherchant à élargir votre expertise ou un passionné souhaitant partager ses connaissances,
+                    KLEMN offre un terrain de jeu interactif et stimulant. Grâce à ses fonctionnalités conviviales, vous pouvez non seulement trouver des réponses pertinentes à vos questions,
+                    mais aussi participer activement à des projets collaboratifs, créer du contenu inspirant et connecter avec des esprits créatifs du monde entier.
+                    <br/>
+                    <br/>
+                    Rejoignez la communauté florissante de KLEMN et découvrez un univers où le partage et la collaboration ne connaissent pas de limites.
+                    Enrichissez votre expérience en ligne en participant à cette plateforme innovante qui met l'accent sur la connectivité,
+                    l'apprentissage continu et le développement collaboratif.
                 </p>
                 <h2 id="resources">Resources</h2>
                 <p>
