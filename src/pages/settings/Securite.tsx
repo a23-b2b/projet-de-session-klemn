@@ -1,13 +1,18 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import {SetStateAction, useEffect, useState} from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
-import { motion } from "framer-motion";
-import { auth } from '../../firebase';
+import {motion} from "framer-motion";
+import {auth} from '../../firebase';
 import toast from 'react-hot-toast';
-import { Client } from '@passwordlessdev/passwordless-client';
-import { GoPasskeyFill } from "react-icons/go";
+import {Client} from '@passwordlessdev/passwordless-client';
+import {GoPasskeyFill} from "react-icons/go";
 import Timestamp from '../../components/Timestamp';
-import { onAuthStateChanged } from 'firebase/auth';
-import { MdDeleteForever } from 'react-icons/md';
+import {
+    EmailAuthProvider,
+    onAuthStateChanged,
+    reauthenticateWithCredential,
+    updatePassword
+} from 'firebase/auth';
+import {MdDeleteForever} from 'react-icons/md';
 import Modal from '../../components/Modal';
 
 function Securite() {
@@ -18,10 +23,42 @@ function Securite() {
     const [passkeysList, setPasskeysList] = useState<any[]>([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
     useEffect(() => {
         getPasskeys();
     }, [])
+
+    function changePassword() {
+        setCurrentPassword('')
+        setNewPassword('')
+        setNewPasswordConfirmation('')
+
+        if (newPassword != newPasswordConfirmation) {
+            toast.error("La confirmation de mot de passe n'est pas égale au mot de passe.")
+            return
+        }
+
+        const user = auth.currentUser
+
+        if (user && user.email && currentPassword && newPassword) {
+            var credential = EmailAuthProvider.credential(
+                user.email,
+                currentPassword
+            );
+
+            reauthenticateWithCredential(user, credential).then(() => {
+                updatePassword(user, newPassword.trim()).then(() => {
+                    toast.success("Mot de passe modifié.")
+                }).catch((error) => {
+                    toast.error(`Une erreur est survenue: (${error.code})`)
+                });
+            }).catch((error) => {
+                toast.error(`Une erreur est survenue: (${error.code})`)
+            });
+        }
+    }
 
     function getPasskeys() {
         onAuthStateChanged(auth, (user) => {
@@ -102,27 +139,71 @@ function Securite() {
 
     return (
         <div className={styles.container_parametres}>
-            <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
+            <motion.div initial={{x: "-15%", opacity: 0}} animate={{x: 0, opacity: 1}}>
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Sécurité</h1>
                 <div>
+                    <h2>Modifer le mot de passe</h2>
+                    <label className={'global_label'}>Mot de passe actuel</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                    />
+
+                    <label className={'global_label'}>Nouveau mot de passe</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+
+                    <label className={'global_label'}>Confirmez le nouveau mot de passe</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        value={newPasswordConfirmation}
+                        onChange={(e) => setNewPasswordConfirmation(e.target.value)}
+                    />
+
+                    <div id={styles["containerDiv"]}>
+                        <button className={'global_selected_bouton'} onClick={() => changePassword()}
+                                disabled={!currentPassword.trim() || !newPassword.trim()}>
+                            Modifier
+                        </button>
+                    </div>
+                </div>
+                <div>
                     <h2>Clés d'accès (Passkeys)</h2>
-                    <p>Les clés d'accès sont plus sécuritaires et plus pratiques que les mots de passes traditionnels.</p>
+                    <p>Les clés d'accès sont plus sécuritaires et plus pratiques que les mots de passes
+                        traditionnels.</p>
                     {
-                        passwordlessClient.isBrowserSupported() ? "" : <p>Votre navigateur ne supporte pas les clés d'accès.</p>
+                        passwordlessClient.isBrowserSupported() ? "" :
+                            <p>Votre navigateur ne supporte pas les clés d'accès.</p>
                     }
-                    <button className='global_selected_bouton' disabled={!passwordlessClient.isBrowserSupported()} onClick={() => addPasskey()}>
-                        <GoPasskeyFill style={{ marginLeft: '-10px', marginRight: '6px' }} /> Ajouter une clé d'accès
+                    <button className='global_selected_bouton' disabled={!passwordlessClient.isBrowserSupported()}
+                            onClick={() => addPasskey()}>
+                        <GoPasskeyFill style={{marginLeft: '-10px', marginRight: '6px'}}/> Ajouter une clé d'accès
                     </button>
 
                     {passkeysList.map((passkey) => (
                         <div key={passkey.descriptor.id} className={styles.passkey_list_item}>
                             <div className={styles.titre_passkey_grid}>
                                 <h3 className={styles.titre_passkey}>{passkey.nickname}</h3>
-                                <button className={styles.bouton_supprimer} onClick={() => deletePasskey(passkey.descriptor.id)}>
-                                    <MdDeleteForever className={styles.icone_supprimer} />
+                                <button className={styles.bouton_supprimer}
+                                        onClick={() => deletePasskey(passkey.descriptor.id)}>
+                                    <MdDeleteForever className={styles.icone_supprimer}/>
                                 </button>
                             </div>
-                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt} /> sur {passkey.device}</p>
+                            <p><b>Dernière utilisation: </b><Timestamp date={passkey.lastUsedAt}/> sur {passkey.device}
+                            </p>
                         </div>
                     ))}
                 </div>
