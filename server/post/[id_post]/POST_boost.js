@@ -57,16 +57,25 @@ module.exports = app.post('/:id_post/boost', [body('contenu').notEmpty().isLengt
                     FROM post
                     WHERE id_compte = ?
                     order by date_publication desc
-                    limit 1;`,
-                [userId, contenu, userId, boostedPostId, userId],
+                    limit 1;
+                    
+                    SELECT COUNT(*) as nombre_partages
+                    FROM post_partage
+                    WHERE id_post_original = (SELECT id_post FROM post WHERE id_compte = ? ORDER BY date_publication DESC LIMIT 1);
+                    `
+                ,
+                [userId, contenu, userId, boostedPostId, userId, userId],
                 function (err, results, fields) {
                     if (err) {
                         // logger.info("Erreur lors de lexecution de la query.", err)
                         console.log(err)
                         res.status(500).send("ERREUR: " + err.code)
-
                     } else {
-                        res.send(JSON.stringify(results[2][0]))
+                        const response = {
+                            post: results[2][0],
+                            nombrePartages: results[3][0].nombre_partages
+                        };
+                        res.send(JSON.stringify(response));
                     }
                 }
             );

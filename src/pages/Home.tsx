@@ -20,6 +20,7 @@ function Home() {
     const [isEndOfFeed, setIsEndOfFeed] = useState(false)
     const [feedType, setFeedType] = useState(localStorage.getItem("feedType") || "global");
     const [nombrePersonnes, setNombrePersonnes] = useState(0);
+    const [nombrePartage, setNombrePartage] = useState(0);
 
     let { username } = useParams();
 
