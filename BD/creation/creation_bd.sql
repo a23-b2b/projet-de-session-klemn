@@ -1,4 +1,4 @@
--- Active: 1693586986008@@localhost@32769@dev
+-- Active: 1694035110728@@localhost@3306@dev
 DROP 
   TABLE IF EXISTS compte_suivi CASCADE;
 DROP 
@@ -151,6 +151,8 @@ CREATE TABLE demande_collab (
   CONSTRAINT demande_collab_projet_id_projet_fk FOREIGN KEY (projet_id_projet) REFERENCES projet (id_projet) ON DELETE CASCADE, 
   CONSTRAINT demande_collab_compte_id_compte_fk FOREIGN KEY (compte_id_compte) REFERENCES compte (id_compte)
 );
+
+DROP VIEW post_view;
 
 CREATE OR REPLACE VIEW post_view AS
 SELECT ROW_NUMBER() OVER (ORDER BY post.date_publication) AS numero_post,

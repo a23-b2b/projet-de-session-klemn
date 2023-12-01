@@ -16,7 +16,10 @@ const TypesDePost = {
     Boost: "boost"
 }
 
-module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 })], (req, res) => {
+module.exports = app.post('/', [
+    body('contenu').notEmpty().isLength({ max: 4000 }).withMessage("La publication ne doit pas dépasser 4000 caractères."),
+    body('titre').notEmpty().isLength({ max: 255 }).withMessage("Le titre ne doit pas dépasser 255 caractères.")
+], (req, res) => {
     const resultatValidation = validationResult(req);
     if (resultatValidation.isEmpty()) {
 
@@ -105,7 +108,7 @@ module.exports = app.post('/', [body('contenu').notEmpty().isLength({ max: 4000 
                 pool.query(
                     `INSERT INTO post (id_post, id_compte, id_type_post, titre, contenu, est_markdown, nombre_likes, nombre_dislikes,
                         nombre_reposts, nombre_commentaires, nombre_partages, date_publication)
-                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, 0, 0, 0, 0, 0, NOW());
+                     VALUES (SUBSTRING(MD5(UUID()) FROM 1 FOR 12), ?, 2, ?, ?, ?, 0, 0, 0, 0, 0, NOW());
                      
                      INSERT INTO post_question 
                         (id_question, est_resolu, post_id_post, post_meilleure_reponse)

@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import toast from 'react-hot-toast';
 import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { Divider } from '@chakra-ui/react';
 
 
@@ -29,14 +29,13 @@ function BlogueForm() {
         getProjets()
     }, []);
 
-    async function getProjets() {    
-        const auth = getAuth();
+    async function getProjets() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
                 fetch(`${process.env.REACT_APP_API_URL}/get-all-projets/${uid}`, {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },        
+                    headers: { 'Content-Type': 'application/json' },
                 })
                     .then(response => response.json())
                     .then(json => {
@@ -52,40 +51,58 @@ function BlogueForm() {
     const [estMarkdown, setEstMarkdown] = useState(false);
 
     async function publierBlogue() {
-        // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
-        const utilisateur = auth.currentUser;
-        if (utilisateur) {
-            if (contenu) {
-                utilisateur.getIdToken(/* forceRefresh */ true).then((idToken) => {
-                    fetch(`${process.env.REACT_APP_API_URL}/post`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': idToken
-                        },
-                        body: JSON.stringify({
-                            titre: titre,
-                            contenu: contenu,
-                            idProjet: IdChoixDeProjet,
-                            type: type,
-                            est_markdown: estMarkdown
-                        }),
-                    }).then(response => response.json()).then(response => {
-                        toast.success('Votre message a été publié!');
+        let isValidPost = true;
+        if (!contenu && titre) {
+            toast.error('Le contenu de la publication ne doit pas être vide.')
+            isValidPost = false;
+        } 
+        
+        if (!titre && contenu) {
+            toast.error('Le titre ne doit pas être vide.')
+            isValidPost = false;
+        }
 
-                        navigate(`/p/${response['id_post']}`)
-                    }).catch((error) => {
-                        toast.error('Une erreur est survenue');
-                    })
+        if (!titre && !contenu) {
+            isValidPost = false;
+        }
+
+        if (titre.length > 255) {
+            toast.error('Le titre ne doit pas dépasser 255 caractères.')
+            isValidPost = false;
+        }
+
+        const utilisateur = auth.currentUser;
+        if (utilisateur && isValidPost) {
+            utilisateur.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                fetch(`${process.env.REACT_APP_API_URL}/post`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authorization': idToken
+                    },
+                    body: JSON.stringify({
+                        titre: titre,
+                        contenu: contenu,
+                        idProjet: IdChoixDeProjet,
+                        type: type,
+                        est_markdown: estMarkdown
+                    }),
+                }).then(response => response.json()).then(response => {
+                    toast.success('Votre message a été publié!');
+
+                    navigate(`/p/${response['id_post']}`)
+                }).catch((error) => {
+                    toast.error('Une erreur est survenue');
                 })
-            } else {
-                toast.error('Le contenu de la publication ne peut pas être vide.')
-            }
-        } else {
+            })
+        }
+
+        else if (!utilisateur) {
             toast.error('Veuillez vous connecter avant de publier.');
             navigate('/');
         }
     }
+
 
     const [isBlogueSelected, setBlogueIsSelected] = useState(true);
     const [isQuestionSelected, setQuestionIsSelected] = useState(false);
@@ -107,6 +124,7 @@ function BlogueForm() {
         setBlogueIsSelected(false)
         setQuestionIsSelected(false)
         setCollabIsSelected(true)
+        setIdChoixDeProjet(projets.length > 0 ? projets[0].id_projet : '')
     }
 
     return (
@@ -151,17 +169,18 @@ function BlogueForm() {
                 {type == "collab" && (
                     <div id={styles["ConteneurSelectURL"]}>
                         <label className={'global_label'}>Source d'URL du projet GitHub</label>
-                        <select         
-                            id={styles["selectURL"]}                    
+                        <select
+                            id={styles["selectURL"]}
                             className={'global_input_field'}
                             onChange={handleChange}
-                            >
-                                {projets && projets?.map(({
-                                    id_projet,
-                                    titre_projet,
-                                    est_ouvert
-                                }) => { return (<>                       
-                                    {est_ouvert && 
+                        >
+                            {projets && projets?.map(({
+                                id_projet,
+                                titre_projet,
+                                est_ouvert
+                            }) => {
+                                return (<>
+                                    {est_ouvert &&
                                         <option value={id_projet}>{titre_projet}</option>}
                                 </>)
                             })}

@@ -1,7 +1,7 @@
 import styles from '../styles/GestionCollab.module.css';
 import accepter from '../images/icn-check-mark.png';
 import refuser from '../images/icn-cross-mark.png'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import testProfilePic from '../images/test_pfp.png'
 import toast from 'react-hot-toast';
@@ -9,6 +9,7 @@ import METHODE from '../pages/GestionCollab'
 import { AiOutlineUser } from 'react-icons/ai';
 import { ImCheckmark2 } from 'react-icons/im';
 import { ImBlocked } from 'react-icons/im';
+import {auth} from "../firebase";
 
 
 
@@ -30,7 +31,6 @@ export interface PropDemandeCollab {
 /*
 Si la demande est accepter, on fait un insert dans la table collaborateur et update pour vrai
 Sinon on change le statut de la demande a refusé
-TODO: Dans tout les cas il faut supprimer la demande refusé apres un certain temps
 */
 
 function GestionDemandeCollab(props: PropDemandeCollab) {
@@ -39,7 +39,6 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
     const refuserDemande = 'false';
 
     function repondreDemandeCollab(reponse: String) {
-        const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // https://builtin.com/software-engineering-perspectives/react-api 
@@ -53,7 +52,7 @@ function GestionDemandeCollab(props: PropDemandeCollab) {
                         body: JSON.stringify({
                             id_demande_collab: props.id_demande_collab,
                         })
-                    }).then(response => response.json())
+                    })
                     .catch(error => toast(error.toString()));
                 })
             } else {

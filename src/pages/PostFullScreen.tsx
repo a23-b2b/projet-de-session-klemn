@@ -42,8 +42,6 @@ function PostFullScreen() {
                     console.log(error)
                 })
         });
-
-
     }, [postId]);
 
     if (postData) {
@@ -69,9 +67,16 @@ function PostFullScreen() {
                     userVote={postData.vote}
 
                     sharedPostId={postData.id_shared_post}
-                    isSharedPostQuote={postData.is_quoted_post} />
+                    isSharedPostQuote={postData.is_quoted_post} 
+                    
+                    // Question Prop
+                    idMeilleureReponse={postData.post_meilleure_reponse}
+                    statutReponse={postData.est_resolu}/>
 
-                <SectionReponses idParent={postData.id_post} />
+                <SectionReponses 
+                    idAuteurQuestion={postData.id_compte}
+                    idParent={postData.id_post} 
+                    question_parente_est_resolue={postData.est_resolu}/>
             </div>
         );
     }

@@ -1,15 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import BadgesContainer from '../Badges/_BadgesContainer';
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import { SlOptionsVertical } from "react-icons/sl";
-import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever, MdEdit, MdHistoryEdu } from "react-icons/md";
+import { FaEdit, FaCrown } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import Modal from '../Modal';
+import Timestamp from '../Timestamp';
+import modalStyles from '../../styles/Modal.module.css'
+import Chargement from '../EcranChargement';
 
 interface HeaderProps {
     date: string;
@@ -21,75 +24,27 @@ interface HeaderProps {
     isDeleted: boolean;
     estModifie: Boolean;
     contenu: string;
+
+    // Est un commentaire sur un post question qui nous appartient et qui n'est pas encore resolu
+    meilleureReponseMayBeSet?: boolean;
+    idQuestion?: string;
 }
-
-
-const UNE_MINUTE_EN_SECONDES = 60
-const UNE_HEURE_EN_SECONDES = 3600
-const UN_JOUR_EN_SECONDES = 86400
-const DEUX_SEMAINES_EN_SECONDES = 1209600
-
 
 const PostHeader = (props: HeaderProps) => {
     const auth = getAuth();
     const navigate = useNavigate();
     const user = auth.currentUser;
 
-    const datePost = new Date(props.date)
-    const datePostUTC = new Date(Date.UTC(datePost.getUTCFullYear(), datePost.getUTCMonth(), datePost.getUTCDate(), datePost.getUTCHours() - datePost.getTimezoneOffset() / 60, datePost.getUTCMinutes(), datePost.getUTCSeconds()))
-    const datePostSeconds = Math.round(datePostUTC.getTime() / 1000)
-
-    const dateNow = new Date()
-    const dateNowUTC = new Date(dateNow.toISOString())
-    const dateNowSeconds = Math.round(dateNowUTC.getTime() / 1000)
-
-    const timeDifference = dateNowSeconds - datePostSeconds
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [contenu, setContenu] = useState(props.contenu);
     const [nbCaracteres, setNbCaracteres] = useState(0)
 
-    const formattedData = datePostUTC.toLocaleString(undefined, {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric'
-    })
+    const [isEditHistoryModalOpen, setIsEditHistoryModalOpen] = useState(false);
+    const [editHistory, setEditHistory] = useState<any[]>([])
 
     const estProprietaire = auth.currentUser ? auth.currentUser.uid === props.idCompte : false
 
-    let timeStampText = ""
-    // afficher en secondes
-    if (timeDifference >= 0 && timeDifference < UNE_MINUTE_EN_SECONDES) {
-        timeStampText = `${timeDifference}s`
-    }
-
-    // afficher en minutes
-    if (timeDifference >= UNE_MINUTE_EN_SECONDES && timeDifference < UNE_HEURE_EN_SECONDES) {
-        timeStampText = `${Math.round(timeDifference / 60)} min`
-    }
-
-    // afficher en heures
-    if (timeDifference >= UNE_HEURE_EN_SECONDES && timeDifference < UN_JOUR_EN_SECONDES) {
-        timeStampText = `${Math.round(timeDifference / 60 / 60)}h`
-    }
-
-    // afficher quand il y a 1 jour. multiplier par 1.5 pour contrer l'effet du Round
-    if (timeDifference >= UN_JOUR_EN_SECONDES && timeDifference < UN_JOUR_EN_SECONDES * 1.5) {
-        timeStampText = `${Math.round(timeDifference / 60 / 60 / 24)} jour`
-    }
-
-    // afficher en jours
-    if (timeDifference >= UN_JOUR_EN_SECONDES * 1.5 && timeDifference < DEUX_SEMAINES_EN_SECONDES) {
-        timeStampText = `${Math.round(timeDifference / 60 / 60 / 24)} jours`
-    }
-
-    // la date
-    if (timeDifference >= DEUX_SEMAINES_EN_SECONDES) {
-        timeStampText = datePost.toLocaleDateString()
-    }
 
     console.log(props.urlImageProfil)
 
@@ -103,9 +58,41 @@ const PostHeader = (props: HeaderProps) => {
                 setIsEditModalOpen(true);
                 // setContenu(props.idPost);
                 break;
+            case 'edit_history':
+                handleGetEditHistory()
+                setIsEditHistoryModalOpen(true);
+                break;
+            case 'set_best':
+                setIsBest()
+                break;
             default:
                 break;
         }
+    }
+
+    function setIsBest() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/question/${props.idQuestion}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: idToken
+                        },
+                        body: JSON.stringify({
+                            id_reply: props.idPost
+                        })
+                    }).then(response => {
+                        console.log(JSON.stringify(response))
+                    }).catch((error) => {
+                        console.log(error.toString())
+                    })
+                })
+            } else {
+                navigate("/authenticate")
+            }
+        });
     }
 
     function handleDeletePost() {
@@ -136,6 +123,11 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     function handleEditPost() {
+        if (contenu === props.contenu) {
+            setIsEditModalOpen(false);
+            return '';
+        }
+
         const utilisateur = auth.currentUser;
         if (utilisateur) {
             if (contenu) {
@@ -170,79 +162,137 @@ const PostHeader = (props: HeaderProps) => {
         }
     }
 
+    function handleGetEditHistory() {
+        const utilisateur = auth.currentUser;
+        if (utilisateur) {
+            if (contenu) {
+                utilisateur.getIdToken(/* forceRefresh */ true)
+                    .then((idToken) => {
+                        fetch(`${process.env.REACT_APP_API_URL}/post/${props.idPost}/edit/history`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            }
+                        }).then(response => response.json())
+                            .then(response => {
+                                setEditHistory(response)
+                            }).catch((error) => {
+                                toast.error('Une erreur est survenue');
+                            })
+                    })
+
+            } else {
+                toast.error('Le contenu de la publication ne peut pas être vide.')
+            }
+        } else {
+            toast.error('Veuillez vous connecter avant de publier.');
+            navigate('/');
+        }
+    }
+
     return (
         <div className={styles.header}>
-            {!props.isDeleted && (
-                <>
-                    <Link to={`/u/${props.nomUtilisateur}`}>
-                        <img className={styles.image_profil} src={props.urlImageProfil} />
-                    </Link>
 
-                    <div id={styles["inner_droit_nom_utilisateur"]}>
-                        <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
-                            <p className={styles.display_name}>{props.nomAffichage}</p>
-                            {/* <BadgesContainer badgesInt={15}/> */}
-                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+            <div className={styles.grid_container}>
+
+                {!props.isDeleted && (
+                    <div className={styles.grid_item} id={styles.infos_utilisateur}>
+                        <Link to={`/u/${props.nomUtilisateur}`}>
+                            <img className={styles.image_profil} src={props.urlImageProfil} />
                         </Link>
-                    </div>
-                </>
-            )}
 
-            {props.estModifie ? <MdEdit /> : ''}
-
-            {props.isDeleted && (
-                <>
-                    <img className={styles.image_profil} src={props.urlImageProfil} />
-                    <div id={styles["inner_droit_nom_utilisateur"]}>
-                        <div className={styles.user_info}>
-                            <p className={styles.display_name}>{props.nomAffichage}</p>
-                            {/* <BadgesContainer badgesInt={15}/> */}
-                            <p className={styles.username}>@{props.nomUtilisateur}</p>
+                        <div id={styles["inner_droit_nom_utilisateur"]}>
+                            <Link to={`/u/${props.nomUtilisateur}`} className={styles.user_info}>
+                                <p className={styles.display_name}>{props.nomAffichage}</p>
+                                {/* <BadgesContainer badgesInt={15}/> */}
+                                <p className={styles.username}>@{props.nomUtilisateur}</p>
+                            </Link>
                         </div>
                     </div>
-                </>
-            )}
+                )}
 
-            <Tooltip className={styles.tooltip} label={formattedData} placement='top'>
-                <p className={styles.date}>{timeStampText}</p>
-            </Tooltip>
-
-            {!props.isDeleted && (
-                <Menu menuButton={
-                    <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
-                        <SlOptionsVertical className={styles.icone} id={styles.icone_options} />
+                {props.isDeleted && (
+                    <div className={styles.grid_item} id={styles.infos_utilisateur}>
+                        <img className={styles.image_profil} src={props.urlImageProfil} />
+                        <div id={styles["inner_droit_nom_utilisateur"]}>
+                            <div className={styles.user_info}>
+                                <p className={styles.display_name}>{props.nomAffichage}</p>
+                                {/* <BadgesContainer badgesInt={15}/> */}
+                                <p className={styles.username}>@{props.nomUtilisateur}</p>
+                            </div>
+                        </div>
                     </div>
-                }
-                    transition={true}
-                    menuClassName={styles.share_menu}
-                    onItemClick={(e) => handleOptionsItemClick(e.value)}>
+                )}
 
-                    {estProprietaire && (
-                        <>
-                            <MenuItem value={'delete'} className={styles.share_menu_item}>
-                                <MdDeleteForever
-                                    className={styles.share_menu_icon}
-                                    id={styles.icone_supprimer} />
-                                <span>Supprimer</span>
-                            </MenuItem>
+                <div>
+                    {props.estModifie ? <p style={{ marginRight: "8px" }}><MdEdit /></p> : ''}
+                </div>
 
-                            <MenuItem value={'edit'} className={styles.share_menu_item}>
-                                <FaEdit className={styles.share_menu_icon} />
-                                <span>Modifier</span>
-                            </MenuItem>
-                        </>
-                    )}
-                    <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+                <div className={styles.grid_item}>
+                    <p className={styles.date}>
+                        <Timestamp date={props.date} />
+                    </p>
+                </div>
 
-                </Menu>
-            )}
+                {!props.isDeleted && (
+                    <div className={styles.grid_item}>
+                        <Menu menuButton={
+                            <div className={styles.bouton_interraction} id={styles.bouton_interraction_options}>
+                                <SlOptionsVertical className={styles.icone} id={styles.icone_options} />
+                            </div>
+                        }
+                            transition={true}
+                            menuClassName={styles.share_menu}
+                            onItemClick={(e) => handleOptionsItemClick(e.value)}>
+
+                            {props.meilleureReponseMayBeSet &&
+                                <>
+                                    <MenuItem value={'set_best'} className={styles.share_menu_item}>
+                                        <FaCrown
+                                            className={styles.share_menu_icon} />
+                                        <span>Set comme meilleure réponse</span>
+                                    </MenuItem>
+                                </>
+                            }
+
+                            {estProprietaire && (
+                                <>
+                                    <MenuItem value={'delete'} className={styles.share_menu_item}>
+                                        <MdDeleteForever
+                                            className={styles.share_menu_icon}
+                                            id={styles.icone_supprimer} />
+                                        <span>Supprimer</span>
+                                    </MenuItem>
+
+                                    <MenuItem value={'edit'} className={styles.share_menu_item}>
+                                        <FaEdit className={styles.share_menu_icon} />
+                                        <span>Modifier</span>
+                                    </MenuItem>
+                                </>
+                            )}
+
+                            {props.estModifie ? (
+                                <MenuItem value={'edit_history'} className={styles.share_menu_item}>
+                                    <MdHistoryEdu className={styles.share_menu_icon} />
+                                    <span>Modifications</span>
+                                </MenuItem>
+                            ) : ''}
+                            <MenuItem className={styles.share_menu_item}><span>Rien</span></MenuItem>
+
+                        </Menu>
+                    </div>
+                )}
+
+            </div>
+
 
             <Modal isModalOpen={isEditModalOpen} setIsModalOpen={setIsEditModalOpen}>
                 <div className={styles.conteneur}>
                     <h2 className={styles.titre}>Publication</h2>
                     <div className={styles.form}>
                         <textarea
-                            className={styles.textarea}
+                            className={'global_textarea'}
                             rows={10}
                             maxLength={4000}
                             placeholder="Exprimez-vous!"
@@ -253,9 +303,9 @@ const PostHeader = (props: HeaderProps) => {
                             }} />
                     </div>
 
-                    <div className={styles.conteneurDiv} id={styles["conteneurDivFooter"]}>
-                        <span id={styles["span"]}>{nbCaracteres}/4000</span>
-                        <button className={'global_bouton'} onClick={() => handleEditPost()}>
+                    <div className={modalStyles.conteneurDiv} id={modalStyles["conteneurDivFooter"]}>
+                        <span id={modalStyles["span"]}>{nbCaracteres}/4000</span>
+                        <button className={'global_selected_bouton'} onClick={() => handleEditPost()}>
                             Publier
                         </button>
                     </div>
@@ -263,8 +313,27 @@ const PostHeader = (props: HeaderProps) => {
                 </div>
             </Modal>
 
+            <Modal isModalOpen={isEditHistoryModalOpen} setIsModalOpen={setIsEditHistoryModalOpen}>
+                <div className={styles.conteneur}>
+                    <h2 className={styles.titre}>Historique de modifications</h2>
+                    <p style={{ marginTop: "-16px" }}>Récent ➝ ancien</p>
+                    {!editHistory ? <Chargement /> :
+                        <div className={styles.edit_history_container}>
+                            {editHistory.map(version => {
+                                return (
+                                    <div className={styles.edit_history_item}>
+                                        {version.ancien_contenu}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    }
+                </div>
+            </Modal>
         </div>
     )
 }
 
 export default PostHeader;
+
+

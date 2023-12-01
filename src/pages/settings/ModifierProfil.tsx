@@ -1,18 +1,30 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion, AnimatePresence } from "framer-motion";
-import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, updateEmail, updateProfile } from 'firebase/auth';
+import {
+    EmailAuthProvider,
+    GithubAuthProvider,
+    getAdditionalUserInfo,
+    linkWithPopup,
+    onAuthStateChanged,
+    reauthenticateWithCredential,
+    unlink,
+    signInWithCustomToken
+} from 'firebase/auth';
 import { auth } from '../../firebase';
 import toast from 'react-hot-toast';
 import ReactCrop, { centerCrop, convertToPixelCrop, Crop, makeAspectCrop } from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css'
 import { FaRegFolderOpen } from 'react-icons/fa6';
+import { Button } from '@chakra-ui/button';
+import { AiFillGithub } from 'react-icons/ai';
 
 
 
 
 function ModifierProfil() {
     const [newEmail, setNewEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [newEmailConfirmation, setNewEmailConfirmation] = useState('');
     const [newNameAffichage, setNewNameAffichage] = useState('');
     const [newNameAffichageConfirmation, setNewNameAffichageConfirmation] = useState('');
@@ -26,34 +38,69 @@ function ModifierProfil() {
     const [urlImageProfil, setUrlImageProfil] = useState('')
     const imgProfilRef = useRef<HTMLImageElement>()
 
+    const [githubLinked, setGithubLinked] = useState(false)
+
+    const githubProvider = new GithubAuthProvider();
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     const changeEmail = () => {
+        setNewEmail('')
+        setNewEmailConfirmation('')
+        setPassword('')
 
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
+        const user = auth.currentUser;
 
         if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
+            let credential = EmailAuthProvider.credential(
                 user.email,
                 password
             );
 
-            reauthenticateWithCredential(user, credential).then((user) => {
-                updateEmail(user.user, newEmail).then(() => {
-                    toast.success("Courriel mis à jour!")
-                }).catch((error) => {
-                    toast.error(`Une erreur est survenue! (${error.code})`)
-                });
+            reauthenticateWithCredential(user, credential).then(() => {
+                user?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+
+                    fetch(`${process.env.REACT_APP_API_URL}/user/update/courriel`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            new_email: newEmail.trim(),
+                        }),
+                    }).then(response => {
+                        if (response.ok) {
+                            response.json().then(response => {
+                                signInWithCustomToken(auth, response).then(() => {
+                                    toast.success('Courriel modifié.');
+                                }).catch((error) => {
+                                    toast.error(`Une erreur est survenue: (${error.code})`)
+                                })
+                            }).catch((error) => {
+                                toast.error(`Une erreur est survenue: (${error.code})`)
+                            })
+                        } else {
+                            response.json().then(response => {
+                                toast.error(`Une erreur est survenue: (${response})`)
+                            })
+                        }
+
+                    })
+                })
             }).catch((error) => {
                 toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
             });
 
         }
     }
 
     const changeNameAffichage = () => {
+        setNewNameAffichage('')
+        setNewNameAffichageConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/display_name', {
                 method: 'POST',
@@ -62,10 +109,10 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_name_affichage: newNameAffichage,
+                    new_name_affichage: newNameAffichage.trim(),
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Nom d\'affichage modifié.')
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -73,6 +120,9 @@ function ModifierProfil() {
     }
 
     const changeName = () => {
+        setNewName('')
+        setNewNameConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/nom', {
                 method: 'POST',
@@ -81,10 +131,10 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_name: newName,
+                    new_name: newName.trim(),
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Nom modifié.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -92,6 +142,9 @@ function ModifierProfil() {
     }
 
     const changePrenom = () => {
+        setNewPrenom('')
+        setNewPrenomConfirmation('')
+
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/prenom', {
                 method: 'POST',
@@ -100,10 +153,10 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_prenom: newPrenom,
+                    new_prenom: newPrenom.trim(),
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Prénom modifié.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
@@ -111,6 +164,7 @@ function ModifierProfil() {
     }
 
     const changeBio = () => {
+        setNewBio('');
         auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
             fetch(process.env.REACT_APP_API_URL + '/user/update/bio', {
                 method: 'POST',
@@ -119,13 +173,39 @@ function ModifierProfil() {
                     'authorization': idToken
                 },
                 body: JSON.stringify({
-                    new_bio: newBio,
+                    new_bio: newBio.trim(),
                 }),
             }).then(response => response.json()).then(response => {
-                toast.success('Paramètre modifié.');
+                toast.success('Bio modifiée.');
             }).catch((error) => {
                 toast.error(`Une erreur est survenue: (${error.code})`)
             })
+        })
+    }
+
+    async function getUser() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/username/${user.uid}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                    }).then(response => response.json()).then(response => {
+
+                        if (response[0].id_github == null) {
+                            setGithubLinked(false)
+                        } else {
+                            setGithubLinked(true)
+                        }
+
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: ${error}`)
+                    })
+                })
+            }
         })
     }
 
@@ -226,37 +306,131 @@ function ModifierProfil() {
         }
     }
 
+    async function lierCompteGithub() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    linkWithPopup(user, githubProvider).then((result) => {
+                        toast("Compter lier avec success")
+                        setGithubLinked(true)
+
+                        const additionalInfo = getAdditionalUserInfo(result)!
+                        if (additionalInfo) {
+                            if (additionalInfo.profile) {
+                                const profile = additionalInfo.profile
+                                fetch(`${process.env.REACT_APP_API_URL}/user/sync-github`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'authorization': idToken
+                                    },
+                                    body: JSON.stringify({
+                                        id_github: typeof (profile.id) == 'number' ? profile.id.toString() : undefined,
+                                    })
+
+                                })
+
+                            }
+                        }
+
+
+                    }).catch((error) => {
+                        toast.error(error)
+                    });
+                })
+            }
+        })
+
+    }
+
+    async function dissocierCompteGithub() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(true).then((idToken) => {
+                    unlink(user, GithubAuthProvider.PROVIDER_ID).then(() => {
+                        toast.success("Votre compte a été dissocié avec sussès!")
+
+                        fetch(`${process.env.REACT_APP_API_URL}/user/unsync-github`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorization': idToken
+                            }
+                        })
+
+                        setGithubLinked(false)
+                    }).catch((error) => {
+                        toast.error(error)
+                    });
+                })
+            }
+        })
+
+    }
+
     return (
         <div className={styles.container_parametres}>
             <motion.div initial={{ x: "-15%", opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
                 <h1 className={'global_title'} id={styles["titleParametres"]}>Modifier Profil</h1>
 
+                <div >
+                    <h3 className={'global_subtitle'}>Compatibilité GitHub</h3>
 
+
+                    {githubLinked == false ?
+                        <div className={styles.div_github}>
+                            <Button className={'global_selected_bouton'} onClick={() => lierCompteGithub()}>
+                                <AiFillGithub className={styles.github_icon} />
+                                <span>
+                                    Lier Compte GitHub
+                                </span>
+                            </Button>
+                        </div>
+                        :
+                        <div className={styles.div_github}>
+                            <Button className={'global_selected_bouton'} onClick={() => dissocierCompteGithub()}>
+                                <AiFillGithub className={styles.github_icon} />
+                                <span>
+                                    Dissocier Compte GitHub
+                                </span>
+                            </Button>
+                        </div>
+                    }
+                </div>
 
                 <div >
                     <h3 className={'global_subtitle'}>Modifier le courriel</h3>
 
-
                     <label className={'global_label'}>Nouveau courriel</label>
-
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="email"
+                        value={newEmail}
                         onChange={(e) => setNewEmail(e.target.value)}
                     />
 
                     <label className={'global_label'}>Confirmez le courriel</label>
-
-
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
                         type="email"
+                        value={newEmailConfirmation}
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
+
+                    <label className={'global_label'}>Mot de passe</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation || !newEmail.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -272,6 +446,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameAffichage}
                         onChange={(e) => setNewNameAffichage(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le nom d'affichage</label>
@@ -279,10 +454,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameAffichageConfirmation}
                         onChange={(e) => setNewNameAffichageConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeNameAffichage()} disabled={newNameAffichage !== newNameAffichageConfirmation || !newNameAffichage.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -300,6 +476,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newName}
                         onChange={(e) => setNewName(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le nom </label>
@@ -307,11 +484,12 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newNameConfirmation}
                         onChange={(e) => setNewNameConfirmation(e.target.value)}
                     />
 
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changeName()} disabled={newName !== newNameConfirmation || !newName.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -329,6 +507,7 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newPrenom}
                         onChange={(e) => setNewPrenom(e.target.value)}
                     />
                     <label className={'global_label'}>Confirmez le prenom </label>
@@ -336,10 +515,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newPrenomConfirmation}
                         onChange={(e) => setNewPrenomConfirmation(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation}>
+                        <button className={'global_selected_bouton'} onClick={() => changePrenom()} disabled={newPrenom !== newPrenomConfirmation || !newPrenom.trim()}>
                             Modifier
                         </button>
                     </div>
@@ -356,10 +536,11 @@ function ModifierProfil() {
                     <input
                         id={styles["input"]}
                         className={'global_input_field'}
+                        value={newBio}
                         onChange={(e) => setNewBio(e.target.value)}
                     />
                     <div id={styles["containerDiv"]}>
-                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={newBio === ""}>
+                        <button className={'global_selected_bouton'} onClick={() => changeBio()} disabled={!newBio.trim()}>
                             Modifier
                         </button>
                     </div>

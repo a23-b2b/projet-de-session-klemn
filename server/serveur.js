@@ -11,9 +11,10 @@ const rateLimit = require('express-rate-limit')
 
 dotenv.config();
 
-const firebaseServiceAccount = require("./firebaseServiceAccountKey.json");
+let firebaseKeyLocation = process.env.GOOGLE_APPLICATION_CREDENTIALS
+
 exports.admin = admin.initializeApp({
-    credential: admin.credential.cert(firebaseServiceAccount),
+    credential: admin.credential.cert(firebaseKeyLocation),
     storageBucket: 'klemn-702af.appspot.com/'
 });
 
@@ -30,7 +31,7 @@ exports.pool = pool;
 /* https://www.npmjs.com/package/express-rate-limit */
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 90, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    max: 512, // Limit each IP to x requests per `window`
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
@@ -49,11 +50,23 @@ app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
+const set_best_reply = require('./question/UPDATE_this.js')
+app.use('/question', set_best_reply)
+
 const inscription = require('./user/POST_create.js')
 app.use('/user', inscription);
 
+const inscription_github = require('./user/POST_create_github.js')
+app.use('/user', inscription_github)
+
 const get_profil = require('./user/[username]/GET_this.js')
 app.use('/user', get_profil);
+
+const valider_user = require('./user/[user_id]/GET_id_compte.js')
+app.use('/user', valider_user)
+
+const reset_idgh = require('./user/update/POST_id_github_reset.js')
+app.use('/user', reset_idgh)
 
 const get_username = require('./user/[username]/GET_username.js')
 app.use('/username', get_username);
@@ -64,6 +77,9 @@ app.use('/user', follow_user);
 const unfollow_user = require('./user/[user_id]/POST_unfollow.js');
 app.use('/user', unfollow_user);
 
+const changer_courriel = require('./user/update/POST_courriel');
+app.use('/user', changer_courriel)
+
 const changer_nom_affichage = require('./user/update/POST_display_name.js')
 app.use('/user', changer_nom_affichage)
 
@@ -72,6 +88,9 @@ app.use('/user', changer_nom)
 
 const repondre_demande_collab = require('./repondre_collab')
 app.use('/collab', repondre_demande_collab)
+
+const demander_collab = require('./collaboration/POST_demande_collab.js')
+app.use('/collab', demander_collab)
 
 const changer_prenom = require('./user/update/POST_prenom.js')
 app.use('/user', changer_prenom)
@@ -84,6 +103,9 @@ app.use('/user', changer_image_profil)
 
 const get_user_badges = require('./user/[user_id]/GET_badges.js')
 app.use('/user', get_user_badges);
+
+const sync_id_github = require('./user/update/POST_id_github.js')
+app.use('/user', sync_id_github);
 
 const get_user_posts = require('./post/user/[user_id]/GET_this.js')
 app.use('/post', get_user_posts);
@@ -121,11 +143,20 @@ app.use('/post', delete_post)
 const edit_post = require('./post/[id_post]/edit/POST_this.js')
 app.use('/post', edit_post)
 
+const get_edit_history = require('./post/[id_post]/edit/GET_history.js')
+app.use('/post', get_edit_history)
+
 const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
 const get_all_projet = require('./collaboration/GET_all_projet.js')
 app.use('/get-all-projets', get_all_projet)
+
+const get_projet = require('./collaboration/[id_projet]/GET_this')
+app.use('/projet', get_projet)
+
+const update_projet = require('./collaboration/[id_projet]/update/POST_this')
+app.use('/projet/update', update_projet)
 
 const delete_project = require('./collaboration/POST_delete_project.js')
 app.use('/projet/delete', delete_project)
@@ -144,6 +175,21 @@ app.use('/user', get_followers)
 
 const get_followings = require('./user/[username]/GET_followings.js')
 app.use('/user', get_followings)
+
+const add_passkey = require('./user/passkeys/POST_new.js')
+app.use('/user/passkeys', add_passkey)
+
+const login_passkey = require('./user/passkeys/POST_login.js')
+app.use('/user/passkeys', login_passkey)
+
+const get_passkeys = require('./user/passkeys/GET_list.js')
+app.use('/user/passkeys', get_passkeys)
+
+const delete_passkey = require('./user/passkeys/POST_delete.js')
+app.use('/user/passkeys', delete_passkey)
+
+const get_participant = require('./user/[username]/GET_participant.js')
+app.use('/user', get_participant)
 
 app.listen(process.env.SERVER_PORT, () => {
     logger.info(`[server]: Server is running at http://${process.env.SERVER_HOSTNAME}:${process.env.SERVER_PORT}`);

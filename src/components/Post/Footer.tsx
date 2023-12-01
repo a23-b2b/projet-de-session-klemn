@@ -14,6 +14,9 @@ import QuotePostModal from './QuotePostModal';
 import { auth } from '../../firebase';
 
 interface FooterProps {
+    id_compte?: string;
+    parent_est_resolu?: boolean;
+
     idPost: string;
     nombreLike: number;
     nombreDislike: number;
@@ -27,6 +30,7 @@ const PostFooter = (props: FooterProps) => {
     const [isReponsesOpen, setIsReponsesOpen] = useState(false);
     const [nombreReponses, setNombreReponses] = useState(props.nombreCommentaire)
     const [isQuotePostModalOpen, setIsQuotePostModalOpen] = useState(false);
+    const [nombrePartage, setNombrePartage] = useState(props.nombrePartage);
 
     function handleShareItemClick(item: string) {
         switch (item) {
@@ -51,6 +55,8 @@ const PostFooter = (props: FooterProps) => {
     async function handleBoostPost() {
         // const idToken = await auth.currentUser?.getIdToken(/* forceRefresh */ true)
         const utilisateur = auth.currentUser;
+
+
         if (utilisateur) {
             utilisateur.getIdToken(/* forceRefresh */ true)
                 .then((idToken) => {
@@ -65,6 +71,9 @@ const PostFooter = (props: FooterProps) => {
                         }),
                     }).then(response => response.json())
                         .then(response => {
+                            setNombrePartage(props.nombrePartage + response.nombrePartages);
+
+                            console.log(response.nombrePartages)
                             toast.success('La publication à été partagée!');
 
                         }).catch((error) => {
@@ -93,7 +102,7 @@ const PostFooter = (props: FooterProps) => {
                 <Menu menuButton={
                     <div className={styles.bouton_interraction} id={styles.bouton_interraction_partage}>
                         <AiOutlineShareAlt className={styles.icone} id={styles.icone_partage} />
-                        <span className={styles.interraction_count}>{props.nombrePartage}</span>
+                        <span className={styles.interraction_count}>{nombrePartage}</span>
                     </div>
                 }
 
@@ -112,7 +121,13 @@ const PostFooter = (props: FooterProps) => {
 
             {!props.isPostFullScreen && (
                 <AnimatePresence>
-                    {isReponsesOpen ? <SectionReponses idParent={props.idPost} setNombreCommentaire={setNombreReponses} /> : ''}
+                    
+                    {isReponsesOpen ? 
+                        <SectionReponses 
+                            idAuteurQuestion={props.id_compte}
+                            idParent={props.idPost} 
+                            question_parente_est_resolue={props.parent_est_resolu} 
+                            setNombreCommentaire={setNombreReponses} /> : ''}
                 </AnimatePresence>)}
         </div>
     )

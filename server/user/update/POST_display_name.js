@@ -7,11 +7,10 @@ const { logger } = require('../../logger.js')
 const { pool } = require('../../serveur.js')
 
 
-module.exports = app.post('/display_name', [], (req, res) => {
-    const resultatValidation = validationResult(req);
+module.exports = app.post('/update/display_name', [], (req, res) => {
 
     const userToken = req.headers.authorization;
-    const newDisplayName = req.body.new_prenom;
+    const newDisplayName = req.body.new_name_affichage;
 
     admin.auth().verifyIdToken(userToken, true).then((payload) => {
         const userId = payload.uid;
