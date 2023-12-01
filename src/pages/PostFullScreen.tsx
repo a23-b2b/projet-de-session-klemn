@@ -67,7 +67,11 @@ function PostFullScreen() {
                     userVote={postData.vote}
 
                     sharedPostId={postData.id_shared_post}
-                    isSharedPostQuote={postData.is_quoted_post} />
+                    isSharedPostQuote={postData.is_quoted_post} 
+                    
+                    // Question Prop
+                    idMeilleureReponse={postData.post_meilleure_reponse}
+                    statutReponse={postData.est_resolu}/>
 
                 <SectionReponses idParent={postData.id_post} />
             </div>
