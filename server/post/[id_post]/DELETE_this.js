@@ -10,20 +10,24 @@ module.exports = app.delete('/:id_post', (req, res) => {
     const idToken = req.headers.authorization;
 
     admin.auth().verifyIdToken(idToken, true).then((payload) => {
-        pool.query(
-            `DELETE
-             FROM post_partage
-             WHERE id_shared_post = ?
-               AND is_quoted_post = 0;
+        const userId = payload.uid;
 
+        pool.query(
+            `CALL verifier_autorisation_post(?, ?);
+
+            DELETE
+            FROM post_partage
+            WHERE id_shared_post = ?
+              AND is_quoted_post = 0;
+            
             DELETE
             FROM post_collab
             WHERE post_id_post = ?;
-
+            
             DELETE
             FROM post_question
             WHERE post_id_post = ?;
-
+            
             UPDATE post
             SET id_compte    = 'deleted',
                 id_type_post = 7,
@@ -31,17 +35,16 @@ module.exports = app.delete('/:id_post', (req, res) => {
                 contenu      = 'Cette publication a été supprimée',
                 est_markdown = FALSE
             WHERE id_post = ?;
-
+            
             UPDATE post
             SET nombre_commentaires = nombre_commentaires - 1
             WHERE id_post = (SELECT p2.id_parent
-                             FROM (SELECT id_post, id_parent FROM post) as p2
+                             FROM (SELECT id_post, id_parent FROM post) AS p2
                              WHERE p2.id_post = ?);`,
-            [postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId],
+            [userId, postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId, postToDeleteId],
             function (err, results, fields) {
                 if (err) {
-                    // logger.info("Erreur lors de lexecution de la query.", err)
-                    console.log(err)
+                    logger.error("Erreur lors de l'execution de la query", err)
                     res.status(500).send("ERREUR: " + err.code)
 
                 } else {
