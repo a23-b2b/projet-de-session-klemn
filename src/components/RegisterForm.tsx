@@ -229,12 +229,16 @@ function RegisterForm() {
                         <button className={'global_selected_bouton'} onClick={() => handleRegister({ username, prenom, nom, email, password })}>
                             Inscription
                         </button>
-
-                        <button className={'global_bouton'} style={{ margin: '10px' }} onClick={() => handleGitHubSignUp()}>
-                            Inscription avec GitHub <AiFillGithub />
-                        </button>
-
                     </div>
+                </div>
+
+                <br />
+                <hr />
+
+                <div className={styles.containerBouton} id={styles.passwordless_login_providers}>
+                    <button className={'global_selected_bouton'} onClick={() => handleGitHubSignUp()}>
+                        <AiFillGithub style={{ marginLeft: '-10px', marginRight: '6px' }} />Inscription avec GitHub
+                    </button>
                 </div>
             </motion.div>
         </div>
