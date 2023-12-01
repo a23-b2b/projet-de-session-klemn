@@ -63,6 +63,8 @@ function PosteQuestion(props: QuestionProp) {
 
             <PostFooter
                 idPost={props.idPost}
+                id_compte={props.idCompte}
+                parent_est_resolu={props.statutReponse}
                 nombreLike={props.nombreLike}
                 nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage}

@@ -73,7 +73,9 @@ function PostFullScreen() {
                     idMeilleureReponse={postData.post_meilleure_reponse}
                     statutReponse={postData.est_resolu}/>
 
-                <SectionReponses idParent={postData.id_post} />
+                <SectionReponses 
+                    idParent={postData.id_post} 
+                    question_parente_est_resolue={postData.est_resolu}/>
             </div>
         );
     }
