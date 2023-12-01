@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../../styles/Post.module.css'
 import { Tooltip } from "@chakra-ui/react"
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import BadgesContainer from '../Badges/_BadgesContainer';
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -70,7 +70,24 @@ const PostHeader = (props: HeaderProps) => {
     }
 
     function setIsBest() {
-        throw new Error('Function not implemented.');
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetch(`${process.env.REACT_APP_API_URL}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: user.uid || ""
+                    }
+                })
+                    .then(response => response.json())
+                    .then(response => {
+                        // let data = response[0]
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+        });
     }
 
     function handleDeletePost() {
@@ -223,15 +240,15 @@ const PostHeader = (props: HeaderProps) => {
                             transition={true}
                             menuClassName={styles.share_menu}
                             onItemClick={(e) => handleOptionsItemClick(e.value)}>
-                            
-                            {props.meilleureReponseMayBeSet &&   
-                                <>                         
-                                <MenuItem value={'set_best'} className={styles.share_menu_item}>
-                                    <FaCrown
-                                        className={styles.share_menu_icon}/>
-                                    <span>Set comme meilleure réponse</span>
-                                </MenuItem>   
-                                </>                        
+
+                            {props.meilleureReponseMayBeSet &&
+                                <>
+                                    <MenuItem value={'set_best'} className={styles.share_menu_item}>
+                                        <FaCrown
+                                            className={styles.share_menu_icon} />
+                                        <span>Set comme meilleure réponse</span>
+                                    </MenuItem>
+                                </>
                             }
 
                             {estProprietaire && (
