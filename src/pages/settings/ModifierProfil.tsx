@@ -15,6 +15,7 @@ import { AiFillGithub } from 'react-icons/ai';
 
 function ModifierProfil() {
     const [newEmail, setNewEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [newEmailConfirmation, setNewEmailConfirmation] = useState('');
     const [newNameAffichage, setNewNameAffichage] = useState('');
     const [newNameAffichageConfirmation, setNewNameAffichageConfirmation] = useState('');
@@ -37,27 +38,34 @@ function ModifierProfil() {
     }, []);
 
     const changeEmail = () => {
-
-        let password = prompt('Pour continuer, entrez votre mot de passe');
-
-        let user = auth.currentUser;
+        const user = auth.currentUser;
 
         if (user && user.email && password) {
-            var credential = EmailAuthProvider.credential(
+            let credential = EmailAuthProvider.credential(
                 user.email,
                 password
             );
 
-            reauthenticateWithCredential(user, credential).then((user) => {
-                updateEmail(user.user, newEmail).then(() => {
-                    toast.success("Courriel mis à jour!")
-                }).catch((error) => {
-                    toast.error(`Une erreur est survenue! (${error.code})`)
-                });
+            reauthenticateWithCredential(user, credential).then(() => {
+                user?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/user/update/courriel`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            new_email: newEmail,
+                        }),
+                    }).then(response => response.json()).then(response => {
+
+                        toast.success('Courriel modifié.');
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: (${error.code})`)
+                    })
+                })
             }).catch((error) => {
                 toast.error(`Une erreur est survenue! (${error.code})`)
-                // An error ocurred
-                // ...
             });
 
         }
@@ -379,6 +387,16 @@ function ModifierProfil() {
                         type="email"
                         onChange={(e) => setNewEmailConfirmation(e.target.value)}
                     />
+
+                    <label className={'global_label'}>Mot de passe</label>
+
+                    <input
+                        id={styles["input"]}
+                        className={'global_input_field'}
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
                     <div id={styles["containerDiv"]}>
                         <button className={'global_selected_bouton'} onClick={() => changeEmail()} disabled={newEmail !== newEmailConfirmation}>
                             Modifier
