@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
+import { useEffect } from "react";
 import { Toaster } from 'react-hot-toast';
 import './styles/global.css'
 import AccueilConnecte from "./pages/AccueilConnecte";
@@ -29,6 +30,33 @@ function Layout() {
     // document.documentElement.style.setProperty('--base_h', "30");
     // document.documentElement.style.setProperty('--base_s', "30%");
     // document.documentElement.style.setProperty('--accent_color', "#88bb00"); // valeur d'accent custom
+
+
+
+        /*Set Theme on Refresh*/
+        let hueLS = parseInt(window.localStorage.getItem('hue') || "270");
+        let saturationLS = parseInt(window.localStorage.getItem('saturation') || "30");
+    
+        function changeTheme(hue: number, saturation: number) {
+            document.documentElement.style.setProperty('--base_h', hue.toString())
+            document.documentElement.style.setProperty('--base_s', saturation.toString() + "%")
+    
+        }
+    
+        useEffect(() => {
+            if (localStorage.getItem("hue") === null || localStorage.getItem("saturation") === null) {
+                window.localStorage.setItem('hue', JSON.stringify(270));
+                window.localStorage.setItem('saturation', JSON.stringify(30));
+                
+            }
+    
+            if (!localStorage.getItem("hue") === null && !localStorage.getItem("saturation") === null) {
+                changeTheme(hueLS, saturationLS);
+                window.location.reload();
+            }
+    
+    
+        }, []);
 
     return (
         <>
