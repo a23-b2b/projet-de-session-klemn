@@ -133,6 +133,9 @@ app.use('/post', delete_post)
 const edit_post = require('./post/[id_post]/edit/POST_this.js')
 app.use('/post', edit_post)
 
+const get_edit_history = require('./post/[id_post]/edit/GET_history.js')
+app.use('/post', get_edit_history)
+
 const get_all_demande_collab = require('./collaboration/GET_all_demandes_collab.js')
 app.use('/get-all-demande-collab', get_all_demande_collab)
 
