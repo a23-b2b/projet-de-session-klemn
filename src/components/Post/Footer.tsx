@@ -68,7 +68,7 @@ const PostFooter = (props: FooterProps) => {
                         }),
                     }).then(response => response.json())
                         .then(response => {
-                            setNombrePartage(response.nombrePartages);
+                            setNombrePartage(props.nombrePartage + response.nombrePartages);
 
                             console.log(response.nombrePartages)
                             toast.success('La publication à été partagée!');
