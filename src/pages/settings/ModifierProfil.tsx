@@ -26,6 +26,10 @@ function ModifierProfil() {
     const [urlImageProfil, setUrlImageProfil] = useState('')
     const imgProfilRef = useRef<HTMLImageElement>()
 
+    const [cropBanniere, setCropBanniere] = useState<Crop>()
+    const [urlImageBanniere, setUrlImageBanniere] = useState('')
+    const imgBanniereRef = useRef<HTMLImageElement>()
+
     const changeEmail = () => {
 
         let password = prompt('Pour continuer, entrez votre mot de passe');
@@ -171,6 +175,103 @@ function ModifierProfil() {
     }
 
     const changerImageProfil = () => {
+        if (cropProfil && imgProfilRef.current) {
+            let image = imgProfilRef.current
+
+            let canvas = document.createElement('canvas')
+            const scaleX = image.naturalWidth / image.width;
+            const scaleY = image.naturalHeight / image.height;
+            const pixelRatio = window.devicePixelRatio;
+            canvas.width = cropProfil.width * pixelRatio;
+            canvas.height = cropProfil.height * pixelRatio;
+            const ctx = canvas.getContext('2d');
+
+            if (ctx != null) {
+                ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+                ctx.imageSmoothingQuality = 'low';
+
+                ctx.drawImage(
+                    image,
+                    cropProfil.x * scaleX,
+                    cropProfil.y * scaleY,
+                    cropProfil.width * scaleX,
+                    cropProfil.height * scaleY,
+                    0,
+                    0,
+                    cropProfil.width,
+                    cropProfil.height,
+                );
+            }
+
+            const dataUrl = canvas.toDataURL('image/webp', 0)
+
+            if (dataUrl) {
+                auth.currentUser?.getIdToken(/* forceRefresh */ true).then((idToken) => {
+                    const fetchPromise = fetch(`${process.env.REACT_APP_API_URL}/user/update/image_profil`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'authorization': idToken
+                        },
+                        body: JSON.stringify({
+                            new_image: dataUrl,
+                        }),
+                    }).catch((error) => {
+                        toast.error(`Une erreur est survenue: (${error.code})`)
+                    })
+
+                    toast.promise(fetchPromise, {
+                        loading: 'Chargement...',
+                        success: 'Paramètre modifié.',
+                        error: `Une erreur est survenue.`,
+                    });
+                })
+            }
+        }
+    }
+
+    function onImageBanniereLoad(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+        // Reference: https://www.npmjs.com/package/react-image-crop
+        const { width, height } = e.currentTarget;
+
+        const crop = centerCrop(
+            makeAspectCrop(
+                {
+                    unit: '%',
+                    width: 100,
+                },
+                1,
+                width,
+                height
+            ),
+            width,
+            height
+        )
+
+        imgBanniereRef.current = e.currentTarget
+        setCropProfil(convertToPixelCrop(crop, width, height));
+    }
+
+    function onInputBanniereLoad(event: React.SyntheticEvent<HTMLInputElement, Event>) {
+        if (urlImageProfil) {
+            URL.revokeObjectURL(urlImageProfil)
+        }
+
+        if (event.currentTarget.files) {
+            const fichierCharge = event.currentTarget.files[0]
+            if (fichierCharge.type.includes('image/')) {
+                setUrlImageProfil(URL.createObjectURL(fichierCharge))
+            } else {
+                setUrlImageProfil('')
+                toast.error('Le fichier chargé n\'est pas une image')
+            }
+        } else {
+            setUrlImageProfil('')
+        }
+
+    }
+
+    const changerImageBanniere = () => {
         if (cropProfil && imgProfilRef.current) {
             let image = imgProfilRef.current
 
@@ -414,6 +515,59 @@ function ModifierProfil() {
                         {urlImageProfil && (
                             <div id={styles["containerDiv"]}>
                                 <button className={'global_selected_bouton'} onClick={() => changerImageProfil()}>
+                                    Modifier
+                                </button>
+                            </div>
+                        )
+                        }
+
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className={'global_subtitle'}>Modifier l'image de bannière</h3>
+                    <div className={styles.import_image}>
+                        <input
+                            className={''}
+                            type={'file'}
+                            accept={'image/*'}
+                            onChange={onInputBanniereLoad}
+                        />
+
+                        <div id={styles["conteneuurChoisirImg"]}>
+                            <div id={styles["conteneurIcone"]}>
+                                <FaRegFolderOpen size="40px" id={styles["icone"]} />
+                            </div>
+
+                            <label id={styles["custom-file-upload"]}>
+
+                                <input className={''}
+                                    type={'file'}
+                                    accept={'image/*'}
+                                    onChange={onInputBanniereLoad}>
+                                </input>
+                                <i className={"fa fa-cloud-upload"}></i> Choisir une image
+                            </label>
+
+                        </div>
+
+
+
+                        <br />
+                        {urlImageBanniere && (
+                            <ReactCrop
+                                className={styles.image_profil}
+                                crop={cropBanniere}
+                                onChange={crop => setCropBanniere(crop)}
+                                aspect={1}
+                                circularCrop={true}>
+                                <img src={urlImageBanniere} onLoad={onImageBanniereLoad} />
+                            </ReactCrop>
+                        )
+                        }
+                        {urlImageBanniere && (
+                            <div id={styles["containerDiv"]}>
+                                <button className={'global_selected_bouton'} onClick={() => changerImageBanniere()}>
                                     Modifier
                                 </button>
                             </div>
