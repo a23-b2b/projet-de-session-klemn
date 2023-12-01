@@ -19,12 +19,13 @@ export interface ReponseProps {
     userVote: number;
 
     meilleureReponseMayBeSet?: boolean;
+    idQuestion?: string;
 }
 
 function Reponse(props: ReponseProps) {
     return (
         <div>
-            <PostHeader meilleureReponseMayBeSet={props.meilleureReponseMayBeSet}  date={props.date} idPost={props.idPost} idCompte={props.idCompte} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} isDeleted={false} estModifie={props.estModifie} contenu={props.contenu}/>
+            <PostHeader idQuestion={props.idQuestion} meilleureReponseMayBeSet={props.meilleureReponseMayBeSet}  date={props.date} idPost={props.idPost} idCompte={props.idCompte} nomAffichage={props.nomAffichage} nomUtilisateur={props.nomUtilisateur} urlImageProfil={props.urlImageProfil} isDeleted={false} estModifie={props.estModifie} contenu={props.contenu}/>
             <PostContent titre={""} contenu={props.contenu} estMarkdown={props.estMarkdown} idPost={props.idPost} isPostFullScreen={false} />
             <PostFooter idPost={props.idPost} nombreLike={props.nombreLike} nombreDislike={props.nombreDislike}
                 nombrePartage={props.nombrePartage} nombreCommentaire={props.nombreCommentaire} isPostFullScreen={false} userVote={props.userVote}/>

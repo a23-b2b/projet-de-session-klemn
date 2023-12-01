@@ -38,6 +38,8 @@ interface Props {
     // props optionnels
     statutReponse?: boolean;
     idMeilleureReponse?: string;
+    idQuestion?: string;
+    idAuteurQuestion?: string
 
     // props collab optionnels
     idProjet?: string; 
@@ -89,7 +91,8 @@ function Post(props: Props) {
                     urlImageProfil={props.urlImageProfil}
                     userVote={props.userVote} 
 
-                    meilleureReponseMayBeSet={props.question_parente_est_resolue == false && auth.currentUser?.uid == props.idCompte}
+                    meilleureReponseMayBeSet={props.question_parente_est_resolue == false && auth.currentUser?.uid == props.idAuteurQuestion}
+                    idQuestion={props.idQuestion}
                     />
             )}
             {props.type === TYPE_QUESTION && (

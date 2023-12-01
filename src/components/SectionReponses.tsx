@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 export interface SectionReponsesProps {
     idParent: string;
     question_parente_est_resolue?: boolean;
+    idAuteurQuestion?: string
     setNombreCommentaire?: Dispatch<SetStateAction<number>>;
 }
 
@@ -93,7 +94,9 @@ function SectionReponses(props: SectionReponsesProps) {
                                 userVote={vote} 
                                 estModifie={est_modifie}
                                 
-                                question_parente_est_resolue={props.question_parente_est_resolue}/>
+                                question_parente_est_resolue={props.question_parente_est_resolue}
+                                idQuestion={props.idParent}
+                                idAuteurQuestion={props.idAuteurQuestion}/>
                         )
                     })}
                     

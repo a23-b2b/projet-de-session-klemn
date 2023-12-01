@@ -74,6 +74,7 @@ function PostFullScreen() {
                     statutReponse={postData.est_resolu}/>
 
                 <SectionReponses 
+                    idAuteurQuestion={postData.id_compte}
                     idParent={postData.id_post} 
                     question_parente_est_resolue={postData.est_resolu}/>
             </div>

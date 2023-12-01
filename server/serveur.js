@@ -49,6 +49,9 @@ app.use(morgan('tiny', {
     stream: fs.createWriteStream('./logs/morgan.log', { flags: 'a' })
 }));
 
+const set_best_reply = require('./question/UPDATE_this.js')
+app.use('/question', set_best_reply)
+
 const inscription = require('./user/POST_create.js')
 app.use('/user', inscription);
 

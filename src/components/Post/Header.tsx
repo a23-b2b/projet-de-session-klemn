@@ -27,6 +27,7 @@ interface HeaderProps {
 
     // Est un commentaire sur un post question qui nous appartient et qui n'est pas encore resolu
     meilleureReponseMayBeSet?: boolean;
+    idQuestion?: string;
 }
 
 const PostHeader = (props: HeaderProps) => {
@@ -72,20 +73,24 @@ const PostHeader = (props: HeaderProps) => {
     function setIsBest() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                fetch(`${process.env.REACT_APP_API_URL}/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        authorization: user.uid || ""
-                    }
+                user.getIdToken(true).then((idToken) => {
+                    fetch(`${process.env.REACT_APP_API_URL}/question/${props.idQuestion}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: idToken
+                        },
+                        body: JSON.stringify({
+                            id_reply: props.idPost
+                        })
+                    }).then(response => {
+                        console.log(JSON.stringify(response))
+                    }).catch((error) => {
+                        console.log(error.toString())
+                    })
                 })
-                    .then(response => response.json())
-                    .then(response => {
-                        // let data = response[0]
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+            } else {
+                navigate("/authenticate")
             }
         });
     }

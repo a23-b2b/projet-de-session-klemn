@@ -118,6 +118,7 @@ const PostFooter = (props: FooterProps) => {
                     
                     {isReponsesOpen ? 
                         <SectionReponses 
+                            idAuteurQuestion={props.id_compte}
                             idParent={props.idPost} 
                             question_parente_est_resolue={props.parent_est_resolu} 
                             setNombreCommentaire={setNombreReponses} /> : ''}
