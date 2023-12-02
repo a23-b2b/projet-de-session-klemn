@@ -49,7 +49,7 @@ function Securite() {
             );
 
             reauthenticateWithCredential(user, credential).then(() => {
-                updatePassword(user, newPassword.trim()).then(() => {
+                updatePassword(user, newPassword).then(() => {
                     toast.success("Mot de passe modifié.")
                 }).catch((error) => {
                     toast.error(`Une erreur est survenue: (${error.code})`)
