@@ -1,13 +1,13 @@
-import styles from '../../styles/QuotedPost.module.css'
-import PostHeader from './Header';
-import PostFooter from './Footer';
+import styles from '../../../styles/QuotedPost.module.css'
+import PostHeader from '../shared/Header';
+import PostFooter from '../shared/Footer';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PostContent from './Contenu';
+import PostContent from '../shared/Contenu';
 import toast from 'react-hot-toast';
-import { IPost, TYPE_DELETED } from "../Post";
+import { IPost } from "../Post";
 
 interface Props {
     post: IPost;

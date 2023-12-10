@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import CommentaireForm from './CommentaireForm';
 import { AnimatePresence, motion } from 'framer-motion';
-import Post, { TYPE_REPONSE } from "./Post";
+import Post, { TYPE_REPONSE } from "./Post/Post";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Chargement from './EcranChargement';
 import toast from 'react-hot-toast';

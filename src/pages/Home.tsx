@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Post from '../components/Post';
+import Post from '../components/Post/Post';
 import BlogueForm from '../components/BlogueForm';
 import NombrePersonnesPoster from '../components/NombrePersonnesPoster';
 import InfiniteScroll from 'react-infinite-scroll-component'

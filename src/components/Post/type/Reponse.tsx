@@ -1,7 +1,7 @@
-import PostHeader from "./Post/Header";
-import PostContent from "./Post/Contenu";
-import PostFooter from "./Post/Footer";
-import { IPost } from "./Post";
+import PostHeader from "../shared/Header";
+import PostContent from "../shared/Contenu";
+import PostFooter from "../shared/Footer";
+import { IPost } from "../Post";
 
 interface ReponseProps {
     post: IPost

@@ -1,10 +1,8 @@
-import { BsFillReplyAllFill } from 'react-icons/bs';
-import styles from '../../styles/Post.module.css'
-import { AiFillDislike, AiFillLike, AiOutlineShareAlt } from 'react-icons/ai';
-import { AnimatePresence, motion, useAnimate } from 'framer-motion';
-import SectionReponses from '../SectionReponses';
+import styles from '../../../styles/Post.module.css'
+import { AiFillDislike, AiFillLike } from 'react-icons/ai';
+import { motion, useAnimate } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import toast from 'react-hot-toast';
 
 interface FooterProps {

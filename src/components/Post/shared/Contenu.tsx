@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import styles from '../../styles/Post.module.css'
-import { Link, useNavigate } from "react-router-dom";
+import styles from '../../../styles/Post.module.css'
+import { Link } from "react-router-dom";
 import { BsArrowBarDown } from 'react-icons/bs'
-import { AnimatePresence, motion } from "framer-motion";
-import MarkdownCode from "../MarkdownCode";
-import "../../styles/global.css"
+import MarkdownCode from "../../MarkdownCode";
+import "../../../styles/global.css"
 
 interface ContentProps {
     titre: string;

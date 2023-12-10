@@ -1,17 +1,17 @@
 import { BsFillReplyAllFill } from 'react-icons/bs';
-import styles from '../../styles/Post.module.css'
+import styles from '../../../styles/Post.module.css'
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { AnimatePresence } from 'framer-motion';
-import SectionReponses from '../SectionReponses';
+import SectionReponses from '../../SectionReponses';
 import VoteWidget from './voteWidget';
 import { useState } from 'react';
-import { Menu, MenuButton, MenuDivider, MenuHeader, MenuItem } from '@szhsin/react-menu';
+import { Menu, MenuDivider, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/transitions/slide.css'
 import { FaQuoteRight, FaRetweet } from 'react-icons/fa6';
 import { LuCopy } from 'react-icons/lu'
 import toast from 'react-hot-toast';
 import QuotePostModal from './QuotePostModal';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 
 interface FooterProps {
     idPost: string;

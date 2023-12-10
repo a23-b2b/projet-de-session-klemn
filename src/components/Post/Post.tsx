@@ -1,10 +1,10 @@
-import PosteBlogue from './Post/PosteBlogue';
-import PosteQuestion from './Post/PosteQuestion';
-import PosteCollab from './Post/PosteCollab';
-import Reponse from "./Reponse";
-import QuotePost from './Post/QuotePost';
-import BoostPost from './Post/BoostPost';
-import DeletedPost from "./Post/DeletedPost";
+import PosteBlogue from './type/PosteBlogue';
+import PosteQuestion from './type/PosteQuestion';
+import PosteCollab from './type/PosteCollab';
+import Reponse from "./type/Reponse";
+import QuotePost from './type/QuotePost';
+import BoostPost from './type/BoostPost';
+import DeletedPost from "./type/DeletedPost";
 
 export const TYPE_BLOGUE = 1;
 export const TYPE_QUESTION = 2;
@@ -87,17 +87,25 @@ function Post(props: Props) {
         isPostFullScreen: props.isPostFullScreen,
         type: props.type
     }
+
     return (
         <>
-            {post.type == TYPE_BLOGUE && (
+            {post.type === TYPE_BLOGUE && (
                 <PosteBlogue post={post} />
             )}
-            {post.type == TYPE_REPONSE && (
+
+            {post.type === TYPE_REPONSE && (
                 <Reponse post={post} />
             )}
+
             {post.type === TYPE_QUESTION && (
-                <PosteQuestion post={post} idMeilleureReponse={props.idMeilleureReponse} statutReponse={props.statutReponse} />
+                <PosteQuestion
+                    post={post}
+                    idMeilleureReponse={props.idMeilleureReponse}
+                    statutReponse={props.statutReponse}
+                />
             )}
+
             {post.type === TYPE_COLLABORATION && (
                 <PosteCollab
                     post={post}
@@ -107,7 +115,10 @@ function Post(props: Props) {
             )}
 
             {post.type === TYPE_QUOTE_POST && props.sharedPostId && props.isSharedPostQuote && (
-                <QuotePost post={post} quotedPostId={props.sharedPostId} />
+                <QuotePost
+                    post={post}
+                    quotedPostId={props.sharedPostId}
+                />
             )}
 
             {post.type === TYPE_BOOST && props.sharedPostId && !props.isSharedPostQuote && (

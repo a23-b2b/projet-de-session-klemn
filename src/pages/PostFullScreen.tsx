@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Post from '../components/Post';
+import Post from '../components/Post/Post';
 import SectionReponses from '../components/SectionReponses';
 import styles from '../styles/PostFullScreen.module.css'
 import { onAuthStateChanged } from 'firebase/auth';

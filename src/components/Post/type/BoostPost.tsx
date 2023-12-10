@@ -1,10 +1,10 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Post, { IPost } from '../Post';
 import { FaRetweet } from 'react-icons/fa6';
-import styles from '../../styles/BoostedPost.module.css'
+import styles from '../../../styles/BoostedPost.module.css'
 import toast from 'react-hot-toast';
 
 interface Props {

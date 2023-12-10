@@ -1,7 +1,7 @@
-import styles from '../../styles/Post.module.css'
-import PostHeader from './Header';
-import PostContent from './Contenu';
-import PostFooter from './Footer';
+import styles from '../../../styles/Post.module.css'
+import PostHeader from '../shared/Header';
+import PostContent from '../shared/Contenu';
+import PostFooter from '../shared/Footer';
 import { IPost } from '../Post';
 
 interface BlogueProps {

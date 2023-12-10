@@ -1,18 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/Post.module.css'
-import { Tooltip } from "@chakra-ui/react"
+import styles from '../../../styles/Post.module.css'
 import { getAuth } from "firebase/auth";
-import BadgesContainer from '../Badges/_BadgesContainer';
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import { SlOptionsVertical } from "react-icons/sl";
 import { MdDeleteForever, MdEdit, MdHistoryEdu } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { SetStateAction, useState } from 'react';
-import Modal from '../Modal';
-import Timestamp from '../Timestamp';
-import modalStyles from '../../styles/Modal.module.css'
-import Chargement from '../EcranChargement';
+import { useState } from 'react';
+import Modal from '../../../components/Modal';
+import Timestamp from '../../Timestamp';
+import modalStyles from '../../../styles/Modal.module.css'
+import Chargement from '../../EcranChargement';
 
 interface HeaderProps {
     date: string;
@@ -29,8 +27,6 @@ interface HeaderProps {
 const PostHeader = (props: HeaderProps) => {
     const auth = getAuth();
     const navigate = useNavigate();
-    const user = auth.currentUser;
-
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [contenu, setContenu] = useState(props.contenu);

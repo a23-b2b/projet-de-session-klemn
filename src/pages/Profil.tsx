@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import styles from '../styles/Profil.module.css'
 import { useEffect, useState } from 'react';
-import Post from '../components/Post';
+import Post from '../components/Post/Post';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import FollowButton from '../components/FollowButton';

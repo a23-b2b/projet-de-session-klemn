@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/SettingsPanel.module.css'
 import { motion } from "framer-motion";
-import VoteWidget from '../../components/Post/voteWidget';
+import VoteWidget from '../../components/Post/shared/voteWidget';
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import Select, { StylesConfig } from 'react-select';
 

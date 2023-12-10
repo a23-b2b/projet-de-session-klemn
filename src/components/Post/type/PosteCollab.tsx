@@ -1,11 +1,10 @@
-import styles from '../../styles/Post.module.css'
-import PostHeader from './Header';
-import PostContent from './Contenu';
-import PostFooter from './Footer';
-import { Link } from 'react-router-dom';
+import styles from '../../../styles/Post.module.css'
+import PostHeader from '../shared/Header';
+import PostContent from '../shared/Contenu';
+import PostFooter from '../shared/Footer';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from "react";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 import { IPost } from '../Post';
 
 export interface PostCollab {

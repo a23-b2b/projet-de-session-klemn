@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import styles from '../../styles/Modal.module.css'
+import { Dispatch, SetStateAction, useState } from 'react';
+import styles from '../../../styles/Modal.module.css'
 import toast from 'react-hot-toast';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import { useNavigate } from 'react-router';
-import Modal from '../Modal';
+import Modal from '../../../components/Modal';
 
 
 interface Props {
