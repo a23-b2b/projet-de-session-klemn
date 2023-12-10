@@ -1,10 +1,9 @@
-import styles from '../styles/PostsForm.module.css'
-import { auth } from "../firebase";
+import styles from '../../styles/PostsForm.module.css'
+import { auth } from "../../firebase";
 import toast from 'react-hot-toast';
-import { ChangeEventHandler, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { Divider } from '@chakra-ui/react';
 
 
 function BlogueForm() {
@@ -18,7 +17,6 @@ function BlogueForm() {
     const [IdChoixDeProjet, setIdChoixDeProjet] = useState<String>();;
 
     const [projets, setProjets] = useState<any[]>([]);
-    const naviguate = useNavigate()
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value

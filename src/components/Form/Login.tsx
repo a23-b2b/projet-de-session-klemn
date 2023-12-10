@@ -1,12 +1,12 @@
 import { useState } from "react";
-import styles from '../styles/LoginRegisterForm.module.css'
-import { GithubAuthProvider, signInWithCustomToken, deleteUser, getAdditionalUserInfo, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
-import { auth } from "../firebase";
+import styles from '../../styles/LoginRegisterForm.module.css'
+import { GithubAuthProvider, signInWithCustomToken, getAdditionalUserInfo, getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import { auth } from "../../firebase";
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiFillGithub } from 'react-icons/ai';
-import { infoCompte } from './RegisterForm'
+import { infoCompte } from './Register'
 import { Client } from "@passwordlessdev/passwordless-client";
 import { GoPasskeyFill } from "react-icons/go";
 

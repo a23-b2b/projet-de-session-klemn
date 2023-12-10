@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/Form/Login';
 import styles from '../styles/Landing.module.css'
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/Form/Register';
 import { Client } from '@passwordlessdev/passwordless-client';
 
 

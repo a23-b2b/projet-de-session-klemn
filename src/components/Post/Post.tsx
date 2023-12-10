@@ -1,10 +1,10 @@
-import PosteBlogue from './type/PosteBlogue';
-import PosteQuestion from './type/PosteQuestion';
-import PosteCollab from './type/PosteCollab';
+import PosteBlogue from './type/Blog';
+import PosteQuestion from './type/Question';
+import PosteCollab from './type/Collab';
 import Reponse from "./type/Reponse";
-import QuotePost from './type/QuotePost';
-import BoostPost from './type/BoostPost';
-import DeletedPost from "./type/DeletedPost";
+import QuotePost from './type/Quote';
+import BoostPost from './type/Boost';
+import DeletedPost from "./type/Deleted";
 
 export const TYPE_BLOGUE = 1;
 export const TYPE_QUESTION = 2;

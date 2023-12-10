@@ -1,13 +1,11 @@
 import { useState } from "react";
-import styles from '../styles/LoginRegisterForm.module.css'
-import { createUserWithEmailAndPassword, deleteUser, getAdditionalUserInfo, getAuth, getRedirectResult, signInWithPopup, signOut } from "firebase/auth"
-import { auth } from "../firebase";
+import styles from '../../styles/LoginRegisterForm.module.css'
+import { getAdditionalUserInfo, getAuth, signInWithPopup, signOut } from "firebase/auth"
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiFillGithub } from 'react-icons/ai';
 import { GithubAuthProvider } from "firebase/auth";
-import { type } from "os";
 
 export interface infoCompte {
 

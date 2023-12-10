@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/PostsForm.module.css'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-import CommentaireForm from './CommentaireForm';
+import CommentaireForm from './Form/Commentaire';
 import { AnimatePresence, motion } from 'framer-motion';
 import Post, { TYPE_REPONSE } from "./Post/Post";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
